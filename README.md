@@ -6,7 +6,7 @@ This is a super simple, minimal CMS.
 
 controllers/pages フォルダに "ページ名"PageController.php を作れば<br>
 http://example.com/"ページ名" からそのページが開けます。<br>
-##### 設定不要！<br>
+#### 設定不要！<br>
 <br>
 "ページ名"PageController.php の中にはクラスを一つだけを書きます。<br>
 クラス名は "ページ名"PageController にします。<br>
