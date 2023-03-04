@@ -78,6 +78,7 @@ ___
 controllers/api/FooApiController.php が開かれます。<br>
 FooApiController がインスタンス化されて、indexメソッドが実行されます。<br>
 基底クラスは AbstractApiController という異なるコントローラーになります。<br>
+もしファイルが存在しない場合、404のステータスコードと、JSON形式で { "error": "Not Found" } が返ります。<br>
 <br>
 <br>
 まだ作成中です！<br>
