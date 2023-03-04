@@ -25,10 +25,8 @@ class IndexPageController extends AbstractPageController
     }
 }
 ```
-AbstractPageControllerはページを表示するコントローラーの基底クラスです。<br>
-ページの表示に使う共通の処理が実装されています。<br>
-<br>
-`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
+AbstractPageController はページを表示するコントローラーの基底クラスです。<br>
+ページの表示に使う共通処理が実装されています。<br>
 <br>
 <br>
 
