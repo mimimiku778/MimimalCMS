@@ -1,0 +1,34 @@
+RewriteEngine On
+
+# http://example.com、www.example.com のアクセスを全て https://example.com にリダイレクトする
+# Redirect all www and non-https requests to https://example.com
+#RewriteCond %{HTTPS} off [OR]
+#RewriteCond %{HTTP_HOST} ^www\.example\.com [NC]
+#RewriteRule ^(.*)$ https://example.com/$1 [L,R=301]
+
+# パスが /index の場合、/ にリダイレクトする
+# Redirect /index to /
+RewriteCond %{HTTPS} off [OR]
+RewriteRule ^(.*)/index/?$  http://%{HTTP_HOST}/$1 [R=301,L,NE]
+RewriteCond %{HTTPS} off [OR]
+RewriteRule ^index/?$ http://%{HTTP_HOST} [R=301,L,NE]
+
+RewriteCond %{HTTPS} on [OR]
+RewriteRule ^(.*)/index/?$  https://%{HTTP_HOST}/$1 [R=301,L,NE]
+RewriteCond %{HTTPS} on [OR]
+RewriteRule ^index/?$ https://%{HTTP_HOST} [R=301,L,NE]
+
+# 存在するファイル・ディレクトを除き、リクエストを全て index.php で受ける
+# Route all requests to index.php except for existing files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php/$1 [L]
+
+# 特定のディレクトリへのアクセスを禁止する
+# Prevent access to specific directories
+RewriteRule ^config - [R=404,L]
+RewriteRule ^lib - [R=404,L]
+RewriteRule ^controllers - [R=404,L]
+RewriteRule ^core - [R=404,L]
+RewriteRule ^models - [R=404,L]
+RewriteRule ^views - [R=404,L]
