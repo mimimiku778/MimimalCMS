@@ -5,7 +5,7 @@ This is a super simple, minimal CMS.
 ## 使い方はとても簡単です。
 
 controllers/pages ディレクトリに `ページ名`PageController.php を作れば<br>
-http://example.com/`ページ名` からそのページが開けます。<br>
+http://example.com/ `ページ名` からそのページが開けます。<br>
 ### 設定不要！<br>
 `ページ名`PageController.php にはクラスを一つだけ実装します。<br>
 クラス名は `ページ名`PageController にします。<br>
