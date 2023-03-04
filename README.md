@@ -13,7 +13,7 @@ http://example.com/`ページ名` からそのページが開けます。<br>
 
 ### 重要なポイント<br>
 ①AbstractPageControllerを継承する。<br>
-②indexメソッドを必ず実装する。<br>
+②indexメソッドを実装する。<br>
 ```
 controllers/pages/IndexPageController.php
 
