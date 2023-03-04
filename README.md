@@ -7,7 +7,7 @@ This is a super simple, minimal CMS.
 これだけで http://example.com/ `ページ名` から表示できます。<br>
 ### 設定不要！<br>
 
-### ポイント<br>
+## ポイント<br>
 ①`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
 ②AbstractPageControllerを継承する。<br>
 ③indexメソッドを実装する。<br>
