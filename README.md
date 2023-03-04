@@ -11,7 +11,7 @@ This is a super simple, minimal CMS.
 <br>
 
 ## ポイント<br>
-①`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
+①controllers/pages/`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
 ②AbstractPageControllerを継承する。<br>
 ③indexメソッドを実装する。<br>
 ```
