@@ -6,7 +6,7 @@ This is a super simple, minimal CMS.
 ## 使い方は簡単<br>
 ① controllers/pages ディレクトリに `ページ名`PageController.php ファイルを作成する。<br>
 これだけで http://example.com/ `ページ名` から表示できます。<br>
-### 設定不要！<br>
+ページの実装以外に特別な設定は不要です。<br>
 <br>
 
 ## ポイント<br>
