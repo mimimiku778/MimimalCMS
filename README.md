@@ -64,12 +64,11 @@ FooPageController.php のbarメソッド内で$_GET['q']から値を取得でき
 <br>
 <br>
 
-### リクエストがPOSTの場合に限り、呼び出されるコントローラーが変わります。<br>
-<br>
+### リクエストがPOSTの場合、呼び出されるコントローラーが変わります。<br>
 
 ### http://example.com/foo にPOSTメソッドでアクセスが来た場合<br>
 controllers/api/FooApiController.php が開かれます。<br>
-FooApiControllerがインスタンス化されて、indexメソッドが実行されます。<br>
+FooApiController がインスタンス化されて、indexメソッドが実行されます。<br>
 基底クラスは AbstractApiController という異なるコントローラーになります。<br>
 <br>
 <br>
