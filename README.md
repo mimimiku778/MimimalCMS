@@ -66,7 +66,6 @@ FooPageController.php のbarメソッド内で$_GET['q']から値を取得でき
 
 ### リクエストがPOSTの場合に限り、呼び出されるコントローラーが変わります。<br>
 <br>
-<br>
 
 ### http://example.com/foo にPOSTメソッドでアクセスが来た場合<br>
 controllers/api/FooApiController.php が開かれます。<br>
