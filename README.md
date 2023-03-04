@@ -3,10 +3,9 @@ This is a super simple, minimal CMS.
 <br>
 
 ## 使い方は簡単<br>
-controllers/pages ディレクトリに `ページ名`PageController.php ファイルを作成すれば、 
+controllers/pages ディレクトリに `ページ名`PageController.php ファイルを作成すれば、<br>
 http://example.com/`ページ名` からそのページにアクセスできます。<br>
 ### 設定不要！<br>
-<br>
 
 ### ポイント<br>
 ①`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
