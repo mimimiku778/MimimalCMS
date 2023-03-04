@@ -1,6 +1,7 @@
 MIT License
 
 Copyright (c) 2023 mimimiku778
+
 https://mimikyu.info
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
