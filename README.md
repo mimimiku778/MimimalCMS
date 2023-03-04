@@ -19,7 +19,7 @@ http://example.com/`ページ名` でそのページが開きます。
     {
         public function index()
         {
-            echo '<h1>Hello World</h1>';
+            echo 'Hello World';
         }
     }
 
