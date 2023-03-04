@@ -11,7 +11,7 @@ http://example.com/"ページ名" からそのページが開けます。<br>
 クラス名は "ページ名"PageController にします。<br>
 <br>
 
-### 重要なポイントが２つあります。<br>
+### 重要なポイント<br>
 ①AbstractPageControllerを継承する。<br>
 ②indexメソッドを必ず実装する。<br>
 ```
