@@ -3,26 +3,27 @@ This is a super simple, minimal CMS.
 
 使い方はとても簡単です。
 
-controllersフォルダに `ページ名`PageController.php を作れば<br>
-http://example.com/`ページ名` でそのページが開きます。<br>
+controllersフォルダに "ページ名"PageController.php を作れば<br>
+http://example.com/"ページ名" でそのページが開きます。<br>
 設定不要！<br>
 
-`ページ名`PageController.php の中には一つのクラスだけを書きます。<br>
-クラス名は `ページ名`PageController にします。<br>
-
+"ページ名"PageController.php の中には一つのクラスだけを書きます。<br>
+クラス名は "ページ名"PageController にします。<br>
+<br>
 そこで重要なポイントが２つあります。<br>
 ①AbstractPageControllerを継承する。<br>
 ②indexメソッドを必ず実装する。<br>
 <br>
-例<br>
-    class IndexPageController extends AbstractPageController<br>
-    {<br>
-        public function index()<br>
-        {<br>
-            echo 'Hello World';<br>
-        }<br>
-    }<br>
-<br>
+例
+```
+    class IndexPageController extends AbstractPageController
+    {
+        public function index()
+        {
+            echo 'Hello World';
+        }
+    }
+```
 AbstractPageControllerはページを表示するコントローラーの基底クラスです。<br>
 ページの表示に使う共通の処理が実装されています。<br>
 <br>
