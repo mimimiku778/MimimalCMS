@@ -32,7 +32,8 @@ function validateArrayString(array $array, string $name, ?int $max_length = null
 /**
  * 配列に指定されたキーが存在し、数字が指定された条件を満たすかどうかを検証する
  *
- * @param string $name 検証するPOSTデータのキー名
+ * @param array $array 検証する配列
+ * @param string $name 検証するキー名
  * @param int|null $max_num 数値の最大値（オプション）
  * @param int|null $min_num 数値の最小値（オプション）
  * @param int|null $exact_match 精密マッチのための数値（オプション）
