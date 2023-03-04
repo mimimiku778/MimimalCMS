@@ -15,6 +15,8 @@ http://example.com/"ページ名" からそのページが開けます。<br>
 ①AbstractPageControllerを継承する。<br>
 ②indexメソッドを必ず実装する。<br>
 ```
+controllers/pages/IndexPageController.php
+
 class IndexPageController extends AbstractPageController
 {
     public function index()
