@@ -7,7 +7,7 @@ declare(strict_types=1);
  */
 class SqlConnect
 {
-    private const HOST = 'localhost';
+    private const HOST = '';
     private const DB_NAME = '';
     private const USER_NAME = '';
     private const PASSWORD = '';
