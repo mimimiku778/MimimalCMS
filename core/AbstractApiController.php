@@ -5,7 +5,7 @@ abstract class AbstractApiController
     abstract public function index();
 
     /**
-     * Returns an HTTP status code and response in JSON format and exits.
+     * Returns HTTP status code and response in JSON format and exits.
      *
      * @param int $response_code HTTP status code
      * @param mixed $value The value to be returned as a response. Default is an empty string.
