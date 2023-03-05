@@ -10,7 +10,7 @@ That's it! You can now display it from http://example.com/ `pagename`. No specia
 <br>
 
 ### Points<br>
-① Implement Class PageNamePageController in controllers/pages/PageNamePageController.php.<br>
+① Implement Class `PageName`PageController in controllers/pages/`PageName`PageController.php.<br>
 ② Inherit from AbstractPageController.<br>
 ③ Implement the index method.<br>
 ```
