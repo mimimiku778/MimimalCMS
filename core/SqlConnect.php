@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 /**
- * PDO wrapper class
+ * A PDO wrapper class for MySQL databases
  */
 class SqlConnect
 {
-    private const HOST = '';
-    private const DB_NAME = '';
-    private const USER_NAME = '';
-    private const PASSWORD = '';
+    private const HOST = ''; // TODO: Specify the hostname for the MySQL database
+    private const DB_NAME = ''; // TODO: Specify the name of the MySQL database
+    private const USER_NAME = ''; // TODO: Specify the username for the MySQL database
+    private const PASSWORD = ''; // TODO: Specify the password for the MySQL database
 
     public PDO $pdo;
 
@@ -22,6 +22,7 @@ class SqlConnect
             self::PASSWORD
         );
 
+        // Enable PDO to throw exceptions on error
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
@@ -35,28 +36,33 @@ class SqlConnect
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function prepareAndExecuteQuery(string $query, ?array $params = null): PDOStatement
+    public function prepareAndExecuteQuery(string $query, ?array $params = null): PDOStatement|false
     {
-        $statement = $this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($query);
+
+        if (!$stmt) {
+            return false;
+        }
 
         if ($params === null) {
-            $statement->execute();
-            return $statement;
+            $stmt->execute();
+            return $stmt;
         }
 
         foreach ($params as $key => $value) {
             if (!is_string($value) && !is_numeric($value)) {
-                throw new InvalidArgumentException("Invalid parameter value for key {$key}: only strings and numbers are allowed.");
+                throw new InvalidArgumentException(
+                    "Invalid parameter value for key {$key}: only strings and numbers are allowed."
+                );
             }
 
             $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
-            $statement->bindValue($key, $value, $type);
+            $stmt->bindValue($key, $value, $type);
         }
 
-        $statement->execute();
-        return $statement;
+        $stmt->execute();
+        return $stmt;
     }
-
 
     /**
      *　Executes an SQL query and returns the number of rows affected by the last SQL statement.
@@ -70,12 +76,13 @@ class SqlConnect
      */
     public function getRowCount(string $query, ?array $params = null): int
     {
-        try {
-            return $this->prepareAndExecuteQuery($query, $params)->rowCount();
-        } catch (PDOException $e) {
-            throw $e;
+        $stmt = $this->prepareAndExecuteQuery($query, $params);
+
+        if (!$stmt) {
             return 0;
         }
+
+        return $stmt->rowCount();
     }
 
     /**
@@ -88,15 +95,56 @@ class SqlConnect
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function fetchColumn(string $query, ?array $params = null): mixed
+    public function fetchColumn(string $query, ?array $params = null): string|int|false
     {
-        try {
-            return $this->prepareAndExecuteQuery($query, $params)->fetchColumn();
-        } catch (PDOException $e) {
-            throw $e;
+        $stmt = $this->prepareAndExecuteQuery($query, $params);
+
+        if (!$stmt) {
             return false;
         }
+
+        return $stmt->fetchColumn();
     }
 
+    /**
+     * Executes an SQL query and returns a single row as an associative array.
+     * 
+     * @param string $query The SQL query to execute.
+     * @param array|null $params Associative array of query parameters. (Optional)
+     * @return array|false Returns a single row as an associative array or false if there are no more rows.
+     * 
+     * @throws PDOException If an error occurs during the query execution.
+     * @throws InvalidArgumentException If any of the parameter values are invalid.
+     */
+    public function fetch(string $query, ?array $params = null): array|false
+    {
+        $stmt = $this->prepareAndExecuteQuery($query, $params);
 
+        if (!$stmt) {
+            return false;
+        }
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Executes an SQL query and returns rows as associative arrays.
+     * 
+     * @param string $query The SQL query to execute.
+     * @param array|null $params Optional. Associative array of query parameters.
+     * @return array|false An array of rows as associative arrays, or false if there are no more rows.
+     * 
+     * @throws PDOException If an error occurs during the query execution.
+     * @throws InvalidArgumentException If the parameter values are invalid.
+     */
+    public function fetchAll(string $query, ?array $params = null): array|false
+    {
+        $stmt = $this->prepareAndExecuteQuery($query, $params);
+
+        if (!$stmt) {
+            return false;
+        }
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
