@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * PDOをラップしてSQLの操作を行うクラス
+ * Create a PDO wrapper class for SQL manipulation.
  */
 class SqlConnect
 {
@@ -49,52 +49,5 @@ class SqlConnect
         }
 
         return $statement;
-    }
-
-    /**
-     * Execute SQL query and return the row count
-     * 
-     * @param string $query
-     * @param array|null $params
-     * @return int
-     */
-    public function getRowCount(string $query, array $params = null): int
-    {
-        return (int) $this->execute($query, $params)->rowCount();
-    }
-
-    /**
-     * Execute SQL query and return a single column value
-     * 
-     * @param string $query
-     * @param array|null $params
-     * @return int|string|false
-     */
-    public function fetchColumn(string $query, array $params = null): int|string|false
-    {
-        return $this->execute($query, $params)->fetchColumn();
-    }
-
-    /**
-     * Execute SQL query and return a single row as an associative array
-     * 
-     * @param string $query
-     * @param array|null $params
-     * @return array|false
-     */
-    public function fetch(string $query, array $params = null): array|false
-    {
-        return $this->execute($query, $params)->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Hash a string
-     * 
-     * @param string $string
-     * @return string
-     */
-    public function hash(string $string): string
-    {
-        return hash('sha3-256', $string);
     }
 }
