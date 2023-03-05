@@ -2,10 +2,17 @@
 
 declare(strict_types=1);
 
+/**
+ * Class Route - Handles routing of incoming requests
+ */
 class Route
 {
     private bool $isPost;
 
+    /**
+     * Route constructor.
+     * Parses incoming request URI and calls corresponding controller method
+     */
     public function __construct()
     {
         // Get request method
@@ -21,6 +28,12 @@ class Route
         $this->runControllerMethod($controllerClassName, $methodName);
     }
 
+    /**
+     * Parses incoming request URI to determine which controller method to call
+     *
+     * @param string $requestUri - Request URI to parse
+     * @return array - Array containing controller class name and method name
+     */
     private function parseRequestUri(string $requestUri): array
     {
         // Split request URI by "/"
@@ -58,6 +71,12 @@ class Route
         return [$controllerClassName, $methodName];
     }
 
+    /**
+     * Calls the specified controller method
+     *
+     * @param string $controllerClassName - Name of the controller class
+     * @param string $methodName - Name of the method to call
+     */
     private function runControllerMethod(string $controllerClassName, string $methodName)
     {
         // Resolve controller file path
@@ -86,6 +105,9 @@ class Route
         $controller->$methodName();
     }
 
+    /**
+     * Displays a 404 error message
+     */
     private function showError()
     {
         http_response_code(404);
