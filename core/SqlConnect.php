@@ -29,7 +29,7 @@ class SqlConnect
      * Executes an SQL query and returns a PDOStatement object with bound values.
      *
      * @param string $query The SQL query to execute.
-     * @param array|null $params An optional associative array of query parameters. (Optional)
+     * @param array|null $params Associative array of query parameters. (Optional)
      * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -88,8 +88,8 @@ class SqlConnect
      * Executes an SQL query and returns rows as associative arrays.
      * 
      * @param string $query The SQL query to execute.
-     * @param array|null $params Optional. Associative array of query parameters. (Optional)
-     * @return array|false An array of rows as associative arrays, or false if there are no more rows.
+     * @param array|null $params Associative array of query parameters. (Optional)
+     * @return array|false Returns an array of rows as associative arrays, or false if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If the parameter values are invalid.
