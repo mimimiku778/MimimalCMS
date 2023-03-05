@@ -111,7 +111,7 @@ class SqlConnect
      * 
      * @param string $query The SQL query to execute.
      * @param array|null $params Associative array of query parameters. (Optional)
-     * @return mixed Returns a single column value or false if there are no more rows.
+     * @return string|int|false Returns a single column value or false if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
@@ -154,7 +154,7 @@ class SqlConnect
      * @param string $query The SQL query to execute.
      * @param array|null $params Associative array of query parameters. (Optional)
      * @param string $name Name of the sequence object from which the ID should be returned. (Optional)
-     * @return int If a sequence name was not specified for the name parameter, 
+     * @return int|false If a sequence name was not specified for the name parameter, 
      *  PDO::lastInsertId returns a string representing the row ID of the last row that was inserted into the database.
      * 
      * @throws PDOException If an error occurs during the query execution.
