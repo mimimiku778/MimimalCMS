@@ -2,24 +2,23 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/../config/database_config.php';
+
+use Config\DatabaseConfig;
+
 /**
  * A PDO wrapper class for SQL databases
  */
 class SqlConnect
 {
-    private const HOST = ''; // TODO: Specify the hostname 
-    private const DB_NAME = ''; // TODO: Specify the name
-    private const USER_NAME = ''; // TODO: Specify the username 
-    private const PASSWORD = ''; // TODO: Specify the password 
-
     public PDO $pdo;
 
     public function __construct()
     {
         $this->pdo = new PDO(
-            'mysql:host=' . self::HOST . ';dbname=' . self::DB_NAME . ';charset=utf8mb4',
-            self::USER_NAME,
-            self::PASSWORD
+            'mysql:host=' . DatabaseConfig::HOST . ';dbname=' . DatabaseConfig::DB_NAME . ';charset=utf8mb4',
+            DatabaseConfig::USER_NAME,
+            DatabaseConfig::PASSWORD
         );
 
         // Enable PDO to throw exceptions on error
