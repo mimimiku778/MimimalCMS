@@ -3,17 +3,17 @@
 declare(strict_types=1);
 
 /**
- * Verify if specified key exists in array and meets specified string conditions.
- *
- * @param array $array Array to be validated
- * @param string $name Key name to be validated
- * @param int|null $max_length Maximum length of string (optional)
- * @param string|null $exact_match String for precise matching (optional)
- * @return bool Result of validation
+ * Validate whether the specified key exists in the array and meets the specified string conditions.
+ * 
+ * @param array $array The array to be validated
+ * @param string $key The key to be validated
+ * @param int|null $max_length The maximum length of the string (optional)
+ * @param string|null $exact_match The string for exact matching (optional)
+ * @return bool The result of validation
  */
-function validateArrayString(array $array, string $name, ?int $max_length = null, ?string $exact_match = null): bool
+function validateArrayKeyString(array $array, string $key, ?int $max_length = null, ?string $exact_match = null): bool
 {
-    $input = $array[$name] ?? null;
+    $input = $array[$key] ?? null;
     if (!is_string($input) || empty(trim($input))) {
         return false;
     }
@@ -30,18 +30,18 @@ function validateArrayString(array $array, string $name, ?int $max_length = null
 }
 
 /**
- * Validates whether the key specified in the array exists and meets the specified numeric conditions
+ * Validate whether the specified key exists in the array and meets the specified numeric conditions.
  * 
- * @param array $array The array to validate
- * @param string $name The key name to validate
- * @param int|null $max_num The maximum numeric value (optional)
- * @param int|null $min_num The minimum numeric value (optional)
+ * @param array $array The array to be validated
+ * @param string $key The key to be validated
+ * @param int|null $max_value The maximum numeric value (optional)
+ * @param int|null $min_value The minimum numeric value (optional)
  * @param int|null $exact_match The numeric value for exact match (optional)
- * @return bool The validation result
+ * @return bool The result of validation
  */
-function validateArrayNumber(array $array, string $name, ?int $max_num = null, ?int $min_num = null, ?int $exact_match = null): bool
+function validateArrayKeyNumber(array $array, string $key, ?int $max_value = null, ?int $min_value = null, ?int $exact_match = null): bool
 {
-    $input = $array[$name] ?? null;
+    $input = $array[$key] ?? null;
     if (!ctype_digit($input)) {
         return false;
     }
@@ -52,11 +52,11 @@ function validateArrayNumber(array $array, string $name, ?int $max_num = null, ?
         return false;
     }
 
-    if (!is_null($min_num) && $number < $min_num) {
+    if (!is_null($min_value) && $number < $min_value) {
         return false;
     }
 
-    if (!is_null($max_num) && $number > $max_num) {
+    if (!is_null($max_value) && $number > $max_value) {
         return false;
     }
 
