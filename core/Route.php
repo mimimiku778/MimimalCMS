@@ -31,8 +31,8 @@ class Route
     /**
      * Parses incoming request URI to determine which controller method to call
      *
-     * @param string $requestUri - Request URI to parse
-     * @return array - Array containing controller class name and method name
+     * @param string $requestUri Request URI to parse
+     * @return array Array containing controller class name and method name
      */
     private function parseRequestUri(string $requestUri): array
     {
@@ -74,8 +74,8 @@ class Route
     /**
      * Calls the specified controller method
      *
-     * @param string $controllerClassName - Name of the controller class
-     * @param string $methodName - Name of the method to call
+     * @param string $controllerClassName Name of the controller class
+     * @param string $methodName Name of the method to call
      */
     private function runControllerMethod(string $controllerClassName, string $methodName)
     {
@@ -106,7 +106,7 @@ class Route
     }
 
     /**
-     * Displays a 404 error message
+     * Displays 404 error
      */
     private function showError()
     {
