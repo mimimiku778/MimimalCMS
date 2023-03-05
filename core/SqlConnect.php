@@ -7,10 +7,10 @@ declare(strict_types=1);
  */
 class SqlConnect
 {
-    private const HOST = ''; // TODO: Specify the hostname for the MySQL database
-    private const DB_NAME = ''; // TODO: Specify the name of the MySQL database
-    private const USER_NAME = ''; // TODO: Specify the username for the MySQL database
-    private const PASSWORD = ''; // TODO: Specify the password for the MySQL database
+    private const HOST = ''; // TODO: Specify the hostname 
+    private const DB_NAME = ''; // TODO: Specify the name
+    private const USER_NAME = ''; // TODO: Specify the username 
+    private const PASSWORD = ''; // TODO: Specify the password 
 
     public PDO $pdo;
 
