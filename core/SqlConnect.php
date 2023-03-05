@@ -7,7 +7,7 @@ require_once __DIR__ . '/../config/database_config.php';
 use Config\DatabaseConfig;
 
 /**
- * A PDO wrapper class for SQL databases
+ * PDO wrapper class for SQL databases
  */
 class SqlConnect
 {
