@@ -4,7 +4,7 @@ namespace Config;
 
 class DatabaseConfig
 {
-    const HOST = '';
+    const HOST = 'test';
     const DB_NAME = '';
     const USER_NAME = '';
     const PASSWORD = '';
