@@ -4,9 +4,9 @@ This is a super simple and minimal CMS.
 <br>
 
 ## How to Use<br>
-① Create a file named PageNamePageController.php in the controllers/pages directory.<br>
+① Create a file named `PageName`PageController.php in the controllers/pages directory.<br>
 <br>
-That's it! You can now display it from http://example.com/ PageName. No special configuration is required other than implementing the page.<br>
+That's it! You can now display it from http://example.com/ `pagename`. No special configuration is required other than implementing the page.<br>
 <br>
 
 ### Points<br>
