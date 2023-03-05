@@ -101,8 +101,7 @@ const sendPostRequest = async (url, formData = {}, callback) => {
   try {
     const response = await fetch(url, { method: 'POST', body })
     const data = await response.json()
-    console.log(data)
-    if (callback) callback({ data, code: response.status })
+    if (data && callback) callback({ data, code: response.status })
   } catch (error) {
     console.error(error)
   }
