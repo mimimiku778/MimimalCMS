@@ -9,7 +9,7 @@ This is a super simple and minimal CMS.
 That's it! You can now display it from http://example.com/ PageName. No special configuration is required other than implementing the page.<br>
 <br>
 
-Points<br>
+### Points<br>
 ① Implement Class PageNamePageController in controllers/pages/PageNamePageController.php.<br>
 ② Inherit from AbstractPageController.<br>
 ③ Implement the index method.<br>
@@ -37,7 +37,7 @@ ___
 ページの実装以外に特別な設定は不要です。<br>
 <br>
 
-## ポイント<br>
+### ポイント<br>
 ①controllers/pages/`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
 ②AbstractPageControllerを継承する。<br>
 ③indexメソッドを実装する。<br>
