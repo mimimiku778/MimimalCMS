@@ -29,7 +29,7 @@ class SqlConnect
      * Executes an SQL query and returns a PDOStatement object with bound values.
      *
      * @param string $query The SQL query to execute.
-     * @param array|null $params Associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -67,7 +67,7 @@ class SqlConnect
      * Executes an SQL query and returns a single row as an associative array.
      * 
      * @param string $query The SQL query to execute.
-     * @param array|null $params Associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @return array|false Returns a single row as an associative array or false if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -88,7 +88,7 @@ class SqlConnect
      * Executes an SQL query and returns rows as associative arrays.
      * 
      * @param string $query The SQL query to execute.
-     * @param array|null $params Associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @return array|false Returns an array of rows as associative arrays, or false if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -109,7 +109,7 @@ class SqlConnect
      * Executes an SQL query and returns a single column value from the next row of the result set.
      * 
      * @param string $query The SQL query to execute.
-     * @param array|null $params Associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @return string|int|false Returns a single column value or false if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -130,7 +130,7 @@ class SqlConnect
      *　Executes an SQL query and returns the number of rows affected by the last SQL statement.
      * 
      * @param string $query The SQL query to execute.
-     * @param array|null $params Associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @return int Returns the number of rows affected by the last SQL statement.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -151,7 +151,7 @@ class SqlConnect
      *　Executes an SQL query and returns the ID of the last inserted row or sequence value.
      * 
      * @param string $query The SQL query to execute.
-     * @param array|null $params Associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @param string $name Name of the sequence object from which the ID should be returned. (Optional)
      * @return int|false If a sequence name was not specified for the name parameter, 
      *  PDO::lastInsertId returns a string representing the row ID of the last row that was inserted into the database.
