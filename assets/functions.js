@@ -83,8 +83,8 @@ const deleteCookie = name => {
  * @param {function} [callback]
  *  An optional callback function to execute when the response is received.
  *  The function will be called with an object that has two properties:
- *    - data: The response data returned from the server.
- *    - code: The HTTP status code returned from the server.
+ *  - data: The response data returned from the server.
+ *  - code: The HTTP status code returned from the server.
  */
 const sendPostRequest = async (url, formData = {}, callback) => {
   let body
