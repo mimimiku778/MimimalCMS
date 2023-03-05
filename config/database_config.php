@@ -5,7 +5,7 @@ namespace Config;
 class DatabaseConfig
 {
     const HOST = 'localhost';
-    const DB_NAME = '';
-    const USER_NAME = '';
-    const PASSWORD = '';
+    const DB_NAME = 'test';
+    const USER_NAME = 'php';
+    const PASSWORD = '1234';
 }
