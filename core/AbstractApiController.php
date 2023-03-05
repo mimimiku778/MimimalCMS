@@ -5,10 +5,10 @@ abstract class AbstractApiController
     abstract public function index();
 
     /**
-     *  HTTPステータスコードと、JSON形式でレスポンスを返して終了する
-     * 
-     *  @param int $response_code HTTPステータスコード
-     *  @param mixed $value レスポンスとして返す値。デフォルトは空文字列
+     * Returns an HTTP status code and response in JSON format and exits.
+     *
+     * @param int $response_code HTTP status code
+     * @param mixed $value The value to be returned as a response. Default is an empty string.
      */
     public function response(int $response_code, mixed $value = '')
     {

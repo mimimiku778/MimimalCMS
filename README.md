@@ -1,7 +1,34 @@
 # MimimalCMS
-This is a super simple, minimal CMS.
+This is a super simple and minimal CMS.
 <br>
 <br>
+
+## How to Use<br>
+① Create a file named PageNamePageController.php in the controllers/pages directory.<br>
+<br>
+That's it! You can now display it from http://example.com/ PageName. No special configuration is required other than implementing the page.<br>
+<br>
+
+Points<br>
+① Implement Class PageNamePageController in controllers/pages/PageNamePageController.php.<br>
+② Inherit from AbstractPageController.<br>
+③ Implement the index method.<br>
+```
+controllers/pages/IndexPageController.php
+
+class IndexPageController extends AbstractPageController
+{
+    public function index()
+    {
+        echo 'Hello World';
+    }
+}
+```
+AbstractPageController is a base class for controllers that display pages.<br>
+It implements common processes used to display pages.<br>
+<br>
+<br>
+___
 
 ## 使い方<br>
 ① controllers/pages ディレクトリに `ページ名`PageController.php ファイルを作成する。<br>
@@ -29,6 +56,56 @@ AbstractPageController はページを表示するコントローラーの基底
 ページの表示に使う共通処理が実装されています。<br>
 <br>
 <br>
+___
+
+### When accessing http://example.com/<br>
+The default controllers/pages/IndexPageController.php will open.<br>
+IndexPageController will be instantiated and the index method will be executed.<br>
+This is the controller for the default top page.<br>
+<br>
+<br>
+
+### When accessing http://example.com/foo<br>
+If controllers/pages/FooPageController.php exists, it will be loaded.<br>
+FooPageController will be instantiated and the index method will be executed.<br>
+If the file does not exist, a 404 error will be returned.<br>
+<br>
+<br>
+
+### When accessing http://example.com/foo/bar<br>
+If FooPageController.php is opened and the bar method is implemented, it will be executed.<br>
+If there is a second path, a method with the same name as the second path will be executed instead of index.<br>
+If the method does not exist, a 404 error will be returned.<br>
+Of course, if FooPageController.php does not exist, a 404 error will be returned.<br>
+<br>
+You can define the first two levels of the URI hierarchy by the controller name and method name.<br>
+<br>
+<br>
+
+### When accessing http://example.com/foo/bar/hoge<br>
+Even if FooPageController.php exists, a 404 error will be returned.<br>
+Since it does not support the third level, a 404 error will always be returned if there is a third level.<br>
+<br>
+<br>
+
+### When accessing http://example.com/foo/bar?q=hoge<br>
+You can retrieve the value from $_GET['q'] in the bar method of FooPageController.php.<br>
+<br>
+<br>
+
+## When the request is POST, a different controller will be called.<br>
+
+### When accessing http://example.com/foo with POST method<br>
+controllers/api/FooApiController.php will open.<br>
+FooApiController will be instantiated and the index method will be executed.<br>
+The base class will be a different controller named AbstractApiController.<br>
+If the file does not exist, a 404 status code and JSON format { "error": "Not Found" } will be returned.<br>
+<br>
+<br>
+Still under development!<br>
+We are implementing a component for views and a definition method that is as simple as possible!<br>
+Don't forget about SEO!<br>
+___
 
 ### http://example.com/ にアクセスが来た場合<br>
 ___

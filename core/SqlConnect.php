@@ -12,11 +12,11 @@ class SqlConnect
     private const USER_NAME = '';
     private const PASSWORD = '';
 
-    public PDO $dbh;
+    public PDO $pdo;
 
     public function __construct()
     {
-        $this->dbh = new PDO(
+        $this->pdo = new PDO(
             'mysql:host=' . self::HOST . ';dbname=' . self::DB_NAME . ';charset=utf8mb4',
             self::USER_NAME,
             self::PASSWORD
@@ -24,34 +24,35 @@ class SqlConnect
     }
 
     /**
-     * SQLクエリを実行し、PDOStatementオブジェクトを返す
-     * 
-     * @param string $query
-     * @param array|null $params
-     * @return PDOStatement|false
+     * Executes SQL query and returns PDOStatement object with bound values.
+     *
+     * @param string $query The SQL query to execute.
+     * @param array|null $intParams Associative array of integer query parameters. Optional.
+     * @param array|null $strParams Associative array of string query parameters. Optional.
+     * @return PDOStatement Returns PDOStatement object containing results of query. Returns false on failure.
+     * @throws PDOException Thrown if prepare operation fails.
      */
-    public function execute(string $query, array $params = null): PDOStatement|false
+    public function executeQuery(string $query, ?array $intParams = null, ?array $strParams = null): PDOStatement
     {
-        $stmt = $this->dbh->prepare($query);
-        $stmt->execute($params);
-        return $stmt;
+        $statement = $this->pdo->prepare($query);
+
+        if ($intParams !== null) {
+            foreach ($intParams as $key => $value) {
+                $statement->bindParam($key, $value, PDO::PARAM_INT);
+            }
+        }
+
+        if ($strParams !== null) {
+            foreach ($strParams as $key => $value) {
+                $statement->bindParam($key, $value, PDO::PARAM_STR);
+            }
+        }
+
+        return $statement;
     }
 
     /**
-     * 最後に挿入されたIDを返す
-     * 
-     * @param string $query
-     * @param array|null $params
-     * @return int
-     */
-    public function getLastInsertId(string $query, array $params = null): int
-    {
-        $this->execute($query, $params);
-        return (int) $this->dbh->lastInsertId();
-    }
-
-    /**
-     * 行数を返す
+     * Execute SQL query and return the row count
      * 
      * @param string $query
      * @param array|null $params
@@ -63,19 +64,7 @@ class SqlConnect
     }
 
     /**
-     * 全ての結果を連想配列で取得する
-     * 
-     * @param string $query
-     * @param array|null $params
-     * @return array|false
-     */
-    public function fetchAll(string $query, array $params = null): array|false
-    {
-        return $this->execute($query, $params)->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * 一つのカラム値を返す
+     * Execute SQL query and return a single column value
      * 
      * @param string $query
      * @param array|null $params
@@ -87,7 +76,7 @@ class SqlConnect
     }
 
     /**
-     * 一つの行を連想配列で取得する
+     * Execute SQL query and return a single row as an associative array
      * 
      * @param string $query
      * @param array|null $params
@@ -99,7 +88,7 @@ class SqlConnect
     }
 
     /**
-     * 文字列をハッシュ化する
+     * Hash a string
      * 
      * @param string $string
      * @return string

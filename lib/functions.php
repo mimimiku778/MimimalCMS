@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 /**
- * 配列に指定されたキーが存在し、文字列が指定された条件を満たすかどうかを検証する
+ * Verify if specified key exists in array and meets specified string conditions.
  *
- * @param array $array 検証する配列
- * @param string $name 検証するキー名
- * @param int|null $max_length 文字列の最大長（オプション）
- * @param string|null $exact_match 精密マッチのための文字列（オプション）
- * @return bool 検証結果
+ * @param array $array Array to be validated
+ * @param string $name Key name to be validated
+ * @param int|null $max_length Maximum length of string (optional)
+ * @param string|null $exact_match String for precise matching (optional)
+ * @return bool Result of validation
  */
 function validateArrayString(array $array, string $name, ?int $max_length = null, ?string $exact_match = null): bool
 {
@@ -30,14 +30,14 @@ function validateArrayString(array $array, string $name, ?int $max_length = null
 }
 
 /**
- * 配列に指定されたキーが存在し、数字が指定された条件を満たすかどうかを検証する
- *
- * @param array $array 検証する配列
- * @param string $name 検証するキー名
- * @param int|null $max_num 数値の最大値（オプション）
- * @param int|null $min_num 数値の最小値（オプション）
- * @param int|null $exact_match 精密マッチのための数値（オプション）
- * @return bool 検証結果
+ * Validates whether the key specified in the array exists and meets the specified numeric conditions
+ * 
+ * @param array $array The array to validate
+ * @param string $name The key name to validate
+ * @param int|null $max_num The maximum numeric value (optional)
+ * @param int|null $min_num The minimum numeric value (optional)
+ * @param int|null $exact_match The numeric value for exact match (optional)
+ * @return bool The validation result
  */
 function validateArrayNumber(array $array, string $name, ?int $max_num = null, ?int $min_num = null, ?int $exact_match = null): bool
 {

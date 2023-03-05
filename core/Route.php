@@ -8,81 +8,81 @@ class Route
 
     public function __construct()
     {
-        // リクエストメソッドを取得
+        // Get request method
         $this->isPost = $_SERVER['REQUEST_METHOD'] === 'POST';
 
-        // リクエスト URI を取得
+        // Get request URI
         $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
 
-        // リクエスト URI を解析
+        // Parse request URI
         [$controllerClassName, $methodName] = $this->parseRequestUri($requestUri);
 
-        // コントローラーメソッドを実行
+        // Execute controller method
         $this->runControllerMethod($controllerClassName, $methodName);
     }
 
     private function parseRequestUri(string $requestUri): array
     {
-        // リクエスト URI を / で分割
+        // Split request URI by "/"
         $path = explode('/', $requestUri);
 
-        // 3番目のパスがある場合は 404 エラー
+        // If there is a 3rd path, return 404 error
         if (isset($path[3]) && $path[3]) {
             $this->showError();
         }
 
-        // パスに不正な文字が含まれる場合は 404 エラー
+        // If path contains invalid characters, return 404 error
         if (preg_grep('/[^a-z0-9_]/', array_slice($path, 1))) {
             $this->showError();
         }
 
-        // デフォルトのコントローラー名を設定
+        // Set default controller name
         $controllerClassName = $this->isPost ? 'IndexApiController' : 'IndexPageController';
 
-        // コントローラー名を解決
+        // Resolve controller name
         if (!empty($path[1])) {
             $controllerPrefix = ucfirst($path[1]);
             $controllerSuffix = $this->isPost ? 'ApiController' : 'PageController';
             $controllerClassName = $controllerPrefix . $controllerSuffix;
         }
 
-        // メソッド名を解決
+        // Resolve method name
         if (isset($path[2]) && $path[2]) {
             $methodName = $path[2];
         } else {
-            // 2番目のパスが空の場合はindexを使用
+            // Use "index" if second path is empty
             $methodName = 'index';
         }
 
-        // コントローラー名とメソッド名を返す
+        // Return controller name and method name
         return [$controllerClassName, $methodName];
     }
 
     private function runControllerMethod(string $controllerClassName, string $methodName)
     {
-        // コントローラーのファイルパスを解決
+        // Resolve controller file path
         $controllerDir = $this->isPost ? 'api' : 'pages';
         $controllerFilePath = __DIR__ . "/../controllers/{$controllerDir}/{$controllerClassName}.php";
 
-        // コントローラーファイルが存在しない場合は 404 エラー
+        // Return 404 error if controller file does not exist
         if (!file_exists($controllerFilePath)) {
             $this->showError();
         }
 
-        // コントローラーの基底クラスを読み込み
+        // Load controller base class
         $controllerBaseClass = $this->isPost ? 'AbstractApiController' : 'AbstractPageController';
         require __DIR__ . "/{$controllerBaseClass}.php";
 
-        // コントローラーを読み込み
+        // Load controller
         require $controllerFilePath;
         $controller = new $controllerClassName();
 
-        // メソッドが存在しない場合は 404 エラー
+        // Return 404 error if method does not exist
         if (!method_exists($controller, $methodName)) {
             $this->showError();
         }
 
-        // コントローラーメソッドを実行
+        // Execute controller method
         $controller->$methodName();
     }
 
@@ -93,8 +93,8 @@ class Route
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit(json_encode(['error' => 'Not Found']));
         } else {
-            // 404 エラーページを表示
-            exit('<h1>ページが見つかりません！<h1>');
+            // Show 404 error page
+            exit('<h1>Page not found!<h1>');
         }
     }
 }
