@@ -8,7 +8,7 @@ abstract class AbstractApiController
      * Returns HTTP status code and response in JSON format and exits.
      *
      * @param int $response_code HTTP status code
-     * @param mixed $value The value to be returned as a response. Default is an empty string.
+     * @param mixed $value The value to be returned as response. Default is an empty string.
      */
     public function response(int $response_code, mixed $value = '')
     {
