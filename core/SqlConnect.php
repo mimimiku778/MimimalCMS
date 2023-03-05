@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * A PDO wrapper class for MySQL databases
+ * A PDO wrapper class for SQL databases
  */
 class SqlConnect
 {
