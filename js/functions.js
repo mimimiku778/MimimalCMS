@@ -7,7 +7,6 @@
  */
 const $qS = document.querySelector.bind(document)
 
-
 /**
  * Shorthand function for document.querySelectorAll, which returns a NodeList of all matching elements within the document.
  *
