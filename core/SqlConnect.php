@@ -13,6 +13,9 @@ class SqlConnect
 {
     public PDO $pdo;
 
+    /**
+     * @throws PDOException
+     */
     public function __construct()
     {
         $this->pdo = new PDO(
