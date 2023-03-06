@@ -217,9 +217,16 @@ class SqlConnect
      * @throws LogicException If any of the given callbacks are invalid.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function prepareAndExecuteLikeSearchQuery(callable $query, callable $whereClauseQuery, string $keyword, ?array $params = null): PDOStatement|false
-    {
-        $convertedKeyword = $this->escapeLike(preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto')));
+    public function prepareAndExecuteLikeSearchQuery(
+        callable $query,
+        callable $whereClauseQuery,
+        string $keyword,
+        ?array $params = null
+    ): PDOStatement|false {
+        $convertedKeyword = $this->escapeLike(
+            preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
+        );
+        
         $keywords = explode(' ', $convertedKeyword);
 
         $whereClause = 'WHERE ';
