@@ -250,7 +250,7 @@ class SqlConnect
         }
 
         foreach ($keywords as $i => $keyword) {
-            $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);
+            $stmt->bindValue(":keyword{$i}", "%{$this->escapeLike($keyword)}%", PDO::PARAM_STR);
         }
 
         if ($params === null) {
@@ -271,5 +271,20 @@ class SqlConnect
 
         $stmt->execute();
         return $stmt;
+    }
+
+    /**
+     * Escapes special characters in a string for use in a MySQL LIKE clause.
+     *
+     * @param string $value The string to be escaped.
+     * @param string $char The escape character to use (defaults to backslash).
+     * @return string The escaped string.
+     */
+    public function escapeLike(string $value, string $char = '\\'): string
+    {
+        $search  = [$char, '%', '_'];
+        $replace = [$char . $char, $char . '%', $char . '_'];
+
+        return str_replace($search, $replace, $value);
     }
 }
