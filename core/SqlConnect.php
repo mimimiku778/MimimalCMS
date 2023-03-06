@@ -73,15 +73,21 @@ class SqlConnect
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function fetch(string $query, ?array $params = null): array|false
+    public function fetch(string $query, ?array $params = null): ?array
     {
         $stmt = $this->prepareAndExecuteQuery($query, $params);
 
         if (!$stmt) {
-            return false;
+            return null;
         }
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $fetch = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($fetch === false) {
+            return null;
+        }
+
+        return $fetch;
     }
 
     /**
