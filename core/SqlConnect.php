@@ -219,8 +219,8 @@ class SqlConnect
      */
     public function prepareAndExecuteLikeSearchQuery(callable $query, callable $whereClauseQuery, string $keyword, ?array $params = null): PDOStatement|false
     {
-        $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
-        $keywords = explode(' ', $this->escapeLike($convertedKeyword));
+        $convertedKeyword = $this->escapeLike(preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto')));
+        $keywords = explode(' ', $convertedKeyword);
 
         $whereClause = 'WHERE ';
         for ($i = 0, $size = count($keywords); $i < $size; $i++) {
