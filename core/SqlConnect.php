@@ -226,7 +226,7 @@ class SqlConnect
         $convertedKeyword = $this->escapeLike(
             preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
         );
-        
+
         $keywords = explode(' ', $convertedKeyword);
 
         $whereClause = 'WHERE ';
@@ -281,7 +281,7 @@ class SqlConnect
     }
 
     /**
-     * Escapes special characters in a string for use in a MySQL LIKE clause.
+     * Escapes special characters in a string for use in a LIKE clause.
      *
      * @param string $value The string to be escaped.
      * @param string $char The escape character to use (defaults to backslash).
