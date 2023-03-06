@@ -4,24 +4,24 @@
 class JsonCookie {
 
   /**
- * Creates a new `JsonCookie` instance with the given name and expiration time.
- * @param {string} name - The name of the cookie.
- * @param {number|null} [expiresSeconds=null] - The number of seconds until the cookie expires, or `null` for a session cookie.
- */
+   * Creates a new `JsonCookie` instance with the given name and expiration time.
+   * @param {string} name - The name of the cookie.
+   * @param {number|null} [expiresSeconds=null] - The number of seconds until the cookie expires, or `null` for a session cookie.
+   */
   constructor(name, expiresSeconds = null) {
     this.name = name;
     this.expiresSeconds = expiresSeconds;
   }
 
   /**
- * Gets the value of the cookie, optionally filtered by a specific key.
- * @param {string|null} [key=null] - The key to filter the cookie by, or `null` to get the entire cookie object.
- * @returns {*} The value of the cookie, or `undefined` if the cookie is not found or is not a valid JSON string.
- * @example
- * const cookie = new JsonCookie('myCookie')
- * const entireCookie = cookie.get()
- * const specificValue = cookie.get('myKey')
- */
+   * Gets the value of the cookie, optionally filtered by a specific key.
+   * @param {string|null} [key=null] - The key to filter the cookie by, or `null` to get the entire cookie object.
+   * @returns {*} The value of the cookie, or `undefined` if the cookie is not found or is not a valid JSON string.
+   * @example
+   * const cookie = new JsonCookie('myCookie')
+   * const entireCookie = cookie.get()
+   * const specificValue = cookie.get('myKey')
+   */
   get(key = null) {
     const cookieRegex = new RegExp(`(^|;)\\s*${this.name}\\s*=\\s*([^;]+)`)
     const cookieMatch = document.cookie.match(cookieRegex)
@@ -96,13 +96,13 @@ class JsonCookie {
   }
 
   /**
- * Removes the cookie or a specific key-value pair from the cookie.
- * @param {string|null} [key=null] - The key to remove, or `null` to remove the entire cookie.
- * @example
- * const cookie = new JsonCookie('myCookie')
- * cookie.remove()
- * cookie.remove('myKey')
- */
+   * Removes the cookie or a specific key-value pair from the cookie.
+   * @param {string|null} [key=null] - The key to remove, or `null` to remove the entire cookie.
+   * @example
+   * const cookie = new JsonCookie('myCookie')
+   * cookie.remove()
+   * cookie.remove('myKey')
+   */
   remove(key = null) {
     let cookieString = `${this.name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;Secure;`
 
