@@ -198,7 +198,7 @@ class SqlConnect
     }
 
     /**
-     * Execute a LIKE search query with bound parameters.
+     * Executes a LIKE search query and returns a PDOStatement object with bound values.
      * 
      * @param callable $query A function that returns a string representing the SQL query. 
      * * ***Example:*** fn ($where) => "SELECT * FROM table {$where} LIMIT :offset, :limit"
