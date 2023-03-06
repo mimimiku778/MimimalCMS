@@ -64,7 +64,7 @@ const addClick = (element, callback) => element && element.addEventListener('cli
  * })
  */
 const sendPostRequest = async (url, formData = {}, callback = null) => {
-  let body
+  let body = null
   if (formData instanceof HTMLFormElement) {
     body = new FormData(formData)
   } else if (formData instanceof Object) {
