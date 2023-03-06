@@ -234,7 +234,7 @@ class SqlConnect
                 throw new LogicException('$whereClauseQuery must return a string');
             }
 
-            $whereClause .= $whereClauseQuery($i);
+            $whereClause .= $whereClauseQueryResult;
         }
 
         $queryResult = $query($whereClause);
@@ -245,8 +245,17 @@ class SqlConnect
 
         $stmt = $this->pdo->prepare($queryResult);
 
+        if (!$stmt) {
+            return false;
+        }
+
         foreach ($keywords as $i => $keyword) {
             $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);
+        }
+
+        if ($params === null) {
+            $stmt->execute();
+            return $stmt;
         }
 
         foreach ($params as $key => $value) {
