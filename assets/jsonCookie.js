@@ -8,7 +8,7 @@ class JsonCookie {
    * @param {string} name - The name of the cookie.
    * @param {number|null} [expiresSeconds=null] - The number of seconds until the cookie expires, or `null` for a session cookie.
    */
-  constructor(name, expiresSeconds = null) {
+  constructor(name = 'cookie', expiresSeconds = null) {
     this.name = name;
     this.expiresSeconds = expiresSeconds;
   }
@@ -49,7 +49,7 @@ class JsonCookie {
       return parsedCookieValue
     }
 
-    if (!parsedCookieValue[key]) {
+    if (!parsedCookieValue.hasOwnProperty(key)) {
       console.error(`Error: Key ${key} not found in cookie ${this.name}.`)
       return undefined
     }
