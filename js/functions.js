@@ -53,14 +53,14 @@ const addClick = (element, callback) => element && element.addEventListener('cli
  *   email: 'john@example.com'
  * }
  * sendPostRequest('https://example.com/api', formData, ({ data, code }) => {
- *   console.log(`Response data: ${data}, status code: ${code}`)
+ *   console.log(data, `status code: ${code}`)
  * })
  * 
  * @example
  * // Sending a POST request with a form element as form data and displaying an alert
  * const form = document.querySelector('#myForm')
  * sendPostRequest('https://example.com/api', form, ({ data, code }) => {
- *   alert(`Response data: ${data}, status code: ${code}`)
+ *   alert(`Response data: ${JSON.stringify(data)}, status code: ${code}`)
  * })
  */
 const sendPostRequest = async (url, formData = {}, callback = null) => {
