@@ -208,13 +208,16 @@ class SqlConnect
      * * ***Example:*** fn ($i) => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"
      * 
      * @param string $keyword The keyword(s) to search for.
-     *  * ***Example:*** $keyword = 'Split keywords by whitespace and search with LIKE';
+     * * ***Example:*** $keyword = 'Split keywords by whitespace and search with LIKE';
      * 
+     * @param array|null $params An associative array of query parameters. (Optional)
      * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
      * 
      * @throws PDOException If an error occurs during the query execution.
+     * @throws LogicException If any of the given callbacks are invalid.
+     * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function prepareAndExecuteLikeSearchQuery(callable $query, callable $whereClauseQuery, string $keyword): PDOStatement|false
+    public function prepareAndExecuteLikeSearchQuery(callable $query, callable $whereClauseQuery, string $keyword, ?array $params = null): PDOStatement|false
     {
         $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
         $keywords = explode(' ', $convertedKeyword);
@@ -224,13 +227,37 @@ class SqlConnect
             if ($i > 0) {
                 $whereClause .= ' AND ';
             }
+
+            $whereClauseQueryResult = $whereClauseQuery($i);
+
+            if (!is_string($whereClauseQueryResult)) {
+                throw new LogicException('$whereClauseQuery must return a string');
+            }
+
             $whereClause .= $whereClauseQuery($i);
         }
 
-        $stmt = $this->pdo->prepare($query($whereClause));
+        $queryResult = $query($whereClause);
+
+        if (!is_string($queryResult)) {
+            throw new LogicException('$query must return a string');
+        }
+
+        $stmt = $this->pdo->prepare($queryResult);
 
         foreach ($keywords as $i => $keyword) {
             $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);
+        }
+
+        foreach ($params as $key => $value) {
+            if (!is_string($value) && !is_numeric($value)) {
+                throw new InvalidArgumentException(
+                    "Invalid parameter value for key {$key}: only strings and numbers are allowed."
+                );
+            }
+
+            $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $stmt->bindValue($key, $value, $type);
         }
 
         $stmt->execute();
