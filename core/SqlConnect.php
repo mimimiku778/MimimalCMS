@@ -196,4 +196,44 @@ class SqlConnect
 
         return (int) $lastInsertId;
     }
+
+    /**
+     * Execute a LIKE search query with bound parameters.
+     * 
+     * @param callable $query A function that returns a string representing the SQL query. 
+     * * ***Example:*** fn ($where) => "SELECT * FROM table {$where} LIMIT :offset, :limit"
+     * 
+     * @param callable $whereClauseQuery A function that returns a string representing the WHERE clause.
+     * Use ":keyword{$i}" as the placeholder for the binding value.
+     * * ***Example:*** fn ($i) => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"
+     * 
+     * @param string $keyword The keyword(s) to search for.
+     *  * ***Example:*** $keyword = 'Split keywords by whitespace and search with LIKE';
+     * 
+     * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
+     * 
+     * @throws PDOException If an error occurs during the query execution.
+     */
+    public function prepareAndExecuteLikeSearchQuery(callable $query, callable $whereClauseQuery, string $keyword): PDOStatement|false
+    {
+        $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
+        $keywords = explode(' ', $convertedKeyword);
+
+        $whereClause = 'WHERE ';
+        for ($i = 0, $size = count($keywords); $i < $size; $i++) {
+            if ($i > 0) {
+                $whereClause .= ' AND ';
+            }
+            $whereClause .= $whereClauseQuery($i);
+        }
+
+        $stmt = $this->pdo->prepare($query($whereClause));
+
+        foreach ($keywords as $i => $keyword) {
+            $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);
+        }
+
+        $stmt->execute();
+        return $stmt;
+    }
 }

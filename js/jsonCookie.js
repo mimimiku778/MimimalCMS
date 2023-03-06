@@ -1,7 +1,9 @@
 /**
- * A utility class for working with JSON-encoded cookies in the browser.
+ * Utility class for working with JSON-encoded cookies in the browser.
  */
 class JsonCookie {
+  // A boolean flag indicating whether the `Secure` attribute of a cookie should be set or not.
+  secure = false
 
   /**
    * Creates a new `JsonCookie` instance with the given name and expiration time.
@@ -96,7 +98,7 @@ class JsonCookie {
       expires = `;expires=${expirationDate.toUTCString()}`
     }
 
-    const cookieString = `${this.name}=${encodedData}${expires};Secure;`
+    const cookieString = `${this.name}=${encodedData}${expires};${this.secure ? 'Secure;' : ''}`
     document.cookie = cookieString
   }
 
@@ -111,14 +113,20 @@ class JsonCookie {
    * cookie.remove('myKey')
    */
   remove(key = null) {
-    let cookieString = `${this.name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;Secure;`
+    let cookieString = `${this.name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;${this.secure ? 'Secure;' : ''}`
 
     if (key) {
       const cookieData = this.get() || {}
       delete cookieData[key]
       const encodedData = encodeURIComponent(JSON.stringify(cookieData))
-      const expires = this.expiresSeconds ? `;expires=${new Date(Date.now() + this.expiresSeconds * 1000).toUTCString()}` : ''
-      cookieString = `${this.name}=${encodedData}${expires};Secure;`
+
+      let expires = ''
+      if (this.expiresSeconds) {
+        const expirationDate = new Date(Date.now() + this.expiresSeconds * 1000)
+        expires = `;expires=${expirationDate.toUTCString()}`
+      }
+
+      cookieString = `${this.name}=${encodedData}${expires};${this.secure ? 'Secure;' : ''}`
     }
 
     document.cookie = cookieString
