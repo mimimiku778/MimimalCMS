@@ -220,7 +220,7 @@ class SqlConnect
     public function prepareAndExecuteLikeSearchQuery(callable $query, callable $whereClauseQuery, string $keyword, ?array $params = null): PDOStatement|false
     {
         $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
-        $keywords = explode(' ', $convertedKeyword);
+        $keywords = explode(' ', $this->escapeLike($convertedKeyword));
 
         $whereClause = 'WHERE ';
         for ($i = 0, $size = count($keywords); $i < $size; $i++) {
@@ -250,7 +250,7 @@ class SqlConnect
         }
 
         foreach ($keywords as $i => $keyword) {
-            $stmt->bindValue(":keyword{$i}", "%{$this->escapeLike($keyword)}%", PDO::PARAM_STR);
+            $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);
         }
 
         if ($params === null) {
