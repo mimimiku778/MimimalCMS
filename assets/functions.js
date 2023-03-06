@@ -27,10 +27,10 @@ const byId = id => document.getElementById(id)
 /**
  * Adds a click event listener to an element, if it exists.
  *
- * @param {Element} el - The element to add the listener to.
+ * @param {Element|null} element - The element to add the listener to.
  * @param {Function} callback - The function to execute when the element is clicked.
  */
-const addClick = (el, callback) => el && el.addEventListener('click', callback)
+const addClick = (element, callback) => element && element.addEventListener('click', callback)
 
 /**
  * Sets a cookie with the given object data.

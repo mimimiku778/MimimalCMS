@@ -89,20 +89,26 @@ class SqlConnect
      * 
      * @param string $query The SQL query to execute.
      * @param array|null $params An associative array of query parameters. (Optional)
-     * @return array|false Returns an array of rows as associative arrays, or false if there are no more rows.
+     * @return array Returns an array of rows as associative arrays.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If the parameter values are invalid.
      */
-    public function fetchAll(string $query, ?array $params = null): array|false
+    public function fetchAll(string $query, ?array $params = null): array
     {
         $stmt = $this->prepareAndExecuteQuery($query, $params);
 
         if (!$stmt) {
-            return false;
+            return [];
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($result === false) {
+            return [];
+        }
+
+        return $result;
     }
 
     /**
@@ -110,20 +116,26 @@ class SqlConnect
      * 
      * @param string $query The SQL query to execute.
      * @param array|null $params An associative array of query parameters. (Optional)
-     * @return string|int|false Returns a single column value or false if there are no more rows.
+     * @return string|int|null Returns a single column value or null if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function fetchColumn(string $query, ?array $params = null): string|int|false
+    public function fetchColumn(string $query, ?array $params = null): string|int|null
     {
         $stmt = $this->prepareAndExecuteQuery($query, $params);
 
         if (!$stmt) {
-            return false;
+            return null;
         }
 
-        return $stmt->fetchColumn();
+        $result = $stmt->fetchColumn();
+
+        if ($result === false) {
+            return null;
+        }
+
+        return $result;
     }
 
     /**
@@ -153,20 +165,26 @@ class SqlConnect
      * @param string $query The SQL query to execute.
      * @param array|null $params An associative array of query parameters. (Optional)
      * @param string $name Name of the sequence object from which the ID should be returned. (Optional)
-     * @return int|false If a sequence name was not specified for the name parameter, 
+     * @return int|null If a sequence name was not specified for the name parameter, 
      *  PDO::lastInsertId returns a string representing the row ID of the last row that was inserted into the database.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function executeAndGetLastInsertId(string $query, ?array $params = null, ?string $name = null): int|false
+    public function executeAndGetLastInsertId(string $query, ?array $params = null, ?string $name = null): ?int
     {
         $stmt = $this->prepareAndExecuteQuery($query, $params);
 
         if (!$stmt) {
-            return false;
+            return null;
         }
 
-        return (int) $this->pdo->lastInsertId($name);
+        $lastInsertId = $this->pdo->lastInsertId($name);
+
+        if ($lastInsertId === false) {
+            return null;
+        }
+
+        return (int) $lastInsertId;
     }
 }
