@@ -238,7 +238,7 @@ class SqlConnect
             $whereClauseQueryResult = $whereClauseQuery($i);
 
             if (!is_string($whereClauseQueryResult)) {
-                throw new LogicException('$whereClauseQuery must return a string');
+                throw new LogicException('whereClauseQuery must return a string');
             }
 
             $whereClause .= $whereClauseQueryResult;
@@ -247,7 +247,7 @@ class SqlConnect
         $queryResult = $query($whereClause);
 
         if (!is_string($queryResult)) {
-            throw new LogicException('$query must return a string');
+            throw new LogicException('query must return a string');
         }
 
         $stmt = $this->pdo->prepare($queryResult);
