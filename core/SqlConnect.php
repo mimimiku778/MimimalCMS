@@ -8,6 +8,9 @@ use Config\DatabaseConfig;
 
 /**
  * PDO wrapper class for SQL databases
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 class SqlConnect
 {
@@ -37,18 +40,14 @@ class SqlConnect
      * @param array|null $params An associative array of query parameters. (Optional)
      * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
      * 
-     * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
+     * @return PDOStatement Returns a PDOStatement object containing the results of the query, or false.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function prepareAndExecuteQuery(string $query, ?array $params = null): PDOStatement|false
+    public function execute(string $query, ?array $params = null): PDOStatement
     {
         $stmt = $this->pdo->prepare($query);
-
-        if (!$stmt) {
-            return false;
-        }
 
         if ($params === null) {
             $stmt->execute();
@@ -79,26 +78,14 @@ class SqlConnect
      * @param array|null $params An associative array of query parameters. (Optional)
      * * ***Example:*** $params = ['id' => 10];
      * 
-     * @return array|null Returns a single row as an associative array or false if there are no more rows.
+     * @return array|false Returns a single row as an associative array or false if no rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function fetch(string $query, ?array $params = null): ?array
+    public function fetch(string $query, ?array $params = null): array|false
     {
-        $stmt = $this->prepareAndExecuteQuery($query, $params);
-
-        if (!$stmt) {
-            return null;
-        }
-
-        $fetch = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($fetch === false) {
-            return null;
-        }
-
-        return $fetch;
+        return $this->execute($query, $params)->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -110,82 +97,14 @@ class SqlConnect
      * @param array|null $params An associative array of query parameters. (Optional)
      * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
      * 
-     * @return array Returns an array of rows as associative arrays.
+     * @return array An empty array is returned if there are zero results to fetch.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If the parameter values are invalid.
      */
     public function fetchAll(string $query, ?array $params = null): array
     {
-        $stmt = $this->prepareAndExecuteQuery($query, $params);
-
-        if (!$stmt) {
-            return [];
-        }
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($result === false) {
-            return [];
-        }
-
-        return $result;
-    }
-
-    /**
-     * Executes an SQL query and returns a single column value from the next row of the result set.
-     * 
-     * @param string $query The SQL query to execute.
-     * * ***Example:*** $query = 'SELECT name FROM table WHERE id = :id';
-     * 
-     * @param array|null $params An associative array of query parameters. (Optional)
-     * * ***Example:*** $params = ['id' => 10];
-     * 
-     * @return string|int|null Returns a single column value or null if there are no more rows.
-     * 
-     * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the parameter values are invalid.
-     */
-    public function fetchColumn(string $query, ?array $params = null): string|int|null
-    {
-        $stmt = $this->prepareAndExecuteQuery($query, $params);
-
-        if (!$stmt) {
-            return null;
-        }
-
-        $result = $stmt->fetchColumn();
-
-        if ($result === false) {
-            return null;
-        }
-
-        return $result;
-    }
-
-    /**
-     *　Executes an SQL query and returns the number of rows affected by the last SQL statement.
-     * 
-     * @param string $query The SQL query to execute.
-     * * ***Example:*** $query = 'INSERT INTO user (name) SELECT :name WHERE NOT EXISTS (SELECT * FROM user WHERE name = :name)';
-     * 
-     * @param array|null $params An associative array of query parameters. (Optional)
-     * * ***Example:*** $params = ['name' => 'mimikyu'];
-     * 
-     * @return int Returns the number of rows affected by the last SQL statement.
-     * 
-     * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the parameter values are invalid.
-     */
-    public function executeAndGetRowCount(string $query, ?array $params = null): int
-    {
-        $stmt = $this->prepareAndExecuteQuery($query, $params);
-
-        if (!$stmt) {
-            return 0;
-        }
-
-        return $stmt->rowCount();
+        return $this->execute($query, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -198,27 +117,15 @@ class SqlConnect
      *  * ***Example:*** $params = ['name' => 'mimikyu'];
      * 
      * @param string $name Name of the sequence object from which the ID should be returned. (Optional)
-     * @return int|null If a sequence name was not specified for the name parameter, 
-     *  PDO::lastInsertId returns a string representing the row ID of the last row that was inserted into the database.
+     * @return int Returns a string representing the row ID of the last row that was inserted into the database.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function executeAndGetLastInsertId(string $query, ?array $params = null, ?string $name = null): ?int
+    public function executeAndGetLastInsertId(string $query, ?array $params = null): int
     {
-        $stmt = $this->prepareAndExecuteQuery($query, $params);
-
-        if (!$stmt) {
-            return null;
-        }
-
-        $lastInsertId = $this->pdo->lastInsertId($name);
-
-        if ($lastInsertId === false) {
-            return null;
-        }
-
-        return (int) $lastInsertId;
+        $this->execute($query, $params);
+        return (int) $this->pdo->lastInsertId();
     }
 
     /**
@@ -239,18 +146,18 @@ class SqlConnect
      * An exception will be thrown if any of the array values are not strings or numbers. (Optional)
      * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
      * 
-     * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
+     * @return PDOStatement Returns a PDOStatement object containing the results of the query.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws LogicException If any of the given callbacks are invalid.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
      */
-    public function prepareAndExecuteLikeSearchQuery(
+    public function executeLikeSearchQuery(
         callable $query,
         callable $whereClauseQuery,
         string $keyword,
         ?array $params = null
-    ): PDOStatement|false {
+    ): PDOStatement {
         $convertedKeyword = $this->escapeLike(
             preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
         );
@@ -283,10 +190,6 @@ class SqlConnect
         }
 
         $stmt = $this->pdo->prepare($queryResult);
-
-        if (!$stmt) {
-            return false;
-        }
 
         foreach ($keywords as $i => $keyword) {
             $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);

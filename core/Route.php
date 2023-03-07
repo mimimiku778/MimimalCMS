@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 /**
  * Class Route - Handles routing of incoming requests
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 class Route
 {
