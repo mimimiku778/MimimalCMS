@@ -32,7 +32,11 @@ class SqlConnect
      * Executes an SQL query and returns a PDOStatement object with bound values.
      *
      * @param string $query The SQL query to execute.
+     * * ***Example:*** $query = 'SELECT * FROM table WHERE category = :category LIMIT :offset, :limit'
+     * 
      * @param array|null $params An associative array of query parameters. (Optional)
+     * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
+     * 
      * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -70,8 +74,12 @@ class SqlConnect
      * Executes an SQL query and returns a single row as an associative array.
      * 
      * @param string $query The SQL query to execute.
+     * * ***Example:*** $query = 'SELECT * FROM table WHERE id = :id'
+     * 
      * @param array|null $params An associative array of query parameters. (Optional)
-     * @return array|false Returns a single row as an associative array or false if there are no more rows.
+     * * ***Example:*** $params = ['id' => 10];
+     * 
+     * @return array|null Returns a single row as an associative array or false if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws InvalidArgumentException If any of the parameter values are invalid.
@@ -97,7 +105,11 @@ class SqlConnect
      * Executes an SQL query and returns rows as associative arrays.
      * 
      * @param string $query The SQL query to execute.
+     * * ***Example:*** $query = 'SELECT * FROM table WHERE category = :category LIMIT :offset, :limit'
+     * 
      * @param array|null $params An associative array of query parameters. (Optional)
+     * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
+     * 
      * @return array Returns an array of rows as associative arrays.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -124,7 +136,11 @@ class SqlConnect
      * Executes an SQL query and returns a single column value from the next row of the result set.
      * 
      * @param string $query The SQL query to execute.
+     * * ***Example:*** $query = 'SELECT name FROM table WHERE id = :id';
+     * 
      * @param array|null $params An associative array of query parameters. (Optional)
+     * * ***Example:*** $params = ['id' => 10];
+     * 
      * @return string|int|null Returns a single column value or null if there are no more rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -151,7 +167,11 @@ class SqlConnect
      *　Executes an SQL query and returns the number of rows affected by the last SQL statement.
      * 
      * @param string $query The SQL query to execute.
+     * * ***Example:*** $query = 'INSERT INTO user (name) SELECT :name WHERE NOT EXISTS (SELECT * FROM user WHERE name = :name)';
+     * 
      * @param array|null $params An associative array of query parameters. (Optional)
+     * * ***Example:*** $params = ['name' => 'mimikyu'];
+     * 
      * @return int Returns the number of rows affected by the last SQL statement.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -172,7 +192,11 @@ class SqlConnect
      *　Executes an SQL query and returns the ID of the last inserted row or sequence value.
      * 
      * @param string $query The SQL query to execute.
+     * * ***Example:*** $query = 'INSERT INTO user (name) SELECT :name';
+     * 
      * @param array|null $params An associative array of query parameters. (Optional)
+     *  * ***Example:*** $params = ['name' => 'mimikyu'];
+     * 
      * @param string $name Name of the sequence object from which the ID should be returned. (Optional)
      * @return int|null If a sequence name was not specified for the name parameter, 
      *  PDO::lastInsertId returns a string representing the row ID of the last row that was inserted into the database.
@@ -201,16 +225,20 @@ class SqlConnect
      * Executes a LIKE search query and returns a PDOStatement object with bound values.
      * 
      * @param callable $query A function that returns a string representing the SQL query. 
-     * * ***Example:*** fn ($where) => "SELECT * FROM table {$where} LIMIT :offset, :limit"
+     * * ***Example:*** fn ($where) => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"
      * 
      * @param callable $whereClauseQuery A function that returns a string representing the WHERE clause.
      * Use ":keyword{$i}" as the placeholder for the binding value.
      * * ***Example:*** fn ($i) => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"
      * 
      * @param string $keyword The keyword(s) to search for.
+     * An exception will be thrown if the string is empty or only contains whitespace characters.
      * * ***Example:*** $keyword = 'Split keywords by whitespace and search with LIKE';
      * 
-     * @param array|null $params An associative array of query parameters. (Optional)
+     * @param array|null $params An associative array of query parameters.
+     * An exception will be thrown if any of the array values are not strings or numbers. (Optional)
+     * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
+     * 
      * @return PDOStatement|false Returns a PDOStatement object containing the results of the query, or false on failure.
      * 
      * @throws PDOException If an error occurs during the query execution.
@@ -226,6 +254,10 @@ class SqlConnect
         $convertedKeyword = $this->escapeLike(
             preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
         );
+
+        if (empty(trim($convertedKeyword))) {
+            throw new InvalidArgumentException('Please provide a non-empty search keyword.');
+        }
 
         $keywords = explode(' ', $convertedKeyword);
 
