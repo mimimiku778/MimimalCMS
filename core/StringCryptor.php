@@ -4,7 +4,21 @@ declare(strict_types=1);
 
 class StringCryptor
 {
-    // NOTE: Replace the following placeholder keys with your own keys before deploying to production.
+    /**
+     * NOTE: Replace the following placeholder keys with your own keys before deploying to production.
+     * 
+     * Example of key generation
+     * 
+     * * **Generate a key from an arbitrary password**
+     * $password = 'YOUR_PASSWORD';
+     * $key = hash('sha256', $password);
+     * print($key);
+     * 
+     * * **Generate a random key**
+     * $randomBytes = random_bytes(32);
+     * $hexKey = bin2hex($randomBytes);
+     * print($hexKey);
+     */
     private const HKDF_KEY = 'REPLACE_WITH_YOUR_HKDF_KEY';
     private const OPENSSL_KEY = 'REPLACE_WITH_YOUR_OPENSSL_KEY';
 
@@ -189,7 +203,3 @@ class StringCryptor
         return rtrim($urlSafe, '=');
     }
 }
-
-$test = new StringCryptor();
-$test->decryptAesCbcString('aaaa');
-var_dump('aa');
