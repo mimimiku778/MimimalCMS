@@ -35,15 +35,16 @@ class SqlConnect
      * Executes an SQL query and returns a PDOStatement object with bound values.
      *
      * @param string $query The SQL query to execute.
-     * * ***Example:*** $query = 'SELECT * FROM table WHERE category = :category LIMIT :offset, :limit'
+     * * *Example:* `'SELECT * FROM table WHERE category = :category LIMIT :offset, :limit'`
      * 
-     * @param array|null $params An associative array of query parameters. (Optional)
-     * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
+     * @param array|null $params [optional] An associative array of query parameters.
+     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
      * @return PDOStatement Returns a PDOStatement object containing the results of the query, or false.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the parameter values are invalid.
+     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
      */
     public function execute(string $query, ?array $params = null): PDOStatement
     {
@@ -73,15 +74,16 @@ class SqlConnect
      * Executes an SQL query and returns a single row as an associative array.
      * 
      * @param string $query The SQL query to execute.
-     * * ***Example:*** $query = 'SELECT * FROM table WHERE id = :id'
+     * * *Example:* `'SELECT * FROM table WHERE id = :id'`
      * 
-     * @param array|null $params An associative array of query parameters. (Optional)
-     * * ***Example:*** $params = ['id' => 10];
+     * @param array|null $params [optional] An associative array of query parameters.
+     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * * *Example:* `['id' => 10]`
      * 
      * @return array|false Returns a single row as an associative array or false if no rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the parameter values are invalid.
+     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
      */
     public function fetch(string $query, ?array $params = null): array|false
     {
@@ -92,10 +94,11 @@ class SqlConnect
      * Executes an SQL query and returns rows as associative arrays.
      * 
      * @param string $query The SQL query to execute.
-     * * ***Example:*** $query = 'SELECT * FROM table WHERE category = :category LIMIT :offset, :limit'
+     * * *Example:* `'SELECT * FROM table WHERE category = :category LIMIT :offset, :limit'`
      * 
-     * @param array|null $params An associative array of query parameters. (Optional)
-     * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
+     * @param array|null $params [optional] An associative array of query parameters.
+     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
      * @return array An empty array is returned if there are zero results to fetch.
      * 
@@ -111,16 +114,16 @@ class SqlConnect
      *　Executes an SQL query and returns the ID of the last inserted row or sequence value.
      * 
      * @param string $query The SQL query to execute.
-     * * ***Example:*** $query = 'INSERT INTO user (name) SELECT :name';
+     * * *Example:* `'INSERT INTO user (name) SELECT :name'`
      * 
-     * @param array|null $params An associative array of query parameters. (Optional)
-     *  * ***Example:*** $params = ['name' => 'mimikyu'];
+     * @param array|null $params [optional] An associative array of query parameters.
+     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * * *Example:* `['name' => 'mimikyu']`
      * 
-     * @param string $name Name of the sequence object from which the ID should be returned. (Optional)
-     * @return int Returns a string representing the row ID of the last row that was inserted into the database.
+     * @return int Returns the row ID of the last row that was inserted into the database.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the parameter values are invalid.
+     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
      */
     public function executeAndGetLastInsertId(string $query, ?array $params = null): int
     {
@@ -132,25 +135,25 @@ class SqlConnect
      * Executes a LIKE search query and returns a PDOStatement object with bound values.
      * 
      * @param callable $query A function that returns a string representing the SQL query. 
-     * * ***Example:*** fn ($where) => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"
+     * * *Example:* `fn ($where) => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
      * 
      * @param callable $whereClauseQuery A function that returns a string representing the WHERE clause.
-     * Use ":keyword{$i}" as the placeholder for the binding value.
-     * * ***Example:*** fn ($i) => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"
+     * Use `:keyword{$i}` as the placeholder for the binding value.
+     * * *Example:* `fn ($i) => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"`
      * 
      * @param string $keyword The keyword(s) to search for.
-     * An exception will be thrown if the string is empty or only contains whitespace characters.
-     * * ***Example:*** $keyword = 'Split keywords by whitespace and search with LIKE';
+     * InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
+     * * *Example:* `'Split keywords by whitespace and search with LIKE'`
      * 
-     * @param array|null $params An associative array of query parameters.
-     * An exception will be thrown if any of the array values are not strings or numbers. (Optional)
-     * * ***Example:*** $params = ['category' => 'foods', 'limit' => 20, 'offset' => 60];
+     * @param array|null $params [optional] An associative array of query parameters.
+     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
      * @return PDOStatement Returns a PDOStatement object containing the results of the query.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws LogicException If any of the given callbacks are invalid.
-     * @throws InvalidArgumentException If any of the parameter values are invalid.
+     * @throws InvalidArgumentException If any of the parameter values are invalid or the given callbacks are invalid.
      */
     public function executeLikeSearchQuery(
         callable $query,
