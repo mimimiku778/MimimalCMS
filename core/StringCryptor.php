@@ -4,23 +4,32 @@ declare(strict_types=1);
 
 class StringCryptor
 {
+    // NOTE: Replace the following placeholder keys with your own keys before deploying to production.
+    private const DEFALUT_HKDF_KEY = 'REPLACE_WITH_YOUR_HKDF_KEY';
+    private const DEFALUT_OPENSSL_KEY = 'REPLACE_WITH_YOUR_OPENSSL_KEY';
+
+    private string $hkdfKey;
+    private string $opensslKey;
+
     /**
-     * NOTE: Replace the following placeholder keys with your own keys before deploying to production.
+     * Class constructor.
      * 
-     * Example of key generation
+     * *Example of key generation*
      * 
      * * **Generate a key from an arbitrary password**
-     * $password = 'YOUR_PASSWORD';
-     * $key = hash('sha256', $password);
-     * print($key);
+     * $key = hash('sha256', 'YOUR_PASSWORD');
      * 
      * * **Generate a random key**
-     * $randomBytes = random_bytes(32);
-     * $hexKey = bin2hex($randomBytes);
-     * print($hexKey);
+     * $key = bin2hex(random_bytes(32));
+     * 
+     * @param string|null $hkdfKey The HKDF key to use. If null, the default key will be used.
+     * @param string|null $opensslKey The OpenSSL key to use. If null, the default key will be used.
      */
-    private const HKDF_KEY = 'REPLACE_WITH_YOUR_HKDF_KEY';
-    private const OPENSSL_KEY = 'REPLACE_WITH_YOUR_OPENSSL_KEY';
+    public function __construct(?string $hkdfKey = null, ?string $opensslKey = null)
+    {
+        $this->hkdfKey = $hkdfKey ?? self::DEFALUT_HKDF_KEY;
+        $this->opensslKey = $opensslKey ?? self::DEFALUT_OPENSSL_KEY;
+    }
 
     /**
      * Encrypts a string using AES-CBC and obtains the hash of the encrypted string using HKDF.
@@ -80,7 +89,7 @@ class StringCryptor
     public function hashHkdf(string $string): string
     {
         $salt = random_bytes(16);
-        $hash = hash_hkdf('SHA3-224', self::HKDF_KEY, 0, $string, $salt);
+        $hash = hash_hkdf('SHA3-224', $this->hkdfKey, 0, $string, $salt);
 
         // Return the Base64 encoded hash with the salt in the format of "<hash>@salt>".
         return base64_encode($hash) . '@' . base64_encode($salt);
@@ -104,7 +113,7 @@ class StringCryptor
         $hash = base64_decode($components[0]);
         $salt = base64_decode($components[1]);
 
-        $reHash = hash_hkdf('SHA3-224', self::HKDF_KEY, 0, $string, $salt);
+        $reHash = hash_hkdf('SHA3-224', $this->hkdfKey, 0, $string, $salt);
 
         return hash_equals($hash, $reHash);
     }
@@ -132,7 +141,7 @@ class StringCryptor
         $decryptedData = openssl_decrypt(
             $encryptedData,
             'AES-256-CBC',
-            self::OPENSSL_KEY,
+            $this->opensslKey,
             OPENSSL_RAW_DATA,
             $iv
         );
@@ -161,7 +170,7 @@ class StringCryptor
         $encryptedData = openssl_encrypt(
             $targetString,
             'AES-256-CBC',
-            self::OPENSSL_KEY,
+            $this->opensslKey,
             OPENSSL_RAW_DATA,
             $iv
         );
