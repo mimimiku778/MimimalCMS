@@ -103,7 +103,7 @@ class SqlConnect
      * @return array An empty array is returned if there are zero results to fetch.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If the parameter values are invalid.
+     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
      */
     public function fetchAll(string $query, ?array $params = null): array
     {
@@ -135,11 +135,11 @@ class SqlConnect
      * Executes a LIKE search query and returns a PDOStatement object with bound values.
      * 
      * @param callable $query A function that returns a string representing the SQL query. 
-     * * *Example:* `fn ($where) => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
+     * * *Example:* `fn (string $where): string => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
      * 
      * @param callable $whereClauseQuery A function that returns a string representing the WHERE clause.
      * Use `:keyword{$i}` as the placeholder for the binding value.
-     * * *Example:* `fn ($i) => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"`
+     * * *Example:* `fn (int $i): string => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"`
      * 
      * @param string $keyword The keyword(s) to search for.
      * InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
