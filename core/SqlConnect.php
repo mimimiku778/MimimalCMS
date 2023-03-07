@@ -281,7 +281,7 @@ class SqlConnect
     }
 
     /**
-     * Escapes special characters in a string for use in a LIKE clause.
+     * Escapes special characters in a string for use in LIKE clause.
      *
      * @param string $value The string to be escaped.
      * @param string $char The escape character to use (defaults to backslash).
