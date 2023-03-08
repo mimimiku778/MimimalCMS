@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * MimimalCMS
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
+
 require __DIR__ . '/shared/config.php';
 require __DIR__ . '/shared/functions.php';
 require __DIR__ . '/shared/exceptions.php';
