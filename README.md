@@ -176,7 +176,7 @@ SEOも忘れずに！<br>
   new CategoriesPageController();
   AboutPageController::News();
 
-Since it does not support the third level, a 404 error will always be returned if there is a third level.
+Since it does not support the third level, a 404 error will be returned if there is a third level.
 *https://example.com/categories/news/article*
   `new Route();` 
   throw new NotFoundException;
