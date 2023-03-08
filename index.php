@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Implements PHP autoload to load classes when used.
+ * Autoloader
  * 
- * NOTE: Additional directories can be added to the $directoryNames variable.
- *       Class and file names must match exactly.
+ * NOTE: Class and file names must match exactly, no use namespaces.
  */
 spl_autoload_register(function ($className) {
+    // Additional directories can be added to the $directoryNames variable.
     $directoryNames = ['core', 'models'];
 
     $className = ltrim($className, '\\');
