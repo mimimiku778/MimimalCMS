@@ -10,7 +10,8 @@ declare(strict_types=1);
  */
 class Route
 {
-    private bool $isPost;
+    // Whether request content type is JSON
+    private bool $isJson;
 
     /**
      * Route constructor.
@@ -18,8 +19,8 @@ class Route
      */
     public function __construct()
     {
-        // Get request method
-        $this->isPost = $_SERVER['REQUEST_METHOD'] === 'POST';
+        // Check if the request content type is JSON
+        $this->isJson = strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
 
         // Get request URI
         $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
@@ -53,12 +54,12 @@ class Route
         }
 
         // Set default controller name
-        $controllerClassName = $this->isPost ? 'IndexApiController' : 'IndexPageController';
+        $controllerClassName = $this->isJson ? 'IndexApiController' : 'IndexPageController';
 
         // Resolve controller name
         if (!empty($path[1])) {
             $controllerPrefix = ucfirst($path[1]);
-            $controllerSuffix = $this->isPost ? 'ApiController' : 'PageController';
+            $controllerSuffix = $this->isJson ? 'ApiController' : 'PageController';
             $controllerClassName = $controllerPrefix . $controllerSuffix;
         }
 
@@ -83,17 +84,13 @@ class Route
     private function runControllerMethod(string $controllerClassName, string $methodName)
     {
         // Resolve controller file path
-        $controllerDir = $this->isPost ? 'api' : 'pages';
+        $controllerDir = $this->isJson ? 'api' : 'pages';
         $controllerFilePath = __DIR__ . "/../controllers/{$controllerDir}/{$controllerClassName}.php";
 
         // Return 404 error if controller file does not exist
         if (!file_exists($controllerFilePath)) {
             $this->showError();
         }
-
-        // Load controller base class
-        $controllerBaseClass = $this->isPost ? 'AbstractApiController' : 'AbstractPageController';
-        require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Load controller
         require $controllerFilePath;
@@ -115,7 +112,7 @@ class Route
     {
         http_response_code(404);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($this->isJson) {
             exit(json_encode(['error' => 'Not Found']));
         } else {
             // Show 404 error page
