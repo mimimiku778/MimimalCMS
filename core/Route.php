@@ -12,7 +12,7 @@ declare(strict_types=1);
  *          new AboutPageController();
  *          AboutPageController::index();
  * 
- *      **Gets any path as a GET value by passing a path with placeholders as an array.**
+ *       **Gets any path as a GET value by passing a path with placeholders as an array.**
  *      * *https://example.com/blog/1234*
  *          `new Route(['blog/{id}']);` 
  *          $_GET['id'] = 1234;
@@ -29,7 +29,7 @@ declare(strict_types=1);
  *          new BlogPageController();
  *          BlogPageController::aritcle();
  * 
- *      **NOTE: If there are three or more actual paths, a 404 error will always occur.**
+ *       **NOTE: If there are three or more actual paths, a 404 error will always occur.**
  *      * *https://example.com/posts/1234/user/image*
  *          `new Route(['posts/{postId}/user/image']);`
  *          throw new NotFoundException;
