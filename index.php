@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Evil way autoloader
+ * Evil autoloader
  * 
  * It's maybe safe to use this autoloader in conjunction with Composer's autoloader.
  * 
@@ -29,5 +29,6 @@ spl_autoload_register(function ($className) {
 
 require __DIR__ . '/shared/config.php';
 require __DIR__ . '/shared/functions.php';
+require __DIR__ . '/shared/exceptions.php';
 
 new Route();
