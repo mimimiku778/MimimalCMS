@@ -42,5 +42,5 @@ function evilAutoloader(string $className): bool
 spl_autoload_register('evilAutoloader');
 
 set_exception_handler('ExceptionHandler::handleException');
-throw new Exception();
+
 new Route();
