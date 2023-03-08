@@ -28,7 +28,6 @@ declare(strict_types=1);
  *      * *https://example.com/posts/1234/user/image*
  *          `new Route(['posts/{postId}/user/image']);`
  *          throw new NotFoundException;
- *
  * 
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
