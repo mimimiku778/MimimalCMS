@@ -43,4 +43,6 @@ spl_autoload_register('evilAutoloader');
 
 set_exception_handler('ExceptionHandler::handleException');
 
-new Route(['{id}']);
+// Get any path as a GET value by passing a path with placeholders as an array.
+// Example: ['user/{id}', 'user/{id}/image', posts/{postId}]
+new Route(['test/{id}']);
