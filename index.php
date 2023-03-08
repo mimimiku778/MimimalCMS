@@ -5,6 +5,7 @@
  * 
  * NOTE: Namespace is not required, if the class file is located at the root directory path.
  *       If it is located in a subdirectory, namespace must be used to match the class and file names correctly.
+ *       It's maybe okay to use this together with Composer's autoloader.
  */
 spl_autoload_register(function ($className) {
     // Additional directories can be added to the $rootDirectoryNames variable.

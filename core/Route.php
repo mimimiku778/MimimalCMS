@@ -92,6 +92,10 @@ class Route
             $this->showError();
         }
 
+        // Load controller base class
+        $controllerBaseClass = $this->isPost ? 'AbstractApiController' : 'AbstractPageController';
+        require __DIR__ . "/{$controllerBaseClass}.php";
+
         // Load controller
         require $controllerFilePath;
         $controller = new $controllerClassName();

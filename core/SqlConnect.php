@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require __DIR__ . '/../shared/database_config.php';
+
 /**
  * PDO wrapper class for SQL databases
  * 
