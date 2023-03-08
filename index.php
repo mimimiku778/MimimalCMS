@@ -1,5 +1,9 @@
 <?php
 
+require __DIR__ . '/shared/config.php';
+require __DIR__ . '/shared/functions.php';
+require __DIR__ . '/shared/exceptions.php';
+
 /**
  * Evil autoloader
  * 
@@ -8,7 +12,8 @@
  * NOTE: If the class file is located in the root directory path, namespace is not required.
  *       If the class file is located in a subdirectory, namespace must be used to match the class and file names correctly.
  */
-spl_autoload_register(function ($className) {
+function evilAutoloader($className)
+{
     // Additional directories can be added to the $rootDirectoryNames variable.
     $rootDirectoryNames = ['core', 'models'];
 
@@ -25,12 +30,10 @@ spl_autoload_register(function ($className) {
     }
 
     return false;
-});
+}
 
-require __DIR__ . '/shared/config.php';
-require __DIR__ . '/shared/functions.php';
+spl_autoload_register('evilAutoloader');
 
-require __DIR__ . '/shared/exceptions_and_handler.php';
-set_exception_handler('exceptionHandler');
-
+set_exception_handler('ExceptionHandler::handleException');
+throw new Exception('a');
 new Route();

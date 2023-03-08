@@ -45,12 +45,12 @@ class Route
 
         // If there is a 3rd path, return 404 error
         if (isset($path[3]) && $path[3]) {
-            $this->showError();
+            throw new NotFoundException;
         }
 
         // If path contains invalid characters, return 404 error
         if (preg_grep('/[^a-z0-9_]/', array_slice($path, 1))) {
-            $this->showError();
+            throw new NotFoundException;
         }
 
         // Set default controller name
@@ -89,7 +89,7 @@ class Route
 
         // Return 404 error if controller file does not exist
         if (!file_exists($controllerFilePath)) {
-            $this->showError();
+            throw new NotFoundException;
         }
 
         // Load controller base class
@@ -102,25 +102,10 @@ class Route
 
         // Return 404 error if method does not exist
         if (!method_exists($controller, $methodName)) {
-            $this->showError();
+            throw new NotFoundException;
         }
 
         // Execute controller method
         $controller->$methodName();
-    }
-
-    /**
-     * Displays 404 error
-     */
-    private function showError()
-    {
-        http_response_code(404);
-
-        if ($this->isJson) {
-            exit(json_encode(['error' => 'Not Found']));
-        } else {
-            // Show 404 error page
-            exit('<h1>Page not found!<h1>');
-        }
     }
 }
