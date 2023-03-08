@@ -10,6 +10,8 @@
 require __DIR__ . '/shared/config.php';
 require __DIR__ . '/shared/functions.php';
 require __DIR__ . '/shared/exceptions.php';
+require __DIR__ . '/core/ExceptionHandler.php';
+require __DIR__ . '/core/Route.php';
 
 /**
  * Evil autoloader
