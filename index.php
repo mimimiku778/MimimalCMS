@@ -45,4 +45,4 @@ set_exception_handler('ExceptionHandler::handleException');
 
 // Get any path as a GET value by passing a path with placeholders as an array.
 // Example: ['user/{id}', 'user/{id}/image', posts/{postId}]
-new Route();
+Route::start();

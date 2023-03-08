@@ -39,8 +39,8 @@ declare(strict_types=1);
  */
 class Route
 {
-    private bool $isJson;
-    private ?array $pathToQuery;
+    private static bool $isJson;
+    private static ?array $pathToQuery;
 
     /**
      * Route constructor.
@@ -49,18 +49,18 @@ class Route
      * @param ?array $pathToQuery [optional] An array of paths to search for a match, with parameters enclosed in { }
      * @throws NotFoundException
      */
-    public function __construct(?array $pathToQuery = null)
+    public static function start(?array $pathToQuery = null)
     {
-        $this->pathToQuery = $pathToQuery;
+        self::$pathToQuery = $pathToQuery;
 
         // Whether request content type is JSON
-        $this->isJson = strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
+        self::$isJson = strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
 
         // Parse request URI
-        [$controllerClassName, $methodName] = $this->parseRequestUri();
+        [$controllerClassName, $methodName] = self::parseRequestUri();
 
         // Execute controller method
-        $this->runControllerMethod($controllerClassName, $methodName);
+        self::runControllerMethod($controllerClassName, $methodName);
     }
 
     /**
@@ -69,7 +69,7 @@ class Route
      * @param string $requestUri Request URI to parse
      * @throws NotFoundException
      */
-    private function parseRequestUri(): array
+    private static function parseRequestUri(): array
     {
         // Get request URI
         $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
@@ -79,8 +79,8 @@ class Route
 
         // Matchs requestUri to pathToQuery and update $_GET and $path variables.
         $path = null;
-        if (!is_null($this->pathToQuery)) {
-            $matchResult = $this->matchPath($requestUri, $this->pathToQuery);
+        if (!is_null(self::$pathToQuery)) {
+            $matchResult = self::matchPath($requestUri, self::$pathToQuery);
 
             if ($matchResult !== false) {
                 list($query, $parsedPath) = $matchResult;
@@ -105,12 +105,12 @@ class Route
         }
 
         // Set default controller name
-        $controllerClassName = $this->isJson ? 'IndexApiController' : 'IndexPageController';
+        $controllerClassName = self::$isJson ? 'IndexApiController' : 'IndexPageController';
 
         // Resolve controller name
         if (!empty($path[0])) {
             $controllerPrefix = ucfirst($path[0]);
-            $controllerSuffix = $this->isJson ? 'ApiController' : 'PageController';
+            $controllerSuffix = self::$isJson ? 'ApiController' : 'PageController';
             $controllerClassName = $controllerPrefix . $controllerSuffix;
         }
 
@@ -133,7 +133,7 @@ class Route
      * @param array $pathToQuery An array of paths to search for a match, with parameters enclosed in { }
      * @return array|false If a match is found, an array containing the extracted parameters and the matched path; otherwise, null
      */
-    private function matchPath(string $requestUri, array $pathToQuery): array|false
+    private static function matchPath(string $requestUri, array $pathToQuery): array|false
     {
         foreach ($pathToQuery as $path) {
             $pattern = str_replace('/', '\/', $path);
@@ -166,10 +166,10 @@ class Route
      * @param string $methodName Name of the method to call
      * @throws NotFoundException
      */
-    private function runControllerMethod(string $controllerClassName, string $methodName)
+    private static function runControllerMethod(string $controllerClassName, string $methodName)
     {
         // Resolve controller file path
-        $controllerDir = $this->isJson ? 'api' : 'pages';
+        $controllerDir = self::$isJson ? 'api' : 'pages';
         $controllerFilePath = __DIR__ . "/../controllers/{$controllerDir}/{$controllerClassName}.php";
 
         // Return 404 error if controller file does not exist
@@ -178,7 +178,7 @@ class Route
         }
 
         // Load controller base class
-        $controllerBaseClass = $this->isJson ? 'AbstractApiController' : 'AbstractPageController';
+        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
         require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Load controller
