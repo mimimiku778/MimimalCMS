@@ -93,7 +93,7 @@ class Route
         }
 
         // Load controller base class
-        $controllerBaseClass = $this->isPost ? 'AbstractApiController' : 'AbstractPageController';
+        $controllerBaseClass = $this->isJson ? 'AbstractApiController' : 'AbstractPageController';
         require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Load controller
