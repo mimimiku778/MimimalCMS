@@ -160,52 +160,52 @@ SEOも忘れずに！<br>
 
 
 *https://example.com/*
-  `new Route();`
+  `Route::start();`
   new IndexPageController();
   IndexPageController::index();
 
  If there is only one path, calls `index()`. `index()` is implemented by default as part of the base.
 *https://example.com/about*
-  `new Route();` 
+  `Route::start();` 
   new AboutPageController();
   AboutPageController::index();
 
  The first path corresponds to the controller name, and the second path corresponds to the method.
 *https://example.com/categories/news*
-  `new Route();` 
+  `Route::start();` 
   new CategoriesPageController();
   AboutPageController::News();
 
 Since it does not support the third level, a 404 error will be returned if there is a third level.
 *https://example.com/categories/news/article*
-  `new Route();` 
+  `Route::start();` 
   throw new NotFoundException;
 
 
 ### NOTE: Gets any path as a GET value by passing a path with placeholders as an array
  *https://example.com/blog/1234*
-    `new Route(['blog/{id}']);` 
+    `Route::start(['blog/{id}']);` 
     $_GET['id'] = 1234;
     new BlogPageController();
     BlogPageController::index();
 
  *https://example.com/blog/1234/aritcle*
-    `new Route(['blog/{id}']);`
+    `Route::start(['blog/{id}']);`
     throw new NotFoundException;
 
  *https://example.com/blog/1234/aritcle*
-    `new Route(['blog/{id}', 'blog/{id}'/article]);`
+    `Route::start(['blog/{id}', 'blog/{id}'/article]);`
     $_GET['id'] = 1234;
     new BlogPageController();
     BlogPageController::aritcle();
 
  *https://example.com/user/profile/1234*
-    `new Route(['user/profile/{userId}']);`
+    `Route::start(['user/profile/{userId}']);`
     $_GET['userId'] = 1234;
     new UserPageController();
     UserPageController::profile();
 
 ### NOTE: If there are three or more actual paths, a 404 error will always occur.
  *https://example.com/posts/1234/user/image*
-`   new Route(['posts/{postId}/user/image']);`
+`   Route::start(['posts/{postId}/user/image']);`
     throw new NotFoundException;
