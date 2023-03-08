@@ -29,6 +29,8 @@ spl_autoload_register(function ($className) {
 
 require __DIR__ . '/shared/config.php';
 require __DIR__ . '/shared/functions.php';
-require __DIR__ . '/shared/exceptions.php';
+
+require __DIR__ . '/shared/exceptions_and_handler.php';
+set_exception_handler('exceptionHandler');
 
 new Route();
