@@ -1,5 +1,8 @@
 /**
  * Utility class for working with JSON-encoded cookies in the browser.
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 class JsonCookie {
   // A boolean flag indicating whether the `Secure` attribute of a cookie should be set or not.
