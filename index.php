@@ -3,17 +3,18 @@
 /**
  * Evil way autoloader
  * 
- * NOTE: Class and file names must match exactly, can be used without namespace.
+ * NOTE: Namespace is not required, if the class file is located at the root directory path.
+ *       If it is located in a subdirectory, namespace must be used to match the class and file names correctly.
  */
 spl_autoload_register(function ($className) {
-    // Additional directories can be added to the $directoryNames variable.
-    $directoryNames = ['core', 'models'];
+    // Additional directories can be added to the $rootDirectoryNames variable.
+    $rootDirectoryNames = ['core', 'models'];
 
-    $className = ltrim($className, '\\');
-    $classFile = str_replace('\\', '/', $className) . '.php';
+    //Match subdirectory name with namespace name
+    $classFile = str_replace('\\', '/', ltrim($className, '\\')) . '.php';
 
-    foreach ($directoryNames as $directoryName) {
-        $classFilePath = __DIR__ . '/' . $directoryName . '/' . $classFile;
+    foreach ($rootDirectoryNames as $rootDirectoryName) {
+        $classFilePath = __DIR__ . '/' . $rootDirectoryName . '/' . $classFile;
         if (file_exists($classFilePath)) {
             require $classFilePath;
             return true;
