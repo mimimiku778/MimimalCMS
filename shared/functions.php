@@ -11,8 +11,12 @@ declare(strict_types=1);
  * @param string|null $exact_match The string for exact matching (optional)
  * @return bool The result of validation
  */
-function validateArrayKeyString(array $array, string $key, ?int $max_length = null, ?string $exact_match = null): bool
-{
+function validateKeyStr(
+    array $array,
+    string $key,
+    ?int $max_length = null,
+    ?string $exact_match = null
+): bool {
     $input = $array[$key] ?? null;
     if (!is_string($input) || empty(trim($input))) {
         return false;
@@ -39,8 +43,13 @@ function validateArrayKeyString(array $array, string $key, ?int $max_length = nu
  * @param int|null $exact_match The numeric value for exact match (optional)
  * @return bool The result of validation
  */
-function validateArrayKeyNumber(array $array, string $key, ?int $max_value = null, ?int $min_value = null, ?int $exact_match = null): bool
-{
+function validateKeyNum(
+    array $array,
+    string $key,
+    ?int $max_value = null,
+    ?int $min_value = null,
+    ?int $exact_match = null
+): bool {
     $input = $array[$key] ?? null;
     if (!ctype_digit($input)) {
         return false;

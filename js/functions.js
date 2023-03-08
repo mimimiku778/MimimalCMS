@@ -37,9 +37,9 @@ const addClick = (element, callback) => element && element.addEventListener('cli
  * Sends a POST request to the specified URL with form data.
  *
  * @param {string} url - The URL to send the request to.
- * @param {Object|HTMLFormElement} [formData={}]
+ * @param {Object|HTMLFormElement} [obj={}]
  *  The form data to include in the request, can be an object or an HTML form element.
- *  If an HTML form element is passed, the FormData will be generated from the form.
+ *  If an HTML form element is passed, the JSON will be generated from the form.
  * @param {function} [callback=null]
  *  An optional callback function to execute when the response is received.
  *  The function will be called with an object that has two properties:
@@ -48,11 +48,11 @@ const addClick = (element, callback) => element && element.addEventListener('cli
  * 
  * @example
  * // Sending a POST request with an object as form data and logging the response
- * const formData = {
+ * const obj = {
  *   name: 'John',
  *   email: 'john@example.com'
  * }
- * sendPostRequest('https://example.com/api', formData, ({ data, code }) => {
+ * sendPostRequest('https://example.com/api', obj, ({ data, code }) => {
  *   console.log(data, `status code: ${code}`)
  * })
  * 
@@ -63,20 +63,23 @@ const addClick = (element, callback) => element && element.addEventListener('cli
  *   alert(`Response data: ${JSON.stringify(data)}, status code: ${code}`)
  * })
  */
-const sendPostRequest = async (url, formData = {}, callback = null) => {
+const sendPostRequest = async (url, obj = {}, callback = null) => {
   let body = null
-  if (formData instanceof HTMLFormElement) {
-    body = new FormData(formData)
-  } else if (formData instanceof Object) {
-    body = new FormData()
-    Object.entries(formData).forEach(([key, value]) => body.append(key, value))
+
+  if (obj instanceof HTMLFormElement) {
+    const formData = new FormData(obj)
+    body = JSON.stringify(Object.fromEntries(formData.entries()))
+  } else if (obj instanceof Object) {
+    body = JSON.stringify(obj)
   } else {
     console.error('Error: sendPostRequest: Invalid form data')
     return
   }
 
   try {
-    const response = await fetch(url, { method: 'POST', body })
+    const response = await fetch(url, {
+      method: 'POST', body, headers: { 'Content-Type': 'application/json' }
+    })
     const data = await response.json()
     if (callback) callback({ data, code: response.status })
   } catch (error) {

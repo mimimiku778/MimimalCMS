@@ -16,6 +16,10 @@ RewriteRule ^(.*)/index/?$  https://%{HTTP_HOST}/$1 [R=301,L,NE]
 RewriteCond %{HTTPS} on [OR]
 RewriteRule ^index/?$ https://%{HTTP_HOST} [R=301,L,NE]
 
+# Redirect URLs ending in a trailing slash to the same URL without the trailing slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
 # Route all requests to index.php except for existing files or directories
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

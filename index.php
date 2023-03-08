@@ -43,4 +43,4 @@ spl_autoload_register('evilAutoloader');
 
 set_exception_handler('ExceptionHandler::handleException');
 
-new Route();
+new Route(['{id}']);
