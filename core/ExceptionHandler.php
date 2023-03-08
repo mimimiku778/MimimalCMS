@@ -21,7 +21,7 @@ class ExceptionHandler
             return;
         }
 
-        error_log(get_class($exception) . ': ' . $exception->getMessage());
+        self::errorLog($exception);
         http_response_code(500);
         echo 'Internal Server Error 500';
     }
@@ -29,7 +29,7 @@ class ExceptionHandler
     /**
      * Handles a NotFoundException by returning a 404 error response.
      */
-    private static function notFound()
+    public static function notFound()
     {
         http_response_code(404);
 
@@ -38,5 +38,22 @@ class ExceptionHandler
         }
 
         echo '<h1>Page not found!<h1>';
+    }
+
+    /**
+     * Writes error messages to the error log file.
+     *
+     * @param Throwable $exception The Throwable instance to be logged.
+     */
+    public static function errorLog(Throwable $exception)
+    {
+        if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {
+            error_log(
+                get_class($exception) . ': ' . $exception->getMessage()
+                    . ': ' . $_SERVER["REMOTE_ADDR"] ?? '' . ': ' . $_SERVER['HTTP_USER_AGENT'] ?? ''
+            );
+        } else {
+            error_log(get_class($exception) . ': ' . $exception->getMessage());
+        }
     }
 }

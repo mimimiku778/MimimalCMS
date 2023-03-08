@@ -19,7 +19,7 @@ require __DIR__ . '/shared/exceptions.php';
  * NOTE: If the class file is located in the root directory path, namespace is not required.
  *       If the class file is located in a subdirectory, namespace must be used to match the class and file names correctly.
  */
-function evilAutoloader($className)
+function evilAutoloader(string $className): bool
 {
     // Additional directories can be added to the $rootDirectoryNames variable.
     $rootDirectoryNames = ['core', 'models'];
@@ -42,5 +42,5 @@ function evilAutoloader($className)
 spl_autoload_register('evilAutoloader');
 
 set_exception_handler('ExceptionHandler::handleException');
-
+throw new Exception();
 new Route();
