@@ -93,7 +93,7 @@ You can retrieve the value from $_GET['q'] in the bar method of FooPageControlle
 <br>
 <br>
 
-## When the request is POST, a different controller will be called.<br>
+## When the request is ~~POST~~ `application/json`, a different controller will be called.<br>
 
 ### When accessing http://example.com/foo with POST method<br>
 controllers/api/FooApiController.php will open.<br>
@@ -145,7 +145,7 @@ FooPageController.php のbarメソッド内で$_GET['q']から値を取得でき
 <br>
 <br>
 
-## リクエストがPOSTの場合、呼び出されるコントローラーが変わります。<br>
+## リクエストが~~POST~~ `application/json`の場合、呼び出されるコントローラーが変わります。<br>
 
 ### http://example.com/foo にPOSTメソッドでアクセスが来た場合<br>
 controllers/api/FooApiController.php が開かれます。<br>
