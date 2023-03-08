@@ -5,7 +5,14 @@ declare(strict_types=1);
 /**
  * Route - Automatically loads a controller from a directory without requiring a routing definition
  * 
- *      **NOTE: Gets any path as a GET value by passing a path with placeholders as an array**
+ *       **Example:**
+ * 
+ *        *https://example.com/about*
+ *          `new Route();` 
+ *          new AboutPageController();
+ *          AboutPageController::index();
+ * 
+ *      **Gets any path as a GET value by passing a path with placeholders as an array.**
  *      * *https://example.com/blog/1234*
  *          `new Route(['blog/{id}']);` 
  *          $_GET['id'] = 1234;
