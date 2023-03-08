@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Autoloader
+ * Evil way autoloader
  * 
- * NOTE: Class and file names must match exactly, no use namespaces.
+ * NOTE: Class and file names must match exactly, can be used without namespace.
  */
 spl_autoload_register(function ($className) {
     // Additional directories can be added to the $directoryNames variable.

@@ -7,4 +7,3 @@ class DatabaseConfig
     const USER_NAME = 'php';
     const PASSWORD = '1234';
 }
-
