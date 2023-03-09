@@ -67,3 +67,5 @@ class ExceptionHandler
         error_log($time . $message . "\n", 3, EXCEPTION_LOG_DIRECTORY);
     }
 }
+
+set_exception_handler('ExceptionHandler::handleException');

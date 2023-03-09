@@ -14,9 +14,6 @@ require_once __DIR__ . '/core/SimpleAutoloader.php';
 require_once __DIR__ . '/core/ExceptionHandler.php';
 require_once __DIR__ . '/core/Route.php';
 
-spl_autoload_register('SimpleAutoloader::load');
-set_exception_handler('ExceptionHandler::handleException');
-
 
 // Get any path as a GET value by passing a path with placeholders as an array.
 // Example: Route::run(['user/{id}', 'user/{id}/image', posts/{postId}]);

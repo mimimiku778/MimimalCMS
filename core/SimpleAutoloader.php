@@ -24,3 +24,5 @@ class SimpleAutoloader
         }
     }
 }
+
+spl_autoload_register('SimpleAutoloader::load');
