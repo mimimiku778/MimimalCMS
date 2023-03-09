@@ -80,15 +80,15 @@ class StringCryptor
             throw new RuntimeException('Invalid format for the Base64 URL encoded string.');
         }
 
-        $AesCbcEncryptedString = $components[0];
+        $aesCbcEncryptedString = $components[0];
         $hash = $components[1];
 
-        if (!$this->hkdfEquals($AesCbcEncryptedString, $hash)) {
+        if (!$this->hkdfEquals($aesCbcEncryptedString, $hash)) {
             throw new RuntimeException('Invalid hash for the Base64 URL encoded string.');
         }
 
         try {
-            $decryptedString = $this->decryptAesCbcString($AesCbcEncryptedString);
+            $decryptedString = $this->decryptAesCbcString($aesCbcEncryptedString);
         } catch (RuntimeException $e) {
             throw new LogicException('Hash is valid but decryption fails: ' . $e->getMessage());
         }
@@ -157,10 +157,10 @@ class StringCryptor
         }
 
         $expires = strtok($encryptedString, 'd');
-        $AesCbcEncryptedString = $components[0];
+        $aesCbcEncryptedString = $components[0];
         $hash = $components[1];
 
-        if (!$this->hkdfEquals($AesCbcEncryptedString . $expires, $hash)) {
+        if (!$this->hkdfEquals($aesCbcEncryptedString . $expires, $hash)) {
             throw new RuntimeException('Invalid hash for the Base64 URL encoded string.');
         }
 
@@ -169,7 +169,7 @@ class StringCryptor
         }
 
         try {
-            $decryptedString = $this->decryptAesCbcString($AesCbcEncryptedString);
+            $decryptedString = $this->decryptAesCbcString($aesCbcEncryptedString);
         } catch (RuntimeException $e) {
             throw new LogicException('Hash is valid but decryption fails: ' . $e->getMessage());
         }
