@@ -16,8 +16,6 @@ class ExceptionHandler
         }
 
         self::errorLog($exception);
-        http_response_code(500);
-        echo 'Internal Server Error 500';
     }
 
     /**
@@ -27,11 +25,11 @@ class ExceptionHandler
     {
         http_response_code(404);
 
-        if (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
-            exit(json_encode(['error' => 'Not Found']));
+        if (isJsonRequest()) {
+            jsonResponse(['error' => '404 Not Found']);
         }
 
-        echo '<h1>Page not found!<h1>';
+        echo '404 Not Found';
     }
 
     /**
@@ -41,8 +39,19 @@ class ExceptionHandler
     {
         $message = get_class($exception) . ': ' . $exception->getMessage();
 
+        http_response_code(500);
         if (defined('EXCEPTION_HANDLER_DISPLAY_ERRORS') && EXCEPTION_HANDLER_DISPLAY_ERRORS === true) {
+            if (isJsonRequest()) {
+                jsonResponse(['error' => $message]);
+            }
+
             echo $message;
+        } else {
+            if (isJsonRequest()) {
+                exit(json_encode(['error' => '500 Internal Server Error']));
+            }
+
+            echo '500 Internal Server Error';
         }
 
         if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {

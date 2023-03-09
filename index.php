@@ -8,7 +8,7 @@
  */
 
 // Display exceptions on/off.
-const EXCEPTION_HANDLER_DISPLAY_ERRORS = true;
+const EXCEPTION_HANDLER_DISPLAY_ERRORS = false;
 
 
 require_once __DIR__ . '/shared/config.php';
@@ -20,6 +20,7 @@ require_once __DIR__ . '/core/Route.php';
 
 spl_autoload_register('SimpleAutoloader::load');
 set_exception_handler('ExceptionHandler::handleException');
+
 
 // Get any path as a GET value by passing a path with placeholders as an array.
 // Example: ['user/{id}', 'user/{id}/image', posts/{postId}]

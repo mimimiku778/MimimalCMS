@@ -17,18 +17,4 @@ abstract class AbstractApiController
     }
 
     abstract public function index();
-
-    /**
-     * Returns HTTP status code and response in JSON format and exits.
-     *
-     * @param array $data The array to be returned as response.
-     * @param int $response_code [optional] HTTP status code
-     */
-    public function response(array $data, int $response_code = 200)
-    {
-        http_response_code($response_code);
-        header("Content-Type: application/json; charset=utf-8");
-        ob_start('ob_gzhandler');
-        exit(json_encode($data));
-    }
 }

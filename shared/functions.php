@@ -3,6 +3,33 @@
 declare(strict_types=1);
 
 /**
+ * Returns HTTP status code and response in JSON format and exits.
+ *
+ * @param array $data The array to be returned as response.
+ * @param ?int $response_code [optional] HTTP status code
+ */
+function jsonResponse(array $data, ?int $response_code = null)
+{
+    if (!is_null($response_code)) {
+        http_response_code($response_code);
+    }
+
+    header("Content-Type: application/json; charset=utf-8");
+    ob_start('ob_gzhandler');
+    exit(json_encode($data));
+}
+
+/**
+ * Check if the request is for JSON data.
+ * 
+ * @return bool Whether the request is for `application/json`.
+ */
+function isJsonRequest(): bool
+{
+    return strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
+}
+
+/**
  * Validate whether the specified key exists in the array and meets the specified string conditions.
  * 
  * @param array $array The array to be validated
