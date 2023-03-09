@@ -155,10 +155,6 @@ class Route
      */
     private static function runControllerMethod(string $controllerClassName, string $methodName)
     {
-        // Load controller base class
-        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
-        require __DIR__ . "/{$controllerBaseClass}.php";
-
         // Set default controller name
         $controllerClassName = self::$isJson ? 'IndexApiController' : 'IndexPageController';
 
@@ -185,6 +181,10 @@ class Route
         if (!file_exists($controllerFilePath)) {
             throw new NotFoundException;
         }
+
+        // Load controller base class
+        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
+        require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Load controller
         require $controllerFilePath;
