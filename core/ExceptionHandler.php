@@ -1,15 +1,9 @@
 <?php
 
 /**
- * Sets the error log file location to be the current directory and initializes the default timezone.
- */
-ini_set('error_log', __DIR__ . '/../shared/error_log.txt');
-date_default_timezone_set('Asia/Tokyo');
-
-/**
  * A class for handling exceptions thrown in the application. 
  */
-class ExceptionAndErrorHandler
+class ExceptionHandler
 {
     /**
      * Handles the specified Throwable instance.
@@ -47,23 +41,15 @@ class ExceptionAndErrorHandler
     {
         $message = get_class($exception) . ': ' . $exception->getMessage();
 
-        if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            error_log($message . ': ' . $_SERVER["REMOTE_ADDR"] ?? '' . ': ' . $_SERVER['HTTP_USER_AGENT'] ?? '');
-        } else {
-            error_log($message);
-        }
-
-        if (
-            defined(EXCEPTION_HANDLER_DISPLAY_ERRORS)
-            && EXCEPTION_HANDLER_DISPLAY_ERRORS === true
-        ) {
+        if (defined('EXCEPTION_HANDLER_DISPLAY_ERRORS') && EXCEPTION_HANDLER_DISPLAY_ERRORS === true) {
             echo $message;
         }
-    }
 
-    public static function handleError(int $errno, string $errstr, string $errfile, int $errline)
-    {
-        $errorMessage = "{$errstr} in {$errfile} on line {$errline}";
-        error_log($errorMessage, 0);
+        if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {
+            $message = $message . ': ' . $_SERVER["REMOTE_ADDR"] ?? '' . ' ' . $_SERVER['HTTP_USER_AGENT'] ?? '';
+        }
+
+        $time = date('Y-m-d H:i:s') . ' ' . date_default_timezone_get() . ': ';
+        error_log($time . $message . "\n", 3, EXCEPTION_LOG_DIRECTORY);
     }
 }
