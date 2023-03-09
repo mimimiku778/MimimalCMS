@@ -66,10 +66,6 @@ class Route
         // Parse request URI
         self::$path = self::parseRequestUri($requestUri, $pathToQuery);
 
-        // Load controller base class
-        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
-        require __DIR__ . "/{$controllerBaseClass}.php";
-
         // Execute controller method
         self::runControllerMethod(self::$path[0], self::$path[1]);
     }
@@ -159,6 +155,10 @@ class Route
      */
     private static function runControllerMethod(string $controllerClassName, string $methodName)
     {
+        // Load controller base class
+        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
+        require __DIR__ . "/{$controllerBaseClass}.php";
+
         // Set default controller name
         $controllerClassName = self::$isJson ? 'IndexApiController' : 'IndexPageController';
 
