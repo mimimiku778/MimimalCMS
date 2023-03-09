@@ -67,7 +67,7 @@ class Route
         self::$path = self::parseRequestUri($requestUri, $pathToQuery);
 
         // Execute controller method
-        self::runControllerMethod(self::$path[0], self::$path[1]);
+        self::runControllerMethod();
     }
 
     /**
@@ -149,25 +149,23 @@ class Route
     /**
      * Calls the specified controller method
      *
-     * @param string $controllerClassName Name of the controller class
-     * @param string $methodName Name of the method to call
      * @throws NotFoundException
      */
-    private static function runControllerMethod(string $controllerClassName, string $methodName)
+    private static function runControllerMethod()
     {
         // Set default controller name
         $controllerClassName = self::$isJson ? 'IndexApiController' : 'IndexPageController';
 
         // Resolve controller name
-        if (!empty($path[0])) {
-            $controllerPrefix = ucfirst($path[0]);
+        if (!empty(self::$path[0])) {
+            $controllerPrefix = ucfirst(self::$path[0]);
             $controllerSuffix = self::$isJson ? 'ApiController' : 'PageController';
             $controllerClassName = $controllerPrefix . $controllerSuffix;
         }
 
         // Resolve method name
-        if (isset($path[1])) {
-            $methodName = $path[1];
+        if (isset(self::$path[1])) {
+            $methodName = self::$path[1];
         } else {
             // Use "index" if second path is empty
             $methodName = 'index';
