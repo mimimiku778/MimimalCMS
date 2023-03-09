@@ -40,7 +40,6 @@ declare(strict_types=1);
 class Route
 {
     public static ?array $path = null;
-    public static ?array $pathToQuery;
     public static bool $isJson;
 
     /**
@@ -58,8 +57,6 @@ class Route
             throw new LogicException('Routing has been started multiple times.');
         }
 
-        self::$pathToQuery = $pathToQuery;
-
         // Whether request content type is JSON
         self::$isJson = strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
 
@@ -67,7 +64,7 @@ class Route
         $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
 
         // Parse request URI
-        self::$path = self::parseRequestUri($requestUri);
+        self::$path = self::parseRequestUri($requestUri, $pathToQuery);
 
         // Load controller base class
         $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
@@ -84,15 +81,15 @@ class Route
      * @return array An array include parsed path strings.
      * @throws NotFoundException
      */
-    private static function parseRequestUri(string $requestUri): array
+    private static function parseRequestUri(string $requestUri, ?array $pathToQuery): array
     {
         // Remove leading and trailing slashes.
         $requestUri = preg_replace('#^/|/$#', '', $requestUri);
 
         // Matchs requestUri to pathToQuery and update $_GET and $path variables.
         $path = null;
-        if (!is_null(self::$pathToQuery)) {
-            $matchResult = self::matchPath($requestUri, self::$pathToQuery);
+        if (!is_null($pathToQuery)) {
+            $matchResult = self::matchPath($requestUri, $pathToQuery);
 
             if ($matchResult !== false) {
                 list($query, $parsedPath) = $matchResult;
