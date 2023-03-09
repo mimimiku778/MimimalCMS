@@ -7,10 +7,6 @@
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 
-// Display exceptions on/off.
-const EXCEPTION_HANDLER_DISPLAY_ERRORS = true;
-
-
 require_once __DIR__ . '/shared/config.php';
 require_once __DIR__ . '/shared/functions.php';
 require_once __DIR__ . '/shared/exceptions.php';
