@@ -1,5 +1,7 @@
 <?php
 
+spl_autoload_register('SimpleAutoloader::load');
+
 /**
  * Simple autoloader
  * 
@@ -24,5 +26,3 @@ class SimpleAutoloader
         }
     }
 }
-
-spl_autoload_register('SimpleAutoloader::load');

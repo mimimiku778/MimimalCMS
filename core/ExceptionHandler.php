@@ -1,5 +1,7 @@
 <?php
 
+set_exception_handler('ExceptionHandler::handleException');
+
 /**
  * A class for handling exceptions thrown in the application. 
  */
@@ -67,5 +69,3 @@ class ExceptionHandler
         error_log($time . $message . "\n", 3, EXCEPTION_LOG_DIRECTORY);
     }
 }
-
-set_exception_handler('ExceptionHandler::handleException');
