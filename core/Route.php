@@ -56,8 +56,15 @@ class Route
         // Whether request content type is JSON
         self::$isJson = strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
 
+        // Get request URI
+        $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
+
         // Parse request URI
-        [$controllerClassName, $methodName] = self::parseRequestUri();
+        [$controllerClassName, $methodName] = self::parseRequestUri($requestUri);
+
+        // Load controller base class
+        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
+        require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Execute controller method
         self::runControllerMethod($controllerClassName, $methodName);
@@ -67,13 +74,11 @@ class Route
      * Parses incoming request URI to determine which controller method to call
      *
      * @param string $requestUri Request URI to parse
+     * @return array An array include parsed path strings.
      * @throws NotFoundException
      */
-    private static function parseRequestUri(): array
+    private static function parseRequestUri(string $requestUri): array
     {
-        // Get request URI
-        $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
-
         // Remove leading and trailing slashes.
         $requestUri = preg_replace('#^/|/$#', '', $requestUri);
 
@@ -104,26 +109,8 @@ class Route
             throw new NotFoundException;
         }
 
-        // Set default controller name
-        $controllerClassName = self::$isJson ? 'IndexApiController' : 'IndexPageController';
-
-        // Resolve controller name
-        if (!empty($path[0])) {
-            $controllerPrefix = ucfirst($path[0]);
-            $controllerSuffix = self::$isJson ? 'ApiController' : 'PageController';
-            $controllerClassName = $controllerPrefix . $controllerSuffix;
-        }
-
-        // Resolve method name
-        if (isset($path[1])) {
-            $methodName = $path[1];
-        } else {
-            // Use "index" if second path is empty
-            $methodName = 'index';
-        }
-
         // Return controller name and method name
-        return [$controllerClassName, $methodName];
+        return $path;
     }
 
     /**
@@ -168,6 +155,24 @@ class Route
      */
     private static function runControllerMethod(string $controllerClassName, string $methodName)
     {
+        // Set default controller name
+        $controllerClassName = self::$isJson ? 'IndexApiController' : 'IndexPageController';
+
+        // Resolve controller name
+        if (!empty($path[0])) {
+            $controllerPrefix = ucfirst($path[0]);
+            $controllerSuffix = self::$isJson ? 'ApiController' : 'PageController';
+            $controllerClassName = $controllerPrefix . $controllerSuffix;
+        }
+
+        // Resolve method name
+        if (isset($path[1])) {
+            $methodName = $path[1];
+        } else {
+            // Use "index" if second path is empty
+            $methodName = 'index';
+        }
+
         // Resolve controller file path
         $controllerDir = self::$isJson ? 'api' : 'pages';
         $controllerFilePath = __DIR__ . "/../controllers/{$controllerDir}/{$controllerClassName}.php";
@@ -176,10 +181,6 @@ class Route
         if (!file_exists($controllerFilePath)) {
             throw new NotFoundException;
         }
-
-        // Load controller base class
-        $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
-        require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Load controller
         require $controllerFilePath;
