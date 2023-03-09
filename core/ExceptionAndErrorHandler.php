@@ -9,7 +9,7 @@ date_default_timezone_set('Asia/Tokyo');
 /**
  * A class for handling exceptions thrown in the application. 
  */
-class ExceptionHandler
+class ExceptionAndErrorHandler
 {
     /**
      * Handles the specified Throwable instance.
@@ -42,18 +42,28 @@ class ExceptionHandler
 
     /**
      * Writes error messages to the error log file.
-     *
-     * @param Throwable $exception The Throwable instance to be logged.
      */
     public static function errorLog(Throwable $exception)
     {
+        $message = get_class($exception) . ': ' . $exception->getMessage();
+
         if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            error_log(
-                get_class($exception) . ': ' . $exception->getMessage()
-                    . ': ' . $_SERVER["REMOTE_ADDR"] ?? '' . ': ' . $_SERVER['HTTP_USER_AGENT'] ?? ''
-            );
+            error_log($message . ': ' . $_SERVER["REMOTE_ADDR"] ?? '' . ': ' . $_SERVER['HTTP_USER_AGENT'] ?? '');
         } else {
-            error_log(get_class($exception) . ': ' . $exception->getMessage());
+            error_log($message);
         }
+
+        if (
+            defined(EXCEPTION_HANDLER_DISPLAY_ERRORS)
+            && EXCEPTION_HANDLER_DISPLAY_ERRORS === true
+        ) {
+            echo $message;
+        }
+    }
+
+    public static function handleError(int $errno, string $errstr, string $errfile, int $errline)
+    {
+        $errorMessage = "{$errstr} in {$errfile} on line {$errline}";
+        error_log($errorMessage, 0);
     }
 }

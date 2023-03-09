@@ -182,10 +182,10 @@ class Route
 
         // Load controller base class
         $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
-        require __DIR__ . "/{$controllerBaseClass}.php";
+        require_once __DIR__ . "/{$controllerBaseClass}.php";
 
         // Load controller
-        require $controllerFilePath;
+        require_once $controllerFilePath;
         $controller = new $controllerClassName();
 
         // Return 404 error if method does not exist
