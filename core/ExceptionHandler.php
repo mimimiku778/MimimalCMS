@@ -37,9 +37,12 @@ class ExceptionHandler
      */
     public static function errorLog(Throwable $exception)
     {
+        ob_end_clean();
+
         $message = get_class($exception) . ': ' . $exception->getMessage();
 
         http_response_code(500);
+
         if (defined('EXCEPTION_HANDLER_DISPLAY_ERRORS') && EXCEPTION_HANDLER_DISPLAY_ERRORS === true) {
             if (isJsonRequest()) {
                 jsonResponse(['error' => $message], exit: false);

@@ -105,7 +105,7 @@ class Route
         }
 
         // If path contains invalid characters, return 404 error
-        if (preg_grep('/[^a-z0-9_]/', array_slice($path, 1))) {
+        if (preg_grep('{[^a-z0-9_]}', $path)) {
             throw new NotFoundException;
         }
 

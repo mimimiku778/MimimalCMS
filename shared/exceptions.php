@@ -1,5 +1,5 @@
 <?php
 
-class NotFoundException extends Exception
+class NotFoundException extends RuntimeException
 {
 }
