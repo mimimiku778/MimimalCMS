@@ -37,9 +37,11 @@ class ExceptionHandler
      */
     public static function errorLog(Throwable $exception)
     {
-        ob_end_clean();
+        if (ob_get_length() !== false) {
+            ob_clean();
+        }
 
-        $message = get_class($exception) . ': ' . $exception->getMessage();
+        $message = get_class($exception) . ': ' . $exception->getMessage() . ': ' . $exception->getTraceAsString();
 
         http_response_code(500);
 

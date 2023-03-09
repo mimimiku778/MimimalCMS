@@ -1,67 +1,40 @@
-
-
-LogicException: 
-LogicException: 
-LogicException: 
-LogicException: 
-LogicException: 
-2023-03-09 07:12:17: Exception: 
-2023-03-09 07:12:17: Exception: 
-2023-03-09 07:12:17: Exception: 
-2023-03-09 07:15:14 UTC: Exception: 
-2023-03-09 07:15:15 UTC: Exception: 
-2023-03-09 07:16:41 UTC: Exception: 
-2023-03-09 07:16:41 UTC: Exception: 
-2023-03-09 07:16:41 UTC: Exception: 
-2023-03-09 07:16:41 UTC: Exception: 
-2023-03-09 07:16:42 UTC: Exception: 
-2023-03-09 07:16:42 UTC: Exception: 
-2023-03-09 16:18:08 Asia/Tokyo: Exception: : ::1
-2023-03-09 16:18:08 Asia/Tokyo: Exception: : ::1
-2023-03-09 16:23:53 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:23:53 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:02 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:02 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:03 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:03 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:32 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:32 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:32 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:32 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:40 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:40 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:40 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:40 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:41 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:41 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:41 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:41 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:42 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:26:42 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:45 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:45 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:46 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:46 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:46 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:46 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:48 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:48 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:49 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:28:49 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:29:00 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:29:00 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:29:07 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:29:07 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:32:22 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:32:22 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:32:23 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:32:23 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:32:23 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 16:32:23 Asia/Tokyo: Exception: Hello Exception: ::1
-2023-03-09 18:42:14 Asia/Tokyo: Error: Call to undefined method IndexApiController::response(): ::1
-2023-03-09 18:42:15 Asia/Tokyo: Error: Call to undefined method IndexApiController::response(): ::1
-2023-03-09 18:59:24 Asia/Tokyo: Error: Undefined constant "sss": ::1
-2023-03-09 18:59:25 Asia/Tokyo: Error: Undefined constant "sss": ::1
-2023-03-09 18:59:58 Asia/Tokyo: Error: Undefined constant "sss": ::1
-2023-03-09 18:59:59 Asia/Tokyo: Error: Undefined constant "sss": ::1
-2023-03-09 19:00:04 Asia/Tokyo: Error: Undefined constant "sss": ::1
+2023-03-09 12:55:58 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:57:48 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:58:49 UTC: RuntimeException: Invalid format for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:59:14 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:59:14 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:59:45 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:59:46 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:59:46 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 12:59:47 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:13 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:14 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:14 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:15 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:16 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:16 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:00:43 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:01:16 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:01:16 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:01:16 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
+2023-03-09 13:03:17 UTC: RuntimeException: Invalid hash for the Base64 URL encoded string.: #0 /var/www/html/index.php(32): StringCryptor->verifyHashAndDecryptWithValidity()
+#1 {main}
