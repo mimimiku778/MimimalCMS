@@ -60,3 +60,8 @@ LogicException:
 2023-03-09 16:32:23 Asia/Tokyo: Exception: Hello Exception: ::1
 2023-03-09 18:42:14 Asia/Tokyo: Error: Call to undefined method IndexApiController::response(): ::1
 2023-03-09 18:42:15 Asia/Tokyo: Error: Call to undefined method IndexApiController::response(): ::1
+2023-03-09 18:59:24 Asia/Tokyo: Error: Undefined constant "sss": ::1
+2023-03-09 18:59:25 Asia/Tokyo: Error: Undefined constant "sss": ::1
+2023-03-09 18:59:58 Asia/Tokyo: Error: Undefined constant "sss": ::1
+2023-03-09 18:59:59 Asia/Tokyo: Error: Undefined constant "sss": ::1
+2023-03-09 19:00:04 Asia/Tokyo: Error: Undefined constant "sss": ::1

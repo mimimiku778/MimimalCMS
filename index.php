@@ -8,7 +8,7 @@
  */
 
 // Display exceptions on/off.
-const EXCEPTION_HANDLER_DISPLAY_ERRORS = false;
+const EXCEPTION_HANDLER_DISPLAY_ERRORS = true;
 
 
 require_once __DIR__ . '/shared/config.php';
