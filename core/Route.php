@@ -49,9 +49,8 @@ class Route
      * @param ?array $pathToQuery [optional] An array of paths to search for a match, with parameters enclosed in { }
      * @throws LogicException If the route has been started more than once.
      * @throws NotFoundException
-     * a
      */
-    public static function start(?array $pathToQuery = null)
+    public static function run(?array $pathToQuery = null)
     {
         if (!is_null(self::$path)) {
             throw new LogicException('Routing has been started multiple times.');

@@ -19,5 +19,5 @@ set_exception_handler('ExceptionHandler::handleException');
 
 
 // Get any path as a GET value by passing a path with placeholders as an array.
-// Example: Route::start(['user/{id}', 'user/{id}/image', posts/{postId}]);
-Route::start();
+// Example: Route::run(['user/{id}', 'user/{id}/image', posts/{postId}]);
+Route::run();
