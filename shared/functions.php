@@ -7,8 +7,9 @@ declare(strict_types=1);
  *
  * @param array $data The array to be returned as response.
  * @param ?int $response_code [optional] HTTP status code
+ * @param bool $exit [optional] Whether to exit after sending the response. Default is true.
  */
-function jsonResponse(array $data, ?int $response_code = null)
+function jsonResponse(array $data, ?int $response_code = null, bool $exit = true)
 {
     if (!is_null($response_code)) {
         http_response_code($response_code);
@@ -16,7 +17,11 @@ function jsonResponse(array $data, ?int $response_code = null)
 
     header("Content-Type: application/json; charset=utf-8");
     ob_start('ob_gzhandler');
-    exit(json_encode($data));
+    echo json_encode($data);
+
+    if ($exit) {
+        exit;
+    }
 }
 
 /**

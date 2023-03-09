@@ -42,13 +42,13 @@ class ExceptionHandler
         http_response_code(500);
         if (defined('EXCEPTION_HANDLER_DISPLAY_ERRORS') && EXCEPTION_HANDLER_DISPLAY_ERRORS === true) {
             if (isJsonRequest()) {
-                jsonResponse(['error' => $message]);
+                jsonResponse(['error' => $message], exit: false);
             }
 
             echo $message;
         } else {
             if (isJsonRequest()) {
-                exit(json_encode(['error' => '500 Internal Server Error']));
+                jsonResponse(['error' => '500 Internal Server Error'], exit: false);
             }
 
             echo '500 Internal Server Error';
