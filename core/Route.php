@@ -39,18 +39,25 @@ declare(strict_types=1);
  */
 class Route
 {
-    private static bool $isJson;
-    private static ?array $pathToQuery;
+    public static ?array $path = null;
+    public static ?array $pathToQuery;
+    public static bool $isJson;
 
     /**
      * Route constructor.
      * Parses incoming request URI and calls corresponding controller method
      * 
      * @param ?array $pathToQuery [optional] An array of paths to search for a match, with parameters enclosed in { }
+     * @throws LogicException If the route has been started more than once.
      * @throws NotFoundException
+     * a
      */
     public static function start(?array $pathToQuery = null)
     {
+        if (!is_null(self::$path)) {
+            throw new LogicException('Routing has been started multiple times.');
+        }
+
         self::$pathToQuery = $pathToQuery;
 
         // Whether request content type is JSON
@@ -60,14 +67,14 @@ class Route
         $requestUri = strtolower(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
 
         // Parse request URI
-        [$controllerClassName, $methodName] = self::parseRequestUri($requestUri);
+        self::$path = self::parseRequestUri($requestUri);
 
         // Load controller base class
         $controllerBaseClass = self::$isJson ? 'AbstractApiController' : 'AbstractPageController';
         require __DIR__ . "/{$controllerBaseClass}.php";
 
         // Execute controller method
-        self::runControllerMethod($controllerClassName, $methodName);
+        self::runControllerMethod(self::$path[0], self::$path[1]);
     }
 
     /**
