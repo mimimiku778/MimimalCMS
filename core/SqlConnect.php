@@ -136,7 +136,6 @@ class SqlConnect
      * * *Example:* `fn (string $where): string => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
      * 
      * @param callable $whereClauseQuery A function that returns a string representing the WHERE clause.
-     * Use `:keyword{$i}` as the placeholder for the binding value.
      * * *Example:* `fn (int $i): string => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"`
      * 
      * @param string $keyword The keyword(s) to search for.
@@ -147,7 +146,7 @@ class SqlConnect
      * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
      * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
-     * @return PDOStatement Returns a PDOStatement object containing the results of the query.
+     * @return array An empty array is returned if there are zero results to search.
      * 
      * @throws PDOException If an error occurs during the query execution.
      * @throws LogicException If any of the given callbacks are invalid.
@@ -158,7 +157,7 @@ class SqlConnect
         callable $whereClauseQuery,
         string $keyword,
         ?array $params = null
-    ): PDOStatement {
+    ): array {
         $convertedKeyword = $this->escapeLike(
             preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
         );
@@ -187,13 +186,19 @@ class SqlConnect
         $queryResult = $query($whereClause);
 
         if (!is_string($queryResult)) {
-            throw new LogicException('query must return a string');
+            throw new LogicException('Query callback must return a string');
         }
 
         $stmt = $this->pdo->prepare($queryResult);
 
-        foreach ($keywords as $i => $keyword) {
-            $stmt->bindValue(":keyword{$i}", "%{$keyword}%", PDO::PARAM_STR);
+        if (!preg_match('{:\w+}', $whereClause, $matches)) {
+            throw new InvalidArgumentException('Invalid placeholder for WHERE clause.');
+        }
+
+        $whereClausePlaceholder = $matches[0];
+
+        foreach ($keywords as $i => $word) {
+            $stmt->bindValue($whereClausePlaceholder . (string) $i, "%{$word}%", PDO::PARAM_STR);
         }
 
         if ($params === null) {
@@ -213,7 +218,7 @@ class SqlConnect
         }
 
         $stmt->execute();
-        return $stmt;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);;
     }
 
     /**
@@ -229,5 +234,68 @@ class SqlConnect
         $replace = [$char . $char, $char . '%', $char . '_'];
 
         return str_replace($search, $replace, $value);
+    }
+
+    /**
+     * Executes a full-text search query and returns the result as an array.
+     *
+     * @param callable $query A function that returns a string representing the SQL query. 
+     * * *Example:* `fn (string $where): string => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
+     * 
+     * @param string $whereClauseQuery The SQL query with a placeholder for the search keyword.
+     * * *Example:* `'WHERE MATCH(title, text) AGAINST(:search IN BOOLEAN MODE)'`
+     * 
+     * @param string $keyword The search keyword to be used in the full-text search query.
+     * InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
+     * * *Example:* `'Splits keywords by whitespace'`
+     * 
+     * @param array|null $params [optional] An associative array of query parameters.
+     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
+     * 
+     * @return array An array of rows returned by the query. An empty array is returned if there are no results to search.
+     * 
+     * @throws PDOException If an error occurs during the query execution.
+     * @throws LogicException If any of the given callbacks are invalid.
+     * @throws InvalidArgumentException If the search keyword is empty or the WHERE clause query has an invalid placeholder.
+     */
+    public function executeFulltextSearchQuery(
+        callable $query,
+        string $whereClauseQuery,
+        string $keyword,
+        ?array $params = null
+    ): array {
+        $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
+
+        if (empty(trim($convertedKeyword))) {
+            throw new InvalidArgumentException('Please provide a non-empty search keyword.');
+        }
+
+        if (!preg_match('{:\w+}', $whereClauseQuery, $matches)) {
+            throw new InvalidArgumentException('Invalid placeholder for WHERE clause.');
+        }
+
+        $whereClausePlaceholder = $matches[0];
+
+        $params[$whereClausePlaceholder] = '';
+        foreach (explode(' ', $convertedKeyword) as $i => $word) {
+            if (mb_strlen($word) < 2) {
+                $word .= '*';
+            }
+
+            if ($i > 0) {
+                $params[$whereClausePlaceholder] .= ' ';
+            }
+
+            $params[$whereClausePlaceholder] .= '+' . $word;
+        }
+
+        $queryResult = $query($whereClauseQuery);
+
+        if (!is_string($queryResult)) {
+            throw new LogicException('Query callback must return a string');
+        }
+
+        return $this->fetchAll($queryResult, $params);
     }
 }
