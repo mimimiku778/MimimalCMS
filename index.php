@@ -16,3 +16,4 @@ require_once __DIR__ . '/core/Route.php';
 // Get any path as a GET value by passing a path with placeholders as an array.
 // Example: Route::run(['user/{id}', 'user/{id}/image', blog/posts/{postId}/{reply}]);
 Route::run();
+View::display();

@@ -11,9 +11,7 @@ class IndexPageController extends AbstractPageController
             '__headerTitle' => '<h1>Hello, world.</h1>',
             'text' => 'This is a test.'
         ]);
-        
-        View::render('test_footer', ['footerText' => 'Good bye.']);
 
-        View::display();
+        View::render('test_footer', ['footerText' => 'Good bye.']);
     }
 }
