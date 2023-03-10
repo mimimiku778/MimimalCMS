@@ -192,6 +192,11 @@ class Route
             throw new NotFoundException;
         }
 
+        $reflectionMethod = new ReflectionMethod($controllerClassName, $methodName);
+        if (!$reflectionMethod->isPublic()) {
+            throw new NotFoundException;
+        }
+        
         // Execute controller method
         $controller->$methodName();
     }
