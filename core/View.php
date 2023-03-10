@@ -15,25 +15,27 @@ class View
     /**
      * Render a template file with optional values.
      *
-     * @param string $viewFile Path to the template file.
-     * @param array|null $values Optional values to pass to the template.
+     * @param string $viewTemplateFile Path to the template file.
+     * @param array|null $valuesArray Optional values to pass to the template.
+     * * NOTE: Keys starting with "_" will not be sanitized.
+     * 
      * @throws LogicException If rendering fails.
      */
-    public static function render(string $viewFile, ?array $values = null): void
+    public static function render(string $viewTemplateFile, ?array $valuesArray = null): void
     {
-        if ($values !== null) {
-            extract(self::sanitizeArray($values));
+        if ($valuesArray !== null) {
+            extract(self::sanitizeArray($valuesArray));
         }
 
         ob_start();
-        include __DIR__ . '/../views/' . $viewFile . '.php';
-        $content = ob_get_clean();
+        include __DIR__ . '/../views/' . $viewTemplateFile . '.php';
+        $renderedContent = ob_get_clean();
 
-        if ($content === false) {
-            throw new LogicException("Render failed: {$viewFile}");
+        if ($renderedContent === false) {
+            throw new LogicException("Render failed: {$viewTemplateFile}");
         }
 
-        self::$renderCache .= $content;
+        self::$renderCache .= $renderedContent;
     }
 
     /**
@@ -56,7 +58,11 @@ class View
             if (is_array($value)) {
                 $array[$key] = self::sanitizeArray($value);
             } else {
-                $array[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+                if ($key[0] !== '_') {
+                    $array[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+                } else {
+                    $array[$key] = $value;
+                }
             }
         }
         return $array;
