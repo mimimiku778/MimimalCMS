@@ -17,11 +17,26 @@ class View
      *
      * @param string $viewTemplateFile Path to the template file.
      * @param array|null $valuesArray Optional values to pass to the template.
-     * * NOTE: Keys starting with "_" will not be sanitized.
+     * * NOTE: Keys starting with "__" will not be sanitized.
      * 
      * @throws LogicException If rendering fails.
      */
     public static function render(string $viewTemplateFile, ?array $valuesArray = null): void
+    {
+        self::$renderCache .= self::get($viewTemplateFile, $valuesArray);
+    }
+
+    /**
+     * Gets rendered template as a string.
+     *
+     * @param string $viewTemplateFile Path to the template file.
+     * @param array|null $valuesArray Optional values to pass to the template.
+     * * NOTE: Keys starting with "__" will not be sanitized.
+     * 
+     * @return string The rendered template as a string.
+     * @throws LogicException If rendering fails.
+     */
+    public static function get(string $viewTemplateFile, ?array $valuesArray = null): string
     {
         if ($valuesArray !== null) {
             extract(self::sanitizeArray($valuesArray));
@@ -35,7 +50,7 @@ class View
             throw new LogicException("Render failed: {$viewTemplateFile}");
         }
 
-        self::$renderCache .= $renderedContent;
+        return $renderedContent;
     }
 
     /**
@@ -58,7 +73,7 @@ class View
             if (is_array($value)) {
                 $array[$key] = self::sanitizeArray($value);
             } else {
-                if ($key[0] !== '_') {
+                if (substr($key, 0, 2) !== '__') {
                     $array[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
                 } else {
                     $array[$key] = $value;

@@ -7,7 +7,7 @@ class IndexPageController extends AbstractPageController
         View::render('test_header', ['title' => 'MimimalCMS']);
 
         View::render('test_content', [
-            '_headerTitle' => '<h1>Hello, world.</h1>',
+            '__headerTitle' => '<h1>Hello, world.</h1>',
             'text' => 'This is a test.'
         ]);
         

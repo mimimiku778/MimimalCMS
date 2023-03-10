@@ -1,5 +1,5 @@
 <header>
-    <?php echo $_headerTitle ?>
+    <?php echo $__headerTitle ?>
     <p>Welcome to my website!</p>
 </header>
 
