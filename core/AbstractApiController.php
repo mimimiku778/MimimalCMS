@@ -12,7 +12,6 @@ abstract class AbstractApiController
         $json = json_decode($jsonData, true);
         if (is_array($json)) {
             $_POST = $json;
-            return;
         }
     }
 
