@@ -4,6 +4,14 @@ class IndexPageController extends AbstractPageController
 {
     public function index()
     {
-        echo '<h1>Hello World</h1>';
+        View::render(
+            'test_template',
+            [
+                'title' => 'MimimalCMS',
+                'headerTitle' => 'Hello, world'
+            ]
+        );
+
+        View::display();
     }
 }

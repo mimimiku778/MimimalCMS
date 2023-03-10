@@ -1,0 +1,12 @@
+2023-03-10 17:46:32 Asia/Tokyo: Error: Failed opening required '/var/www/html/core/core/View.php' (include_path='.:/usr/share/php'): #0 /var/www/html/core/Route.php(184): require_once()
+#1 /var/www/html/core/Route.php(69): Route::runControllerMethod()
+#2 /var/www/html/index.php(18): Route::run()
+#3 {main}: ::1
+2023-03-10 17:46:33 Asia/Tokyo: Error: Failed opening required '/var/www/html/core/core/View.php' (include_path='.:/usr/share/php'): #0 /var/www/html/core/Route.php(184): require_once()
+#1 /var/www/html/core/Route.php(69): Route::runControllerMethod()
+#2 /var/www/html/index.php(18): Route::run()
+#3 {main}: ::1
+2023-03-10 17:46:33 Asia/Tokyo: Error: Failed opening required '/var/www/html/core/core/View.php' (include_path='.:/usr/share/php'): #0 /var/www/html/core/Route.php(184): require_once()
+#1 /var/www/html/core/Route.php(69): Route::runControllerMethod()
+#2 /var/www/html/index.php(18): Route::run()
+#3 {main}: ::1
