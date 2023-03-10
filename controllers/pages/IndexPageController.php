@@ -13,7 +13,5 @@ class IndexPageController extends AbstractPageController
         ]);
 
         View::render('test_footer', ['footerText' => 'Good bye.']);
-
-        View::display();
     }
 }
