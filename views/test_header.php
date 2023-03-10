@@ -11,17 +11,3 @@
 </head>
 
 <body>
-
-    <header>
-        <h1><?php echo $headerTitle ?></h1>
-        <p>Welcome to my website!</p>
-    </header>
-
-    <main>
-    </main>
-
-    <footer>
-    </footer>
-</body>
-
-</html>
