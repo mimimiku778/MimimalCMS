@@ -83,7 +83,7 @@ class Route
 
         // Matchs requestUri to pathToQuery and update $_GET and $path variables.
         $path = null;
-        if (!is_null($pathToQuery)) {
+        if (is_array($pathToQuery)) {
             $matchResult = self::matchPath($requestUri, $pathToQuery);
 
             if ($matchResult !== false) {
@@ -93,7 +93,7 @@ class Route
             }
         }
 
-        if (is_null($path)) {
+        if (!is_array($path)) {
             // Split request URI by "/"
             $path = explode('/', $requestUri);
         }
