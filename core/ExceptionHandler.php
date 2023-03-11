@@ -17,6 +17,27 @@ class ExceptionHandler
             return;
         }
 
+        if ($exception instanceof BadRequestException) {
+            self::badRequest();
+            return;
+        }
+
+        if ($exception instanceof ValidationException) {
+            self::badRequest();
+            return;
+        }
+
+        if ($exception instanceof InvalidInputException) {
+            self::badRequest();
+            return;
+        }
+
+
+        if ($exception instanceof DataIntegrityViolationException) {
+            self::badRequest();
+            return;
+        }
+
         self::errorLog($exception);
     }
 
@@ -32,6 +53,20 @@ class ExceptionHandler
         }
 
         echo '404 Not Found';
+    }
+
+    /**
+     * Handles a BadRequest by returning a 404 error response.
+     */
+    public static function badRequest()
+    {
+        http_response_code(400);
+
+        if (isJsonRequest()) {
+            jsonResponse(['error' => '400 Bad Request']);
+        }
+
+        echo '400 Bad Request';
     }
 
     /**
@@ -62,7 +97,7 @@ class ExceptionHandler
         }
 
         if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            $message .= ': ' . ($_SERVER["REMOTE_ADDR"] ?? 'null') . ': ' . ($_SERVER['HTTP_USER_AGENT'] ?? 'null');
+            $message .= ': ' . ($_SERVER["REMOTE_ADDR"] ?? '') . ': ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
         }
 
         $time = date('Y-m-d H:i:s') . ' ' . date_default_timezone_get() . ': ';
