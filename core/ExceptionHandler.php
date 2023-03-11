@@ -19,23 +19,19 @@ class ExceptionHandler
 
         if ($exception instanceof BadRequestException) {
             self::badRequest();
-            return;
         }
 
         if ($exception instanceof ValidationException) {
             self::badRequest();
-            return;
         }
 
         if ($exception instanceof InvalidInputException) {
             self::badRequest();
-            return;
         }
 
 
         if ($exception instanceof DataIntegrityViolationException) {
             self::badRequest();
-            return;
         }
 
         self::errorLog($exception);
