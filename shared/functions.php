@@ -64,7 +64,7 @@ function csrfField()
  *
  * @return bool Returns `true` if the CSRF token in the request matches the token in the session; otherwise, returns `false`.
  */
-function VerifyCsrfToken(): bool
+function verifyCsrfToken(): bool
 {
     // Check if the CSRF token is set in the session.
     if (!isset($_SESSION['_csrf'])) {
@@ -128,15 +128,22 @@ function validateKeyStr(
     ?string $exact_match = null
 ): bool {
     $input = $array[$key] ?? null;
-    if (!is_string($input) || empty(trim($input))) {
+    if (!is_string($input)) {
+        return false;
+    }
+
+    $normalizedStr = Normalizer::normalize($input, Normalizer::FORM_KC);
+    $string = preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $normalizedStr);
+
+    if (is_null($string) || empty(trim($string))) {
         return false;
     }
 
     if (!is_null($exact_match)) {
-        return $input === $exact_match;
+        return $string === $exact_match;
     }
 
-    if (!is_null($max_length) && mb_strlen($input) > $max_length) {
+    if (!is_null($max_length) && mb_strlen($string) > $max_length) {
         return false;
     }
 
