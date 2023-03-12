@@ -6,8 +6,13 @@ abstract class AbstractPageController
 {
     public function __construct()
     {
-        register_shutdown_function(fn () => View::display());
+        session_set_cookie_params([
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+        session_start();
     }
 
-    abstract public function index();
+    abstract protected function index();
 }

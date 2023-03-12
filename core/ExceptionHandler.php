@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
+
 set_exception_handler('ExceptionHandler::handleException');
 
 /**
@@ -98,11 +103,11 @@ class ExceptionHandler
                 jsonResponse(['error' => $message], exit: false);
             }
 
-            echo $message;
+            echo nl2br($message);
         }
 
         if (isset($_SERVER["REMOTE_ADDR"]) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            $message .= ': ' . ($_SERVER["REMOTE_ADDR"] ?? '') . ': ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
+            $message .= ': ' . createUserLogStr();
         }
 
         $time = date('Y-m-d H:i:s') . ' ' . date_default_timezone_get() . ': ';

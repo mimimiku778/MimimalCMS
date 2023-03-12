@@ -3,16 +3,46 @@
 declare(strict_types=1);
 
 /**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
+
+/**
+ * Check if the request is POST method.
+ * 
+ * @return bool Whether the request is POST method.
+ */
+function isPostRequest(): bool
+{
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+
+/**
+ * Redirects the user to the specified URL using the specified HTTP response code and exits.
+ * 
+ * @param string $url           The URL to redirect to.
+ * @param int $responseCode     The HTTP response code to use. Defaults to 301.
+ * @param bool $exit            [optional] Whether to exit after sending the response. Default is true.
+ */
+function redirect(string $url, int $responseCode = 301, bool $exit = true)
+{
+    header('Location: ' . $url, true, $responseCode);
+    if ($exit) {
+        exit;
+    }
+}
+
+/**
  * Returns HTTP status code and response in JSON format and exits.
  *
- * @param array $data The array to be returned as response.
- * @param ?int $response_code [optional] HTTP status code
- * @param bool $exit [optional] Whether to exit after sending the response. Default is true.
+ * @param array $data           The array to be returned as response.
+ * @param ?int $responseCode    [optional] HTTP status code
+ * @param bool $exit            [optional] Whether to exit after sending the response. Default is true.
  */
-function jsonResponse(array $data, ?int $response_code = null, bool $exit = true)
+function jsonResponse(array $data, ?int $responseCode = null, bool $exit = true)
 {
-    if (!is_null($response_code)) {
-        http_response_code($response_code);
+    if (!is_null($responseCode)) {
+        http_response_code($responseCode);
     }
 
     header("Content-Type: application/json; charset=utf-8");
@@ -35,16 +65,6 @@ function isJsonRequest(): bool
 }
 
 /**
- * Check if the request is POST method.
- * 
- * @return bool Whether the request is POST method.
- */
-function isPostRequest(): bool
-{
-    return $_SERVER['REQUEST_METHOD'] === 'POST';
-}
-
-/**
  * Generate a random CSRF token, save it to the session, and output an HTML input element containing the token.
  */
 function csrfField()
@@ -53,7 +73,7 @@ function csrfField()
     $token = bin2hex(random_bytes(16));
 
     // Save the token to the session.
-    $_SESSION['_csrf'] = $token;
+    $_SESSION['_csrf'] = hash('sha256', $token);
 
     // Output an HTML input element containing the token.
     echo '<input type="hidden" name="_csrf" value="' . $token . '" />';
@@ -81,7 +101,7 @@ function verifyCsrfToken(): bool
     }
 
     // Verify that the CSRF token in the request matches the token in the session.
-    return $_POST['_csrf'] === $sessionToken;
+    return hash_equals($sessionToken, hash('sha256', $_POST['_csrf']));
 }
 
 /**
@@ -102,33 +122,44 @@ function getRemoveSessionValue(string $name): mixed
 }
 
 /**
- * Redirects the user to the specified URL using the specified HTTP response code.
+ * Create a log message from the user's IP address and user agent.
  * 
- * @param string $url The URL to redirect to.
- * @param int $responseCode The HTTP response code to use. Defaults to 301.
+ * @return string The log message in the format "IP Address: User Agent".
  */
-function redirect(string $url, int $responseCode = 301)
+function createUserLogStr(): string
 {
-    header('Location: ' . $url, true, $responseCode);
+    return preg_replace('/[^(\x20-\x7F)]*/', '', ($_SERVER["REMOTE_ADDR"] ?? '') . ': ' . ($_SERVER['HTTP_USER_AGENT'] ?? ''));
 }
 
 /**
  * Validate whether the specified key exists in the array and meets the specified string conditions.
  * 
- * @param array $array The array to be validated
- * @param string $key The key to be validated
- * @param int|null $max_length The maximum length of the string (optional)
- * @param string|null $exact_match The string for exact matching (optional)
- * @return bool The result of validation
+ * @param array $array             The array to be validated.
+ * @param string $key The          key to be validated.
+ * @param int|null $maxLength      [optional] The maximum length of the string.
+ * @param string|null $exactMatch  [optional] The string for exact matching.
+ * @param string|null $e           [optional] An Exception name to be thrown if validation fails.
+ * @return bool                    Whether the validation passed or not.
+ * @throws Exception               If the specified key exists in the array but its value is invalid, 
+ *                                 and an Exception was provided, it will be thrown.
  */
 function validateKeyStr(
     array $array,
     string $key,
-    ?int $max_length = null,
-    ?string $exact_match = null
+    ?int $maxLength = null,
+    ?string $exactMatch = null,
+    ?string $e = null
 ): bool {
-    $input = $array[$key] ?? null;
+    if (!isset($array[$key])) {
+        return false;
+    }
+
+    $input = $array[$key];
+
     if (!is_string($input)) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
@@ -136,14 +167,28 @@ function validateKeyStr(
     $string = preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $normalizedStr);
 
     if (is_null($string) || empty(trim($string))) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
-    if (!is_null($exact_match)) {
-        return $string === $exact_match;
+    if (!is_null($exactMatch)) {
+        if ($string === $exactMatch) {
+            return true;
+        }
+
+        if ($e !== null) {
+            throw new $e;
+        }
+
+        return false;
     }
 
-    if (!is_null($max_length) && mb_strlen($string) > $max_length) {
+    if (!is_null($maxLength) && mb_strlen($string) > $maxLength) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
@@ -152,37 +197,58 @@ function validateKeyStr(
 
 /**
  * Validate whether the specified key exists in the array and meets the specified numeric conditions.
- * 
- * @param array $array The array to be validated
- * @param string $key The key to be validated
- * @param int|null $max_value The maximum numeric value (optional)
- * @param int|null $min_value The minimum numeric value (optional)
- * @param int|null $exact_match The numeric value for exact match (optional)
- * @return bool The result of validation
+ *
+ * @param array $array          The array to be validated
+ * @param string $key           The key to be validated
+ * @param int|null $maxValue    [optional] The maximum numeric value.
+ * @param int|null $minValue    [optional] The minimum numeric value.
+ * @param int|null $exactMatch  [optional] The numeric value for exact match.
+ * @param string|null $e        [optional] An Exception name to be thrown if validation fails.
+ * @return bool                 Whether the validation passed or not.
+ * @throws Exception            If the specified key exists in the array but its value is invalid, 
+ *                              and an Exception was provided, it will be thrown.
  */
 function validateKeyNum(
     array $array,
     string $key,
-    ?int $max_value = null,
-    ?int $min_value = null,
-    ?int $exact_match = null
+    ?int $maxValue = null,
+    ?int $minValue = null,
+    ?int $exactMatch = null,
+    ?string $e = null
 ): bool {
-    $input = $array[$key] ?? null;
+    if (!isset($array[$key])) {
+        return false;
+    }
+
+    $input = $array[$key];
+
     if (!ctype_digit($input)) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
     $number = (int) $input;
 
-    if (!is_null($exact_match) && $number !== $exact_match) {
+    if (!is_null($exactMatch) && $number !== $exactMatch) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
-    if (!is_null($min_value) && $number < $min_value) {
+    if (!is_null($minValue) && $number < $minValue) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
-    if (!is_null($max_value) && $number > $max_value) {
+    if (!is_null($maxValue) && $number > $maxValue) {
+        if ($e !== null) {
+            throw new $e;
+        }
         return false;
     }
 
@@ -193,10 +259,99 @@ function validateKeyNum(
  * Remove zero-width spaces from a string.
  *
  * @param string $str The input string.
- * @return string The input string without zero-width spaces.
+ * @return string     The input string without zero-width spaces.
  */
 function removeZWS(string $str): string
 {
     $normalizedStr = Normalizer::normalize($str, Normalizer::FORM_KC);
     return preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $normalizedStr);
+}
+
+/**
+ * Removes non-ASCII characters from the given string.
+ *
+ * @param string $string The input string to be cleaned.
+ * @return string The cleaned string with only ASCII characters.
+ */
+function sanitizeString(string $string): string
+{
+    return preg_replace('/[^(\x20-\x7F)]*/', '', $string);
+}
+
+/**
+ * Calculate offset for given page number and number of items per page.
+ *
+ * @param int $pageNumber            The current page number.
+ * @param int $numberOfItemsPerPage  The number of items to display per page.
+ * @return int                       The calculated offset.
+ */
+function calcOffset(int $pageNumber, int $numberOfItemsPerPage): int
+{
+    $offset = $pageNumber === 1 ? 0 : $numberOfItemsPerPage * ($pageNumber - 1);
+    return $offset;
+}
+
+/**
+ * Get a numeric value from the query string for the specified key, or return the default value if not found or invalid.
+ * 
+ * @param string $key   The key to retrieve from the query string
+ * @param int $default  The default numeric value to return if the key is not found or the value is invalid
+ * @return int          The retrieved numeric value, or the default value if not found or invalid
+ */
+function getQueryNum(string $queryKey, int $defaultValue): int
+{
+    return (int) ($_GET[$queryKey] ?? $defaultValue);
+}
+
+/**
+ * Calculates the maximum number of pages needed to display a set of records,
+ * given the total number of records and the number of records to display per page.
+ *
+ * @param int $totalRecords  The total number of records to display.
+ * @param int $itemsPerPage  The number of records to display per page.
+ * @return int               The maximum number of pages needed to display all the records.
+ */
+function calcMaxPages(int $totalRecords, int $recordsPerPage): int
+{
+    return (int) ceil($totalRecords / $recordsPerPage);
+}
+
+/**
+ * Calculates the record index for the current page in descending order based on the given parameters.
+ * If $maxPage is specified, it returns the ending index for the current page in descending order.
+ * 
+ * @param int $pageNumber    The current page number.
+ * @param int $totalRecords  The total number of records.
+ * @param int $itemsPerPage  The number of items to display per page.
+ * @param int|null $maxPage  [optional] The total number of pages needed to display all records in descending order.
+ * @return int               The record index for the current page in descending order.
+ */
+function calcDescRecordIndex(int $pageNumber, int $totalRecords, int $itemsPerPage, ?int $maxPage = null): int
+{
+    if (is_null($maxPage)) {
+        if ($pageNumber === 1) {
+            return $totalRecords;
+        }
+
+        return $totalRecords - $itemsPerPage * ($pageNumber - 1);
+    }
+
+    if ($pageNumber === $maxPage) {
+        return 1;
+    }
+
+    return $totalRecords - $itemsPerPage * $pageNumber;
+}
+
+/**
+ * Generates the URL for a given page number.
+ *
+ * @param int $pageNumber  The page number to generate the URL for.
+ * @param string $url      The base URL to use.
+ * @return string          The URL for the given page number.
+ */
+function genePagerUrl(int $pageNumber, string $url): string
+{
+    $path = ($pageNumber > 1) ? '/' . (string) $pageNumber : '';
+    return $url . $path;
 }
