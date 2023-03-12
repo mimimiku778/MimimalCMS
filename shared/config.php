@@ -1,4 +1,14 @@
 <?php
+
+// Session
+// ini_set('session.use_strict_mode', '1');
+// session_name('my_session');
+session_set_cookie_params([
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
+
 // Display exceptions on/off.
 const EXCEPTION_HANDLER_DISPLAY_ERRORS = true;
 const EXCEPTION_LOG_DIRECTORY = __DIR__ . '/exception.log';

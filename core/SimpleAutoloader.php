@@ -22,6 +22,7 @@ class SimpleAutoloader
             $classFilePath = __DIR__ . '/../' . $rootDirectoryName . '/' . $classFile;
             if (file_exists($classFilePath)) {
                 require_once $classFilePath;
+                return;
             }
         }
     }
