@@ -5,7 +5,7 @@ const EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN = true;
 
 const EXCEPTION_HANDLER_DISPLAY_HIDE_DRECTORY = '/var/www/mimikyu.info';
 const EXCEPTION_HANDLER_DISPLAY_DOCUMENT_ROOT_NAME = 'mimikyu.info';
-const EXCEPTION_HANDLER_DISPLAY_GITHUB_URL = 'https://github.com/mimimiku778/mimikyu.info/tree/master/';
+const EXCEPTION_HANDLER_DISPLAY_GITHUB_URL = 'https://github.com/mimimiku778/MimimalCMS-v0.1/blob/master/';
 
 const VIEWS_DIR = __DIR__ . '/../views';
 
@@ -42,7 +42,6 @@ const SIMPLE_AUTOLOADER_ROOT_DIRECTORY_NAMES = [
     'controllers/api',
     'controllers/pages',
 ];
-
 
 const DEFAULT_MAX_FILE_SIZE = 20480;
 const IMAGE_MIME_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];

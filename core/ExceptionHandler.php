@@ -134,7 +134,11 @@ class ExceptionHandler
         $headerString = array_map($getHeaderString, array_keys($_SERVER), $_SERVER);
         $requestHeader = implode("\n", $headerString);
 
-        error_log($time . "\n" . $message . $requestHeader . "\n" . "\n", 3, EXCEPTION_LOG_DIRECTORY);
+        $flagName = 'EXCEPTION_LOG_DIRECTORY';
+        $flag = defined($flagName) && constant($flagName);
+        if ($flag && is_string($dir = EXCEPTION_LOG_DIRECTORY) && is_writable($dir)) {
+            error_log($time . "\n" . $message . $requestHeader . "\n" . "\n", 3, $dir);
+        }
     }
 
     private static function jsonResponse(array $data)

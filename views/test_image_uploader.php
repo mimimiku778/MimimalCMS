@@ -37,6 +37,14 @@
                 <img style="display:block" src="<?php echo url('images/') . session('image') ?>">
                 <figcaption>
                     <i><small><?php echo '/images/' . session('image') ?></small></i>
+                    <i>
+                        <small>
+                            <?php
+                            list($width, $height, $type, $attr) = getimagesize('path/to/image.jpg');
+                            echo "Format: " . image_type_to_extension($type, false) . " | Resolution: $width x $height | Size: " . round(filesize('path/to/image.jpg') / 1024, 2) . " KB";
+                            ?>
+                        </small>
+                    </i>
                 </figcaption>
             </figure>
         </section>

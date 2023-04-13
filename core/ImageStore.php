@@ -138,31 +138,16 @@ class ImageStore implements ImageStoreIntercase
         return round($result);
     }
 
-    /**
-     * Get the error code, or null if it is not set.
-     *
-     * @return int|null The error code, or null if it is not set.
-     */
     public function getErrorCode(): ?int
     {
         return $this->errorCode ?? null;
     }
 
-    /**
-     * Get the error message, or null if it is not set.
-     *
-     * @return string|null The error message, or null if it is not set.
-     */
     public function getErrorMessage(): ?string
     {
         return $this->errorMessage ?? null;
     }
 
-    /**
-     * Get the file name, or null if it is not set.
-     *
-     * @return string|null The file name, or null if it is not set.
-     */
     public function getFileName(): ?string
     {
         return $this->fileName ?? null;

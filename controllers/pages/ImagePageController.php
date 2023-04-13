@@ -5,7 +5,7 @@ class ImagePageController
     public function index()
     {
         $title = 'Image Uploader';
-        $link = 'https://github.com/mimimiku778';
+        $link = 'https://github.com/mimimiku778/MimimalCMS-v0.1';
 
         return view('test_header', compact('title'))
             ->make('test_image_uploader')
