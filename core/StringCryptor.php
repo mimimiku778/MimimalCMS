@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../shared/string_cryptor_config.php';
+require_once __DIR__ . '/../shared/ConfigClasses/StringCryptorConfig.php';
 
 use Kernel\StringCryptorInterface;
 

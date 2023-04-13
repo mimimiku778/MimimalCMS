@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Kernel;
 
-require_once __DIR__ . '/../../shared/config.php';
-require_once __DIR__ . '/../../shared/exceptions.php';
-
-require_once __DIR__ . '/../MimimalCMS_api_interfaces.php';
+require_once __DIR__ . '/MimimalCMS_API_Interfaces.php';
 require_once __DIR__ . '/KernelInterfaces.php';
 require_once __DIR__ . '/Validator.php';
 require_once __DIR__ . '/Reception.php';
@@ -16,17 +13,15 @@ require_once __DIR__ . '/Response.php';
 require_once __DIR__ . '/View.php';
 require_once __DIR__ . '/Cookie.php';
 
-session_set_cookie_params(SESSION_COOKIE_PARAMS);
-session_start();
 require_once __DIR__ . '/Session.php';
 
-require_once __DIR__ . '/route/Route.php';
+require_once __DIR__ . '/Route.php';
 
-require_once __DIR__ . '/routing/RoutingInterfaces.php';
-require_once __DIR__ . '/routing/ReceptionInitializer.php';
-require_once __DIR__ . '/routing/RequestParser.php';
-require_once __DIR__ . '/routing/Routing.php';
-require_once __DIR__ . '/routing/ControllerArgumentResolver.php';
+require_once __DIR__ . '/Dispatcher/RoutingInterfaces.php';
+require_once __DIR__ . '/Dispatcher/ReceptionInitializer.php';
+require_once __DIR__ . '/Dispatcher/RequestParser.php';
+require_once __DIR__ . '/Dispatcher/Routing.php';
+require_once __DIR__ . '/Dispatcher/ControllerArgumentResolver.php';
 
 use Reception;
 use Cookie;

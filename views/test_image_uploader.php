@@ -1,6 +1,7 @@
 <main>
     <hr>
     <section>
+        <!-- Image upload form !-->
         <form action="/image/store" method="POST" enctype="multipart/form-data">
             <label for="file">Choose a file:</label>
             <input type="file" name="file" id="file">
@@ -23,6 +24,7 @@
             <input type="submit" value="Upload">
         </form>
     </section>
+    <!-- Show error !-->
     <?php if (session()->hasError()) : ?>
         <header>
             <?php foreach (session()->getError() as $key => $error) : ?>
@@ -30,21 +32,26 @@
             <?php endforeach ?>
         </header>
     <?php endif ?>
+    <!-- Show file infomation !-->
     <?php if (session()->has('image')) : ?>
         <hr>
         <section>
             <figure>
                 <img style="display:block" src="<?php echo url('images/') . session('image') ?>">
                 <figcaption>
-                    <i><small><?php echo '/images/' . session('image') ?></small></i>
                     <i>
-                        <small>
-                            <?php
-                            list($width, $height, $type, $attr) = getimagesize('path/to/image.jpg');
-                            echo "Format: " . image_type_to_extension($type, false) . " | Resolution: $width x $height | Size: " . round(filesize('path/to/image.jpg') / 1024, 2) . " KB";
-                            ?>
-                        </small>
+                        <small><?php echo '/images/' . session('image') ?></small>
                     </i>
+                    <br>
+                    <!-- Verify existence of file to avoid errors !-->
+                    <?php if (file_exists($path = __DIR__ . '/../images/' . session('image'))) : ?>
+                        <i>
+                            <small>
+                                <?php list($width, $height, $type, $attr) = getimagesize($path) ?>
+                                <?php echo "Format: " . image_type_to_extension($type, false) . " | Resolution: $width x $height | Size: " . round(filesize($path) / 1024, 2) . " KB" ?>
+                            </small>
+                        </i>
+                    <?php endif ?>
                 </figcaption>
             </figure>
         </section>

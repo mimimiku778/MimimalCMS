@@ -6,6 +6,51 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
 {
+    public static $files = array (
+        '9c505ea57b20dd4128019a6ca09d3bae' => __DIR__ . '/../..' . '/core/MimimalCMS_API_HelperFunctions.php',
+        'ec3888f09c3ba8a5d8ad90aef1b11a50' => __DIR__ . '/../..' . '/core/Kernel/MimimalCMS_API_Config.php',
+        'c50be35c8e895cc991f499d8e5df3f9c' => __DIR__ . '/../..' . '/core/Kernel/MimimalCMS_Exceptions.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Shadow\\Storage\\' => 15,
+            'Shadow\\Kernel\\RouteClasses\\' => 27,
+            'Shadow\\Kernel\\Dispatcher\\' => 25,
+            'Shadow\\Kernel\\' => 14,
+            'Shadow\\Config\\' => 14,
+            'Shadow\\' => 7,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Shadow\\Storage\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/Storage',
+        ),
+        'Shadow\\Kernel\\RouteClasses\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/Kernel/RouteClasses',
+        ),
+        'Shadow\\Kernel\\Dispatcher\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/Kernel/Dispatcher',
+        ),
+        'Shadow\\Kernel\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/Kernel',
+        ),
+        'Shadow\\Config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/shared/ConfigClasses',
+        ),
+        'Shadow\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -13,6 +58,8 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85::$classMap;
 
         }, null, ClassLoader::class);

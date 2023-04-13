@@ -7,5 +7,20 @@
             "email": "0203.sub@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Shadow\\": "core/",
+            "Shadow\\Storage\\": "core/Storage/",
+            "Shadow\\Kernel\\": "core/Kernel/",
+            "Shadow\\Kernel\\RouteClasses\\": "core/Kernel/RouteClasses/",
+            "Shadow\\Kernel\\Dispatcher\\": "core/Kernel/Dispatcher/",
+            "Shadow\\Config\\": "shared/ConfigClasses"
+        },
+        "files": [
+            "core/MimimalCMS_API_HelperFunctions.php",
+            "core/Kernel/MimimalCMS_API_Config.php",
+            "core/Kernel/MimimalCMS_Exceptions.php"
+        ]
+    }
 }

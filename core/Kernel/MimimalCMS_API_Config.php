@@ -1,13 +1,5 @@
 <?php
-// Display exceptions
-const EXCEPTION_HANDLER_DISPLAY_ERROR_DETAILS = true;
-const EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN = true;
-
-const EXCEPTION_HANDLER_DISPLAY_HIDE_DRECTORY = '/var/www/mimikyu.info';
-const EXCEPTION_HANDLER_DISPLAY_DOCUMENT_ROOT_NAME = 'mimikyu.info';
-const EXCEPTION_HANDLER_DISPLAY_GITHUB_URL = 'https://github.com/mimimiku778/MimimalCMS-v0.1/blob/master/';
-
-const VIEWS_DIR = __DIR__ . '/../views';
+const VIEWS_DIR = __DIR__ . '/../../views';
 
 // Default options for cookies.
 const COOKIE_DEFAULT_SECURE = true;
@@ -23,9 +15,6 @@ const SESSION_COOKIE_PARAMS = [
     'samesite' => 'Lax',
 ];
 
-// Exceptions Log directory.
-const EXCEPTION_LOG_DIRECTORY = __DIR__ . '/exception.log';
-
 // Add root directories to search for class files.
 const SIMPLE_AUTOLOADER_ROOT_DIRECTORY_NAMES = [
     'controllers',
@@ -34,8 +23,8 @@ const SIMPLE_AUTOLOADER_ROOT_DIRECTORY_NAMES = [
     'models',
     'models/traits',
     'core',
-    'core/kernel',
-    'core/storage',
+    'core/Kernel',
+    'core/Storage',
     'controllers/traits',
     'views/classes/',
     'views/classes/traits',

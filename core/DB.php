@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Kernel\DBInterface;
 
-require_once __DIR__ . '/../shared/database_config.php';
+require_once __DIR__ . '/../shared/ConfigClasses/DatabaseConfig.php';
 
 /**
  * PDO wrapper class for SQL databases

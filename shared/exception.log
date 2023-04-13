@@ -1,0 +1,652 @@
+2023-04-14 06:13:09 Asia/Tokyo: 
+ErrorException: Uncaught ErrorException: require_once(/var/www/mimikyu.info/core/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory in /var/www/mimikyu.info/core/bootloader.php:31
+Stack trace:
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}
+  thrown: 
+#0 [internal function]: {closure}()
+#1 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 51934
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420385.345121
+REQUEST_TIME: 1681420385
+
+2023-04-14 06:13:23 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50210
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420403.094914
+REQUEST_TIME: 1681420403
+
+2023-04-14 06:13:23 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50228
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420403.512119
+REQUEST_TIME: 1681420403
+
+2023-04-14 06:13:23 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50274
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420403.750814
+REQUEST_TIME: 1681420403
+
+2023-04-14 06:13:23 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50308
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420403.957747
+REQUEST_TIME: 1681420403
+
+2023-04-14 06:13:24 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50332
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420404.188421
+REQUEST_TIME: 1681420404
+
+2023-04-14 06:13:24 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50362
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420404.733023
+REQUEST_TIME: 1681420404
+
+2023-04-14 06:13:24 Asia/Tokyo: 
+ErrorException: require_once(/var/www/mimikyu.info/core/../shared/MimimalCMS_API_HelperFunctions): Failed to open stream: No such file or directory: 
+#0 /var/www/mimikyu.info/core/bootloader.php(31): {closure}()
+#1 /var/www/mimikyu.info/core/bootloader.php(31): require_once()
+#2 /var/www/mimikyu.info/index.php(10): require_once('...')
+#3 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 50394
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681420404.949384
+REQUEST_TIME: 1681420404
+
+2023-04-14 07:03:11 Asia/Tokyo: 
+ErrorException: Namespace declaration statement has to be the very first statement or after any declare call in the script: 
+#0 [internal function]: {closure}()
+#1 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: cross-site
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 57908
+REDIRECT_URL: /image/sss
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image/sss
+SCRIPT_NAME: /index.php
+PATH_INFO: /image/sss
+PATH_TRANSLATED: redirect:/index.php/image/sss/sss
+PHP_SELF: /index.php/image/sss
+REQUEST_TIME_FLOAT: 1681423391.305766
+REQUEST_TIME: 1681423391
+
+2023-04-14 07:03:11 Asia/Tokyo: 
+ErrorException: Namespace declaration statement has to be the very first statement or after any declare call in the script: 
+#0 [internal function]: {closure}()
+#1 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: cross-site
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 57936
+REDIRECT_URL: /image/sss
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image/sss
+SCRIPT_NAME: /index.php
+PATH_INFO: /image/sss
+PATH_TRANSLATED: redirect:/index.php/image/sss/sss
+PHP_SELF: /index.php/image/sss
+REQUEST_TIME_FLOAT: 1681423391.538095
+REQUEST_TIME: 1681423391
+
+2023-04-14 07:03:11 Asia/Tokyo: 
+ErrorException: Namespace declaration statement has to be the very first statement or after any declare call in the script: 
+#0 [internal function]: {closure}()
+#1 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: cross-site
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 57982
+REDIRECT_URL: /image/sss
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image/sss
+SCRIPT_NAME: /index.php
+PATH_INFO: /image/sss
+PATH_TRANSLATED: redirect:/index.php/image/sss/sss
+PHP_SELF: /index.php/image/sss
+REQUEST_TIME_FLOAT: 1681423391.736911
+REQUEST_TIME: 1681423391
+
+2023-04-14 07:03:12 Asia/Tokyo: 
+ErrorException: Namespace declaration statement has to be the very first statement or after any declare call in the script: 
+#0 [internal function]: {closure}()
+#1 {main}REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: cross-site
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=4o7eod3ci6a64bhbhn6c7uttgf; redirect=1; testing=1; sid=80425d67d0c5defbe527dee29f47e89c; CSRF-Token=657f80f26643ef394ccfb93d278c5b27
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 56880
+REDIRECT_URL: /image/sss
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image/sss
+SCRIPT_NAME: /index.php
+PATH_INFO: /image/sss
+PATH_TRANSLATED: redirect:/index.php/image/sss/sss
+PHP_SELF: /index.php/image/sss
+REQUEST_TIME_FLOAT: 1681423392.272475
+REQUEST_TIME: 1681423392
+

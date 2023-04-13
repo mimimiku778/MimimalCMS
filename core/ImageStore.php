@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/storage/SecureImage.php';
+require_once __DIR__ . '/Storage/SecureImage.php';
 
 use Storage\SecureImageInterface;
 use Kernel\ImageStoreIntercase;

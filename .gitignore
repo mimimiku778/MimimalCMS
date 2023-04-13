@@ -1,4 +1,4 @@
 /.vscode
-#shared/database_config.php
-#shared/string_cryptor_config.php
+#shared/ConfigClasses/StringCryptorConfig.php
+#shared/ConfigClasses/DatabaseConfig.php
 
