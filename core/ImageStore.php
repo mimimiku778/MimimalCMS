@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/Storage/SecureImage.php';
 
-use Storage\SecureImageInterface;
-use Shadow\ImageStoreIntercase;
+namespace Shadow;
 
-enum ImageType: string
-{
-    case JPG = 'jpeg';
-    case WEBP = 'webp';
-    case PNG = 'png';
-}
+use Storage\SecureImageInterface;
+use Storage\SecureImage;
+use Shadow\Kernel\Validator;
 
 /**
  * Store validated images.
@@ -32,23 +28,23 @@ class ImageStore implements ImageStoreIntercase
 
     public function __construct(?SecureImageInterface $instance = null)
     {
-        $this->image = $instance ?? new Storage\SecureImage;
+        $this->image = $instance ?? new SecureImage;
     }
 
     public function setParams(?int $maxWidth = null, ?int $maxHeight = null, int $quality = 80)
     {
         if (Validator::num($quality, min: 0, max: 100) === false) {
-            throw new InvalidArgumentException('Invalid image quality. Quality must be between 0 and 100.');
+            throw new \InvalidArgumentException('Invalid image quality. Quality must be between 0 and 100.');
         }
 
         if ($maxWidth !== null && Validator::num($maxWidth, max: self::MAX_WIDTH) === false) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Invalid maximum width. Maximum width must be less than equal to ' . self::MAX_WIDTH
             );
         }
 
         if ($maxHeight !== null && Validator::num($maxHeight, max: self::MAX_HEIGHT) === false) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Invalid maximum height. Maximum height must be less than equal to ' . self::MAX_HEIGHT
             );
         }
@@ -62,11 +58,11 @@ class ImageStore implements ImageStoreIntercase
     {
         try {
             return $this->image->getImage(
-                Validator::arrayStr($file, 'tmp_name', emptyAble: false, e: InvalidArgumentException::class),
+                Validator::arrayStr($file, 'tmp_name', emptyAble: false, e: \InvalidArgumentException::class),
                 $this->maxWidth,
                 $this->maxHeight
             );
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             $this->errorCode = $e->getCode();
             $this->errorMessage = $e->getMessage();
         }
@@ -75,7 +71,7 @@ class ImageStore implements ImageStoreIntercase
     public function store($file, string $path, \ImageType $imageType = \ImageType::WEBP, ?string $fileName = null): bool
     {
         // If a GdImage instance is provided, skip `getGdImage` and use it directly.
-        if ($file instanceof GdImage) {
+        if ($file instanceof \GdImage) {
             $image = $file;
         } else {
             $image = $this->getGdImage($file);
@@ -125,7 +121,7 @@ class ImageStore implements ImageStoreIntercase
     private function convertToSingleDigitWithBias(int $num): int
     {
         if ($num < 0 || $num > 100) {
-            throw new InvalidArgumentException('Invalid image quality. Quality must be between 0 and 100.');
+            throw new \InvalidArgumentException('Invalid image quality. Quality must be between 0 and 100.');
         }
 
         if ($num === 80) {

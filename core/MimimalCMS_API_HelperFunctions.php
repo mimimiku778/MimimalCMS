@@ -16,15 +16,17 @@ declare(strict_types=1);
  * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
  *                                       Keys starting with "_" will not be sanitized.
  * 
+ * @return \Shadow\Kernel\ViewInterface
+ * 
  * @throws InvalidArgumentException      If passed invalid array or not found the template file.
  */
-function view(?string $viewTemplateFile = null, ?array $valuesArray = null): View
+function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\ViewInterface
 {
     if ($viewTemplateFile === null && $valuesArray === null) {
-        return new View();
+        return new \Shadow\Kernel\View;
     }
 
-    return new View(View::get($viewTemplateFile, $valuesArray));
+    return new \Shadow\Kernel\View(\Shadow\Kernel\View::get($viewTemplateFile, $valuesArray));
 }
 
 /**

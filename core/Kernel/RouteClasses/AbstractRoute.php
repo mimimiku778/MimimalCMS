@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel\RouteClasses;
 
-use ValidationException;
+use Shadow\Kernel\Validator;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -49,25 +49,25 @@ abstract class AbstractRoute
                     $this->argCache[1] = $regex;
                 }
 
-                return \Validator::str($input, ...$this->argCache);
+                return Validator::str($input, ...$this->argCache);
             }
 
             public function num(mixed $input)
             {
-                return \Validator::num($input, ...$this->argCache);
+                return Validator::num($input, ...$this->argCache);
             }
 
             public function file(mixed $file)
             {
                 if (!is_array($file) || empty($file['tmp_name'] ?? [])) {
                     if (!$this->argCache[0]) {
-                        throw new ValidationException('File is empty.', 3000);
+                        throw new \ValidationException('File is empty.', 3000);
                     }
 
                     return null;
                 }
 
-                return \Validator::file($file, $this->argCache[1], $this->argCache[2]);
+                return Validator::file($file, $this->argCache[1], $this->argCache[2]);
             }
         };
     }

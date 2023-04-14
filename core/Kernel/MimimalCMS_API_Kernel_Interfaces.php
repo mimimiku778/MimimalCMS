@@ -255,12 +255,12 @@ interface ViewInterface
     /**
      * Render a template file with optional values.
      *
-     * @param string|\View $viewTemplateFile Path to the template file.
+     * @param string|ViewInterface $viewTemplateFile Path to the template file.
      * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
      *                                       Keys starting with "_" will not be sanitized.
      * @throws \InvalidArgumentException     If passed invalid array.
      */
-    public function make(string|\View $viewTemplateFile, array|null $valuesArray = null): \View;
+    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): ViewInterface;
 
     /**
      * Gets rendered template as a string.
@@ -411,7 +411,7 @@ interface SessionInterface
      * @param string|null $key The key of the error message to check.
      * @return bool            True if the error message exists, false otherwise.
      */
-    public static function hasError(string $key): bool;
+    public static function hasError(?string $key = null): bool;
 
     /**
      * Save input values to session, excluding specified names (if provided).

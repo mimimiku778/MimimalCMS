@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Shadow\Kernel\ValidatorInterface;
+namespace Shadow\Kernel;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -31,7 +31,7 @@ class Validator implements ValidatorInterface
             if ($result === false) {
                 $errorCode = 1000;
                 $errorMessage = 'An error occurred while executing preg_match function. Please check the regex pattern.';
-                throw new LogicException($errorMessage, $errorCode);
+                throw new \LogicException($errorMessage, $errorCode);
             }
 
             if ($result === 0) {
@@ -47,7 +47,7 @@ class Validator implements ValidatorInterface
         if (!$emptyAble) {
             $normalizedStr = $input;
             if (class_exists('Normalizer')) {
-                $normalizedStr = Normalizer::normalize($input, Normalizer::FORM_KC);
+                $normalizedStr = \Normalizer::normalize($input, \Normalizer::FORM_KC);
             }
 
             $replaceStr = preg_replace(ValidatorInterface::ZERO_WHITE_SPACE, '', $normalizedStr);
@@ -143,28 +143,28 @@ class Validator implements ValidatorInterface
         if (!is_uploaded_file($file['tmp_name'])) {
             $errorCode = 3000;
             $errorMessage = 'Invalid file.';
-            throw new LogicException($errorMessage, $errorCode);
+            throw new \LogicException($errorMessage, $errorCode);
         }
 
         if ($file['size'] > $maxFileSize * 1024) {
             $errorCode = 3001;
             $errorMessage = 'File too large.';
-            throw new ValidationException($errorMessage, $errorCode);
+            throw new \ValidationException($errorMessage, $errorCode);
         }
 
-        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mimeType = $finfo->file($file['tmp_name']);
 
         if (!in_array($mimeType, $allowedMimeTypes, true)) {
             $errorCode = 3002;
             $errorMessage = 'File extension not allowed.';
-            throw new ValidationException($errorMessage, $errorCode);
+            throw new \ValidationException($errorMessage, $errorCode);
         }
 
         if ($mimeType !== $file['type']) {
             $errorCode = 3003;
             $errorMessage = 'File type does not match.';
-            throw new ValidationException($errorMessage, $errorCode);
+            throw new \ValidationException($errorMessage, $errorCode);
         }
 
         return $file;

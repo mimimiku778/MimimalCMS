@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Shadow\Kernel\ViewInterface;
+namespace Shadow\Kernel;
 
 /**
  * View class for rendering and displaying templates.
@@ -31,9 +31,9 @@ class View implements ViewInterface
         return file_exists($filePath);
     }
 
-    public function make(string|View $viewTemplateFile, array|null $valuesArray = null): View
+    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): ViewInterface
     {
-        if ($viewTemplateFile instanceof View) {
+        if ($viewTemplateFile instanceof ViewInterface) {
             $this->renderCache .= $viewTemplateFile->renderCache;
         } else {
             $this->renderCache .= self::get($viewTemplateFile, $valuesArray);
@@ -46,7 +46,7 @@ class View implements ViewInterface
     {
         if (is_array($valuesArray)) {
             if (array_values($valuesArray) === $valuesArray) {
-                throw new InvalidArgumentException('The passed array must be an associative array or an object.');
+                throw new \InvalidArgumentException('The passed array must be an associative array or an object.');
             }
 
             extract(self::sanitizeArray($valuesArray));
@@ -55,7 +55,7 @@ class View implements ViewInterface
         $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
         $filePath = VIEWS_DIR . $viewTemplateFile . '.php';
         if (!file_exists($filePath)) {
-            throw new InvalidArgumentException('Could not find template file: ' . $filePath);
+            throw new \InvalidArgumentException('Could not find template file: ' . $filePath);
         }
 
         ob_start();
@@ -78,7 +78,7 @@ class View implements ViewInterface
                 continue;
             }
 
-            if ($value instanceof View) {
+            if ($value instanceof ViewInterface) {
                 $output[$key] = $value->renderCache;
                 continue;
             }
@@ -105,14 +105,14 @@ class View implements ViewInterface
      */
     private static function sanitizeObject(object $input): object
     {
-        $output = new stdClass();
+        $output = new \stdClass();
         foreach ($input as $key => $value) {
             if (substr((string) $key, 0, 1) === '_') {
                 $output->$key = $value;
                 continue;
             }
 
-            if ($value instanceof View) {
+            if ($value instanceof ViewInterface) {
                 $output->$key = $value->renderCache;
                 continue;
             }

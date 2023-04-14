@@ -24,6 +24,7 @@
             "core/Kernel/KernelInterfaces.php",
             "core/Kernel/MimimalCMS_Exceptions.php",
             "core/MimimalCMS_API_Core_Interfaces.php",
+            "core/MimimalCMS_API_Core_Enums.php",
             "core/MimimalCMS_API_HelperFunctions.php"
         ]
     }
