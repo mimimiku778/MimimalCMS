@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/Storage/SecureImage.php';
-
 namespace Shadow;
 
-use Storage\SecureImageInterface;
-use Storage\SecureImage;
+use Shadow\Storage\SecureImageInterface;
+use Shadow\Storage\SecureImage;
 use Shadow\Kernel\Validator;
 
 /**

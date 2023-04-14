@@ -2,8 +2,6 @@
 
 namespace Errors;
 
-use Throwable;
-
 /**
  * Registers ExceptionHandler::handleException() as the global exception handler.
  */
@@ -66,11 +64,11 @@ class ExceptionHandler
     ];
 
     /**
-     * Handles the specified Throwable instance.
+     * Handles the specified \Throwable instance.
      *
-     * @param Throwable $e The Throwable instance to handle.
+     * @param \Throwable $e The \Throwable instance to handle.
      */
-    public static function handleException(Throwable $e)
+    public static function handleException(\Throwable $e)
     {
         // Clean the output buffer if defined by the flag
         $obCleanFlag = defined('EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN') && constant('EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN');
@@ -106,13 +104,13 @@ class ExceptionHandler
     /**
      * Return an error response with appropriate status code and message
      *
-     * @param Throwable $e                 The exception object
+     * @param \Throwable $e                 The exception object
      * @param string    $message           The error message to display
      * @param int       $httpCode          The HTTP status code to return
      * @param string    $httpStatusMessage The HTTP status message to return
      */
     private static function errorResponse(
-        Throwable $e,
+        \Throwable $e,
         string $message,
         int $httpCode,
         string $httpStatusMessage,
@@ -150,12 +148,12 @@ class ExceptionHandler
 
     /**
      * Returns a string that contains a detailed error message with information 
-     * about the file, line, and trace of the Throwable instance.
+     * about the file, line, and trace of the \Throwable instance.
      *
-     * @param Throwable $e The Throwable instance to get the detailed error message from.
+     * @param \Throwable $e The \Throwable instance to get the detailed error message from.
      * @return string      The detailed error message.
      */
-    private static function getDetailsMessage(Throwable $e): string
+    private static function getDetailsMessage(\Throwable $e): string
     {
         return mb_convert_encoding($e->getMessage(), 'UTF-8')
             . " in "
@@ -176,13 +174,13 @@ class ExceptionHandler
      */
     private static function showErrorPage(int $httpCode, string $httpStatusMessage, string $detailsMessage): bool
     {
-        $filePath = __DIR__ . '/../views/errors/' . $httpCode . '.php';
+        $filePath = __DIR__ . '/../app/Views/errors/' . $httpCode . '.php';
         if (file_exists($filePath)) {
             require_once $filePath;
             return true;
         }
 
-        $filePath = __DIR__ . '/../views/errors/error.php';
+        $filePath = __DIR__ . '/../app/Views/errors/error.php';
         if (file_exists($filePath)) {
             require_once $filePath;
             return true;
@@ -194,9 +192,9 @@ class ExceptionHandler
     /**
      * Writes error messages to the error log file and exits.
      *
-     * @param Throwable $e
+     * @param \Throwable $e
      */
-    public static function errorLog(Throwable $e)
+    public static function errorLog(\Throwable $e)
     {
         // Get current date and time with timezone
         $time = date('Y-m-d H:i:s') . ' ' . date_default_timezone_get() . ': ';

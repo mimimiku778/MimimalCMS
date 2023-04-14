@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../shared/ConfigClasses/StringCryptorConfig.php';
+namespace Shadow;
 
-use Shadow\StringCryptorInterface;
+use Shadow\Config\StringCryptorConfig;
 
 /**
  * Encrypt and decrypt strings using AES-CBC and obtain hashes of encrypted strings using HKDF.
@@ -36,20 +36,20 @@ class StringCryptor implements StringCryptorInterface
         $components = explode("#", $this->decodeBase64URL($encryptedString));
 
         if (count($components) !== 2) {
-            throw new RuntimeException('Invalid format for the Base64 URL encoded string.');
+            throw new \RuntimeException('Invalid format for the Base64 URL encoded string.');
         }
 
         $aesCbcEncryptedString = $components[0];
         $hash = $components[1];
 
         if (!$this->hkdfEquals($aesCbcEncryptedString, $hash)) {
-            throw new RuntimeException('Invalid hash for the Base64 URL encoded string.');
+            throw new \RuntimeException('Invalid hash for the Base64 URL encoded string.');
         }
 
         try {
             $decryptedString = $this->decryptAesCbcString($aesCbcEncryptedString);
-        } catch (RuntimeException $e) {
-            throw new LogicException('Hash is valid but decryption fails: ' . $e->getMessage());
+        } catch (\RuntimeException $e) {
+            throw new \LogicException('Hash is valid but decryption fails: ' . $e->getMessage());
         }
 
         return $decryptedString;
@@ -58,13 +58,13 @@ class StringCryptor implements StringCryptorInterface
     public function encryptAndHashWithValidity(string $string, int $expires): string
     {
         if ($expires < time()) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Invalid parameter value for expires: only time after now allowed.'
             );
         }
 
         if (strlen((string) $expires) !== 10) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Invalid parameter value for expires: Unix time should be 10 digits.'
             );
         }
@@ -81,7 +81,7 @@ class StringCryptor implements StringCryptorInterface
         $components = explode("#", $this->decodeBase64URL($data));
 
         if (count($components) !== 2) {
-            throw new RuntimeException('Invalid format for the Base64 URL encoded string.');
+            throw new \RuntimeException('Invalid format for the Base64 URL encoded string.');
         }
 
         $expires = strtok($encryptedString, 'd');
@@ -89,7 +89,7 @@ class StringCryptor implements StringCryptorInterface
         $hash = $components[1];
 
         if (!$this->hkdfEquals($aesCbcEncryptedString . $expires, $hash)) {
-            throw new RuntimeException('Invalid hash for the Base64 URL encoded string.');
+            throw new \RuntimeException('Invalid hash for the Base64 URL encoded string.');
         }
 
         if ((int) $expires < time()) {
@@ -98,8 +98,8 @@ class StringCryptor implements StringCryptorInterface
 
         try {
             $decryptedString = $this->decryptAesCbcString($aesCbcEncryptedString);
-        } catch (RuntimeException $e) {
-            throw new LogicException('Hash is valid but decryption fails: ' . $e->getMessage());
+        } catch (\RuntimeException $e) {
+            throw new \LogicException('Hash is valid but decryption fails: ' . $e->getMessage());
         }
 
         return [(int) $expires, $decryptedString];
@@ -119,7 +119,7 @@ class StringCryptor implements StringCryptorInterface
         $components = explode('@', $hashedString);
 
         if (count($components) !== 2) {
-            throw new RuntimeException('Invalid format for the HKDF hashed string.');
+            throw new \RuntimeException('Invalid format for the HKDF hashed string.');
         }
 
         $hash = base64_decode($components[0]);
@@ -143,7 +143,7 @@ class StringCryptor implements StringCryptorInterface
         );
 
         if ($encryptedData === false) {
-            throw new LogicException('Encryption failed.');
+            throw new \LogicException('Encryption failed.');
         }
 
         // Return the Base64-encoded encrypted string in the format `string`@`iv`.
@@ -154,7 +154,7 @@ class StringCryptor implements StringCryptorInterface
     {
         $components = explode('@', $encryptedString);
         if (count($components) !== 2) {
-            throw new RuntimeException('Invalid format for the encrypted string.');
+            throw new \RuntimeException('Invalid format for the encrypted string.');
         }
 
         $encryptedData = base64_decode($components[0]);
@@ -169,7 +169,7 @@ class StringCryptor implements StringCryptorInterface
         );
 
         if ($decryptedData === false) {
-            throw new RuntimeException('Decryption failed.');
+            throw new \RuntimeException('Decryption failed.');
         }
 
         return $decryptedData;

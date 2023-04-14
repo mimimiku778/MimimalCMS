@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel;
 
-use Session;
-
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md

@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Storage;
-
-require_once __DIR__ . '/StorageInterfaces.php';
-
-use RuntimeException;
+namespace Shadow\Storage;
 
 class SecureImage implements SecureImageInterface
 {
@@ -15,19 +11,19 @@ class SecureImage implements SecureImageInterface
         $imageData = file_get_contents($filePath);
 
         if (!$imageData) {
-            throw new RuntimeException('Invalid File.', 5000);
+            throw new \RuntimeException('Invalid File.', 5000);
         }
 
         $srcImage = imagecreatefromstring($imageData);
 
         if (!$srcImage) {
-            throw new RuntimeException('Unable to create image from the given data.', 5001);
+            throw new \RuntimeException('Unable to create image from the given data.', 5001);
         }
 
         [$srcWidth, $srcHeight] = getimagesizefromstring($imageData);
 
         if (!$srcWidth || !$srcHeight) {
-            throw new RuntimeException('Unable to get size of the given image data.', 5002);
+            throw new \RuntimeException('Unable to get size of the given image data.', 5002);
         }
 
         [$dstWidth, $dstHeight] = $this->getNewSize($srcWidth, $srcHeight, $maxWidth, $maxHeight);
@@ -66,7 +62,7 @@ class SecureImage implements SecureImageInterface
         $image = imagecreatetruecolor($width, $height);
 
         if (!$image) {
-            throw new RuntimeException('Failed to create a new image.', 5003);
+            throw new \RuntimeException('Failed to create a new image.', 5003);
         }
 
         return $image;

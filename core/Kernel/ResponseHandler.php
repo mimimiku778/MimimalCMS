@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel;
 
-use BadRequestException;
-use NotFoundException;
-
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
@@ -22,12 +19,12 @@ class ResponseHandler implements ResponseHandlerInterface
 
     public function handleResponse(): mixed
     {
-        if ($this->response instanceof \View) {
+        if ($this->response instanceof ViewInterface) {
             $this->response->render();
             return true;
         }
 
-        if ($this->response instanceof Response) {
+        if ($this->response instanceof ResponseInterface) {
             $this->response->send();
             return true;
         }
@@ -39,10 +36,10 @@ class ResponseHandler implements ResponseHandlerInterface
 
         if ($this->response === false) {
             if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET') {
-                throw new NotFoundException('no response');
+                throw new \NotFoundException('no response');
             }
 
-            throw new BadRequestException('no response');
+            throw new \BadRequestException('no response');
         }
 
         if (is_string($this->response)) {

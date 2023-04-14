@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shadow\Kernel\Dispatcher;
 
 use Shadow\Kernel\Reception;
@@ -7,12 +9,6 @@ use Shadow\Kernel\Session;
 use Shadow\Kernel\ResponseInterface;
 use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\RouteClasses\RouteDTO;
-
-use Closure;
-use NotFoundException;
-use InvalidInputException;
-use Throwable;
-use ValidationException;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -105,8 +101,8 @@ class ReceptionInitializer implements ReceptionInitializerInterface
      * @return array Validated array
      * 
      * @throws InvalidArgumentException
-     * @throws ValidationException
-     * @throws NotFoundException
+     * @throws \ValidationException
+     * @throws \NotFoundException
      */
     public function callRequestValidator()
     {
@@ -167,14 +163,14 @@ class ReceptionInitializer implements ReceptionInitializerInterface
     /**
      * Validate the incoming request using the given route callback and return the validated input data.
      */
-    private function callbackRouteValidator(Closure $routeCallback): array
+    private function callbackRouteValidator(\Closure $routeCallback): array
     {
         [$closureArgs, $validatedArray] = $this->getClosureArgs($routeCallback);
 
         try {
             $response = new ResponseHandler($routeCallback(...$closureArgs));
             $result = $response->handleResponse();
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             $this->errorResponse([
                 ['key' => 'match', 'code' => $e->getCode(), 'message' => $e->getMessage()]
             ]);
@@ -194,7 +190,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
     /**
      * Get the arguments for the given closure function and return an array of both the closure arguments and validated input data.
      */
-    private function getClosureArgs(Closure $function): array
+    private function getClosureArgs(\Closure $function): array
     {
         $reflection = new \ReflectionFunction($function);
         $parameters = $reflection->getParameters();
@@ -250,7 +246,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
 
             try {
                 $validatedValue = $validator($data);
-            } catch (ValidationException $e) {
+            } catch (\ValidationException $e) {
                 $errors[] = [
                     'key' => $key,
                     'code' => $e->getCode(),
@@ -273,8 +269,8 @@ class ReceptionInitializer implements ReceptionInitializerInterface
      * Generate error response.
      *
      * @param array $errorArray List of error details, each containing 'key', 'code', and 'message'.
-     * @throws NotFoundException
-     * @throws InvalidInputException
+     * @throws \NotFoundException
+     * @throws \InvalidInputException
      */
     private function errorResponse(array $errorArray)
     {
@@ -290,9 +286,9 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         $code = $errorArray[0]['code'] ?? 0;
 
         if (Reception::$requestMethod === 'GET') {
-            throw new NotFoundException($message, $code);
+            throw new \NotFoundException($message, $code);
         } else {
-            throw new InvalidInputException($message, $code);
+            throw new \InvalidInputException($message, $code);
         }
     }
 }

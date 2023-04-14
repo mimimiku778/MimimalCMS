@@ -1,41 +1,30 @@
+# Enable rewrite engine
 RewriteEngine On
 
+# Block access to WordPress files and directories
+RewriteRule ^wp-.* - [R=404,L]
+
 # Redirect all www and non-https requests to https://example.com
-#RewriteCond %{HTTPS} off [OR]
-#RewriteCond %{HTTP_HOST} ^www\.%{HTTP_HOST}\.com [NC]
-#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+# RewriteCond %{HTTPS} off [OR]
+# RewriteCond %{HTTP_HOST} ^www\.%{HTTP_HOST}\.com [NC]
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
 # Redirect /index to /
-RewriteCond %{HTTPS} off [OR]
-RewriteRule ^(.*)/index/?$  http://%{HTTP_HOST}/$1 [R=301,L,NE]
-RewriteCond %{HTTPS} off [OR]
-RewriteRule ^index/?$ http://%{HTTP_HOST} [R=301,L,NE]
-
-RewriteCond %{HTTPS} on [OR]
-RewriteRule ^(.*)/index/?$  https://%{HTTP_HOST}/$1 [R=301,L,NE]
-RewriteCond %{HTTPS} on [OR]
-RewriteRule ^index/?$ https://%{HTTP_HOST} [R=301,L,NE]
+RewriteRule ^(?:.*/)?index/?$ https://%{HTTP_HOST}/ [R=301,L]
 
 # Redirect URLs ending in a trailing slash to the same URL without the trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-# Prevent access to specific directories
-RewriteRule ^shared - [R=404,L]
-RewriteRule ^controllers - [R=404,L]
-RewriteRule ^core - [R=404,L]
-RewriteRule ^models - [R=404,L]
-RewriteRule ^views - [R=404,L]
-RewriteRule ^material - [R=404,L]
-RewriteRule ^service - [R=404,L]
-RewriteCond %{REQUEST_URI} ^/composer\.(json|lock)$ [OR]
-RewriteCond %{REQUEST_URI} ^/vendor(/|$)
-RewriteRule ^.*$ - [R=404,L]
+# Redirect /public to root directory
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/public/ [NC]
+RewriteRule ^ / [R=301,L]
 
-# Block access to WordPress files and directories
-#RewriteRule ^wp-.* - [R=404,L]
+# Route all requests to public folder
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
 
-# If the request is not for a file or directory, route it to index.php
+# Route requests to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php/$1 [L]
+RewriteRule ^(.*)$ /public/index.php/$1 [L]

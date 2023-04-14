@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shadow\Kernel\RouteClasses;
 
 use Shadow\Kernel\ResponseInterface;

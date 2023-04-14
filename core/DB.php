@@ -2,37 +2,37 @@
 
 declare(strict_types=1);
 
-use Shadow\DBInterface;
+namespace Shadow;
 
-require_once __DIR__ . '/../shared/ConfigClasses/DatabaseConfig.php';
+use Shadow\Config\DatabaseConfig;
 
 /**
- * PDO wrapper class for SQL databases
+ * \PDO wrapper class for SQL databases
  * 
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 class DB implements DBInterface
 {
-    public static ?PDO $pdo = null;
+    public static ?\PDO $pdo = null;
 
     /**
-     * @throws PDOException
+     * @throws \PDOException
      */
     private static function connect()
     {
-        self::$pdo = new PDO(
+        self::$pdo = new \PDO(
             'mysql:host=' . DatabaseConfig::HOST . ';dbname=' . DatabaseConfig::DB_NAME . ';charset=utf8mb4',
             DatabaseConfig::USER_NAME,
             DatabaseConfig::PASSWORD,
-            [PDO::ATTR_PERSISTENT => DatabaseConfig::ATTR_PERSISTENT]
+            [\PDO::ATTR_PERSISTENT => DatabaseConfig::ATTR_PERSISTENT]
         );
 
-        // Enable PDO to throw exceptions on error.
-        self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Enable \PDO to throw exceptions on error.
+        self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
-    public static function execute(string $query, ?array $params = null): PDOStatement
+    public static function execute(string $query, ?array $params = null): \PDOStatement
     {
         if (self::$pdo === null) {
             self::connect();
@@ -45,11 +45,11 @@ class DB implements DBInterface
         } else {
             foreach ($params as $key => $value) {
                 if ($value === null) {
-                    $stmt->bindValue($key, $value, PDO::PARAM_NULL);
+                    $stmt->bindValue($key, $value, \PDO::PARAM_NULL);
                 } elseif (!is_string($value) && !is_numeric($value)) {
-                    throw new InvalidArgumentException("Only string, number, or null is allowed: {$key}");
+                    throw new \InvalidArgumentException("Only string, number, or null is allowed: {$key}");
                 } else {
-                    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                    $type = is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR;
                     $stmt->bindValue($key, $value, $type);
                 }
             }
@@ -65,7 +65,7 @@ class DB implements DBInterface
             self::connect();
         }
 
-        return self::execute($query, $params)->fetch(PDO::FETCH_ASSOC);
+        return self::execute($query, $params)->fetch(\PDO::FETCH_ASSOC);
     }
 
     public static function fetchAll(string $query, ?array $params = null): array
@@ -74,7 +74,7 @@ class DB implements DBInterface
             self::connect();
         }
 
-        return self::execute($query, $params)->fetchAll(PDO::FETCH_ASSOC);
+        return self::execute($query, $params)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -84,13 +84,13 @@ class DB implements DBInterface
      * * *Example:* `'INSERT INTO user (name) SELECT :name'`
      * 
      * @param array|null $params [optional] An associative array of query parameters.
-     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
      * * *Example:* `['name' => 'mimikyu']`
      * 
      * @return int Returns the row ID of the last row that was inserted into the database.
      * 
-     * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
+     * @throws \PDOException If an error occurs during the query execution.
+     * @throws \InvalidArgumentException If any of the array values are not strings or numbers.
      */
     public static function executeAndGetLastInsertId(string $query, ?array $params = null): int
     {
@@ -103,7 +103,7 @@ class DB implements DBInterface
     }
 
     /**
-     * Executes a LIKE search query and returns a PDOStatement object with bound values.
+     * Executes a LIKE search query and returns a \PDOStatement object with bound values.
      * 
      * @param callable $query A function that returns a string representing the SQL query. 
      * * *Example:* `fn (string $where): string => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
@@ -112,18 +112,18 @@ class DB implements DBInterface
      * * *Example:* `fn (int $i): string => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"`
      * 
      * @param string $keyword The keyword(s) to search for.
-     * InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
+     * \InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
      * * *Example:* `'Split keywords by whitespace and search with LIKE'`
      * 
      * @param array|null $params [optional] An associative array of query parameters.
-     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
      * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
      * @return array An empty array is returned if there are zero results to search.
      * 
-     * @throws PDOException If an error occurs during the query execution.
-     * @throws LogicException If any of the given callbacks are invalid.
-     * @throws InvalidArgumentException If any of the parameter values are invalid or the given callbacks are invalid.
+     * @throws \PDOException If an error occurs during the query execution.
+     * @throws \LogicException If any of the given callbacks are invalid.
+     * @throws \InvalidArgumentException If any of the parameter values are invalid or the given callbacks are invalid.
      */
     public static function executeLikeSearchQuery(
         callable $query,
@@ -140,7 +140,7 @@ class DB implements DBInterface
         );
 
         if (empty(trim($convertedKeyword))) {
-            throw new InvalidArgumentException('Please provide a non-empty search keyword.');
+            throw new \InvalidArgumentException('Please provide a non-empty search keyword.');
         }
 
         $splitKeywords = explode(' ', $convertedKeyword);
@@ -154,18 +154,18 @@ class DB implements DBInterface
 
         $queryResult = $query($whereClause);
         if (!is_string($queryResult)) {
-            throw new LogicException('Query callback must return a string');
+            throw new \LogicException('Query callback must return a string');
         }
 
         if (!preg_match('{:\w+}', $whereClause, $matches)) {
-            throw new InvalidArgumentException('Invalid placeholder for WHERE clause.');
+            throw new \InvalidArgumentException('Invalid placeholder for WHERE clause.');
         }
 
         $stmt = self::$pdo->prepare($queryResult);
 
         $whereClausePlaceholder = $matches[0];
         foreach ($splitKeywords as $i => $word) {
-            $stmt->bindValue($whereClausePlaceholder . (string) $i, "%{$word}%", PDO::PARAM_STR);
+            $stmt->bindValue($whereClausePlaceholder . (string) $i, "%{$word}%", \PDO::PARAM_STR);
         }
 
         if ($params === null) {
@@ -175,17 +175,17 @@ class DB implements DBInterface
 
         foreach ($params as $key => $value) {
             if (!is_string($value) && !is_numeric($value)) {
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     "Invalid parameter value for key {$key}: only strings and numbers are allowed."
                 );
             }
 
-            $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $type = is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR;
             $stmt->bindValue($key, $value, $type);
         }
 
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);;
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);;
     }
 
     /**
@@ -213,18 +213,18 @@ class DB implements DBInterface
      * * *Example:* `'WHERE MATCH(title, text) AGAINST(:search IN BOOLEAN MODE)'`
      * 
      * @param string $keyword The search keyword to be used in the full-text search query.
-     * InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
+     * \InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
      * * *Example:* `'Splits keywords by whitespace'`
      * 
      * @param array|null $params [optional] An associative array of query parameters.
-     * InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
+     * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
      * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
      * @return array An array of rows returned by the query. An empty array is returned if there are no results to search.
      * 
-     * @throws PDOException If an error occurs during the query execution.
-     * @throws LogicException If any of the given callbacks are invalid.
-     * @throws InvalidArgumentException If the search keyword is empty or the WHERE clause query has an invalid placeholder.
+     * @throws \PDOException If an error occurs during the query execution.
+     * @throws \LogicException If any of the given callbacks are invalid.
+     * @throws \InvalidArgumentException If the search keyword is empty or the WHERE clause query has an invalid placeholder.
      */
     public static function executeFulltextSearchQuery(
         callable $query,
@@ -239,11 +239,11 @@ class DB implements DBInterface
         $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
 
         if (empty(trim($convertedKeyword))) {
-            throw new InvalidArgumentException('Please provide a non-empty search keyword.');
+            throw new \InvalidArgumentException('Please provide a non-empty search keyword.');
         }
 
         if (!preg_match('{:\w+}', $whereClauseQuery, $matches)) {
-            throw new InvalidArgumentException('Invalid placeholder for WHERE clause.');
+            throw new \InvalidArgumentException('Invalid placeholder for WHERE clause.');
         }
 
         $whereClausePlaceholder = $matches[0];
@@ -264,7 +264,7 @@ class DB implements DBInterface
         $queryResult = $query($whereClauseQuery);
 
         if (!is_string($queryResult)) {
-            throw new LogicException('Query callback must return a string');
+            throw new \LogicException('Query callback must return a string');
         }
 
         return self::fetchAll($queryResult, $params);

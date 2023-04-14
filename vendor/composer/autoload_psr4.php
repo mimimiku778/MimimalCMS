@@ -12,4 +12,8 @@ return array(
     'Shadow\\Kernel\\' => array($baseDir . '/core/Kernel'),
     'Shadow\\Config\\' => array($baseDir . '/shared/Config'),
     'Shadow\\' => array($baseDir . '/core'),
+    'App\\Views\\' => array($baseDir . '/app/Views'),
+    'App\\Services\\' => array($baseDir . '/app/Services'),
+    'App\\Models\\' => array($baseDir . '/app/Models'),
+    'App\\Controllers\\' => array($baseDir . '/app/Controllers'),
 );
