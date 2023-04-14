@@ -1,7 +1,7 @@
 # MimimalCMS
 This is a super simple and minimal CMS.
 
-The first official release version of MimimalCMS is now available, and this will be the final version of the most primitive version that does not use DI.
+The first official release version of MimimalCMS is now available, and this will be the final version of the most primitive version that does not use DI container.
 
 ## Features include:
 - A micro-framework based on the MVC model
@@ -14,7 +14,6 @@ The first official release version of MimimalCMS is now available, and this will
 - A string encryption class using HKDF hash and AES
 - A class for image validation, automatic resizing, and saving
 - Basic exception handler
-- Simple autoloader that does not use namespaces
 - Built-in middleware for automatically managing CSRF tokens
 - A simple View class consisting of output buffer control and sanitization features
 
