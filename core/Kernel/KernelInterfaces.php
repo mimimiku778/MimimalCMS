@@ -5,7 +5,7 @@
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 
-namespace Kernel;
+namespace Shadow\Kernel;
 
 interface ResponseHandlerInterface
 {

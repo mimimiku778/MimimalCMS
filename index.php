@@ -10,7 +10,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/core/bootloader.php';
 
-use Kernel\Route;
+use Shadow\Kernel\Route;
 
 Route::path('image/store@post')
     ->matchFile('file', IMAGE_MIME_TYPE, emptyAble: false)

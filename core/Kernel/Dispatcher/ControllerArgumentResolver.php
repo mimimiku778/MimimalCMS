@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Kernel;
+namespace Shadow\Kernel\Dispatcher;
 
-use Reception;
+use Shadow\Kernel\Reception;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>

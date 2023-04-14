@@ -33,11 +33,11 @@ function view(?string $viewTemplateFile = null, ?array $valuesArray = null): Vie
  * @param array $data        The array to be returned as response.
  * @param ?int $responseCode [optional] HTTP status code
  * 
- * @return Kernel\ResponseInterface
+ * @return \Shadow\Kernel\ResponseInterface
  */
-function response(array $data, int $responseCode = 200): Kernel\ResponseInterface
+function response(array $data, int $responseCode = 200): \Shadow\Kernel\ResponseInterface
 {
-    return new Kernel\Response($responseCode, jsonData: $data);
+    return new \Shadow\Kernel\Response($responseCode, jsonData: $data);
 }
 
 /**
@@ -45,16 +45,16 @@ function response(array $data, int $responseCode = 200): Kernel\ResponseInterfac
  *
  * @param string $url        The url of path to be redirect.
  * @param ?int $responseCode [optional] HTTP status code
- * @return Kernel\ResponseInterface
+ * @return \Shadow\Kernel\ResponseInterface
  */
-function redirect(string $url, int $responseCode = 302): Kernel\ResponseInterface
+function redirect(string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
 {
     if (!strpos($url, 'http://') && !strpos($url, 'https://')) {
         $path =  ltrim($url, "/");
-        $url = Kernel\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
+        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
     }
 
-    return new Kernel\Response($responseCode, $url);
+    return new \Shadow\Kernel\Response($responseCode, $url);
 }
 
 /**
@@ -64,20 +64,20 @@ function redirect(string $url, int $responseCode = 302): Kernel\ResponseInterfac
  * @param  array|string|null  $key
  * @param  mixed  $default
  * 
- * @return mixed|Session
+ * @return mixed|\Shadow\Kernel\SessionInterface
  */
 function session(null|string|array $value = null, mixed $default = null): mixed
 {
     if ($value === null) {
-        return new Session;
+        return new \Shadow\Kernel\Session;
     }
 
     if (is_array($value)) {
-        Session::push($value);
+        \Shadow\Kernel\Session::push($value);
         return null;
     }
 
-    return Session::get($value, $default);
+    return \Shadow\Kernel\Session::get($value, $default);
 }
 
 /**
@@ -92,10 +92,10 @@ function session(null|string|array $value = null, mixed $default = null): mixed
 function old(?string $key = null): mixed
 {
     if ($key === null) {
-        Reception::$flashSession['OLD_ARRAY'] ?? [];
+        \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
     }
 
-    return Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
+    return \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
 }
 
 /**
@@ -110,7 +110,7 @@ function old(?string $key = null): mixed
  * @param bool $httpOnly
  * @param string $domain
  * 
- * @return mixed|Cookie
+ * @return mixed|\Shadow\Kernel\Cookie
  */
 function cookie(
     null|string|array $value = null,
@@ -122,15 +122,15 @@ function cookie(
     string $domain = ''
 ): mixed {
     if ($value === null) {
-        return new Cookie;
+        return new \Shadow\Kernel\Cookie;
     }
 
     if (is_array($value)) {
-        Cookie::push($value, null, $expires, $path, $samesite, $secure, $httpOnly, $domain);
+        \Shadow\Kernel\Cookie::push($value, null, $expires, $path, $samesite, $secure, $httpOnly, $domain);
         return null;
     }
 
-    return Cookie::get($value);
+    return \Shadow\Kernel\Cookie::get($value);
 }
 
 /**
@@ -146,7 +146,7 @@ function url(string $path = ''): string
         $path = "/" . ltrim($path, "/");
     }
 
-    return Kernel\ReceptionInitializer::getDomainAndHttpHost() . $path;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path;
 }
 
 /**
@@ -159,7 +159,7 @@ function url(string $path = ''): string
 function pagerUrl(string $path, int $pageNumber): string
 {
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
-    return Kernel\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
 }
 
 /**

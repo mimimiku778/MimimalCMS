@@ -1,6 +1,8 @@
 <?php
 
-namespace Kernel;
+namespace Shadow\Kernel\RouteClasses;
+
+use Shadow\Kernel\ResponseInterface;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>

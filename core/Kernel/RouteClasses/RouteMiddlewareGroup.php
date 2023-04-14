@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kernel;
+namespace Shadow\Kernel\RouteClasses;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>

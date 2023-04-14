@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../shared/ConfigClasses/StringCryptorConfig.php';
 
-use Kernel\StringCryptorInterface;
+use Shadow\StringCryptorInterface;
 
 /**
  * Encrypt and decrypt strings using AES-CBC and obtain hashes of encrypted strings using HKDF.

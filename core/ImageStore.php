@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/Storage/SecureImage.php';
 
 use Storage\SecureImageInterface;
-use Kernel\ImageStoreIntercase;
+use Shadow\ImageStoreIntercase;
 
 enum ImageType: string
 {
@@ -72,11 +72,16 @@ class ImageStore implements ImageStoreIntercase
         }
     }
 
-    public function store(array $file, string $path, \ImageType $imageType = \ImageType::WEBP, ?string $fileName = null): bool
+    public function store($file, string $path, \ImageType $imageType = \ImageType::WEBP, ?string $fileName = null): bool
     {
-        $image = $this->getGdImage($file);
-        if ($image === false) {
-            return false;
+        // If a GdImage instance is provided, skip `getGdImage` and use it directly.
+        if ($file instanceof GdImage) {
+            $image = $file;
+        } else {
+            $image = $this->getGdImage($file);
+            if ($image === false) {
+                return false;
+            }
         }
 
         if ($fileName === null) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kernel\ViewInterface;
+use Shadow\Kernel\ViewInterface;
 
 /**
  * View class for rendering and displaying templates.

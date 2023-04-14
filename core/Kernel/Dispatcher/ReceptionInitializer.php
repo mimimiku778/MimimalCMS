@@ -1,12 +1,16 @@
 <?php
 
-namespace Kernel;
+namespace Shadow\Kernel\Dispatcher;
+
+use Shadow\Kernel\Reception;
+use Shadow\Kernel\Session;
+use Shadow\Kernel\ResponseInterface;
+use Shadow\Kernel\ResponseHandler;
+use Shadow\Kernel\RouteClasses\RouteDTO;
 
 use Closure;
-use Reception;
 use NotFoundException;
 use InvalidInputException;
-use Session;
 use Throwable;
 use ValidationException;
 

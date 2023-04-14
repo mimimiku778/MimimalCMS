@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kernel\SessionInterface;
+namespace Shadow\Kernel;
 
 /**
  * Handle sessions and flash messages.

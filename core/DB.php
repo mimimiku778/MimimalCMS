@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kernel\DBInterface;
+use Shadow\DBInterface;
 
 require_once __DIR__ . '/../shared/ConfigClasses/DatabaseConfig.php';
 

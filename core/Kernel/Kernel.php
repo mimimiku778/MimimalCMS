@@ -2,29 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Kernel;
+namespace Shadow\Kernel;
 
-require_once __DIR__ . '/MimimalCMS_API_Interfaces.php';
-require_once __DIR__ . '/KernelInterfaces.php';
-require_once __DIR__ . '/Validator.php';
-require_once __DIR__ . '/Reception.php';
-require_once __DIR__ . '/ResponseHandler.php';
-require_once __DIR__ . '/Response.php';
-require_once __DIR__ . '/View.php';
-require_once __DIR__ . '/Cookie.php';
-
-require_once __DIR__ . '/Session.php';
-
-require_once __DIR__ . '/Route.php';
-
-require_once __DIR__ . '/Dispatcher/RoutingInterfaces.php';
-require_once __DIR__ . '/Dispatcher/ReceptionInitializer.php';
-require_once __DIR__ . '/Dispatcher/RequestParser.php';
-require_once __DIR__ . '/Dispatcher/Routing.php';
-require_once __DIR__ . '/Dispatcher/ControllerArgumentResolver.php';
-
-use Reception;
-use Cookie;
+use Shadow\Kernel\RouteClasses\RouteDTO;
+use Shadow\Kernel\Dispatcher\ReceptionInitializer;
+use Shadow\Kernel\Dispatcher\ReceptionInitializerInterface;
+use Shadow\Kernel\Dispatcher\RequestParser;
+use Shadow\Kernel\Dispatcher\Routing;
+use Shadow\Kernel\Dispatcher\ControllerArgumentResolver;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>

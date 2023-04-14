@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kernel\CookieInterface;
+namespace Shadow\Kernel;
 
 /**
  * Cookie class for handling HTTP cookies.

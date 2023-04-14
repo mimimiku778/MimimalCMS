@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kernel\ReceptionInterface;
+namespace Shadow\Kernel;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -64,7 +64,7 @@ class Reception implements ReceptionInterface
 
     private static function objectRecursive(array $array)
     {
-        $result = new stdClass();
+        $result = new \stdClass();
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $result->$key = self::objectRecursive($value);

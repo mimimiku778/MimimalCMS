@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kernel\ValidatorInterface;
+use Shadow\Kernel\ValidatorInterface;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>

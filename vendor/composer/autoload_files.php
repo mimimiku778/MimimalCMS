@@ -6,7 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    '9c505ea57b20dd4128019a6ca09d3bae' => $baseDir . '/core/MimimalCMS_API_HelperFunctions.php',
-    'ec3888f09c3ba8a5d8ad90aef1b11a50' => $baseDir . '/core/Kernel/MimimalCMS_API_Config.php',
+    '1d0fe90f140113528a0ae23f10e7252d' => $baseDir . '/core/ExceptionHandler.php',
+    '6e72f8d9ac0b701176965e247d9c2031' => $baseDir . '/core/Kernel/MimimalCMS_API_Kernel_Config.php',
+    '16472e4e181a8ef254f1473b8a678f2c' => $baseDir . '/core/Kernel/MimimalCMS_API_Kernel_Interfaces.php',
     'c50be35c8e895cc991f499d8e5df3f9c' => $baseDir . '/core/Kernel/MimimalCMS_Exceptions.php',
+    'b4055c9d5ef0ffab2dca67f09cd24ac3' => $baseDir . '/core/MimimalCMS_API_Core_Interfaces.php',
+    '9c505ea57b20dd4128019a6ca09d3bae' => $baseDir . '/core/MimimalCMS_API_HelperFunctions.php',
 );

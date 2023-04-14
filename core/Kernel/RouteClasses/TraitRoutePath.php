@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Kernel;
+namespace Shadow\Kernel\RouteClasses;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
-trait TraitPath
+trait TraitRoutePath
 {
     protected function addPath(string|array ...$path)
     {
@@ -37,22 +37,5 @@ trait TraitPath
             $requestMethod = $controller[2] ?? $this->routeDto->requestMethod;
             $this->routeDto->routeExplicitControllerArray[$key][$requestMethod] = [$controller[0], $controller[1]];
         }
-    }
-}
-
-trait TraitMiddlewarePath
-{
-    use TraitPath;
-
-    protected static array $middlewareGroup;
-
-    public function path(string|array ...$path): RouteMiddlewareGroupSecondInterface
-    {
-        $this->addPath(...$path);
-
-        [$key, $requestMethod] = $this->createArrayKey(null);
-        $this->routeDto->routeMiddlewareArray[$key][$requestMethod] = self::$middlewareGroup;
-
-        return new RouteMiddlewareGroupSecond($this->routeDto);
     }
 }

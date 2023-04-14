@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Kernel;
+namespace Shadow\Kernel\Dispatcher;
+
+use Shadow\Kernel\RouteClasses\RouteDTO;
 
 /**
  * Parses incoming request URI.

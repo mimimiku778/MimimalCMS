@@ -14,6 +14,8 @@ const SESSION_COOKIE_PARAMS = [
     'httponly' => true,
     'samesite' => 'Lax',
 ];
+session_set_cookie_params(SESSION_COOKIE_PARAMS);
+session_start();
 
 // Add root directories to search for class files.
 const SIMPLE_AUTOLOADER_ROOT_DIRECTORY_NAMES = [

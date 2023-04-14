@@ -111,7 +111,7 @@ You can retrieve the value from $_GET['q'] in the bar method of FooPageControlle
 <br>
 <br>
 
-## When the request is ~~POST~~ `application/json`, a different controller will be called.<br>
+## When the request is not GET, a different controller will be called.<br>
 
 ### When accessing http://example.com/foo with POST method<br>
 controllers/api/FooApiController.php will open.<br>
@@ -119,10 +119,6 @@ FooApiController will be instantiated and the index method will be executed.<br>
 The base class will be a different controller named AbstractApiController.<br>
 If the file does not exist, a 404 status code and JSON format { "error": "Not Found" } will be returned.<br>
 <br>
-<br>
-Still under development!<br>
-We are implementing a component for views and a definition method that is as simple as possible!<br>
-Don't forget about SEO!<br>
 <br>
 ___
 <br>
@@ -163,7 +159,7 @@ FooPageController.php のbarメソッド内で$_GET['q']から値を取得でき
 <br>
 <br>
 
-## リクエストが~~POST~~ `application/json`の場合、呼び出されるコントローラーが変わります。<br>
+## リクエストがGET以外の場合、呼び出されるコントローラーが変わります。<br>
 
 ### http://example.com/foo にPOSTメソッドでアクセスが来た場合<br>
 controllers/api/FooApiController.php が開かれます。<br>
@@ -172,58 +168,54 @@ FooApiController がインスタンス化されて、indexメソッドが実行�
 もしファイルが存在しない場合、404のステータスコードと、JSON形式で { "error": "Not Found" } が返ります。<br>
 <br>
 <br>
-まだ作成中です！<br>
-限りなくシンプルなViewのコンポーネントと定義方法を実装してます！<br>
-SEOも忘れずに！<br>
-
 
 *https://example.com/*
-  `Route::start();`
+  `Route::run();`
   new IndexPageController();
   IndexPageController::index();
 
  If there is only one path, calls `index()`. `index()` is implemented by default as part of the base.
 *https://example.com/about*
-  `Route::start();` 
+  `Route::run();` 
   new AboutPageController();
   AboutPageController::index();
 
  The first path corresponds to the controller name, and the second path corresponds to the method.
 *https://example.com/categories/news*
-  `Route::start();` 
+  `Route::run();` 
   new CategoriesPageController();
   AboutPageController::News();
 
 Since it does not support the third level, a 404 error will be returned if there is a third level.
 *https://example.com/categories/news/article*
-  `Route::start();` 
+  `Route::run();` 
   throw new NotFoundException;
 
 
 ### NOTE: Gets any path as a GET value by passing a path with placeholders as an array
  *https://example.com/blog/1234*
-    `Route::start(['blog/{id}']);` 
+    `Route::run(['blog/{id}']);` 
     $_GET['id'] = 1234;
     new BlogPageController();
     BlogPageController::index();
 
  *https://example.com/blog/1234/aritcle*
-    `Route::start(['blog/{id}']);`
+    `Route::run(['blog/{id}']);`
     throw new NotFoundException;
 
  *https://example.com/blog/1234/aritcle*
-    `Route::start(['blog/{id}', 'blog/{id}'/article]);`
+    `Route::run(['blog/{id}', 'blog/{id}'/article]);`
     $_GET['id'] = 1234;
     new BlogPageController();
     BlogPageController::aritcle();
 
  *https://example.com/user/profile/1234*
-    `Route::start(['user/profile/{userId}']);`
+    `Route::run(['user/profile/{userId}']);`
     $_GET['userId'] = 1234;
     new UserPageController();
     UserPageController::profile();
 
 ### NOTE: If there are three or more actual paths, a 404 error will always occur.
  *https://example.com/posts/1234/user/image*
-`   Route::start(['posts/{postId}/user/image']);`
+`   Route::run(['posts/{postId}/user/image']);`
     throw new NotFoundException;
