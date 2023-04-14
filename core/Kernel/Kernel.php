@@ -19,7 +19,6 @@ use Shadow\Kernel\Dispatcher\MiddlewareInvoker;
 class Kernel
 {
     private RouteDTO $routeDTO;
-    private ReceptionInitializerInterface $reception;
     private mixed $contlollerResponse;
 
     public function __construct(RouteDTO $routeDTO)
@@ -50,9 +49,6 @@ class Kernel
         $routing->validatePath();
         $routing->resolveController();
         $routing->validateAllowedMethods();
-
-        $this->reception = new ReceptionInitializer;
-        $this->reception->init($this->routeDTO);
     }
 
     /**
@@ -62,7 +58,9 @@ class Kernel
      */
     private function validateRequest()
     {
-        $this->reception->callRequestValidator();
+        $reception = new ReceptionInitializer;
+        $reception->init($this->routeDTO);
+        $reception->callRequestValidator();
     }
 
     private function callMiddleware()
