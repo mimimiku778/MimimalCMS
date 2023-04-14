@@ -1550,3 +1550,1297 @@ PATH_TRANSLATED: redirect:/index.php/image
 PHP_SELF: /index.php/image
 REQUEST_TIME_FLOAT: 1681436461.485044
 REQUEST_TIME: 1681436461
+2023-04-14 10:42:53 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59662
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436573.520486
+REQUEST_TIME: 1681436573
+2023-04-14 10:42:53 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59672
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436573.714003
+REQUEST_TIME: 1681436573
+2023-04-14 10:42:53 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59708
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436573.906877
+REQUEST_TIME: 1681436573
+2023-04-14 10:42:54 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59730
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436574.089151
+REQUEST_TIME: 1681436574
+2023-04-14 10:42:54 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59756
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436574.296912
+REQUEST_TIME: 1681436574
+2023-04-14 10:42:54 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59784
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436574.479011
+REQUEST_TIME: 1681436574
+2023-04-14 10:42:54 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59812
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436574.694945
+REQUEST_TIME: 1681436574
+2023-04-14 10:42:54 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59858
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436574.861808
+REQUEST_TIME: 1681436574
+2023-04-14 10:42:55 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59870
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436575.068715
+REQUEST_TIME: 1681436575
+2023-04-14 10:42:55 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59896
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436575.253465
+REQUEST_TIME: 1681436575
+2023-04-14 10:42:55 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59922
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436575.468755
+REQUEST_TIME: 1681436575
+2023-04-14 10:42:55 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59944
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436575.740622
+REQUEST_TIME: 1681436575
+2023-04-14 10:42:56 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 59968
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436576.233917
+REQUEST_TIME: 1681436576
+2023-04-14 10:42:56 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60000
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436576.624926
+REQUEST_TIME: 1681436576
+2023-04-14 10:42:56 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60042
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436576.839836
+REQUEST_TIME: 1681436576
+2023-04-14 10:42:57 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60070
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436577.047042
+REQUEST_TIME: 1681436577
+2023-04-14 10:42:57 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60100
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436577.408203
+REQUEST_TIME: 1681436577
+2023-04-14 10:42:57 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_PRAGMA: no-cache
+HTTP_CACHE_CONTROL: no-cache
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60138
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681436577.773753
+REQUEST_TIME: 1681436577
+2023-04-14 11:02:32 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60638
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681437752.817083
+REQUEST_TIME: 1681437752
+2023-04-14 11:02:33 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60650
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681437753.448169
+REQUEST_TIME: 1681437753
+2023-04-14 11:02:33 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60676
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681437753.661071
+REQUEST_TIME: 1681437753
+2023-04-14 11:02:33 Asia/Tokyo: 
+Error: Interface "Shadow\Kernel\ResponseHandlerInterface" not found
+#0 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(582): include()
+#1 /var/www/mimikyu.info/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}()
+#2 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Composer\Autoload\ClassLoader->loadClass()
+#3 /var/www/mimikyu.info/core/Kernel/Kernel.php(35): Shadow\Kernel\Kernel->resoponse()
+#4 /var/www/mimikyu.info/core/Kernel/Route.php(52): Shadow\Kernel\Kernel->handle()
+#5 /var/www/mimikyu.info/index.php(21): Shadow\Kernel\Route::run()
+#6 {main}
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: PHPSESSID=5292mrpf386v0s0slcoqlnnrl2; CSRF-Token=3fdf3c854065be989bd26f4c67afb7f0
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/index.php
+REMOTE_PORT: 60696
+REDIRECT_URL: /image
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: GET
+QUERY_STRING: 
+REQUEST_URI: /image
+SCRIPT_NAME: /index.php
+PATH_INFO: /image
+PATH_TRANSLATED: redirect:/index.php/image
+PHP_SELF: /index.php/image
+REQUEST_TIME_FLOAT: 1681437753.85431
+REQUEST_TIME: 1681437753

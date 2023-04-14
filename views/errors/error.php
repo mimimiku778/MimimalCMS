@@ -3,25 +3,6 @@
 namespace Errors;
 
 /**
- * The path to hide from exception error trace.
- * This constant is used to remove the unnecessary path from the beginning of
- * the path included in exception error trace.
- */
-const EXCEPTION_HANDLER_DISPLAY_HIDE_DRECTORY = '/var/www/mimikyu.info';
-
-/**
- * This constant is used to specify the document root path name.
- * The path name after this constant is concatenated with the GitHub URL.
- */
-const EXCEPTION_HANDLER_DISPLAY_DOCUMENT_ROOT_NAME = 'mimikyu.info';
-
-/**
- * This constant is used to specify the GitHub URL for displaying the source code in the exception error trace.
- * The path name after the DOCUMENT_ROOT_NAME constant is concatenated with this URL.
- */
-const EXCEPTION_HANDLER_DISPLAY_GITHUB_URL = 'https://github.com/mimimiku778/MimimalCMS-v0.1/blob/master/';
-
-/**
  * ErrorPage class to handle displaying error message and generating Github URLs for error lines
  */
 class ErrorPage
@@ -86,14 +67,14 @@ class ErrorPage
      */
     public function __construct()
     {
-        $flagName = 'EXCEPTION_HANDLER_DISPLAY_GITHUB_URL';
+        $flagName = '\Shadow\Config\ExceptionHandlerConfig::ERROR_PAGE_GITHUB_URL';
         if (defined($flagName) && is_string($url = constant($flagName))) {
             $this->githubUrl = $url;
         } else {
             return;
         }
 
-        $flagName = 'EXCEPTION_HANDLER_DISPLAY_DOCUMENT_ROOT_NAME';
+        $flagName = '\Shadow\Config\ExceptionHandlerConfig::ERROR_PAGE_DOCUMENT_ROOT_NAME';
         if (defined($flagName) && is_string($dir = constant($flagName))) {
             $this->THROW_LINE_PATTERN = "/in.+{$dir}\/(.+)\(\d+\)/";
             $this->PHP_ERROR_LINE_PATTERN = "/\/{$dir}\/(.*) on line (\d+)/";
@@ -101,7 +82,7 @@ class ErrorPage
             $this->LINE_NUMBER_PATTERN = "/\.php\((\d+)\)/";
         }
 
-        $flagName = 'EXCEPTION_HANDLER_DISPLAY_HIDE_DRECTORY';
+        $flagName = '\Shadow\Config\ExceptionHandlerConfig::ERROR_PAGE_HIDE_DRECTORY';
         if (defined($flagName) && is_string($dir = constant($flagName))) {
             $this->hiddenDir = $dir;
         }

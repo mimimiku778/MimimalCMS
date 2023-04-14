@@ -9,6 +9,7 @@ return array(
     '1d0fe90f140113528a0ae23f10e7252d' => $baseDir . '/core/ExceptionHandler.php',
     '6e72f8d9ac0b701176965e247d9c2031' => $baseDir . '/core/Kernel/MimimalCMS_API_Kernel_Config.php',
     '16472e4e181a8ef254f1473b8a678f2c' => $baseDir . '/core/Kernel/MimimalCMS_API_Kernel_Interfaces.php',
+    '5dbda25d14830118a5d46ac925c79592' => $baseDir . '/core/Kernel/KernelInterfaces.php',
     'c50be35c8e895cc991f499d8e5df3f9c' => $baseDir . '/core/Kernel/MimimalCMS_Exceptions.php',
     'b4055c9d5ef0ffab2dca67f09cd24ac3' => $baseDir . '/core/MimimalCMS_API_Core_Interfaces.php',
     '9c505ea57b20dd4128019a6ca09d3bae' => $baseDir . '/core/MimimalCMS_API_HelperFunctions.php',

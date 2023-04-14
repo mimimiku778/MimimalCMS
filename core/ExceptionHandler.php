@@ -1,16 +1,13 @@
 <?php
 
-// Display exceptions
-const EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS = true;
-const EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN = true;
+namespace Errors;
 
-// Exceptions Log directory.
-const EXCEPTION_LOG_DIRECTORY = __DIR__ . '/../shared/exception.log';
+use Throwable;
 
 /**
  * Registers ExceptionHandler::handleException() as the global exception handler.
  */
-set_exception_handler('ExceptionHandler::handleException');
+set_exception_handler('\Errors\ExceptionHandler::handleException');
 
 /**
  * Sets the error reporting level to include all errors.
@@ -22,7 +19,7 @@ error_reporting(E_ALL);
  */
 set_error_handler(function ($no, $msg, $file, $line) {
     if (error_reporting() !== 0) {
-        throw new ErrorException($msg, 0, $no, $file, $line);
+        throw new \ErrorException($msg, 0, $no, $file, $line);
     }
 });
 
@@ -37,7 +34,7 @@ register_shutdown_function(function () {
         && boolval($last['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR))
     ) {
         ExceptionHandler::handleException(
-            new ErrorException($last['message'], 0, $last['type'], $last['file'], $last['line'])
+            new \ErrorException($last['message'], 0, $last['type'], $last['file'], $last['line'])
         );
     }
 });
@@ -58,14 +55,14 @@ class ExceptionHandler
      *   - httpStatusMessage: the corresponding HTTP status message
      */
     const HTTP_ERRORS = [
-        BadRequestException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        ValidationException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        InvalidInputException::class =>     ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        SessionTimeoutException::class =>   ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
-        UnauthorizedException::class =>     ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
-        NotFoundException::class =>         ['httpCode' => 404, 'httpStatusMessage' => 'Not Found'],
-        MethodNotAllowedException::class => ['httpCode' => 405, 'httpStatusMessage' => 'Method Not Allowed'],
-        ThrottleRequestsException::class => ['httpCode' => 429, 'httpStatusMessage' => 'Too Many Requests'],
+        \BadRequestException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        \ValidationException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        \InvalidInputException::class =>     ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        \SessionTimeoutException::class =>   ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
+        \UnauthorizedException::class =>     ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
+        \NotFoundException::class =>         ['httpCode' => 404, 'httpStatusMessage' => 'Not Found'],
+        \MethodNotAllowedException::class => ['httpCode' => 405, 'httpStatusMessage' => 'Method Not Allowed'],
+        \ThrottleRequestsException::class => ['httpCode' => 429, 'httpStatusMessage' => 'Too Many Requests'],
     ];
 
     /**
@@ -82,7 +79,7 @@ class ExceptionHandler
         }
 
         // Handle a TestException instance
-        if ($e instanceof TestException) {
+        if ($e instanceof \TestException) {
             self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
             return;
         }
@@ -124,7 +121,7 @@ class ExceptionHandler
         http_response_code($httpCode);
 
         // Determine whether to show detailed error information
-        $flagName = 'EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
+        $flagName = '\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
         $showErrorTraceFlag = defined($flagName) && constant($flagName);
 
         // If the request is JSON, return a JSON response
@@ -222,7 +219,7 @@ class ExceptionHandler
         }, array_keys($_SERVER), $_SERVER));
 
         // Check if log directory is defined and writable
-        $dir = defined('EXCEPTION_LOG_DIRECTORY') ? EXCEPTION_LOG_DIRECTORY : '';
+        $dir = defined('\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY') ? \Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY : '';
         if (!is_writable($dir)) {
             return;
         }

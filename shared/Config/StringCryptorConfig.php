@@ -1,5 +1,7 @@
 <?php
 
+namespace Shadow\Config;
+
 class StringCryptorConfig
 {
     const HKDF_KEY = 'YOUR_KEY';

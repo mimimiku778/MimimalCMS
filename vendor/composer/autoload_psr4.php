@@ -10,6 +10,6 @@ return array(
     'Shadow\\Kernel\\RouteClasses\\' => array($baseDir . '/core/Kernel/RouteClasses'),
     'Shadow\\Kernel\\Dispatcher\\' => array($baseDir . '/core/Kernel/Dispatcher'),
     'Shadow\\Kernel\\' => array($baseDir . '/core/Kernel'),
-    'Shadow\\Config\\' => array($baseDir . '/shared/ConfigClasses'),
+    'Shadow\\Config\\' => array($baseDir . '/shared/Config'),
     'Shadow\\' => array($baseDir . '/core'),
 );

@@ -15,12 +15,13 @@
             "Shadow\\Kernel\\": "core/Kernel/",
             "Shadow\\Kernel\\RouteClasses\\": "core/Kernel/RouteClasses/",
             "Shadow\\Kernel\\Dispatcher\\": "core/Kernel/Dispatcher/",
-            "Shadow\\Config\\": "shared/ConfigClasses"
+            "Shadow\\Config\\": "shared/Config"
         },
         "files": [
             "core/ExceptionHandler.php",
             "core/Kernel/MimimalCMS_API_Kernel_Config.php",
             "core/Kernel/MimimalCMS_API_Kernel_Interfaces.php",
+            "core/Kernel/KernelInterfaces.php",
             "core/Kernel/MimimalCMS_Exceptions.php",
             "core/MimimalCMS_API_Core_Interfaces.php",
             "core/MimimalCMS_API_HelperFunctions.php"

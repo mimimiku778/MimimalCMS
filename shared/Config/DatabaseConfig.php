@@ -1,5 +1,7 @@
 <?php
 
+namespace Shadow\Config;
+
 class DatabaseConfig
 {
     const HOST = '';
