@@ -13,7 +13,7 @@ class MiddlewareInvoker implements MiddlewareInvokerInterface
     use TraitGetReflectionMethodArges;
     use TraitErrorResponse;
 
-    public function Invoke(RouteDTO $routeDto)
+    public function invoke(RouteDTO $routeDto)
     {
         $this->routeFails = $routeDto->getFailsResponse();
         $this->callMiddleware($routeDto);

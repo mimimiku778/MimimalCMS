@@ -20,7 +20,7 @@ class RequestParser implements RequestParserInterface
      * @throws InvalidArgumentException If the request method is not available.
      * @throws LogicException           If there might be more than one parameter with the same name in the route definition for the same path.
      */
-    public function parse(RouteDTO $routeDto, string $requestUri): RouteDTO
+    public function parse(RouteDTO $routeDto, string $requestUri)
     {
         $requestUri = preg_replace('#^/|/$#', '', strtolower((string) strtok($requestUri, '?')));
 

@@ -14,7 +14,7 @@ class Routing implements RoutingInterface
 {
     private RouteDTO $routeDto;
 
-    public function __construct(RouteDTO &$routeDto)
+    public function setRouteDto(RouteDTO $routeDto)
     {
         $this->routeDto = $routeDto;
     }

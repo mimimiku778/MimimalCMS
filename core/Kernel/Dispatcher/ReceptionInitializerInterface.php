@@ -6,7 +6,7 @@ use Shadow\Kernel\RouteClasses\RouteDTO;
 
 interface ReceptionInitializerInterface
 {
-    public function __construct(RouteDTO $routeDto);
+    public function init(RouteDTO $routeDto);
     public function callRequestValidator();
 
     /**

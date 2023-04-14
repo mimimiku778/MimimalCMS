@@ -15,7 +15,7 @@ interface RoutingInterface
     const PAGE_CONTROLLER_SUFFIX = 'PageController';
     const PAGE_CONTROLLER_DIR = __DIR__ . '/../../../app/Controllers/Pages';
 
-    public function __construct(RouteDTO &$routeDto);
+    public function setRouteDto(RouteDTO $routeDto);
     public function validatePath();
     public function resolveController();
     public function validateAllowedMethods();

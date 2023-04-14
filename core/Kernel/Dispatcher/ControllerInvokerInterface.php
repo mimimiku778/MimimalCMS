@@ -11,5 +11,5 @@ interface ControllerInvokerInterface
      * 
      * @return mixed Response
      */
-    public function Invoke(RouteDTO $routeDto): mixed;
+    public function invoke(RouteDTO $routeDto): mixed;
 }

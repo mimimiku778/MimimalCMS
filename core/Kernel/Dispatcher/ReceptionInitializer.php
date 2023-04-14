@@ -18,7 +18,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
 
     private RouteDTO $routeDto;
 
-    public function __construct(RouteDTO $routeDto)
+    public function init(RouteDTO $routeDto)
     {
         $this->routeDto = $routeDto;
         $this->routeFails = $routeDto->getFailsResponse();

@@ -23,15 +23,15 @@ class Route extends AbstractRoute implements RouteFirstInterface
 
     private static ?Route $instance = null;
 
-    private function __construct()
+    private function __construct(RouteDTO $routeDTO)
     {
-        $this->routeDto = new RouteDTO;
+        $this->routeDto = $routeDTO;
     }
 
-    private static function getInstance(): Route
+    private static function create(): Route
     {
         if (self::$instance === null) {
-            self::$instance = new self();
+            self::$instance = new self(new RouteDTO);
         }
 
         return self::$instance;
@@ -39,14 +39,14 @@ class Route extends AbstractRoute implements RouteFirstInterface
 
     public static function path(string|array ...$path): RouteSecondInterface
     {
-        $instance = self::getInstance();
+        $instance = self::create();
         $instance->addPath(...$path);
         return new RouteSecond($instance->routeDto);
     }
 
     public static function run(string ...$middlewareName)
     {
-        $instance = self::getInstance();
+        $instance = self::create();
         $instance->routeDto->kernelMiddlewareArray = $middlewareName;
 
         (new Kernel($instance->routeDto))->handle();
@@ -55,7 +55,7 @@ class Route extends AbstractRoute implements RouteFirstInterface
 
     public static function middlewareGroup(string ...$name): RouteMiddlewareGroupInterface
     {
-        $instance = self::getInstance();
+        $instance = self::create();
         return new RouteMiddlewareGroup($instance->routeDto, $name);
     }
 }

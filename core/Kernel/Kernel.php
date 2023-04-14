@@ -33,7 +33,7 @@ class Kernel
         $this->validateRequest();
         $this->callMiddleware();
         $this->callController();
-        $this->resoponse();
+        $this->handleResponse();
     }
 
     /**
@@ -45,12 +45,14 @@ class Kernel
         $request = new RequestParser;
         $request->parse($this->routeDTO, $_SERVER['REQUEST_URI'] ?? '');
 
-        $routing = new Routing($this->routeDTO);
+        $routing = new Routing;
+        $routing->setRouteDto($this->routeDTO);
         $routing->validatePath();
         $routing->resolveController();
         $routing->validateAllowedMethods();
 
-        $this->reception = new ReceptionInitializer($this->routeDTO);
+        $this->reception = new ReceptionInitializer;
+        $this->reception->init($this->routeDTO);
     }
 
     /**
@@ -69,17 +71,17 @@ class Kernel
             return;
         }
 
-        $contloller = new MiddlewareInvoker;
-        $this->contlollerResponse = $contloller->Invoke($this->routeDTO);
+        $middleware = new MiddlewareInvoker;
+        $middleware->invoke($this->routeDTO);
     }
 
     private function callController()
     {
-        $contloller = new ControllerInvoker;
-        $this->contlollerResponse = $contloller->Invoke($this->routeDTO);
+        $controller = new ControllerInvoker;
+        $this->contlollerResponse = $controller->invoke($this->routeDTO);
     }
 
-    private function resoponse()
+    private function handleResponse()
     {
         $response = new ResponseHandler;
         $response->handleResponse($this->contlollerResponse);

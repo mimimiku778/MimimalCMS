@@ -15,5 +15,5 @@ interface RequestParserInterface
         'DELETE'
     ];
 
-    public function parse(RouteDTO $routeDto, string $requestUri): RouteDTO;
+    public function parse(RouteDTO $routeDto, string $requestUri);
 }

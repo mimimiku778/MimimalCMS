@@ -6,5 +6,5 @@ use Shadow\Kernel\RouteClasses\RouteDTO;
 
 interface MiddlewareInvokerInterface
 {
-    public function Invoke(RouteDTO $routeDto);
+    public function invoke(RouteDTO $routeDto);
 }

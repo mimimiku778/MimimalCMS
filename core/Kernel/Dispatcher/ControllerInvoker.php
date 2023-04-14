@@ -10,7 +10,7 @@ class ControllerInvoker implements ControllerInvokerInterface
 {
     use TraitGetReflectionMethodArges;
 
-    public function Invoke(RouteDTO $routeDto): mixed
+    public function invoke(RouteDTO $routeDto): mixed
     {
         $contlollerMethodArgs = $this->getMethodArgs($routeDto->controllerClassName, $routeDto->methodName);
         $contloller = new $routeDto->controllerClassName;
