@@ -63,6 +63,9 @@ class Kernel
         $reception->callRequestValidator();
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     private function callMiddleware()
     {
         if (empty($this->routeDTO->getMiddleware())) {
@@ -73,12 +76,19 @@ class Kernel
         $middleware->invoke($this->routeDTO);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     private function callController()
     {
         $controller = new ControllerInvoker;
         $this->contlollerResponse = $controller->invoke($this->routeDTO);
     }
 
+    /**
+     * @throws \NotFoundException        If the request is GET
+     * @throws \BadRequestException      If the request is other than GET
+     */
     private function handleResponse()
     {
         $response = new ResponseHandler;
