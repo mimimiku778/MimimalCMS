@@ -71,8 +71,11 @@ class ExceptionHandler
     public static function handleException(\Throwable $e)
     {
         // Clean the output buffer if defined by the flag
-        $obCleanFlag = defined('EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN') && constant('EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN');
-        if ($obCleanFlag) {
+
+        // Determine whether to show detailed error information
+        $flagName = '\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
+        $bool = defined($flagName) && constant($flagName);
+        if ($bool) {
             ob_clean();
         }
 
@@ -174,13 +177,20 @@ class ExceptionHandler
      */
     private static function showErrorPage(int $httpCode, string $httpStatusMessage, string $detailsMessage): bool
     {
-        $filePath = __DIR__ . '/../app/Views/errors/' . $httpCode . '.php';
+        $flagName = 'VIEWS_DIR';
+        if (!defined($flagName) || !constant($flagName)) {
+            return false;
+        }
+
+        $viewsDir = VIEWS_DIR;
+
+        $filePath = $viewsDir . '/errors/' . $httpCode . '.php';
         if (file_exists($filePath)) {
             require_once $filePath;
             return true;
         }
 
-        $filePath = __DIR__ . '/../app/Views/errors/error.php';
+        $filePath = $viewsDir . '/errors/error.php';
         if (file_exists($filePath)) {
             require_once $filePath;
             return true;
@@ -216,14 +226,13 @@ class ExceptionHandler
             return "{$key}: {$val}";
         }, array_keys($_SERVER), $_SERVER));
 
-        // Check if log directory is defined and writable
-        $dir = defined('\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY') ? \Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY : '';
-        if (!is_writable($dir)) {
+        $flagName = '\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY';
+        if (!defined($flagName) || !is_writable($dir = constant($flagName))) {
             return;
         }
 
         // Write error log with timestamp, error message and request headers
-        error_log($time . "\n" . $message . $headerString . "\n", 3, $dir);
+        error_log("\n" . $time . "\n" . $message . $headerString . "\n", 3, $dir);
     }
 
     private static function jsonResponse(array $data)

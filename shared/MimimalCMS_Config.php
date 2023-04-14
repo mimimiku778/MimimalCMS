@@ -1,6 +1,6 @@
 <?php
 
-const VIEWS_DIR = __DIR__ . '/../../app/Views';
+const VIEWS_DIR = __DIR__ . '/../app/Views';
 
 // Default options for cookies.
 const COOKIE_DEFAULT_SECURE = true;
@@ -15,25 +15,11 @@ const SESSION_COOKIE_PARAMS = [
     'httponly' => true,
     'samesite' => 'Lax',
 ];
+
+// Start session.
 session_set_cookie_params(SESSION_COOKIE_PARAMS);
 session_start();
 
-// Add root directories to search for class files.
-const SIMPLE_AUTOLOADER_ROOT_DIRECTORY_NAMES = [
-    'controllers',
-    'middleware',
-    'service',
-    'models',
-    'models/traits',
-    'core',
-    'core/Kernel',
-    'core/Storage',
-    'controllers/traits',
-    'views/classes/',
-    'views/classes/traits',
-    'controllers/api',
-    'controllers/pages',
-];
-
+// File validator.
 const DEFAULT_MAX_FILE_SIZE = 20480;
 const IMAGE_MIME_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];

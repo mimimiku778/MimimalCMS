@@ -9,7 +9,7 @@ class ExceptionHandlerConfig
     const EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN = true;
 
     // Exceptions Log directory.
-    const EXCEPTION_LOG_DIRECTORY = __DIR__ . '/../shared/exception.log';
+    const EXCEPTION_LOG_DIRECTORY = __DIR__ . '/../exception.log';
 
     /**
      * The path to hide from exception error trace.

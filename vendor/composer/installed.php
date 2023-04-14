@@ -3,7 +3,7 @@
         'name' => 'mimimiku778/minimalcms',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'a87f44d7331aea915c5c84120aa37b4f5c5f19aa',
+        'reference' => '9fdfa54154ceb9f09a8f45ce35157da0113a7ac3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'mimimiku778/minimalcms' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a87f44d7331aea915c5c84120aa37b4f5c5f19aa',
+            'reference' => '9fdfa54154ceb9f09a8f45ce35157da0113a7ac3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

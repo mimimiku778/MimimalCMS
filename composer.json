@@ -23,11 +23,11 @@
         },
         "files": [
             "core/ExceptionHandler.php",
-            "core/Kernel/MimimalCMS_Exceptions.php",
-            "core/Kernel/MimimalCMS_API_Kernel_Config.php",
+            "shared/MimimalCMS_Config.php",
+            "shared/MimimalCMS_Exceptions.php",
+            "shared/MimimalCMS_Enums.php",
             "core/Kernel/MimimalCMS_API_Kernel_Interfaces.php",
             "core/Kernel/KernelInterfaces.php",
-            "core/MimimalCMS_API_Core_Enums.php",
             "core/MimimalCMS_API_Core_Interfaces.php",
             "core/MimimalCMS_API_HelperFunctions.php"
         ]
