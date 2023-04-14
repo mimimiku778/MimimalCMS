@@ -10,8 +10,5 @@ return array(
     '32ce0fe7e283c4ab2501f48c49b8b765' => $baseDir . '/shared/MimimalCMS_Config.php',
     '68aae1f9045f4c098e7a74deba28b0c2' => $baseDir . '/shared/MimimalCMS_Exceptions.php',
     '072636c41bf6e1d1798641cf4f6d69ca' => $baseDir . '/shared/MimimalCMS_Enums.php',
-    '16472e4e181a8ef254f1473b8a678f2c' => $baseDir . '/core/Kernel/MimimalCMS_API_Kernel_Interfaces.php',
-    '5dbda25d14830118a5d46ac925c79592' => $baseDir . '/core/Kernel/KernelInterfaces.php',
-    'b4055c9d5ef0ffab2dca67f09cd24ac3' => $baseDir . '/core/MimimalCMS_API_Core_Interfaces.php',
     '9c505ea57b20dd4128019a6ca09d3bae' => $baseDir . '/core/MimimalCMS_API_HelperFunctions.php',
 );

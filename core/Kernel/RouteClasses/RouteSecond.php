@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel\RouteClasses;
 
-use Shadow\Kernel\RouteSecondInterface;
 use Shadow\Kernel\ResponseInterface;
 
 /**

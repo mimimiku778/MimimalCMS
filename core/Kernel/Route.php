@@ -8,6 +8,7 @@ use Shadow\Kernel\RouteClasses\AbstractRoute;
 use Shadow\Kernel\RouteClasses\TraitRoutePath;
 use Shadow\Kernel\RouteClasses\RouteDTO;
 use Shadow\Kernel\RouteClasses\RouteSecond;
+use Shadow\Kernel\RouteClasses\RouteSecondInterface;
 use Shadow\Kernel\RouteClasses\RouteMiddlewareGroup;
 use Shadow\Kernel\RouteClasses\RouteMiddlewareGroupInterface;
 
@@ -17,7 +18,7 @@ use Shadow\Kernel\RouteClasses\RouteMiddlewareGroupInterface;
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
-class Route extends AbstractRoute implements RouteFirstInterface
+class Route extends AbstractRoute implements RouteInterface
 {
     use TraitRoutePath;
 
