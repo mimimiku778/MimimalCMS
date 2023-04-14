@@ -73,7 +73,7 @@ class ExceptionHandler
         // Clean the output buffer if defined by the flag
 
         // Determine whether to show detailed error information
-        $flagName = '\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
+        $flagName = 'Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
         $bool = defined($flagName) && constant($flagName);
         if ($bool) {
             ob_clean();
@@ -122,7 +122,7 @@ class ExceptionHandler
         http_response_code($httpCode);
 
         // Determine whether to show detailed error information
-        $flagName = '\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
+        $flagName = 'Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
         $showErrorTraceFlag = defined($flagName) && constant($flagName);
 
         // If the request is JSON, return a JSON response
@@ -226,7 +226,7 @@ class ExceptionHandler
             return "{$key}: {$val}";
         }, array_keys($_SERVER), $_SERVER));
 
-        $flagName = '\Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY';
+        $flagName = 'Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY';
         if (!defined($flagName) || !is_writable($dir = constant($flagName))) {
             return;
         }

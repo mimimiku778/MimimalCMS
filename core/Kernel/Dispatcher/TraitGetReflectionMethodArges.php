@@ -6,20 +6,16 @@ namespace Shadow\Kernel\Dispatcher;
 
 use Shadow\Kernel\Reception;
 
-/**
- * @author mimimiku778 <0203.sub@gmail.com>
- * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
- */
-class ControllerArgumentResolver implements ControllerArgumentResolverInterface
+trait TraitGetReflectionMethodArges
 {
     /**
-     * @throws \NotFoundException
+     * Get the arguments for the given closure function and return an array of both the closure arguments and validated input data.
      */
-    public function getControllerArgs(): array
+    private function getMethodArgs(string $className, string $methodName): array
     {
-        $reflectionMethod = new \ReflectionMethod(Reception::$controllerClassName, Reception::$methodName);
+        $reflectionMethod = new \ReflectionMethod($className, $methodName);
         if (!$reflectionMethod->isPublic()) {
-            throw new \NotFoundException('Controller method is private');
+            throw new \RuntimeException('Method is private');
         }
 
         $methodArgs = [];
@@ -32,8 +28,7 @@ class ControllerArgumentResolver implements ControllerArgumentResolverInterface
             }
 
             if (!class_exists($paramType->getName())) {
-                $m = 'Invalid class name: ' . $paramType . ' not found: $' . $param->name;
-                throw new \InvalidArgumentException($m);
+                throw new \InvalidArgumentException('Class not found');
             }
 
             $paramClassName = $paramType->getName();

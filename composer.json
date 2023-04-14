@@ -19,6 +19,7 @@
             "App\\Models\\": "app/Models",
             "App\\Controllers\\": "app/Controllers",
             "App\\Views\\": "app/Views",
+            "App\\Middleware\\": "app/Middleware",
             "App\\Services\\": "app/Services"
         },
         "files": [

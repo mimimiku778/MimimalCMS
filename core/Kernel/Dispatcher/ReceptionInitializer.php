@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Shadow\Kernel\Dispatcher;
 
 use Shadow\Kernel\Reception;
-use Shadow\Kernel\Session;
-use Shadow\Kernel\ResponseInterface;
 use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\RouteClasses\RouteDTO;
 
@@ -16,8 +14,9 @@ use Shadow\Kernel\RouteClasses\RouteDTO;
  */
 class ReceptionInitializer implements ReceptionInitializerInterface
 {
+    use TraitErrorResponse;
+
     private RouteDTO $routeDto;
-    private ?ResponseInterface $routeFails = null;
 
     public function __construct(RouteDTO $routeDto)
     {
@@ -67,29 +66,34 @@ class ReceptionInitializer implements ReceptionInitializerInterface
     /**
      * Parses the request body and returns the input data.
      *
-     * @return array|null The input data passed with the incoming request, or null.
+     * @return array The input data passed with the incoming request.
      */
-    private function parseRequestBody(array $paramArray): array
+    private function parseRequestBody(): array
     {
         if (Reception::$requestMethod === 'GET') {
-            return array_merge($_GET, $paramArray);
+            return array_merge($_GET, $this->routeDto->paramArray);
         }
 
         if (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
-            $requestBody = file_get_contents('php://input');
-            if (!is_string($requestBody)) {
-                return [];
-            }
-
-            $jsonArray = json_decode($requestBody, true);
-            if (!is_array($jsonArray)) {
-                return [];
-            }
-
-            return array_merge($_GET, $jsonArray, $paramArray, $_FILES);
+            return array_merge($_GET, $this->parseJson(), $this->routeDto->paramArray);
         }
 
-        return array_merge($_GET, $_POST, $paramArray, $_FILES);
+        return array_merge($_GET, $_POST, $_FILES, $this->routeDto->paramArray);
+    }
+
+    private function parseJson(): array
+    {
+        $requestBody = file_get_contents('php://input');
+        if (!is_string($requestBody)) {
+            return [];
+        }
+
+        $jsonArray = json_decode($requestBody, true);
+        if (!is_array($jsonArray)) {
+            return [];
+        }
+
+        return $jsonArray;
     }
 
     /**
@@ -118,8 +122,10 @@ class ReceptionInitializer implements ReceptionInitializerInterface
             $validatedArray = $this->validateCallbackRoute($routeCallback);
         } else {
             $validatedArray = $this->validateUsingBuiltinValidators($builtinValidators);
+
             if ($routeCallback !== false) {
                 $callbackValidatedArray = $this->validateCallbackRoute($routeCallback);
+
                 if (!empty($callbackValidatedArray)) {
                     $validatedArray = array_merge($validatedArray, $callbackValidatedArray);
                 }
@@ -168,8 +174,8 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         [$closureArgs, $validatedArray] = $this->getClosureArgs($routeCallback);
 
         try {
-            $response = new ResponseHandler($routeCallback(...$closureArgs));
-            $result = $response->handleResponse();
+            $response = new ResponseHandler;
+            $result = $response->handleResponse($routeCallback(...$closureArgs));
         } catch (\Throwable $e) {
             $this->errorResponse([
                 ['key' => 'match', 'code' => $e->getCode(), 'message' => $e->getMessage()]
@@ -190,35 +196,34 @@ class ReceptionInitializer implements ReceptionInitializerInterface
     /**
      * Get the arguments for the given closure function and return an array of both the closure arguments and validated input data.
      */
-    private function getClosureArgs(\Closure $function): array
+    private function getClosureArgs(\Closure $closure): array
     {
-        $reflection = new \ReflectionFunction($function);
+        $reflection = new \ReflectionFunction($closure);
         $parameters = $reflection->getParameters();
 
         $closureArgs = [];
-        $builtinValidatedArray = [];
+        $validArray = [];
 
         foreach ($parameters as $param) {
             $paramType = $param->getType();
 
             if ($paramType === null || $paramType->isBuiltin()) {
-                $paramName = $param->getName();
-                $closureArgs[] = Reception::$inputData[$paramName] ?? null;
-                $builtinValidatedArray[$paramName] = Reception::$inputData[$paramName] ?? null;
+                $closureArgs[] = Reception::$inputData[$param->name] ?? null;
+                $validArray[] = Reception::$inputData[$param->name] ?? null;;
                 continue;
             }
 
-            $paramClassName = $paramType->getName();
-            if (!class_exists($paramClassName)) {
+            if (!class_exists($paramType->getName())) {
                 throw new \InvalidArgumentException(
-                    'Invalid class name: "' . $paramType . '" not found: $' . $param->getName()
+                    'Invalid class name: "' . $paramType . '" not found: $' . $param->name
                 );
             }
 
+            $paramClassName = $paramType->getName();
             $closureArgs[] = new $paramClassName();
         }
 
-        return [$closureArgs, $builtinValidatedArray];
+        return [$closureArgs, $validArray];
     }
 
     private function callBuiltinValidator(array $validators): array
@@ -263,32 +268,5 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         }
 
         return $validatedArray;
-    }
-
-    /**
-     * Generate error response.
-     *
-     * @param array $errorArray List of error details, each containing 'key', 'code', and 'message'.
-     * @throws \NotFoundException
-     * @throws \InvalidInputException
-     */
-    private function errorResponse(array $errorArray)
-    {
-        if ($this->routeFails !== null) {
-            foreach ($errorArray as $error) {
-                Session::addError($error['key'], $error['code'], $error['message']);
-            }
-
-            $this->routeFails->send();
-        }
-
-        $message = $errorArray[0]['message'] ?? 'Request validation failed.';
-        $code = $errorArray[0]['code'] ?? 0;
-
-        if (Reception::$requestMethod === 'GET') {
-            throw new \NotFoundException($message, $code);
-        } else {
-            throw new \InvalidInputException($message, $code);
-        }
     }
 }

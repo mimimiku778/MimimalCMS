@@ -15,5 +15,6 @@ return array(
     'App\\Views\\' => array($baseDir . '/app/Views'),
     'App\\Services\\' => array($baseDir . '/app/Services'),
     'App\\Models\\' => array($baseDir . '/app/Models'),
+    'App\\Middleware\\' => array($baseDir . '/app/Middleware'),
     'App\\Controllers\\' => array($baseDir . '/app/Controllers'),
 );

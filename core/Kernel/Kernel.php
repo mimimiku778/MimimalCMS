@@ -9,7 +9,8 @@ use Shadow\Kernel\Dispatcher\ReceptionInitializer;
 use Shadow\Kernel\Dispatcher\ReceptionInitializerInterface;
 use Shadow\Kernel\Dispatcher\RequestParser;
 use Shadow\Kernel\Dispatcher\Routing;
-use Shadow\Kernel\Dispatcher\ControllerArgumentResolver;
+use Shadow\Kernel\Dispatcher\ControllerInvoker;
+use Shadow\Kernel\Dispatcher\MiddlewareInvoker;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -30,7 +31,7 @@ class Kernel
     {
         $this->routing();
         $this->validateRequest();
-        $this->middleware();
+        $this->callMiddleware();
         $this->callController();
         $this->resoponse();
     }
@@ -62,29 +63,23 @@ class Kernel
         $this->reception->callRequestValidator();
     }
 
-    private function middleware()
+    private function callMiddleware()
     {
-        if (Reception::$requestMethod === 'GET') {
-            Cookie::csrfToken();
-        }
-
-        if (Reception::$requestMethod !== 'GET') {
-            verifyCsrfToken();
+        if (!empty($this->routeDTO->getMiddleware())) {
+            $contloller = new MiddlewareInvoker;
+            $this->contlollerResponse = $contloller->Invoke($this->routeDTO);
         }
     }
 
     private function callController()
     {
-        $argsResolver = new ControllerArgumentResolver;
-        $contlollerMethodArgs = $argsResolver->getControllerArgs();
-
-        $contloller = new Reception::$controllerClassName;
-        $this->contlollerResponse = $contloller->{Reception::$methodName}(...$contlollerMethodArgs);
+        $contloller = new ControllerInvoker;
+        $this->contlollerResponse = $contloller->Invoke();
     }
 
     private function resoponse()
     {
-        $response = new ResponseHandler($this->contlollerResponse);
-        $response->handleResponse();
+        $response = new ResponseHandler;
+        $response->handleResponse($this->contlollerResponse);
     }
 }

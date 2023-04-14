@@ -10,31 +10,24 @@ namespace Shadow\Kernel;
  */
 class ResponseHandler implements ResponseHandlerInterface
 {
-    public mixed $response;
-
-    public function __construct(mixed $response)
+    public function handleResponse(mixed $response): mixed
     {
-        $this->response = $response;
-    }
-
-    public function handleResponse(): mixed
-    {
-        if ($this->response instanceof ViewInterface) {
-            $this->response->render();
+        if ($response instanceof ViewInterface) {
+            $response->render();
             return true;
         }
 
-        if ($this->response instanceof ResponseInterface) {
-            $this->response->send();
+        if ($response instanceof ResponseInterface) {
+            $response->send();
             return true;
         }
 
-        if ($this->response instanceof \Closure) {
-            ($this->response)();
+        if ($response instanceof \Closure) {
+            ($response)();
             return true;
         }
 
-        if ($this->response === false) {
+        if ($response === false) {
             if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET') {
                 throw new \NotFoundException('no response');
             }
@@ -42,11 +35,11 @@ class ResponseHandler implements ResponseHandlerInterface
             throw new \BadRequestException('no response');
         }
 
-        if (is_string($this->response)) {
-            echo htmlspecialchars($this->response, ENT_QUOTES, 'UTF-8');
+        if (is_string($response)) {
+            echo htmlspecialchars($response, ENT_QUOTES, 'UTF-8');
             return true;
         }
 
-        return $this->response;
+        return $response;
     }
 }

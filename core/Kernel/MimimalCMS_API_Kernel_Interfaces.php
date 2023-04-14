@@ -43,9 +43,9 @@ interface RouteFirstInterface
      *
      * @param string ...$name The names of the middleware group to add.
      *
-     * @return \Shadow\Kernel\RouteClasses\RouteMiddlewareGroupInterface The middleware group instance, to allow for method chaining.
+     * @return RouteClasses\RouteMiddlewareGroupInterface The middleware group instance, to allow for method chaining.
      */
-    public static function middlewareGroup(string ...$name): \Shadow\Kernel\RouteClasses\RouteMiddlewareGroupInterface;
+    public static function middlewareGroup(string ...$name): RouteClasses\RouteMiddlewareGroupInterface;
 }
 
 interface RouteSecondInterface

@@ -16,17 +16,17 @@ declare(strict_types=1);
  * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
  *                                       Keys starting with "_" will not be sanitized.
  * 
- * @return \Shadow\Kernel\ViewInterface
+ * @return Shadow\Kernel\ViewInterface
  * 
  * @throws InvalidArgumentException      If passed invalid array or not found the template file.
  */
-function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\ViewInterface
+function view(?string $viewTemplateFile = null, ?array $valuesArray = null): Shadow\Kernel\ViewInterface
 {
     if ($viewTemplateFile === null && $valuesArray === null) {
-        return new \Shadow\Kernel\View;
+        return new Shadow\Kernel\View;
     }
 
-    return new \Shadow\Kernel\View(\Shadow\Kernel\View::get($viewTemplateFile, $valuesArray));
+    return new Shadow\Kernel\View(Shadow\Kernel\View::get($viewTemplateFile, $valuesArray));
 }
 
 /**
@@ -35,11 +35,11 @@ function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Sh
  * @param array $data        The array to be returned as response.
  * @param ?int $responseCode [optional] HTTP status code
  * 
- * @return \Shadow\Kernel\ResponseInterface
+ * @return Shadow\Kernel\ResponseInterface
  */
-function response(array $data, int $responseCode = 200): \Shadow\Kernel\ResponseInterface
+function response(array $data, int $responseCode = 200): Shadow\Kernel\ResponseInterface
 {
-    return new \Shadow\Kernel\Response($responseCode, jsonData: $data);
+    return new Shadow\Kernel\Response($responseCode, jsonData: $data);
 }
 
 /**
@@ -47,16 +47,16 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
  *
  * @param string $url        The url of path to be redirect.
  * @param ?int $responseCode [optional] HTTP status code
- * @return \Shadow\Kernel\ResponseInterface
+ * @return Shadow\Kernel\ResponseInterface
  */
-function redirect(string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
+function redirect(string $url, int $responseCode = 302): Shadow\Kernel\ResponseInterface
 {
     if (!strpos($url, 'http://') && !strpos($url, 'https://')) {
         $path =  ltrim($url, "/");
-        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
+        $url = Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
     }
 
-    return new \Shadow\Kernel\Response($responseCode, $url);
+    return new Shadow\Kernel\Response($responseCode, $url);
 }
 
 /**
@@ -66,20 +66,20 @@ function redirect(string $url, int $responseCode = 302): \Shadow\Kernel\Response
  * @param  array|string|null  $key
  * @param  mixed  $default
  * 
- * @return mixed|\Shadow\Kernel\SessionInterface
+ * @return mixed|Shadow\Kernel\SessionInterface
  */
 function session(null|string|array $value = null, mixed $default = null): mixed
 {
     if ($value === null) {
-        return new \Shadow\Kernel\Session;
+        return new Shadow\Kernel\Session;
     }
 
     if (is_array($value)) {
-        \Shadow\Kernel\Session::push($value);
+        Shadow\Kernel\Session::push($value);
         return null;
     }
 
-    return \Shadow\Kernel\Session::get($value, $default);
+    return Shadow\Kernel\Session::get($value, $default);
 }
 
 /**
@@ -94,10 +94,10 @@ function session(null|string|array $value = null, mixed $default = null): mixed
 function old(?string $key = null): mixed
 {
     if ($key === null) {
-        \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
+        Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
     }
 
-    return \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
+    return Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
 }
 
 /**
@@ -112,7 +112,7 @@ function old(?string $key = null): mixed
  * @param bool $httpOnly
  * @param string $domain
  * 
- * @return mixed|\Shadow\Kernel\Cookie
+ * @return mixed|Shadow\Kernel\Cookie
  */
 function cookie(
     null|string|array $value = null,
@@ -124,15 +124,15 @@ function cookie(
     string $domain = ''
 ): mixed {
     if ($value === null) {
-        return new \Shadow\Kernel\Cookie;
+        return new Shadow\Kernel\Cookie;
     }
 
     if (is_array($value)) {
-        \Shadow\Kernel\Cookie::push($value, null, $expires, $path, $samesite, $secure, $httpOnly, $domain);
+        Shadow\Kernel\Cookie::push($value, null, $expires, $path, $samesite, $secure, $httpOnly, $domain);
         return null;
     }
 
-    return \Shadow\Kernel\Cookie::get($value);
+    return Shadow\Kernel\Cookie::get($value);
 }
 
 /**
@@ -148,7 +148,7 @@ function url(string $path = ''): string
         $path = "/" . ltrim($path, "/");
     }
 
-    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path;
+    return Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path;
 }
 
 /**
@@ -161,7 +161,7 @@ function url(string $path = ''): string
 function pagerUrl(string $path, int $pageNumber): string
 {
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
-    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
+    return Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
 }
 
 /**
