@@ -23,9 +23,6 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         $this->routeDto = $routeDto;
         $this->routeFails = $routeDto->getFailsResponse();
 
-        Reception::$controllerClassName = $this->routeDto->controllerClassName;
-        Reception::$methodName =          $this->routeDto->methodName;
-
         $this->getDomainAndHttpHost();
         Reception::$requestMethod =       $this->routeDto->requestMethod;
         Reception::$isJson =              $this->routeDto->isJson;

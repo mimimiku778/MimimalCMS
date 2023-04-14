@@ -10,9 +10,6 @@ namespace Shadow\Kernel;
  */
 class Reception implements ReceptionInterface
 {
-    public static string $controllerClassName;
-    public static string $methodName;
-
     public static string $domain;
     public static string $requestMethod;
     public static bool $isJson;

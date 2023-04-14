@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel\Dispatcher;
 
-use Shadow\Kernel\Reception;
+use Shadow\Kernel\RouteClasses\RouteDTO;
 
 class ControllerInvoker implements ControllerInvokerInterface
 {
     use TraitGetReflectionMethodArges;
 
-    public function Invoke(): mixed
+    public function Invoke(RouteDTO $routeDto): mixed
     {
-        $contlollerMethodArgs = $this->getMethodArgs(Reception::$controllerClassName, Reception::$methodName);
-        $contloller = new Reception::$controllerClassName;
-        return $contloller->{Reception::$methodName}(...$contlollerMethodArgs);
+        $contlollerMethodArgs = $this->getMethodArgs($routeDto->controllerClassName, $routeDto->methodName);
+        $contloller = new $routeDto->controllerClassName;
+        return $contloller->{$routeDto->methodName}(...$contlollerMethodArgs);
     }
 }

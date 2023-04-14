@@ -14,27 +14,16 @@ use Shadow\Kernel\RouteClasses\RouteDTO;
  */
 class RequestParser implements RequestParserInterface
 {
-    private string $requestUri;
-    private RouteDTO $routeDto;
-
-    /**
-     * @throws InvalidArgumentException
-     * @throws LogicException
-     */
-    public function __construct(RouteDTO &$routeDto, string $requestUri)
-    {
-        $this->requestUri = preg_replace('#^/|/$#', '', strtolower((string) strtok($requestUri, '?')));
-        $this->routeDto = $routeDto;
-    }
-
     /**
      * Search for a matching path in an array of paths and extract parameter values from the request URI.
      *
      * @throws InvalidArgumentException If the request method is not available.
      * @throws LogicException           If there might be more than one parameter with the same name in the route definition for the same path.
      */
-    public function parse()
+    public function parse(RouteDTO $routeDto, string $requestUri): RouteDTO
     {
+        $requestUri = preg_replace('#^/|/$#', '', strtolower((string) strtok($requestUri, '?')));
+
         set_error_handler(fn ($errno, $errstr, $errfile, $errline) => throw new \LogicException(sprintf(
             'There might be more than one parameter with the same name in the route definition for the same path: [%d] %s in %s:%d',
             $errno,
@@ -43,34 +32,35 @@ class RequestParser implements RequestParserInterface
             $errline
         )));
 
-        foreach ($this->routeDto->routePathArray as $key => $route) {
+        foreach ($routeDto->routePathArray as $key => $route) {
             [$routePath, $routeRequestMethodArray] = $this->extractRoutePathAndMethods($route);
 
             $matchedParams = [];
-            if (preg_match($this->getPattern($routePath), $this->requestUri, $matchedParams) === 1) {
+            if (preg_match($this->getPattern($routePath), $requestUri, $matchedParams) === 1) {
                 [$parsedPathArray, $paramArray] = $this->extractParams($routePath, $matchedParams);
 
                 restore_error_handler();
-                $this->routeDto->parsedPathArray = $parsedPathArray;
-                $this->routeDto->paramArray = $paramArray;
-                $this->routeDto->routeRequestMethodArray = $routeRequestMethodArray ?: false;
-                $this->routeDto->setRouteArrayKey((int) $key);
-                return;
+                $routeDto->parsedPathArray = $parsedPathArray;
+                $routeDto->paramArray = $paramArray;
+                $routeDto->routeRequestMethodArray = $routeRequestMethodArray ?: false;
+                $routeDto->setRouteArrayKey((int) $key);
+                return $routeDto;
             }
         }
 
         restore_error_handler();
 
-        if ($this->requestUri === '') {
-            $this->routeDto->parsedPathArray = [''];
-            $this->routeDto->setRouteArrayKey('root');
+        if ($requestUri === '') {
+            $routeDto->parsedPathArray = [''];
+            $routeDto->setRouteArrayKey('root');
         } else {
-            $this->routeDto->parsedPathArray = explode('/', $this->requestUri);
-            $this->routeDto->setRouteArrayKey('dynamic');
+            $routeDto->parsedPathArray = explode('/', $requestUri);
+            $routeDto->setRouteArrayKey('dynamic');
         }
 
-        $this->routeDto->paramArray = [];
-        $this->routeDto->routeRequestMethodArray = false;
+        $routeDto->paramArray = [];
+        $routeDto->routeRequestMethodArray = false;
+        return $routeDto;
     }
 
     /**

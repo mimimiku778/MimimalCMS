@@ -2,6 +2,8 @@
 
 namespace Shadow\Kernel\Dispatcher;
 
+use Shadow\Kernel\RouteClasses\RouteDTO;
+
 interface ControllerInvokerInterface
 {
     /**
@@ -9,5 +11,5 @@ interface ControllerInvokerInterface
      * 
      * @return mixed Response
      */
-    public function Invoke(): mixed;
+    public function Invoke(RouteDTO $routeDto): mixed;
 }

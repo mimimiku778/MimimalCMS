@@ -42,8 +42,8 @@ class Kernel
      */
     private function routing()
     {
-        $request = new RequestParser($this->routeDTO, $_SERVER['REQUEST_URI'] ?? '');
-        $request->parse();
+        $request = new RequestParser;
+        $request->parse($this->routeDTO, $_SERVER['REQUEST_URI'] ?? '');
 
         $routing = new Routing($this->routeDTO);
         $routing->validatePath();
@@ -65,16 +65,18 @@ class Kernel
 
     private function callMiddleware()
     {
-        if (!empty($this->routeDTO->getMiddleware())) {
-            $contloller = new MiddlewareInvoker;
-            $this->contlollerResponse = $contloller->Invoke($this->routeDTO);
+        if (empty($this->routeDTO->getMiddleware())) {
+            return;
         }
+
+        $contloller = new MiddlewareInvoker;
+        $this->contlollerResponse = $contloller->Invoke($this->routeDTO);
     }
 
     private function callController()
     {
         $contloller = new ControllerInvoker;
-        $this->contlollerResponse = $contloller->Invoke();
+        $this->contlollerResponse = $contloller->Invoke($this->routeDTO);
     }
 
     private function resoponse()
