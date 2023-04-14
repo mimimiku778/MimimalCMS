@@ -6,7 +6,6 @@ namespace Shadow\Kernel;
 
 use Shadow\Kernel\RouteClasses\RouteDTO;
 use Shadow\Kernel\Dispatcher\ReceptionInitializer;
-use Shadow\Kernel\Dispatcher\ReceptionInitializerInterface;
 use Shadow\Kernel\Dispatcher\RequestParser;
 use Shadow\Kernel\Dispatcher\Routing;
 use Shadow\Kernel\Dispatcher\ControllerInvoker;
