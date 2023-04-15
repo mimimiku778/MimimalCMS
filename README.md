@@ -96,12 +96,6 @@ You can define the first two levels of the URI hierarchy by the controller name 
 <br>
 <br>
 
-### When accessing http://example.com/foo/bar/hoge<br>
-Even if FooPageController.php exists, a 404 error will be returned.<br>
-Since it does not support the third level, a 404 error will always be returned if there is a third level.<br>
-<br>
-<br>
-
 ## When the request is not GET, a different controller will be called.<br>
 
 ### When accessing http://example.com/foo with POST method<br>
@@ -135,12 +129,6 @@ FooPageController.php が開かれ、barメソッドが実装されていれば�
 <br>
 このように二つ目までのURI階層を、<br>
 コントローラー名とメソッド名で定義することができます。<br>
-<br>
-<br>
-
-### http://example.com/foo/bar/hoge にアクセスが来た場合<br>
-FooPageController.php が存在していても404エラーが返ります。<br>
-三つ目の階層には対応していないので、三つ目の階層がある場合は必ず404エラーが返ります。<br>
 <br>
 <br>
 
