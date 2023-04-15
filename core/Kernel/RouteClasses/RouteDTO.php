@@ -74,6 +74,8 @@ class RouteDTO
     public string $requestMethod;
     public bool $isJson;
 
+    public mixed $contlollerResponse;
+
     public function __construct()
     {
         $this->isJson = strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;

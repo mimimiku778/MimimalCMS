@@ -17,16 +17,12 @@ use Shadow\Kernel\Dispatcher\MiddlewareInvoker;
  */
 class Kernel
 {
-    private RouteDTO $routeDTO;
-    private mixed $contlollerResponse;
+    private RouteDTO $routeDto;
 
-    public function __construct(RouteDTO $routeDTO)
+    public function handle(RouteDTO $routeDto)
     {
-        $this->routeDTO = $routeDTO;
-    }
-
-    public function handle()
-    {
+        $this->routeDto = $routeDto;
+        $this->parseRequest();
         $this->routing();
         $this->validateRequest();
         $this->callMiddleware();
@@ -35,16 +31,23 @@ class Kernel
     }
 
     /**
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
+     */
+    private function parseRequest()
+    {
+        $request = new RequestParser;
+        $request->parse($this->routeDto, $_SERVER['REQUEST_URI'] ?? '');
+    }
+
+    /**
      * @throws NotFoundException
      * @throws MethodNotAllowedException
      */
     private function routing()
     {
-        $request = new RequestParser;
-        $request->parse($this->routeDTO, $_SERVER['REQUEST_URI'] ?? '');
-
         $routing = new Routing;
-        $routing->setRouteDto($this->routeDTO);
+        $routing->setRouteDto($this->routeDto);
         $routing->validatePath();
         $routing->resolveController();
         $routing->validateAllowedMethods();
@@ -58,7 +61,7 @@ class Kernel
     private function validateRequest()
     {
         $reception = new ReceptionInitializer;
-        $reception->init($this->routeDTO);
+        $reception->init($this->routeDto);
         $reception->callRequestValidator();
     }
 
@@ -67,12 +70,12 @@ class Kernel
      */
     private function callMiddleware()
     {
-        if (!$this->routeDTO->existsMiddleware()) {
+        if (!$this->routeDto->existsMiddleware()) {
             return;
         }
 
         $middleware = new MiddlewareInvoker;
-        $middleware->invoke($this->routeDTO);
+        $middleware->invoke($this->routeDto);
     }
 
     /**
@@ -81,7 +84,7 @@ class Kernel
     private function callController()
     {
         $controller = new ControllerInvoker;
-        $this->contlollerResponse = $controller->invoke($this->routeDTO);
+        $controller->invoke($this->routeDto);
     }
 
     /**
@@ -91,6 +94,6 @@ class Kernel
     private function handleResponse()
     {
         $response = new ResponseHandler;
-        $response->handleResponse($this->contlollerResponse);
+        $response->handleResponse($this->routeDto->contlollerResponse);
     }
 }

@@ -24,9 +24,9 @@ class Route extends AbstractRoute implements RouteInterface
 
     private static ?Route $instance = null;
 
-    private function __construct(RouteDTO $routeDTO)
+    private function __construct(RouteDTO $routeDto)
     {
-        $this->routeDto = $routeDTO;
+        $this->routeDto = $routeDto;
     }
 
     private static function create(): Route
@@ -50,7 +50,7 @@ class Route extends AbstractRoute implements RouteInterface
         $instance = self::create();
         $instance->routeDto->kernelMiddlewareArray = $middlewareName;
 
-        (new Kernel($instance->routeDto))->handle();
+        (new Kernel)->handle($instance->routeDto);
         exit;
     }
 
