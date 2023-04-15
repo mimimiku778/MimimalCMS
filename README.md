@@ -17,7 +17,8 @@ The first official release version of MimimalCMS is now available, and this will
 - Built-in middleware for automatically managing CSRF tokens
 - A simple View class consisting of output buffer control and sanitization features
 
-[https://mimimiku778.github.io/MimimalCMS-document/packages/Application.html](https://mimimiku778.github.io/MimimalCMS-document/files/shared-mimimalcms-helperfunctions.html)
+[https://mimimiku778.github.io/MimimalCMS-document/packages/Application.html](https://mimimiku778.github.io/MimimalCMS-document/files/shared-mimimalcms-helperfunctions.html)  
+
 [https://mimimiku778.github.io/MimimalCMS-document/files/shared-mimimalcms-helperfunctions.html](https://mimimiku778.github.io/MimimalCMS-document/files/shared-mimimalcms-helperfunctions.html)
 
 <br>
