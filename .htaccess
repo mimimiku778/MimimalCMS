@@ -4,10 +4,10 @@ RewriteEngine On
 # Block access to WordPress files and directories
 RewriteRule ^wp-.* - [R=404,L]
 
-# Redirect all www and non-https requests to https://example.com
+# Redirect all non-www and non-https requests to https://example.com
 # RewriteCond %{HTTPS} off [OR]
-# RewriteCond %{HTTP_HOST} ^www\.%{HTTP_HOST}\.com [NC]
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
 
 # Redirect /index to /
 RewriteRule ^(?:.*/)?index/?$ https://%{HTTP_HOST}/ [R=301,L]
