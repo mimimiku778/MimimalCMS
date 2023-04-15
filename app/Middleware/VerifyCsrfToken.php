@@ -9,13 +9,11 @@ use Shadow\Kernel\Cookie;
 
 class VerifyCsrfToken
 {
-    public function handle()
+    public function handle(Reception $reception)
     {
-        if (Reception::$requestMethod === 'GET') {
+        if ($reception->isMethod('GET')) {
             Cookie::csrfToken();
-        }
-
-        if (Reception::$requestMethod !== 'GET') {
+        } else {
             verifyCsrfToken();
         }
     }
