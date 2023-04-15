@@ -6,11 +6,12 @@ RewriteRule ^wp-.* - [R=404,L]
 
 # Redirect all non-www and non-https requests to https://example.com
 # RewriteCond %{HTTPS} off [OR]
-# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-# RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+# RewriteCond %{HTTP_HOST} ^www\.example\.com [NC]
+# RewriteRule ^(.*)$ https://example.com/$1 [L,R=301]
 
-# Redirect /index to /
-RewriteRule ^(?:.*/)?index/?$ https://%{HTTP_HOST}/ [R=301,L]
+# Redirect /index to / using a single rule
+# RewriteRule ^(.*)/index/?$  https://example.com/$1 [R=301,L]
+# RewriteRule ^index/?$ https://example.com [R=301,L]
 
 # Redirect URLs ending in a trailing slash to the same URL without the trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
