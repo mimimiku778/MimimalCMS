@@ -18,9 +18,11 @@
             "Shadow\\Exceptions\\": "core/Exceptions",
             "App\\Config\\": "shared/Config",
             "App\\Middleware\\": "app/Middleware",
+            "App\\Middleware\\Classes\\": "app/Middleware/Classes",
             "App\\Services\\": "app/Services",
+            "App\\Services\\Classes\\": "app/Services/Classes",
             "App\\Models\\": "app/Models",
-            "App\\Views\\": "app/Views",
+            "App\\Views\\": "app/Views/Classes",
             "App\\Controllers\\": "app/Controllers"
         },
         "files": [

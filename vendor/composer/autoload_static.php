@@ -26,8 +26,10 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
         'A' => 
         array (
             'App\\Views\\' => 10,
+            'App\\Services\\Classes\\' => 21,
             'App\\Services\\' => 13,
             'App\\Models\\' => 11,
+            'App\\Middleware\\Classes\\' => 23,
             'App\\Middleware\\' => 15,
             'App\\Controllers\\' => 16,
             'App\\Config\\' => 11,
@@ -61,7 +63,11 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
         ),
         'App\\Views\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Views',
+            0 => __DIR__ . '/../..' . '/app/Views/Classes',
+        ),
+        'App\\Services\\Classes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Services/Classes',
         ),
         'App\\Services\\' => 
         array (
@@ -70,6 +76,10 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
         'App\\Models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Models',
+        ),
+        'App\\Middleware\\Classes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Middleware/Classes',
         ),
         'App\\Middleware\\' => 
         array (
