@@ -42,7 +42,6 @@ class IndexPageController
 ```
 <br>
 <br>
-___
 
 ## 使い方<br>
 ① app/Controllers/Pages ディレクトリに `ページ名`PageController.php ファイルを作成する。<br>
@@ -66,9 +65,6 @@ class IndexPageController
 }
 ```
 <br>
-<br>
-___
-
 <br>
 
 ### When accessing http://example.com/<br>
