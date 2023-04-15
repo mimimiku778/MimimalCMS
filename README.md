@@ -1,7 +1,7 @@
 # MimimalCMS
 This is a super simple and minimal CMS.
 
-The first official release version of MimimalCMS is now available, and this will be the final version of the most primitive version that does not use DI container.
+The first official release version of MimimalCMS is now available, and this will be the final version of the most primitive version.
 
 ## Features include:
 - A micro-framework based on the MVC model
@@ -12,7 +12,7 @@ The first official release version of MimimalCMS is now available, and this will
 - Input/output and helper function calls for cookies, sessions, and flash sessions
 - A wrapper class for PDO
 - A string encryption class using HKDF hash and AES
-- A class for image validation, automatic resizing, and saving
+- A class for safest image validation, automatic resizing, and saving
 - Basic exception handler
 - Built-in middleware for automatically managing CSRF tokens
 - A simple View class consisting of output buffer control and sanitization features
