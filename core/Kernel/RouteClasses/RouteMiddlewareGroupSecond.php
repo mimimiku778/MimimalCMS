@@ -12,8 +12,11 @@ class RouteMiddlewareGroupSecond extends RouteSecond implements RouteMiddlewareG
 {
     use TraitMiddlewarePath;
 
-    public function __construct(RouteDTO &$routeDto)
+    private array $middlewareGroup;
+
+    public function __construct(RouteDTO &$routeDto, array $middlewareGroup)
     {
         $this->routeDto = $routeDto;
+        $this->middlewareGroup = $middlewareGroup;
     }
 }

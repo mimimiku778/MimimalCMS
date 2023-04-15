@@ -12,15 +12,13 @@ trait TraitMiddlewarePath
 {
     use TraitRoutePath;
 
-    protected static array $middlewareGroup;
-
     public function path(string|array ...$path): RouteMiddlewareGroupSecondInterface
     {
         $this->addPath(...$path);
 
         [$key, $requestMethod] = $this->createArrayKey(null);
-        $this->routeDto->routeMiddlewareArray[$key][$requestMethod] = self::$middlewareGroup;
+        $this->routeDto->routeMiddlewareArray[$key][$requestMethod] = $this->middlewareGroup;
 
-        return new RouteMiddlewareGroupSecond($this->routeDto);
+        return new RouteMiddlewareGroupSecond($this->routeDto, $this->middlewareGroup);
     }
 }

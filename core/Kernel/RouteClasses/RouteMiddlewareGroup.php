@@ -12,9 +12,11 @@ class RouteMiddlewareGroup extends AbstractRoute implements RouteMiddlewareGroup
 {
     use TraitMiddlewarePath;
 
+    private array $middlewareGroup;
+
     public function __construct(RouteDTO &$routeDto, array $middlewareGroup)
     {
         $this->routeDto = $routeDto;
-        self::$middlewareGroup = $middlewareGroup;
+        $this->middlewareGroup = $middlewareGroup;
     }
 }
