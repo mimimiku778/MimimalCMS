@@ -1,11 +1,11 @@
 <?php
 
-namespace Errors;
+namespace Shadow\Exceptions;
 
 /**
  * Registers ExceptionHandler::handleException() as the global exception handler.
  */
-set_exception_handler('\Errors\ExceptionHandler::handleException');
+set_exception_handler('\Shadow\Exceptions\ExceptionHandler::handleException');
 
 /**
  * Sets the error reporting level to include all errors.
@@ -53,14 +53,14 @@ class ExceptionHandler
      *   - httpStatusMessage: the corresponding HTTP status message
      */
     const HTTP_ERRORS = [
-        \BadRequestException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \ValidationException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \InvalidInputException::class =>     ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \SessionTimeoutException::class =>   ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
-        \UnauthorizedException::class =>     ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
-        \NotFoundException::class =>         ['httpCode' => 404, 'httpStatusMessage' => 'Not Found'],
-        \MethodNotAllowedException::class => ['httpCode' => 405, 'httpStatusMessage' => 'Method Not Allowed'],
-        \ThrottleRequestsException::class => ['httpCode' => 429, 'httpStatusMessage' => 'Too Many Requests'],
+        BadRequestException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        ValidationException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        InvalidInputException::class =>     ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        SessionTimeoutException::class =>   ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
+        UnauthorizedException::class =>     ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
+        NotFoundException::class =>         ['httpCode' => 404, 'httpStatusMessage' => 'Not Found'],
+        MethodNotAllowedException::class => ['httpCode' => 405, 'httpStatusMessage' => 'Method Not Allowed'],
+        ThrottleRequestsException::class => ['httpCode' => 429, 'httpStatusMessage' => 'Too Many Requests'],
     ];
 
     /**
@@ -73,14 +73,14 @@ class ExceptionHandler
         // Clean the output buffer if defined by the flag
 
         // Determine whether to show detailed error information
-        $flagName = 'Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
+        $flagName = 'App\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
         $bool = defined($flagName) && constant($flagName);
         if ($bool) {
             ob_clean();
         }
 
         // Handle a TestException instance
-        if ($e instanceof \TestException) {
+        if ($e instanceof TestException) {
             self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
             return;
         }
@@ -122,7 +122,7 @@ class ExceptionHandler
         http_response_code($httpCode);
 
         // Determine whether to show detailed error information
-        $flagName = 'Shadow\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
+        $flagName = 'App\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
         $showErrorTraceFlag = defined($flagName) && constant($flagName);
 
         // If the request is JSON, return a JSON response
@@ -226,7 +226,7 @@ class ExceptionHandler
             return "{$key}: {$val}";
         }, array_keys($_SERVER), $_SERVER));
 
-        $flagName = 'Shadow\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY';
+        $flagName = 'App\Config\ExceptionHandlerConfig::EXCEPTION_LOG_DIRECTORY';
         if (!defined($flagName) || !is_writable($dir = constant($flagName))) {
             return;
         }

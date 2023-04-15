@@ -7,6 +7,7 @@ namespace Shadow\Kernel\Dispatcher;
 use Shadow\Kernel\Reception;
 use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\RouteClasses\RouteDTO;
+use Shadow\Exceptions\ValidationException;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -102,8 +103,8 @@ class ReceptionInitializer implements ReceptionInitializerInterface
      * @return array Validated array
      * 
      * @throws InvalidArgumentException
-     * @throws \ValidationException
-     * @throws \NotFoundException
+     * @throws ValidationException
+     * @throws NotFoundException
      */
     public function callRequestValidator()
     {
@@ -248,7 +249,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
 
             try {
                 $validatedValue = $validator($data);
-            } catch (\ValidationException $e) {
+            } catch (ValidationException $e) {
                 $errors[] = [
                     'key' => $key,
                     'code' => $e->getCode(),

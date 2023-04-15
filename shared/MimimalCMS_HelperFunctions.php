@@ -16,17 +16,17 @@ declare(strict_types=1);
  * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
  *                                       Keys starting with "_" will not be sanitized.
  * 
- * @return Shadow\Kernel\ViewInterface
+ * @return \Shadow\Kernel\ViewInterface
  * 
- * @throws InvalidArgumentException      If passed invalid array or not found the template file.
+ * @throws \InvalidArgumentException      If passed invalid array or not found the template file.
  */
-function view(?string $viewTemplateFile = null, ?array $valuesArray = null): Shadow\Kernel\ViewInterface
+function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\ViewInterface
 {
     if ($viewTemplateFile === null && $valuesArray === null) {
-        return new Shadow\Kernel\View;
+        return new \Shadow\Kernel\View;
     }
 
-    return new Shadow\Kernel\View(Shadow\Kernel\View::get($viewTemplateFile, $valuesArray));
+    return new \Shadow\Kernel\View(\Shadow\Kernel\View::get($viewTemplateFile, $valuesArray));
 }
 
 /**
@@ -35,11 +35,11 @@ function view(?string $viewTemplateFile = null, ?array $valuesArray = null): Sha
  * @param array $data        The array to be returned as response.
  * @param ?int $responseCode [optional] HTTP status code
  * 
- * @return Shadow\Kernel\ResponseInterface
+ * @return \Shadow\Kernel\ResponseInterface
  */
-function response(array $data, int $responseCode = 200): Shadow\Kernel\ResponseInterface
+function response(array $data, int $responseCode = 200): \Shadow\Kernel\ResponseInterface
 {
-    return new Shadow\Kernel\Response($responseCode, jsonData: $data);
+    return new \Shadow\Kernel\Response($responseCode, jsonData: $data);
 }
 
 /**
@@ -47,16 +47,16 @@ function response(array $data, int $responseCode = 200): Shadow\Kernel\ResponseI
  *
  * @param string $url        The url of path to be redirect.
  * @param ?int $responseCode [optional] HTTP status code
- * @return Shadow\Kernel\ResponseInterface
+ * @return \Shadow\Kernel\ResponseInterface
  */
-function redirect(string $url, int $responseCode = 302): Shadow\Kernel\ResponseInterface
+function redirect(string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
 {
     if (!strpos($url, 'http://') && !strpos($url, 'https://')) {
         $path =  ltrim($url, "/");
-        $url = Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
+        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
     }
 
-    return new Shadow\Kernel\Response($responseCode, $url);
+    return new \Shadow\Kernel\Response($responseCode, $url);
 }
 
 /**
@@ -66,20 +66,20 @@ function redirect(string $url, int $responseCode = 302): Shadow\Kernel\ResponseI
  * @param  array|string|null  $key
  * @param  mixed  $default
  * 
- * @return mixed|Shadow\Kernel\SessionInterface
+ * @return mixed|\Shadow\Kernel\SessionInterface
  */
 function session(null|string|array $value = null, mixed $default = null): mixed
 {
     if ($value === null) {
-        return new Shadow\Kernel\Session;
+        return new \Shadow\Kernel\Session;
     }
 
     if (is_array($value)) {
-        Shadow\Kernel\Session::push($value);
+        \Shadow\Kernel\Session::push($value);
         return null;
     }
 
-    return Shadow\Kernel\Session::get($value, $default);
+    return \Shadow\Kernel\Session::get($value, $default);
 }
 
 /**
@@ -94,10 +94,10 @@ function session(null|string|array $value = null, mixed $default = null): mixed
 function old(?string $key = null): mixed
 {
     if ($key === null) {
-        Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
+        \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
     }
 
-    return Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
+    return \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
 }
 
 /**
@@ -112,7 +112,7 @@ function old(?string $key = null): mixed
  * @param bool $httpOnly
  * @param string $domain
  * 
- * @return mixed|Shadow\Kernel\Cookie
+ * @return mixed|\Shadow\Kernel\CookieInterface
  */
 function cookie(
     null|string|array $value = null,
@@ -124,15 +124,15 @@ function cookie(
     string $domain = ''
 ): mixed {
     if ($value === null) {
-        return new Shadow\Kernel\Cookie;
+        return new \Shadow\Kernel\Cookie;
     }
 
     if (is_array($value)) {
-        Shadow\Kernel\Cookie::push($value, null, $expires, $path, $samesite, $secure, $httpOnly, $domain);
+        \Shadow\Kernel\Cookie::push($value, null, $expires, $path, $samesite, $secure, $httpOnly, $domain);
         return null;
     }
 
-    return Shadow\Kernel\Cookie::get($value);
+    return \Shadow\Kernel\Cookie::get($value);
 }
 
 /**
@@ -148,7 +148,7 @@ function url(string $path = ''): string
         $path = "/" . ltrim($path, "/");
     }
 
-    return Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path;
 }
 
 /**
@@ -161,7 +161,7 @@ function url(string $path = ''): string
 function pagerUrl(string $path, int $pageNumber): string
 {
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
-    return Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
 }
 
 /**
@@ -233,9 +233,9 @@ function csrfField()
  * Verify CSRF token from the session and the request in `$_POST['_csrf']` or `$_SERVER["HTTP_X_CSRF_TOKEN"]` or `$_COOKIE['CSRF-Token']`.
  *
  * @param bool $removeTokenFromSession [option]
- * @throws ValidationException         If CSRF token in the request does not matche the token in the session.
- * @throws SessionTimeoutException     If CSRF token for the session is not found.
- * @throws LogicException              If CSRF token for the session is not string.
+ * @throws \Shadow\Exceptions\ValidationException         If CSRF token in the request does not matche the token in the session.
+ * @throws \Shadow\Exceptions\SessionTimeoutException     If CSRF token for the session is not found.
+ * @throws \LogicException              If CSRF token for the session is not string.
  */
 function verifyCsrfToken(bool $removeTokenFromSession = false)
 {
@@ -247,24 +247,24 @@ function verifyCsrfToken(bool $removeTokenFromSession = false)
     } elseif (isset($_COOKIE['CSRF-Token'])) {
         $token = $_COOKIE['CSRF-Token'];
     } else {
-        throw new ValidationException('CSRF token was not found on the request parameter.');
+        throw new \Shadow\Exceptions\ValidationException('CSRF token was not found on the request parameter.');
     }
 
     // Check if CSRF token is set in the session.
     if (!isset($_SESSION['_csrf'])) {
-        throw new SessionTimeoutException('Your session has expired.');
+        throw new \Shadow\Exceptions\SessionTimeoutException('Your session has expired.');
     }
 
     // Get CSRF token from the session.
     $sessionToken = $_SESSION['_csrf'];
     if (!is_string($sessionToken)) {
-        throw new LogicException('CSRF token for session is not string.');
+        throw new \LogicException('CSRF token for session is not string.');
     }
 
     // Verify that CSRF token in the request matches the token in the session.
     $result = is_string($token) && hash_equals($sessionToken, hash('sha256', $token));
     if (!$result) {
-        throw new ValidationException('Invalid CSRF token');
+        throw new \Shadow\Exceptions\ValidationException('Invalid CSRF token');
     }
 
     if ($removeTokenFromSession) {
@@ -294,7 +294,7 @@ function h(mixed $string): void
  */
 function removeZWS(string $str): string
 {
-    $normalizedStr = Normalizer::normalize($str, Normalizer::FORM_KC);
+    $normalizedStr = \Normalizer::normalize($str, \Normalizer::FORM_KC);
     return preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $normalizedStr);
 }
 
@@ -336,7 +336,7 @@ function pre_var_dump($var)
 function setErrorHandler()
 {
     set_error_handler(function ($severity, $message, $file, $line) {
-        throw new ErrorException($message, 0, $severity, $file, $line);
+        throw new \ErrorException($message, 0, $severity, $file, $line);
     });
 }
 

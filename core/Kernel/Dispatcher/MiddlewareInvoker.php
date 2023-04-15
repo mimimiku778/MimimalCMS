@@ -7,6 +7,9 @@ namespace Shadow\Kernel\Dispatcher;
 use Shadow\Kernel\Reception;
 use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\RouteClasses\RouteDTO;
+use Shadow\Exceptions\ValidationException;
+use Shadow\Exceptions\NotFoundException;
+use Shadow\Exceptions\BadRequestException;
 
 class MiddlewareInvoker implements MiddlewareInvokerInterface
 {
@@ -40,7 +43,7 @@ class MiddlewareInvoker implements MiddlewareInvokerInterface
                     Reception::$inputData = array_merge(Reception::$inputData, $response);
                 }
             }
-        } catch (\ValidationException | \NotFoundException | \BadRequestException $e) {
+        } catch (ValidationException | NotFoundException | BadRequestException $e) {
             $this->errorResponse([[
                 'key' => $middleware,
                 'code' => $e->getCode(),

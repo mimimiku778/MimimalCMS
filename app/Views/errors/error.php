@@ -1,6 +1,6 @@
 <?php
 
-namespace Errors;
+namespace Shadow\Exceptions;
 
 /**
  * ErrorPage class to handle displaying error message and generating Github URLs for error lines
@@ -67,14 +67,14 @@ class ErrorPage
      */
     public function __construct()
     {
-        $flagName = 'Shadow\Config\ExceptionHandlerConfig::ERROR_PAGE_GITHUB_URL';
+        $flagName = 'App\Config\ExceptionHandlerConfig::ERROR_PAGE_GITHUB_URL';
         if (defined($flagName) && is_string($url = constant($flagName))) {
             $this->githubUrl = $url;
         } else {
             return;
         }
 
-        $flagName = 'Shadow\Config\ExceptionHandlerConfig::ERROR_PAGE_DOCUMENT_ROOT_NAME';
+        $flagName = 'App\Config\ExceptionHandlerConfig::ERROR_PAGE_DOCUMENT_ROOT_NAME';
         if (defined($flagName) && is_string($dir = constant($flagName))) {
             $this->THROW_LINE_PATTERN = "/in.+{$dir}\/(.+)\(\d+\)/";
             $this->PHP_ERROR_LINE_PATTERN = "/\/{$dir}\/(.*) on line (\d+)/";
@@ -82,7 +82,7 @@ class ErrorPage
             $this->LINE_NUMBER_PATTERN = "/\.php\((\d+)\)/";
         }
 
-        $flagName = 'Shadow\Config\ExceptionHandlerConfig::ERROR_PAGE_HIDE_DRECTORY';
+        $flagName = 'App\Config\ExceptionHandlerConfig::ERROR_PAGE_HIDE_DRECTORY';
         if (defined($flagName) && is_string($dir = constant($flagName))) {
             $this->hiddenDir = $dir;
         }

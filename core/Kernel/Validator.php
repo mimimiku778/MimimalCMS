@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel;
 
+use Shadow\Exceptions\ValidationException;
+
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
@@ -149,7 +151,7 @@ class Validator implements ValidatorInterface
         if ($file['size'] > $maxFileSize * 1024) {
             $errorCode = 3001;
             $errorMessage = 'File too large.';
-            throw new \ValidationException($errorMessage, $errorCode);
+            throw new ValidationException($errorMessage, $errorCode);
         }
 
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
@@ -158,13 +160,13 @@ class Validator implements ValidatorInterface
         if (!in_array($mimeType, $allowedMimeTypes, true)) {
             $errorCode = 3002;
             $errorMessage = 'File extension not allowed.';
-            throw new \ValidationException($errorMessage, $errorCode);
+            throw new ValidationException($errorMessage, $errorCode);
         }
 
         if ($mimeType !== $file['type']) {
             $errorCode = 3003;
             $errorMessage = 'File type does not match.';
-            throw new \ValidationException($errorMessage, $errorCode);
+            throw new ValidationException($errorMessage, $errorCode);
         }
 
         return $file;

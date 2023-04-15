@@ -7,11 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
 {
     public static $files = array (
-        '1d0fe90f140113528a0ae23f10e7252d' => __DIR__ . '/../..' . '/core/ExceptionHandler.php',
+        'a0806125a7b5fd4bade8b1d3de4ae2f2' => __DIR__ . '/../..' . '/core/Exceptions/ExceptionHandler.php',
         '32ce0fe7e283c4ab2501f48c49b8b765' => __DIR__ . '/../..' . '/shared/MimimalCMS_Config.php',
-        '68aae1f9045f4c098e7a74deba28b0c2' => __DIR__ . '/../..' . '/shared/MimimalCMS_Exceptions.php',
         '072636c41bf6e1d1798641cf4f6d69ca' => __DIR__ . '/../..' . '/shared/MimimalCMS_Enums.php',
-        '9c505ea57b20dd4128019a6ca09d3bae' => __DIR__ . '/../..' . '/core/MimimalCMS_API_HelperFunctions.php',
+        '5f7bfa9cae57467db83be145516aa1f7' => __DIR__ . '/../..' . '/shared/MimimalCMS_HelperFunctions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -21,7 +20,7 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
             'Shadow\\Kernel\\RouteClasses\\' => 27,
             'Shadow\\Kernel\\Dispatcher\\' => 25,
             'Shadow\\Kernel\\' => 14,
-            'Shadow\\Config\\' => 14,
+            'Shadow\\Exceptions\\' => 18,
             'Shadow\\' => 7,
         ),
         'A' => 
@@ -31,6 +30,7 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
             'App\\Models\\' => 11,
             'App\\Middleware\\' => 15,
             'App\\Controllers\\' => 16,
+            'App\\Config\\' => 11,
         ),
     );
 
@@ -51,9 +51,9 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
         array (
             0 => __DIR__ . '/../..' . '/core/Kernel',
         ),
-        'Shadow\\Config\\' => 
+        'Shadow\\Exceptions\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/shared/Config',
+            0 => __DIR__ . '/../..' . '/core/Exceptions',
         ),
         'Shadow\\' => 
         array (
@@ -78,6 +78,10 @@ class ComposerStaticInitb99d262e1b8550ce1d6fd4bec6885e85
         'App\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Controllers',
+        ),
+        'App\\Config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/shared/Config',
         ),
     );
 

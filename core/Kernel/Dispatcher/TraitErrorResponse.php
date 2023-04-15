@@ -7,6 +7,8 @@ namespace Shadow\Kernel\Dispatcher;
 use Shadow\Kernel\Reception;
 use Shadow\Kernel\Session;
 use Shadow\Kernel\ResponseInterface;
+use Shadow\Exceptions\NotFoundException;
+use Shadow\Exceptions\InvalidInputException;
 
 trait TraitErrorResponse
 {
@@ -16,8 +18,8 @@ trait TraitErrorResponse
      * Generate error response.
      *
      * @param array $errorArray List of error details, each containing 'key', 'code', and 'message'.
-     * @throws \NotFoundException
-     * @throws \InvalidInputException
+     * @throws NotFoundException
+     * @throws InvalidInputException
      */
     protected function errorResponse(array $errorArray)
     {
@@ -33,9 +35,9 @@ trait TraitErrorResponse
         $code = $errorArray[0]['code'] ?? 0;
 
         if (Reception::$requestMethod === 'GET') {
-            throw new \NotFoundException($message, $code);
+            throw new NotFoundException($message, $code);
         } else {
-            throw new \InvalidInputException($message, $code);
+            throw new InvalidInputException($message, $code);
         }
     }
 }

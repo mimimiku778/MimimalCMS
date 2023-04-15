@@ -33,7 +33,7 @@ class RouteSecond extends AbstractRoute implements RouteSecondInterface
         ?bool $emptyAble = false
     ): static {
         [$key, $requestMethod] = $this->createArrayKey($requestMethod);
-        $validator = $this->createValidationObject($maxLen, $regex, $emptyAble, \ValidationException::class);
+        $validator = $this->createValidationObject($maxLen, $regex, $emptyAble, ValidationException::class);
         $this->routeDto->routeValidatorArray[$key][$requestMethod][$parametaName] = $validator->str(...);
 
         return $this;
@@ -47,7 +47,7 @@ class RouteSecond extends AbstractRoute implements RouteSecondInterface
         ?int $exactMatch = null
     ): static {
         [$key, $requestMethod] = $this->createArrayKey($requestMethod);
-        $validator = $this->createValidationObject($max, $min, $exactMatch, \ValidationException::class);
+        $validator = $this->createValidationObject($max, $min, $exactMatch, ValidationException::class);
         $this->routeDto->routeValidatorArray[$key][$requestMethod][$parametaName] = $validator->num(...);
 
         return $this;

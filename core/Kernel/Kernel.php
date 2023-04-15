@@ -35,8 +35,8 @@ class Kernel
     }
 
     /**
-     * @throws \NotFoundException
-     * @throws \MethodNotAllowedException
+     * @throws NotFoundException
+     * @throws MethodNotAllowedException
      */
     private function routing()
     {
@@ -51,8 +51,8 @@ class Kernel
     }
 
     /**
-     * @throws \NotFoundException        If the request is GET
-     * @throws \ValidationException      If the request is other than GET
+     * @throws NotFoundException        If the request is GET
+     * @throws ValidationException      If the request is other than GET
      * @throws \InvalidArgumentException
      */
     private function validateRequest()
@@ -67,7 +67,7 @@ class Kernel
      */
     private function callMiddleware()
     {
-        if (empty($this->routeDTO->getMiddleware())) {
+        if (!$this->routeDTO->existsMiddleware()) {
             return;
         }
 
@@ -85,8 +85,8 @@ class Kernel
     }
 
     /**
-     * @throws \NotFoundException        If the request is GET
-     * @throws \BadRequestException      If the request is other than GET
+     * @throws NotFoundException        If the request is GET
+     * @throws BadRequestException      If the request is other than GET
      */
     private function handleResponse()
     {

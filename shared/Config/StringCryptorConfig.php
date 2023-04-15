@@ -1,6 +1,6 @@
 <?php
 
-namespace Shadow\Config;
+namespace App\Config;
 
 class StringCryptorConfig
 {

@@ -10,11 +10,12 @@ return array(
     'Shadow\\Kernel\\RouteClasses\\' => array($baseDir . '/core/Kernel/RouteClasses'),
     'Shadow\\Kernel\\Dispatcher\\' => array($baseDir . '/core/Kernel/Dispatcher'),
     'Shadow\\Kernel\\' => array($baseDir . '/core/Kernel'),
-    'Shadow\\Config\\' => array($baseDir . '/shared/Config'),
+    'Shadow\\Exceptions\\' => array($baseDir . '/core/Exceptions'),
     'Shadow\\' => array($baseDir . '/core'),
     'App\\Views\\' => array($baseDir . '/app/Views'),
     'App\\Services\\' => array($baseDir . '/app/Services'),
     'App\\Models\\' => array($baseDir . '/app/Models'),
     'App\\Middleware\\' => array($baseDir . '/app/Middleware'),
     'App\\Controllers\\' => array($baseDir . '/app/Controllers'),
+    'App\\Config\\' => array($baseDir . '/shared/Config'),
 );

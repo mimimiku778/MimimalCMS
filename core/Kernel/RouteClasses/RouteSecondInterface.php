@@ -130,7 +130,7 @@ interface RouteSecondInterface
 
     /**
      * Defines what to do when validation fails.
-     * Captures `\ValidationException` and saves the errors to the session's "Errors".
+     * Captures `ValidationException` and saves the errors to the session's "Errors".
      * Takes a callback function as its argument, which is called when a redirect is required.
      * Only the `\redirect()` helper function can be passed as an argument.
      * 

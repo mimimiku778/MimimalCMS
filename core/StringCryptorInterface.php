@@ -31,7 +31,7 @@ interface StringCryptorInterface
      *  * *Example:* 
      *  `'cnJHV0JVR2dRSFRyeE9JU0VzQVRndz09QE1LMGM4VjBzV25yeXhBd1MzVmR0RFE9PSNMd1YwMHVWc3FQVHNXWnZUSG0raXU4VnJhWld1NGFCZ3R2ZmtWUT09QFIxMk9yK0FVSEJZajJ5NDdzRE5CZlE9PQ'`
      * 
-     * @throws LogicException If the encryption fails.
+     * @throws \LogicException If the encryption fails.
      */
     public function encryptAndHashString(string $string): string;
 
@@ -46,8 +46,8 @@ interface StringCryptorInterface
      * @return string Returns the decrypted string if the hash is valid.
      *                * *Example:* `'Hello World'`
      * 
-     * @throws RuntimeException If the Base64 URL encoded encrypted string is invalid.
-     * @throws LogicException If the hash is valid but decryption fails.
+     * @throws \RuntimeException If the Base64 URL encoded encrypted string is invalid.
+     * @throws \LogicException If the hash is valid but decryption fails.
      */
     public function verifyHashAndDecrypt(string $encryptedString): string;
 
@@ -65,8 +65,8 @@ interface StringCryptorInterface
      * * *Example:* 
      *  `'1678970283dbGRqVXp4L0dDbXNjNUNPazEwakI5UT09QHRkUTVxYXNNNk5nZmhqTWZiWjNYWnc9PSM1Y2hPNFpRVFZqbmJJQno3LzgxMEFzVzY1UkdNVlVRdU9xanR0Zz09QHVLM29vRXR2NG9kY295bnVWYStuSnc9PQ'`
      * 
-     * @throws InvalidArgumentException If the validity period in Unix time is before now, or not 10 digits.
-     * @throws LogicException If the encryption fails.
+     * @throws \InvalidArgumentException If the validity period in Unix time is before now, or not 10 digits.
+     * @throws \LogicException If the encryption fails.
      */
     public function encryptAndHashWithValidity(string $string, int $expires): string;
 
@@ -81,8 +81,8 @@ interface StringCryptorInterface
      * @return array|false Returns an array contains the decrypted string and the expiry time, if the hash is valid or false if expires.
      *                     * *Example:* `[1678970283, 'Hello World']`
      * 
-     * @throws RuntimeException If the Base64 URL encoded encrypted string is invalid.
-     * @throws LogicException If the hash is valid but decryption fails.
+     * @throws \RuntimeException If the Base64 URL encoded encrypted string is invalid.
+     * @throws \LogicException If the hash is valid but decryption fails.
      */
     public function verifyHashAndDecryptWithValidity(string $encryptedString): array|false;
 
@@ -108,7 +108,7 @@ interface StringCryptorInterface
      * 
      * @return bool True if the strings are equal, false otherwise.
      * 
-     * @throws RuntimeException If the HKDF hashed string is invalid format.
+     * @throws \RuntimeException If the HKDF hashed string is invalid format.
      */
     public function hkdfEquals(string $string, string $hashedString): bool;
 
@@ -121,7 +121,7 @@ interface StringCryptorInterface
      * @return string The encrypted string in the format of `string`@`iv`.
      * * *Example:* `'hexzX3nLJKqMWuXEhiOQHQ==@IsMEmTl11x6Siyyug2HBnw=='`
      * 
-     * @throws LogicException If the encryption fails.
+     * @throws \LogicException If the encryption fails.
      */
     public function encryptAesCbcString(string $targetString): string;
 
@@ -135,7 +135,7 @@ interface StringCryptorInterface
      * @return string The decrypted string.
      * * *Example:* `'Hello World'`
      * 
-     * @throws RuntimeException If the decryption fails.
+     * @throws \RuntimeException If the decryption fails.
      */
     public function decryptAesCbcString(string $encryptedString): string;
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Shadow\Storage;
 
+use Shadow\Exceptions\ValidationException;
+
 /**
  * Class FileValidator
  * 
@@ -33,7 +35,7 @@ class FileValidator implements FileValidatorInterface
         $file = $this->files[$postName] ?? null;
 
         if ($file === null) {
-            throw new \ValidationException('The file was not uploaded using HTTP POST.', 3000);
+            throw new ValidationException('The file was not uploaded using HTTP POST.', 3000);
         }
 
         if (!is_uploaded_file($file['tmp_name'])) {
@@ -41,18 +43,18 @@ class FileValidator implements FileValidatorInterface
         }
 
         if ($file['size'] > $this->maxFileSize  * 1024) {
-            throw new \ValidationException('File too large.', 3001);
+            throw new ValidationException('File too large.', 3001);
         }
 
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mimeType = $finfo->file($file['tmp_name']);
 
         if (!in_array($mimeType, $this->allowedMimeTypes, true)) {
-            throw new \ValidationException('File extension not allowed.', 3002);
+            throw new ValidationException('File extension not allowed.', 3002);
         }
 
         if ($mimeType !== $file['type']) {
-            throw new \ValidationException('File type does not match.', 3003);
+            throw new ValidationException('File type does not match.', 3003);
         }
     }
 

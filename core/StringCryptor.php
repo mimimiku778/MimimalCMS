@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shadow;
 
-use Shadow\Config\StringCryptorConfig;
+use App\Config\StringCryptorConfig;
 
 /**
  * Encrypt and decrypt strings using AES-CBC and obtain hashes of encrypted strings using HKDF.

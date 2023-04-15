@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Shadow\Kernel\RouteClasses;
 
 use Shadow\Kernel\Validator;
+use Shadow\Exceptions\ValidationException;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -61,7 +62,7 @@ abstract class AbstractRoute
             {
                 if (!is_array($file) || empty($file['tmp_name'] ?? [])) {
                     if (!$this->argCache[0]) {
-                        throw new \ValidationException('File is empty.', 3000);
+                        throw new ValidationException('File is empty.', 3000);
                     }
 
                     return null;

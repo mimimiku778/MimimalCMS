@@ -2,8 +2,6 @@
 
 namespace Shadow\Kernel\RouteClasses;
 
-use Shadow\Kernel\RouteSecondInterface;
-
 interface RouteMiddlewareGroupSecondInterface extends RouteSecondInterface
 {
     /**

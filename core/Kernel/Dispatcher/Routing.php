@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Shadow\Kernel\Dispatcher;
 
 use Shadow\Kernel\RouteClasses\RouteDTO;
+use Shadow\Exceptions\NotFoundException;
+use Shadow\Exceptions\MethodNotAllowedException;
 
 /**
  * @author mimimiku778 <0203.sub@gmail.com>
@@ -28,18 +30,18 @@ class Routing implements RoutingInterface
 
         // If there is a 3rd path, return 404 error
         if (count($paths) > 2) {
-            throw new \NotFoundException('Three or more Paths are not supported without parametars.');
+            throw new NotFoundException('Three or more Paths are not supported without parametars.');
         }
 
         if ($paths[0] !== '' && preg_grep('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $paths) === []) {
-            throw new \NotFoundException(
+            throw new NotFoundException(
                 "Invalid path: It must starts with letter or underscore, followed by any number of letters, numbers, or underscores."
             );
         }
     }
 
     /**
-     * @throws \NotFoundException
+     * @throws NotFoundException
      */
     public function resolveController()
     {
@@ -52,7 +54,7 @@ class Routing implements RoutingInterface
         }
 
         if (!method_exists($this->routeDto->controllerClassName, $this->routeDto->methodName)) {
-            throw new \NotFoundException('Could not find controller method.');
+            throw new NotFoundException('Could not find controller method.');
         }
     }
 
@@ -91,7 +93,7 @@ class Routing implements RoutingInterface
         $controllerFilePath = "{$controllerDir}/{$this->routeDto->controllerClassName}.php";
 
         if (!file_exists("{$controllerDir}/{$this->routeDto->controllerClassName}.php")) {
-            throw new \NotFoundException('Could not find controller file');
+            throw new NotFoundException('Could not find controller file');
         }
 
         require_once $controllerFilePath;
@@ -120,7 +122,7 @@ class Routing implements RoutingInterface
 
         if ($allowedMethod === false || !in_array($this->routeDto->requestMethod, $allowedMethod, true)) {
             $message = ($allowedMethod === false) ? 'GET, HEAD (default)' : implode(', ', $allowedMethod);
-            throw new \MethodNotAllowedException('Allowed request methods: ' . $message);
+            throw new MethodNotAllowedException('Allowed request methods: ' . $message);
         }
     }
 }

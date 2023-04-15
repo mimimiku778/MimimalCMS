@@ -122,13 +122,15 @@ class RouteDTO
      */
     public function getMiddleware(): array
     {
-        $kernelMiddlewareArray = $this->kernelMiddlewareArray ?? [];
         $routeMiddlewareArray = $this->routeMiddlewareArray[$this->routeArrayKey][$this->requestMethod] ?? [];
+        return array_merge($this->kernelMiddlewareArray, $routeMiddlewareArray);
+    }
 
-        if($kernelMiddlewareArray === [] && $routeMiddlewareArray === []) {
-            return [];
-        }
-
-        return array_merge($kernelMiddlewareArray, $routeMiddlewareArray);
+    /**
+     * @return array `['middlewareName']`
+     */
+    public function existsMiddleware(): bool
+    {
+        return !empty($this->kernelMiddlewareArray) || isset($this->routeMiddlewareArray[$this->routeArrayKey][$this->requestMethod]);
     }
 }

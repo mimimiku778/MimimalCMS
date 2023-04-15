@@ -15,19 +15,19 @@
             "Shadow\\Kernel\\": "core/Kernel/",
             "Shadow\\Kernel\\RouteClasses\\": "core/Kernel/RouteClasses/",
             "Shadow\\Kernel\\Dispatcher\\": "core/Kernel/Dispatcher/",
-            "Shadow\\Config\\": "shared/Config",
-            "App\\Models\\": "app/Models",
-            "App\\Controllers\\": "app/Controllers",
-            "App\\Views\\": "app/Views",
+            "Shadow\\Exceptions\\": "core/Exceptions",
+            "App\\Config\\": "shared/Config",
             "App\\Middleware\\": "app/Middleware",
-            "App\\Services\\": "app/Services"
+            "App\\Services\\": "app/Services",
+            "App\\Models\\": "app/Models",
+            "App\\Views\\": "app/Views",
+            "App\\Controllers\\": "app/Controllers"
         },
         "files": [
-            "core/ExceptionHandler.php",
+            "core/Exceptions/ExceptionHandler.php",
             "shared/MimimalCMS_Config.php",
-            "shared/MimimalCMS_Exceptions.php",
             "shared/MimimalCMS_Enums.php",
-            "core/MimimalCMS_API_HelperFunctions.php"
+            "shared/MimimalCMS_HelperFunctions.php"
         ]
     }
 }

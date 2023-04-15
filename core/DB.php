@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shadow;
 
-use Shadow\Config\DatabaseConfig;
+use App\Config\DatabaseConfig;
 
 /**
  * \PDO wrapper class for SQL databases
