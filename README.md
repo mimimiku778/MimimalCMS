@@ -40,8 +40,6 @@ class IndexPageController
     }
 }
 ```
-AbstractPageController is a base class for controllers that display Pages.<br>
-It implements common processes used to display Pages.<br>
 <br>
 <br>
 ___
