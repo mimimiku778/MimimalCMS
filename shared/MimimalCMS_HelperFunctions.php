@@ -136,11 +136,35 @@ function cookie(
 }
 
 /**
+ * 
+ * Returns the absolute path to the public directory, optionally with a subdirectory appended.
+ * 
+ * @param string $path [optional] The path to a subdirectory within the public directory. Default is an empty string.
+ * 
+ * @return string      The absolute path to the public directory with the specified subdirectory appended (if provided).
+ * 
+ * * **Example :** Input: `publicDir()`  Output: `/var/www/public`
+ * * **Example :** Input: `publicDir("css/styles.css")`  Output: `/var/www/public/css/styles.css`
+ * * **Example :** Input: `publicDir("/css/styles.css")`  Output: `/var/www/public/css/styles.css`
+ */
+function publicDir(string $path = ''): string
+{
+    if ($path !== '') {
+        $path = "/" . ltrim($path, "/");
+    }
+
+    return PUBLIC_DIR . $path;
+}
+
+/**
  * Returns the full URL of the current website, including the domain and optional path.
  *
  * @param string $path [optional] path to append to the domain in the URL.
  * 
  * @return string      The full URL of the current website domain.
+ * 
+ * * **Example :** Input: `url("home")`  Output: `https://exmaple.com/home`
+ * * **Example :** Input: `url("/home")`  Output: `https://exmaple.com/home`
  */
 function url(string $path = ''): string
 {
@@ -153,15 +177,24 @@ function url(string $path = ''): string
 
 /**
  * Generates the URL for a given page number.
- *
- * @param string $path    The path to use.
- * @param int $pageNumber The page number to generate the URL for.
- * @return string         The URL for the given page number.
+ * 
+ * @param string $path       The path to use.
+ * @param int    $pageNumber The page number to generate the URL for. If 1, the page number is omitted.
+ * 
+ * @return string The URL for the given page number.
+ * 
+ * * **Example :** Input: `pagerUrl("home", 5)`  Output: `https://exmaple.com/home/5`
+ * * **Example :** Input: `pagerUrl("/home/", 5)`  Output: `https://exmaple.com/home/5`
+ * * **Example :** Input: `pagerUrl("home", 1)`  Output: `https://exmaple.com/home`
  */
 function pagerUrl(string $path, int $pageNumber): string
 {
+    if ($path !== '') {
+        $path = "/" . ltrim(rtrim($path, "/"), "/");
+    }
+
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
-    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path . $secondPath;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path . $secondPath;
 }
 
 /**

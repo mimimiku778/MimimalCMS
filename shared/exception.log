@@ -1,0 +1,201 @@
+
+2023-04-15 09:57:54 Asia/Tokyo: 
+ErrorException: imagewebp(var/www/mimikyu.info/shared/../public/images/af0a6fe094cb83ff153f81410224adb7.webp): Failed to open stream: No such file or directory
+#0 [internal function]: Shadow\Exceptions\{closure}()
+#1 /var/www/mimikyu.info/core/ImageStore.php(100): imagewebp()
+#2 /var/www/mimikyu.info/app/Controllers/Api/ImageApiController.php(11): Shadow\ImageStore->store()
+#3 /var/www/mimikyu.info/core/Kernel/Dispatcher/ControllerInvoker.php(18): ImageApiController->store()
+#4 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Shadow\Kernel\Dispatcher\ControllerInvoker->invoke()
+#5 /var/www/mimikyu.info/core/Kernel/Kernel.php(29): Shadow\Kernel\Kernel->callController()
+#6 /var/www/mimikyu.info/core/Kernel/Route.php(53): Shadow\Kernel\Kernel->handle()
+#7 /var/www/mimikyu.info/public/index.php(20): Shadow\Kernel\Route::run()
+#8 {main}
+REDIRECT_REDIRECT_HTTPS: on
+REDIRECT_REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_REDIRECT_STATUS: 200
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+CONTENT_LENGTH: 233089
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_ORIGIN: https://localhost:1000
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+CONTENT_TYPE: multipart/form-data; boundary=----WebKitFormBoundaryO09ycOMrnovvgAKo
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: sid=e65fbc8e587f0b91369a7bc69e89ef71; PHPSESSID=865e3f51snb7r4ekvnjqs3p0lk; CSRF-Token=e46e1d0943635835d71b976cebe712c2
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/public/index.php
+REMOTE_PORT: 56204
+REDIRECT_URL: /public/image/store
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: POST
+QUERY_STRING: 
+REQUEST_URI: /image/store
+SCRIPT_NAME: /public/index.php
+PATH_INFO: /public/image/store
+PATH_TRANSLATED: redirect:/public/index.php/public/image/store/store
+PHP_SELF: /public/index.php/public/image/store
+REQUEST_TIME_FLOAT: 1681520274.223227
+REQUEST_TIME: 1681520274
+
+2023-04-15 10:00:54 Asia/Tokyo: 
+ErrorException: imagepng(var/www/mimikyu.info/shared/../public/images/a2b3896233852dfdd3a5d441cd2f2b19.png): Failed to open stream: No such file or directory
+#0 [internal function]: Shadow\Exceptions\{closure}()
+#1 /var/www/mimikyu.info/core/ImageStore.php(100): imagepng()
+#2 /var/www/mimikyu.info/app/Controllers/Api/ImageApiController.php(11): Shadow\ImageStore->store()
+#3 /var/www/mimikyu.info/core/Kernel/Dispatcher/ControllerInvoker.php(18): ImageApiController->store()
+#4 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Shadow\Kernel\Dispatcher\ControllerInvoker->invoke()
+#5 /var/www/mimikyu.info/core/Kernel/Kernel.php(29): Shadow\Kernel\Kernel->callController()
+#6 /var/www/mimikyu.info/core/Kernel/Route.php(53): Shadow\Kernel\Kernel->handle()
+#7 /var/www/mimikyu.info/public/index.php(20): Shadow\Kernel\Route::run()
+#8 {main}
+REDIRECT_REDIRECT_HTTPS: on
+REDIRECT_REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_REDIRECT_STATUS: 200
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+CONTENT_LENGTH: 233088
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_ORIGIN: https://localhost:1000
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+CONTENT_TYPE: multipart/form-data; boundary=----WebKitFormBoundaryk8ZXlgqZDHMzX0CL
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: sid=e65fbc8e587f0b91369a7bc69e89ef71; PHPSESSID=865e3f51snb7r4ekvnjqs3p0lk; CSRF-Token=e46e1d0943635835d71b976cebe712c2
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/public/index.php
+REMOTE_PORT: 43736
+REDIRECT_URL: /public/image/store
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: POST
+QUERY_STRING: 
+REQUEST_URI: /image/store
+SCRIPT_NAME: /public/index.php
+PATH_INFO: /public/image/store
+PATH_TRANSLATED: redirect:/public/index.php/public/image/store/store
+PHP_SELF: /public/index.php/public/image/store
+REQUEST_TIME_FLOAT: 1681520454.293349
+REQUEST_TIME: 1681520454
+
+2023-04-15 10:02:07 Asia/Tokyo: 
+ErrorException: imagewebp(var/www/mimikyu.info/shared/../public/images/84a5868beebd5b17c137690d295dbcf4.webp): Failed to open stream: No such file or directory
+#0 [internal function]: Shadow\Exceptions\{closure}()
+#1 /var/www/mimikyu.info/core/ImageStore.php(100): imagewebp()
+#2 /var/www/mimikyu.info/app/Controllers/Api/ImageApiController.php(11): Shadow\ImageStore->store()
+#3 /var/www/mimikyu.info/core/Kernel/Dispatcher/ControllerInvoker.php(18): ImageApiController->store()
+#4 /var/www/mimikyu.info/core/Kernel/Kernel.php(87): Shadow\Kernel\Dispatcher\ControllerInvoker->invoke()
+#5 /var/www/mimikyu.info/core/Kernel/Kernel.php(29): Shadow\Kernel\Kernel->callController()
+#6 /var/www/mimikyu.info/core/Kernel/Route.php(53): Shadow\Kernel\Kernel->handle()
+#7 /var/www/mimikyu.info/public/index.php(20): Shadow\Kernel\Route::run()
+#8 {main}
+REDIRECT_REDIRECT_HTTPS: on
+REDIRECT_REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_REDIRECT_STATUS: 200
+REDIRECT_HTTPS: on
+REDIRECT_SSL_TLS_SNI: localhost
+REDIRECT_STATUS: 200
+HTTPS: on
+SSL_TLS_SNI: localhost
+HTTP_HOST: localhost:1000
+HTTP_CONNECTION: keep-alive
+CONTENT_LENGTH: 233089
+HTTP_CACHE_CONTROL: max-age=0
+HTTP_SEC_CH_UA: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+HTTP_SEC_CH_UA_MOBILE: ?0
+HTTP_SEC_CH_UA_PLATFORM: "Linux"
+HTTP_ORIGIN: https://localhost:1000
+HTTP_DNT: 1
+HTTP_UPGRADE_INSECURE_REQUESTS: 1
+CONTENT_TYPE: multipart/form-data; boundary=----WebKitFormBoundary03R8uUk845BuAHIt
+HTTP_USER_AGENT: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+HTTP_ACCEPT: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+HTTP_SEC_FETCH_SITE: same-origin
+HTTP_SEC_FETCH_MODE: navigate
+HTTP_SEC_FETCH_USER: ?1
+HTTP_SEC_FETCH_DEST: document
+HTTP_REFERER: https://localhost:1000/image
+HTTP_ACCEPT_ENCODING: gzip, deflate, br
+HTTP_ACCEPT_LANGUAGE: ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7
+HTTP_COOKIE: sid=e65fbc8e587f0b91369a7bc69e89ef71; PHPSESSID=865e3f51snb7r4ekvnjqs3p0lk; CSRF-Token=e46e1d0943635835d71b976cebe712c2
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SERVER_SIGNATURE: <address>Apache Server at localhost Port 1000</address>
+SERVER_SOFTWARE: Apache
+SERVER_NAME: localhost
+SERVER_ADDR: ::1
+SERVER_PORT: 1000
+REMOTE_ADDR: ::1
+DOCUMENT_ROOT: /var/www/mimikyu.info
+REQUEST_SCHEME: https
+CONTEXT_PREFIX: 
+CONTEXT_DOCUMENT_ROOT: /var/www/mimikyu.info
+SERVER_ADMIN: [no address given]
+SCRIPT_FILENAME: /var/www/mimikyu.info/public/index.php
+REMOTE_PORT: 49872
+REDIRECT_URL: /public/image/store
+GATEWAY_INTERFACE: CGI/1.1
+SERVER_PROTOCOL: HTTP/1.1
+REQUEST_METHOD: POST
+QUERY_STRING: 
+REQUEST_URI: /image/store
+SCRIPT_NAME: /public/index.php
+PATH_INFO: /public/image/store
+PATH_TRANSLATED: redirect:/public/index.php/public/image/store/store
+PHP_SELF: /public/index.php/public/image/store
+REQUEST_TIME_FLOAT: 1681520527.614692
+REQUEST_TIME: 1681520527

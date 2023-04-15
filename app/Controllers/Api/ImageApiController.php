@@ -8,7 +8,7 @@ class ImageApiController
     {
         $image->setParams($imageSize, $imageSize);
 
-        if ($image->store($file, 'public/images', constant("ImageType::{$imageType}"))) {
+        if ($image->store($file, publicDir('images'), constant("ImageType::{$imageType}"))) {
             return redirect('image')
                 ->with('image', $image->getFileName());
         } else {

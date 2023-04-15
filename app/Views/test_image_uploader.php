@@ -44,7 +44,7 @@
                     </i>
                     <br>
                     <!-- Verify existence of file to avoid errors !-->
-                    <?php if (file_exists($path = __DIR__ . '/../images/' . session('image'))) : ?>
+                    <?php if (file_exists($path = publicDir('images/') . session('image'))) : ?>
                         <i>
                             <small>
                                 <?php list($width, $height, $type, $attr) = getimagesize($path) ?>

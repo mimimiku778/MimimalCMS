@@ -83,7 +83,7 @@ class ImageStore implements ImageStoreIntercase
         }
 
         if ($path !== '') {
-            $path = ltrim(rtrim($path, "/"), "/") . "/";
+            $path = "/" . ltrim(rtrim($path, "/"), "/") . "/";
         }
 
         $type = $imageType->value;
@@ -95,7 +95,7 @@ class ImageStore implements ImageStoreIntercase
         $function = 'image' . $type;
         $extention = '.' . $type;
 
-        $filePath = __DIR__ . '/../' . $path . $fileName . $extention;
+        $filePath = $path . $fileName . $extention;
 
         if (!$function($image, $filePath, $this->quality)) {
             $this->errorCode =  6000;

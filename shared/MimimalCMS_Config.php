@@ -1,5 +1,6 @@
 <?php
 
+const PUBLIC_DIR = __DIR__ . '/../public';
 const VIEWS_DIR = __DIR__ . '/../app/Views';
 
 // Default options for cookies.
