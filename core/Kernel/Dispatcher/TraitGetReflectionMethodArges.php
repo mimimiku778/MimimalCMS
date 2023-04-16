@@ -27,14 +27,54 @@ trait TraitGetReflectionMethodArges
                 continue;
             }
 
-            if (!class_exists($paramType->getName())) {
+            $paramClassName = $paramType->getName();
+            if (!class_exists($paramClassName)) {
                 throw new \InvalidArgumentException('Class not found');
             }
 
-            $paramClassName = $paramType->getName();
-            $methodArgs[] = new $paramClassName();
+            $methodArgs[] = $this->constructorInjection($paramClassName);
         }
 
         return $methodArgs;
+    }
+
+    /**
+     * Constructor injection method using reflection
+     *
+     * @param string $className         The name of the class to instantiate
+     * @param array  $resolvedInstances The already resolved instances
+     * @return object                   The instantiated object with injected dependencies
+     * @throws \LogicException
+     */
+    public function constructorInjection(string $className, array &$resolvedInstances = [])
+    {
+        if (isset($resolvedInstances[$className])) {
+            return $resolvedInstances[$className];
+        }
+
+        $reflectionClass = new \ReflectionClass($className);
+        $constructor = $reflectionClass->getConstructor();
+        if ($constructor === null) {
+            return new $className();
+        }
+
+        $methodArgs = [];
+        foreach ($constructor->getParameters() as $param) {
+            $paramType = $param->getType();
+
+            if ($paramType === null || $paramType->isBuiltin()) {
+                continue;
+            }
+
+            $paramClassName = $paramType->getName();
+            if (!class_exists($paramClassName)) {
+                throw new \InvalidArgumentException('Class not found');
+            }
+
+            $methodArgs[] = $this->constructorInjection($paramClassName, $resolvedInstances);
+        }
+
+        $resolvedInstances[$className] = $reflectionClass->newInstanceArgs($methodArgs);
+        return $resolvedInstances[$className];
     }
 }
