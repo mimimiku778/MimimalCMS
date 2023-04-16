@@ -11,7 +11,7 @@ use Shadow\Kernel\Validator;
 /**
  * Store validated images.
  */
-class ImageStore implements ImageStoreIntercase
+class ImageStore implements ImageStoreInterface
 {
     const MAX_WIDTH = 10000;
     const MAX_HEIGHT = 10000;
@@ -24,7 +24,7 @@ class ImageStore implements ImageStoreIntercase
     private string $errorMessage;
     private string $fileName;
 
-    public function __construct(?SecureImageInterface $instance = null)
+    public function __construct(SecureImageInterface $instance)
     {
         $this->image = $instance ?? new SecureImage;
     }

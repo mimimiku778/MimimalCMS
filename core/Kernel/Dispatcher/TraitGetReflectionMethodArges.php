@@ -8,6 +8,8 @@ use Shadow\Kernel\Reception;
 
 trait TraitGetReflectionMethodArges
 {
+    private array $classMap;
+
     /**
      * Get the arguments for the given closure function and return an array of both the closure arguments and validated input data.
      */
@@ -67,6 +69,13 @@ trait TraitGetReflectionMethodArges
             }
 
             $paramClassName = $paramType->getName();
+
+            $nestedReflectionClass = new \ReflectionClass($paramClassName);
+
+            if ($nestedReflectionClass->isInterface()) {
+                $paramClassName = $this->resolveInterfaceToClass($paramClassName);
+            }
+
             if (!class_exists($paramClassName)) {
                 throw new \InvalidArgumentException('Class not found');
             }
@@ -76,5 +85,21 @@ trait TraitGetReflectionMethodArges
 
         $resolvedInstances[$className] = $reflectionClass->newInstanceArgs($methodArgs);
         return $resolvedInstances[$className];
+    }
+
+    /**
+     * Resolves an interface name to a concrete class name
+     *
+     * @param string $interfaceName The name of the interface to resolve
+     * @return string               The name of the concrete class that implements the interface
+     * @throws \LogicException
+     */
+    protected function resolveInterfaceToClass(string $interfaceName): string
+    {
+        if (!isset($this->classMap[$interfaceName])) {
+            throw new \LogicException("No implementation found for interface '{$interfaceName}'");
+        }
+
+        return $this->classMap[$interfaceName];
     }
 }
