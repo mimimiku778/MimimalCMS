@@ -70,14 +70,13 @@ trait TraitGetReflectionMethodArges
 
             $paramClassName = $paramType->getName();
 
-            $nestedReflectionClass = new \ReflectionClass($paramClassName);
-
-            if ($nestedReflectionClass->isInterface()) {
-                $paramClassName = $this->resolveInterfaceToClass($paramClassName);
-            }
 
             if (!class_exists($paramClassName)) {
-                throw new \InvalidArgumentException('Class not found');
+                if ((new \ReflectionClass($paramClassName))->isInterface()) {
+                    $paramClassName = $this->resolveInterfaceToClass($paramClassName);
+                } else {
+                    throw new \InvalidArgumentException('Class not found');
+                }
             }
 
             $methodArgs[] = $this->constructorInjection($paramClassName, $resolvedInstances);
