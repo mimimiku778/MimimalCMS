@@ -19,7 +19,7 @@ class DB implements DBInterface
     /**
      * @throws \PDOException
      */
-    private static function connect()
+    public static function connect()
     {
         self::$pdo = new \PDO(
             'mysql:host=' . DatabaseConfig::HOST . ';dbname=' . DatabaseConfig::DB_NAME . ';charset=utf8mb4',
@@ -57,6 +57,23 @@ class DB implements DBInterface
         }
 
         return $stmt;
+    }
+
+    public static function transaction(callable $callback): mixed
+    {
+        if (self::$pdo === null) {
+            self::connect();
+        }
+
+        try {
+            self::$pdo->beginTransaction();
+            $result = $callback();
+            self::$pdo->commit();
+            return $result;
+        } catch (\Throwable $e) {
+            self::$pdo->rollBack();
+            throw $e;
+        }
     }
 
     public static function fetch(string $query, ?array $params = null): array|false

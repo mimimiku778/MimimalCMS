@@ -22,6 +22,16 @@ interface DBInterface
     public static function execute(string $query, ?array $params = null): \PDOStatement;
 
     /**
+     * Executes a callback function within a transaction.
+     * Rolls back the transaction and throws an exception on failure.
+     *
+     * @param callable $callback The callback function to execute.
+     * @return mixed The return value of the callback function.
+     * @throws \Throwable
+     */
+    public static function transaction(callable $callback): mixed;
+
+    /**
      * Executes an SQL query and returns a single row as an associative array.
      * 
      * @param string     $query  The SQL query to execute.
