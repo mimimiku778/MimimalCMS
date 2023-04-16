@@ -51,11 +51,11 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
  */
 function redirect(string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
 {
-    if (!strpos($url, 'http://') && !strpos($url, 'https://')) {
-        $path =  ltrim($url, "/");
+    if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+        $path = ltrim($url, "/");
         $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
     }
-
+    
     return new \Shadow\Kernel\Response($responseCode, $url);
 }
 
