@@ -45,11 +45,11 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
 /**
  * Returns HTTP status code and redirect.
  *
- * @param ?string $url       The url of path to be redirect.
+ * @param ?string $url      The url of path to be redirect.
  * @param int $responseCode [optional] HTTP status code
  * @return \Shadow\Kernel\ResponseInterface
  */
-function redirect(?string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
+function redirect(?string $url = null, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
 {
     if ($url === null) {
         $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost();
