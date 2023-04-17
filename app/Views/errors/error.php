@@ -104,8 +104,10 @@ class ErrorPage
         [$this->phpErrorLineFilePath, $this->phpErrorLineNum] = $this->extractPhpErrorLine();
 
         $lineNums = $this->extractPhpLineNumbers();
-        $this->thorwLineNum = array_shift($lineNums);
-        $this->lineNums = $lineNums;
+        if (count($lineNums) > 1) {
+            $this->thorwLineNum = array_shift($lineNums);
+            $this->lineNums = $lineNums;
+        }
     }
 
     /**
