@@ -35,6 +35,21 @@ class ConstructorInjection implements ConstructorInjectionInterface
         return $resolvedInstances[$className];
     }
 
+    public function resolveInterfaceToClass(string $interfaceName): string
+    {
+        if (!isset($this->classMap[$interfaceName])) {
+            throw new \LogicException("No implementation found for interface '{$interfaceName}'");
+        }
+
+        $className = $this->classMap[$interfaceName];
+
+        if (!class_exists($className)) {
+            throw new \LogicException("Class '{$className}' not found");
+        }
+
+        return $className;
+    }
+
     /**
      * Gets the resolved arguments for a given constructor.
      *
@@ -71,30 +86,6 @@ class ConstructorInjection implements ConstructorInjectionInterface
         }
 
         return $methodArgs;
-    }
-
-    /**
-     * Resolves an interface name to a concrete class name
-     *
-     * @param string $interfaceName The name of the interface to resolve
-     * 
-     * @return string               The name of the concrete class that implements the interface
-     * 
-     * @throws \LogicException
-     */
-    private function resolveInterfaceToClass(string $interfaceName): string
-    {
-        if (!isset($this->classMap[$interfaceName])) {
-            throw new \LogicException("No implementation found for interface '{$interfaceName}'");
-        }
-
-        $className = $this->classMap[$interfaceName];
-
-        if (!class_exists($className)) {
-            throw new \LogicException("Class '{$className}' not found");
-        }
-
-        return $className;
     }
 
     /**
