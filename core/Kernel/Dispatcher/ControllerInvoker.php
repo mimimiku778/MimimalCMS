@@ -6,14 +6,10 @@ namespace Shadow\Kernel\Dispatcher;
 
 use Shadow\Kernel\RouteClasses\RouteDTO;
 
-class ControllerInvoker implements ControllerInvokerInterface
+class ControllerInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
-    use TraitGetReflectionMethodArges;
-
-    public function invoke(RouteDTO $routeDto, array $classMap)
+    public function invoke(RouteDTO $routeDto)
     {
-        $this->classMap = $classMap;
-
         $contlollerMethodArgs = $this->getMethodArgs($routeDto->controllerClassName, $routeDto->methodName);
         $contloller = new $routeDto->controllerClassName;
 

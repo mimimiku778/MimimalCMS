@@ -17,12 +17,10 @@ use Shadow\Kernel\Dispatcher\MiddlewareInvoker;
  */
 class Kernel
 {
-    private array $classMap;
     private RouteDTO $routeDto;
 
     public function handle(RouteDTO $routeDto)
     {
-        $this->classMap = require_once(CLASS_MAP_DIR);
         $this->routeDto = $routeDto;
         $this->parseRequest();
         $this->routing();
@@ -77,7 +75,7 @@ class Kernel
         }
 
         $middleware = new MiddlewareInvoker;
-        $middleware->invoke($this->routeDto, $this->classMap);
+        $middleware->invoke($this->routeDto);
     }
 
     /**
@@ -86,7 +84,7 @@ class Kernel
     private function callController()
     {
         $controller = new ControllerInvoker;
-        $controller->invoke($this->routeDto, $this->classMap);
+        $controller->invoke($this->routeDto);
     }
 
     /**

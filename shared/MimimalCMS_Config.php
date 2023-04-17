@@ -2,7 +2,6 @@
 
 const PUBLIC_DIR = __DIR__ . '/../public';
 const VIEWS_DIR = __DIR__ . '/../app/Views';
-const CLASS_MAP_DIR = __DIR__ . '/classmap.php';
 
 // Default options for cookies.
 const COOKIE_DEFAULT_SECURE = false;

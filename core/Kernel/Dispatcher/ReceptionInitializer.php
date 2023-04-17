@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Shadow\Kernel\Dispatcher;
 
 use Shadow\Kernel\Reception;
-use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\RouteClasses\RouteDTO;
 use Shadow\Exceptions\ValidationException;
 
@@ -18,6 +17,12 @@ class ReceptionInitializer implements ReceptionInitializerInterface
     use TraitErrorResponse;
 
     private RouteDTO $routeDto;
+    private RouteCallbackInvokerInterface $routeCallbackInvoker;
+
+    public function __construct(?RouteCallbackInvokerInterface $routeCallbackInvoker = null)
+    {
+        $this->routeCallbackInvoker = $routeCallbackInvoker ?? new RouteCallbackInvoker;
+    }
 
     public function init(RouteDTO $routeDto)
     {
@@ -117,12 +122,12 @@ class ReceptionInitializer implements ReceptionInitializerInterface
                 return;
             }
 
-            $validatedArray = $this->validateCallbackRoute($routeCallback);
+            $validatedArray = $this->routeCallbackInvoker->invoke($this->routeDto, $routeCallback);
         } else {
             $validatedArray = $this->validateUsingBuiltinValidators($builtinValidators);
 
             if ($routeCallback !== false) {
-                $callbackValidatedArray = $this->validateCallbackRoute($routeCallback);
+                $callbackValidatedArray = $this->routeCallbackInvoker->invoke($this->routeDto, $routeCallback);
 
                 if (!empty($callbackValidatedArray)) {
                     $validatedArray = array_merge($validatedArray, $callbackValidatedArray);
@@ -144,84 +149,12 @@ class ReceptionInitializer implements ReceptionInitializerInterface
             return $validatedArray;
         }
 
-        $callbackValidatedArray = $this->validateCallbackRoute($routeCallback);
+        $callbackValidatedArray = $this->routeCallbackInvoker->invoke($this->routeDto, $routeCallback);
         if (empty($callbackValidatedArray)) {
             return $validatedArray;
         }
 
         return array_merge($validatedArray, $callbackValidatedArray);
-    }
-
-    /**
-     * Validate the incoming request using the given route callback and return the validated input data.
-     */
-    private function validateCallbackRoute($routeCallback)
-    {
-        $callbackValidatedArray = $this->callbackRouteValidator($routeCallback);
-        if (empty($callbackValidatedArray)) {
-            return [];
-        }
-        return $callbackValidatedArray;
-    }
-
-    /**
-     * Validate the incoming request using the given route callback and return the validated input data.
-     */
-    private function callbackRouteValidator(\Closure $routeCallback): array
-    {
-        [$closureArgs, $validatedArray] = $this->getClosureArgs($routeCallback);
-
-        try {
-            $response = new ResponseHandler;
-            $result = $response->handleResponse($routeCallback(...$closureArgs));
-        } catch (\Throwable $e) {
-            $this->errorResponse([
-                ['key' => 'match', 'code' => $e->getCode(), 'message' => $e->getMessage()]
-            ]);
-        }
-
-        if ($result === true) {
-            return Reception::$inputData;
-        } elseif ($result === false) {
-            $this->errorResponse([['key' => 'match']]);
-        } elseif (is_array($result)) {
-            return $result;
-        }
-
-        return $validatedArray;
-    }
-
-    /**
-     * Get the arguments for the given closure function and return an array of both the closure arguments and validated input data.
-     */
-    private function getClosureArgs(\Closure $closure): array
-    {
-        $reflection = new \ReflectionFunction($closure);
-        $parameters = $reflection->getParameters();
-
-        $closureArgs = [];
-        $validArray = [];
-
-        foreach ($parameters as $param) {
-            $paramType = $param->getType();
-
-            if ($paramType === null || $paramType->isBuiltin()) {
-                $closureArgs[] = Reception::$inputData[$param->name] ?? null;
-                $validArray[] = Reception::$inputData[$param->name] ?? null;;
-                continue;
-            }
-
-            if (!class_exists($paramType->getName())) {
-                throw new \InvalidArgumentException(
-                    'Invalid class name: "' . $paramType . '" not found: $' . $param->name
-                );
-            }
-
-            $paramClassName = $paramType->getName();
-            $closureArgs[] = new $paramClassName();
-        }
-
-        return [$closureArgs, $validArray];
     }
 
     private function callBuiltinValidator(array $validators): array
