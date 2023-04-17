@@ -141,7 +141,12 @@ class ErrorPage
      */
     public function getGithubUrlWithThrownLine(): string
     {
-        return $this->getGithubURL($this->extractThrowLine(), $this->thorwLineNum);
+        $line = $this->extractThrowLine();
+        if ($line) {
+            return $this->getGithubURL($line, $this->thorwLineNum);
+        } else {
+            return '';
+        }
     }
 
     /**
