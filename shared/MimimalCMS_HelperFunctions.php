@@ -45,17 +45,19 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
 /**
  * Returns HTTP status code and redirect.
  *
- * @param string $url        The url of path to be redirect.
- * @param ?int $responseCode [optional] HTTP status code
+ * @param ?string $url       The url of path to be redirect.
+ * @param int $responseCode [optional] HTTP status code
  * @return \Shadow\Kernel\ResponseInterface
  */
-function redirect(string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
+function redirect(?string $url, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
 {
-    if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+    if ($url === null) {
+        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost();
+    } elseif (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
         $path = ltrim($url, "/");
         $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
     }
-    
+
     return new \Shadow\Kernel\Response($responseCode, $url);
 }
 
