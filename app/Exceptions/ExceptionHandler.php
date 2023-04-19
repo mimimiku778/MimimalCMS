@@ -8,6 +8,7 @@ use App\Config\AppExceptionHandlerConfig;
 class ExceptionHandler implements ExceptionHandlerInterface
 {
     const EXCEPTION_MAP = [
+        ApplicationException::class => Handlers\ApplicationExceptionHandler::class,
     ];
 
     public static function handleException(\Throwable $e)
