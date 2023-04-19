@@ -8,8 +8,6 @@ use App\Config\AppExceptionHandlerConfig;
 class ExceptionHandler implements ExceptionHandlerInterface
 {
     const EXCEPTION_MAP = [
-        InvalidTokenException::class => Handlers\InvalidTokenExceptionHandler::class,
-        LineLoginException::class => Handlers\LineLoginExceptionHandler::class
     ];
 
     public static function handleException(\Throwable $e)
