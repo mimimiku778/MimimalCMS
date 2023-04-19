@@ -172,14 +172,6 @@ class ReceptionInitializer implements ReceptionInitializerInterface
                 $currentLevel = &$currentLevel[$property];
             }
 
-            if ($data === null) {
-                $errors[] = [
-                    'key' => $key,
-                    'code' => 0,
-                    'message' => 'no value'
-                ];
-            }
-
             try {
                 $validatedValue = $validator($data);
             } catch (ValidationException $e) {

@@ -10,11 +10,11 @@ interface ConstructorInjectionInterface
      * @param string $className          The name of the class to resolve
      * @param array  &$resolvedInstances Instances that have already been resolved
      * 
-     * @return mixed The resolved instance
+     * @return object The resolved instance
      * 
      * @throws \ReflectionException
      */
-    public function constructorInjection(string $className, array &$resolvedInstances = []);
+    public function constructorInjection(string $className, array &$resolvedInstances = []): object;
 
     /**
      * Resolves an interface name to a concrete class name

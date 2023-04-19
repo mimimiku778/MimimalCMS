@@ -30,8 +30,8 @@ interface ValidatorInterface
     public static function str(
         mixed $input,
         ?int $maxLen = null,
-        ?string $regex = null,
-        ?bool $empty = true,
+        string|array|null $regex = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): string|false;
 
@@ -42,7 +42,7 @@ interface ValidatorInterface
      * @param string $key The      key to be validated.
      * @param int|null $maxLen     [optional] The maximum length of the string.
      * @param string|null $regex   [optional] If specified, the input string must match this regex pattern.
-     * @param bool|null $emptyAble [optional] If the string can be empty or not.
+     * @param bool     $emptyAble  [optional] Whether the value is empty or passes without a value.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
      * 
      * @return string|false        True if the input is valid, otherwise false.
@@ -60,8 +60,8 @@ interface ValidatorInterface
         array $array,
         string $key,
         ?int $maxLen = null,
-        ?string $regex = null,
-        ?bool $empty = true,
+        string|array|null $regex = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): string|false;
 
@@ -72,6 +72,7 @@ interface ValidatorInterface
      * @param int|null $max        [optional] The maximum numeric value.
      * @param int|null $min        [optional] The minimum numeric value.
      * @param int|null $exactMatch [optional] The numeric value for exact match.
+     * @param bool     $emptyAble  [optional] Whether the value is empty or passes without a value.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
      *
      * @return int|false           True if the input is valid, otherwise false.
@@ -88,6 +89,7 @@ interface ValidatorInterface
         ?int $max = null,
         ?int $min = null,
         ?int $exactMatch = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): int|false;
 
@@ -99,6 +101,7 @@ interface ValidatorInterface
      * @param int|null $max        [optional] The maximum numeric value.
      * @param int|null $min        [optional] The minimum numeric value.
      * @param int|null $exactMatch [optional] The numeric value for exact match.
+     * @param bool     $emptyAble  [optional] Whether the value is empty or passes without a value.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
      * 
      * @return int|false           True if the input is valid, otherwise false.
@@ -116,6 +119,7 @@ interface ValidatorInterface
         ?int $max = null,
         ?int $min = null,
         ?int $exactMatch = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): int|false;
 

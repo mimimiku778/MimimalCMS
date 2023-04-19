@@ -6,18 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Shadow\\Storage\\' => array($baseDir . '/core/Storage'),
-    'Shadow\\Kernel\\RouteClasses\\' => array($baseDir . '/core/Kernel/RouteClasses'),
-    'Shadow\\Kernel\\Dispatcher\\' => array($baseDir . '/core/Kernel/Dispatcher'),
-    'Shadow\\Kernel\\' => array($baseDir . '/core/Kernel'),
-    'Shadow\\Exceptions\\' => array($baseDir . '/core/Exceptions'),
     'Shadow\\' => array($baseDir . '/core'),
     'App\\Views\\' => array($baseDir . '/app/Views/Classes'),
-    'App\\Services\\Classes\\' => array($baseDir . '/app/Services/Classes'),
-    'App\\Services\\' => array($baseDir . '/app/Services'),
-    'App\\Models\\' => array($baseDir . '/app/Models'),
-    'App\\Middleware\\Classes\\' => array($baseDir . '/app/Middleware/Classes'),
-    'App\\Middleware\\' => array($baseDir . '/app/Middleware'),
     'App\\Controllers\\' => array($baseDir . '/app/Controllers'),
     'App\\Config\\' => array($baseDir . '/shared/Config'),
+    'App\\' => array($baseDir . '/app'),
 );

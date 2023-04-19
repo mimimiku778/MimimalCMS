@@ -70,7 +70,20 @@ class ExceptionHandler
      */
     public static function handleException(\Throwable $e)
     {
-        // Clean the output buffer if defined by the flag
+        $flagName = 'App\Exceptions\ExceptionHandler::EXCEPTION_MAP';
+        if (defined($flagName) && is_array($list = constant($flagName))) {
+            if (array_key_exists(get_class($e), $list)) {
+                \App\Exceptions\ExceptionHandler::handleException($e);
+                return;
+            }
+        }
+
+        // Handle an unhandled exception
+        if (!array_key_exists(get_class($e), self::HTTP_ERRORS)) {
+            self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
+            self::errorLog($e);
+            return;
+        }
 
         // Determine whether to show detailed error information
         $flagName = 'App\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
@@ -137,7 +150,7 @@ class ExceptionHandler
         }
 
         // If the request is not JSON, prepare the error message for display
-        $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : '';
+        $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : $e->getMessage();
         $detailsMessage = htmlspecialchars($detailsMessage, ENT_QUOTES, 'UTF-8');
 
         // If the error page can be displayed, show it

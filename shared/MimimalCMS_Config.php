@@ -24,3 +24,6 @@ session_start();
 // File validator.
 const DEFAULT_MAX_FILE_SIZE = 20480;
 const IMAGE_MIME_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+const URL_STRING_PATTERN = '/^[a-zA-Z0-9-._~!$&\'()*+,;=:@\/?%]+$/';
+const RELATIVE_PATH_PATTERN = '/^(?!(?:f|ht)tps?:\/\/)/i';

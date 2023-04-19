@@ -2,7 +2,7 @@
 
 namespace Shadow;
 
-interface ImageStoreInterface
+interface ImageStoreIntercase
 {
     /**
      * Set parameters for storing the image.

@@ -213,21 +213,25 @@ class ErrorPage
     }
 }
 
-if ($detailsMessage) {
-    $m = new ErrorPage;
-    $m->setMessage($detailsMessage);
+try {
+    if ($detailsMessage) {
+        $m = new ErrorPage;
+        $m->setMessage($detailsMessage);
 
-    // Get the error message from the ErrorPage object.
-    $errorMessage = $m->getMessage();
+        // Get the error message from the ErrorPage object.
+        $errorMessage = $m->getMessage();
 
-    // Get the Github URL with the PHP error line.
-    $errorLineUrl = $m->getGithubUrlWithPhpErrorLine();
+        // Get the Github URL with the PHP error line.
+        $errorLineUrl = $m->getGithubUrlWithPhpErrorLine();
 
-    // Get the Github URL with the thrown line.
-    $thrownLineUrl = $m->getGithubUrlWithThrownLine();
+        // Get the Github URL with the thrown line.
+        $thrownLineUrl = $m->getGithubUrlWithThrownLine();
 
-    // Get an array of Github URLs with each line in the error message.
-    $linesUrl = $m->getGithubUrlsWithLine();
+        // Get an array of Github URLs with each line in the error message.
+        $linesUrl = $m->getGithubUrlsWithLine();
+    }
+} catch (\Exception $e) {
+    $errorMessage = $e->getMessage();
 }
 
 // Get the domain and http host of the current page using the static method getDomainAndHttpHost() of ErrorPage class.

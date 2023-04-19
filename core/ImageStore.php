@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Shadow;
 
 use Shadow\Storage\SecureImageInterface;
-use Shadow\Storage\SecureImage;
 use Shadow\Kernel\Validator;
 
 /**
  * Store validated images.
  */
-class ImageStore implements ImageStoreInterface
+class ImageStore implements ImageStoreIntercase
 {
     const MAX_WIDTH = 10000;
     const MAX_HEIGHT = 10000;
@@ -26,7 +25,7 @@ class ImageStore implements ImageStoreInterface
 
     public function __construct(SecureImageInterface $instance)
     {
-        $this->image = $instance ?? new SecureImage;
+        $this->image = $instance;
     }
 
     public function setParams(?int $maxWidth = null, ?int $maxHeight = null, int $quality = 80)

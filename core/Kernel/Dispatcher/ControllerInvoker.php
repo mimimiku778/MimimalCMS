@@ -11,8 +11,7 @@ class ControllerInvoker extends AbstractInvoker implements ClassInvokerInterface
     public function invoke(RouteDTO $routeDto)
     {
         $contlollerMethodArgs = $this->getMethodArgs($routeDto->controllerClassName, $routeDto->methodName);
-        $contloller = new $routeDto->controllerClassName;
-
+        $contloller = $this->ci->constructorInjection($routeDto->controllerClassName);
         $routeDto->contlollerResponse = $contloller->{$routeDto->methodName}(...$contlollerMethodArgs);
     }
 }

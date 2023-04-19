@@ -8,9 +8,6 @@ use Shadow\Kernel\Reception;
 use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\ResponseHandlerInterface;
 use Shadow\Kernel\RouteClasses\RouteDTO;
-use Shadow\Exceptions\ValidationException;
-use Shadow\Exceptions\NotFoundException;
-use Shadow\Exceptions\BadRequestException;
 
 class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
@@ -32,30 +29,22 @@ class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
 
     private function callMiddleware(RouteDTO $routeDto)
     {
-        try {
-            foreach ($routeDto->getMiddleware() as $middleware) {
-                $className = 'App\\Middleware\\' . $middleware;
-                if (!method_exists($className, 'handle')) {
-                    throw new \InvalidArgumentException('Could not find: ' . $className . '::handle');
-                }
-
-                $methodArgs = $this->getMethodArgs($className, 'handle');
-
-                $instance = new $className;
-                $middlewareResponse = $instance->handle(...$methodArgs);
-
-                $response = $this->responseHandler->handleResponse($middlewareResponse);
-
-                if (is_array($response)) {
-                    Reception::$inputData = array_merge(Reception::$inputData, $response);
-                }
+        foreach ($routeDto->getMiddleware() as $middleware) {
+            $className = 'App\\Middleware\\' . $middleware;
+            if (!method_exists($className, 'handle')) {
+                throw new \InvalidArgumentException('Could not find: ' . $className . '::handle');
             }
-        } catch (ValidationException | NotFoundException | BadRequestException $e) {
-            $this->errorResponse([[
-                'key' => $middleware,
-                'code' => $e->getCode(),
-                'message' => $e->getMessage()
-            ]]);
+
+            $methodArgs = $this->getMethodArgs($className, 'handle');
+
+            $instance = $this->ci->constructorInjection($className);
+            $middlewareResponse = $instance->handle(...$methodArgs);
+
+            $response = $this->responseHandler->handleResponse($middlewareResponse);
+
+            if (is_array($response)) {
+                Reception::$inputData = array_merge(Reception::$inputData, $response);
+            }
         }
     }
 }

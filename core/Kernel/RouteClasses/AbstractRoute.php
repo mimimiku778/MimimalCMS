@@ -45,9 +45,6 @@ abstract class AbstractRoute
                     if (!array_reduce($this->argCache[1], fn ($acc, $curr) => $acc && is_string($curr), true)) {
                         throw new \InvalidArgumentException('The elements of $regex array must be strings only.', 1000);
                     }
-
-                    $regex = '/\b(' . implode('|', $this->argCache[1]) . ')\b/';
-                    $this->argCache[1] = $regex;
                 }
 
                 return Validator::str($input, ...$this->argCache);

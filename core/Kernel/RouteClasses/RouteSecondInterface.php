@@ -34,9 +34,7 @@ interface RouteSecondInterface
      * @param string|null       $requestMethod [optional] Specify the request method to validate. If null, applies to all HTTP methods.
      * @param int|null          $maxLen        [optional] The maximum length of the string.
      * @param string|array|null $regex         [optional] Specifies a regular expression pattern that the input string must match.
-     *                                         If an array of strings is provided instead, a regular expression pattern will be generated from the array elements.
-     * @param bool|null         $emptyAble     [optional] If the string can be empty or not.
-     * @param string|null       $e             [optional] An Exception name to be thrown if validation fails.
+     * @param bool              $emptyAble     [optional] Whether the value is empty or passes without a value.
      * 
      * @return static                    The instance of the Route class, to allow for method chaining.
      * 
@@ -57,7 +55,7 @@ interface RouteSecondInterface
         ?string $requestMethod = null,
         ?int $maxLen = null,
         string|array|null $regex = null,
-        ?bool $emptyAble = false
+        bool $emptyAble = false
     ): static;
 
     /**
@@ -68,7 +66,7 @@ interface RouteSecondInterface
      * @param int|null    $max           [optional] The maximum numeric value.
      * @param int|null    $min           [optional] The minimum numeric value.
      * @param int|null    $exactMatch    [optional] The numeric value for exact match.
-     * @param string|null $e             [optional] An Exception name to be thrown if validation fails.
+     * @param bool        $emptyAble     [optional] Whether the value is empty or passes without a value.
      * 
      * @return static                    The instance of the Route class, to allow for method chaining.
      * 
@@ -84,7 +82,8 @@ interface RouteSecondInterface
         ?string $requestMethod = null,
         ?int $max = null,
         ?int $min = null,
-        ?int $exactMatch = null
+        ?int $exactMatch = null,
+        bool $emptyAble = false,
     ): static;
 
     /**
@@ -95,7 +94,7 @@ interface RouteSecondInterface
      *                                      * **Example:** `['image/jpeg', 'image/png', 'image/gif', 'image/webp']`
      * 
      * @param int         $maxFileSize      Maximum allowed file size in kilobytes (KB).
-     * @param bool|null   $emptyAble        Whether an empty file is allowed or not. Defaults to true.
+     * @param bool        $emptyAble        Whether an empty file is allowed or not. Defaults to true.
      * @param string|null $requestMethod    The HTTP request method. If null, applies to all HTTP methods.
      *
      * @return static  The instance of the class.
@@ -113,7 +112,7 @@ interface RouteSecondInterface
         string $parametaName,
         array $allowedMimeTypes,
         int $maxFileSize = DEFAULT_MAX_FILE_SIZE,
-        ?bool $emptyAble = true,
+        bool $emptyAble = true,
         ?string $requestMethod = null,
     ): static;
 

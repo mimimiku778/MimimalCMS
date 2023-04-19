@@ -16,7 +16,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
         $this->classMap = $classMap ?? ConstructorInjectionClassMap::MAP;
     }
 
-    public function constructorInjection(string $className, array &$resolvedInstances = [])
+    public function constructorInjection(string $className, array &$resolvedInstances = []): object
     {
         if (isset($resolvedInstances[$className])) {
             return $resolvedInstances[$className];

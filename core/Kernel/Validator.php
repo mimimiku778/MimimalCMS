@@ -15,34 +15,29 @@ class Validator implements ValidatorInterface
     public static function str(
         mixed $input,
         ?int $maxLen = null,
-        ?string $regex = null,
-        ?bool $emptyAble = true,
+        string|array|null $regex = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): string|false {
         if (!is_string($input)) {
+            if ($emptyAble) return '';
+            if ($e === null) return false;
             $errorCode = 1001;
             $errorMessage = 'The input must be a string.';
-            if ($e === null) {
-                return false;
-            }
             throw new $e($errorMessage, $errorCode);
         }
 
-        if ($regex !== null) {
-            $result = @preg_match($regex, $input);
-            if ($result === false) {
-                $errorCode = 1000;
-                $errorMessage = 'An error occurred while executing preg_match function. Please check the regex pattern.';
-                throw new \LogicException($errorMessage, $errorCode);
+        if (is_string($regex)) {
+            if (!self::preg_match($regex, $input, $e)) {
+                return false;
             }
+        }
 
-            if ($result === 0) {
-                $errorCode = 1002;
-                $errorMessage = 'The input string does not match the specified regex pattern.';
-                if ($e === null) {
+        if (is_array($regex)) {
+            foreach ($regex as $r) {
+                if (!self::preg_match($r, $input, $e)) {
                     return false;
                 }
-                throw new $e($errorMessage, $errorCode);
             }
         }
 
@@ -55,33 +50,48 @@ class Validator implements ValidatorInterface
             $replaceStr = preg_replace(ValidatorInterface::ZERO_WHITE_SPACE, '', $normalizedStr);
 
             if ($replaceStr === null || empty(trim($replaceStr))) {
+                if ($e === null) return false;
                 $errorCode = 1003;
                 $errorMessage = 'The input string contains only whitespace characters or an empty string.';
-                if ($e === null) {
-                    return false;
-                }
                 throw new $e($errorMessage, $errorCode);
             }
         }
 
         if ($maxLen !== null && mb_strlen($input) > $maxLen) {
+            if ($e === null) return false;
             $errorCode = 1004;
             $errorMessage = 'The input string exceeds the maximum length limit of ' . $maxLen . ' characters.';
-            if ($e === null) {
-                return false;
-            }
             throw new $e($errorMessage, $errorCode);
         }
 
         return $input;
     }
 
+    private static function preg_match(array|string $regex, string $input, ?string $e): bool
+    {
+        $result = @preg_match($regex, $input);
+        if ($result === false) {
+            $errorCode = 1000;
+            $errorMessage = 'An error occurred while executing preg_match function. Please check the regex pattern.';
+            throw new \LogicException($errorMessage, $errorCode);
+        }
+
+        if ($result === 0) {
+            if ($e === null) return false;
+            $errorCode = 1002;
+            $errorMessage = 'The input string does not match the specified regex pattern.';
+            throw new $e($errorMessage, $errorCode);
+        }
+
+        return true;
+    }
+
     public static function arrayStr(
         array $array,
         string $key,
         ?int $maxLen = null,
-        ?string $regex = null,
-        ?bool $emptyAble = true,
+        string|array|null $regex = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): string|false {
         if (!isset($array[$key])) return false;
@@ -93,9 +103,11 @@ class Validator implements ValidatorInterface
         ?int $max = null,
         ?int $min = null,
         ?int $exactMatch = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): int|false {
         if (!is_int($input) && (!is_string($input) || !ctype_digit($input))) {
+            if ($emptyAble) return 0;
             if ($e === null) return false;
             $errorCode = 2001;
             $errorMessage = 'The input must be an integer or a string containing only digits.';
@@ -134,10 +146,11 @@ class Validator implements ValidatorInterface
         ?int $max = null,
         ?int $min = null,
         ?int $exactMatch = null,
+        bool $emptyAble = false,
         ?string $e = null
     ): int|false {
         if (!isset($array[$key])) return false;
-        return self::num($array[$key], $max, $min, $exactMatch, $e);
+        return self::num($array[$key], $max, $min, $exactMatch, $emptyAble, $e);
     }
 
     public static function file(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array

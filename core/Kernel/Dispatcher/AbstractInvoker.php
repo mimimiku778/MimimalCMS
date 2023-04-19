@@ -36,7 +36,7 @@ abstract class AbstractInvoker
 
             $paramClassName = $paramType->getName();
             if (!class_exists($paramClassName)) {
-                throw new \InvalidArgumentException('Class not found');
+                $paramClassName = $this->ci->resolveInterfaceToClass($paramClassName);
             }
 
             $methodArgs[] = $this->ci->constructorInjection($paramClassName);
@@ -65,7 +65,7 @@ abstract class AbstractInvoker
 
             $paramClassName = $paramType->getName();
             if (!class_exists($paramClassName)) {
-                throw new \InvalidArgumentException('Class not found');
+                $paramClassName = $this->ci->resolveInterfaceToClass($paramClassName);
             }
 
             $closureArgs[] = $this->ci->constructorInjection($paramClassName);
