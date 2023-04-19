@@ -9,6 +9,11 @@
 
 declare(strict_types=1);
 
+function app()
+{
+    return new \Shadow\Kernel\Application();
+}
+
 /**
  * Render a template file with optional values.
  *
