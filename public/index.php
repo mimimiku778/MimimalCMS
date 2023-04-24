@@ -10,11 +10,12 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Shadow\Kernel\Route;
+use App\Middleware\VerifyCsrfToken;
 
 Route::path('image/store@post')
     ->matchFile('file', IMAGE_MIME_TYPE, emptyAble: false)
-    ->matchStr('imageType', regex: ['JPG', 'PNG', 'WEBP'])
+    ->matchStr('imageType', regex: '/(JPG|PNG|WEBP)/')
     ->matchNum('imageSize', min: 0, max: 1000)
     ->fails(redirect('image'));
 
-Route::run('VerifyCsrfToken');
+Route::run(VerifyCsrfToken::class);

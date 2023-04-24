@@ -22,32 +22,23 @@ class ConstructorInjection implements ConstructorInjectionInterface
             return $resolvedInstances[$className];
         }
 
-        $reflectionClass = $this->getReflectionClass($className);
+        if (!class_exists($className)) {
+            $concreteName = $this->resolveInterfaceToClass($className);
+        } else {
+            $concreteName = $className;
+        }
+
+        $reflectionClass = $this->getReflectionClass($concreteName);
         $constructor = $reflectionClass->getConstructor();
 
         if ($constructor === null) {
-            return new $className();
+            return new $concreteName();
         }
 
         $methodArgs = $this->getMethodArgs($constructor, $resolvedInstances);
         $resolvedInstances[$className] = $reflectionClass->newInstanceArgs($methodArgs);
 
         return $resolvedInstances[$className];
-    }
-
-    public function resolveInterfaceToClass(string $interfaceName): string
-    {
-        if (!isset($this->classMap[$interfaceName])) {
-            throw new \LogicException("No implementation found for interface '{$interfaceName}'");
-        }
-
-        $className = $this->classMap[$interfaceName];
-
-        if (!class_exists($className)) {
-            throw new \LogicException("Class '{$className}' not found");
-        }
-
-        return $className;
     }
 
     /**
@@ -86,6 +77,21 @@ class ConstructorInjection implements ConstructorInjectionInterface
         }
 
         return $methodArgs;
+    }
+
+    public function resolveInterfaceToClass(string $interfaceName): string
+    {
+        if (!isset($this->classMap[$interfaceName])) {
+            throw new \LogicException("No implementation found for interface '{$interfaceName}'");
+        }
+
+        $className = $this->classMap[$interfaceName];
+
+        if (!class_exists($className)) {
+            throw new \LogicException("Class '{$className}' not found");
+        }
+
+        return $className;
     }
 
     /**

@@ -59,7 +59,7 @@ abstract class AbstractInvoker
 
             if ($paramType === null || $paramType->isBuiltin()) {
                 $closureArgs[] = Reception::$inputData[$param->name] ?? null;
-                $validArray[] = Reception::$inputData[$param->name] ?? null;;
+                $validArray[$param->name] = Reception::$inputData[$param->name] ?? null;;
                 continue;
             }
 

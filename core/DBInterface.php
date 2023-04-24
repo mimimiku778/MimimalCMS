@@ -17,7 +17,7 @@ interface DBInterface
      * @return PDOStatement Returns a PDOStatement object containing the results of the query, or false.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
+     * @throws InvalidArgumentException If any of the array values are not strings, numbers or bool.
      */
     public static function execute(string $query, ?array $params = null): \PDOStatement;
 
@@ -44,7 +44,7 @@ interface DBInterface
      * @return array|false Returns a single row as an associative array or false if no rows.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
+     * @throws InvalidArgumentException If any of the array values are not strings, numbers or bool.
      */
     public static function fetch(string $query, ?array $params = null): array|false;
 
@@ -61,7 +61,7 @@ interface DBInterface
      * @return array An empty array is returned if there are zero results to fetch.
      * 
      * @throws PDOException If an error occurs during the query execution.
-     * @throws InvalidArgumentException If any of the array values are not strings or numbers.
+     * @throws InvalidArgumentException If any of the array values are not strings, numbers or bool.
      */
     public static function fetchAll(string $query, ?array $params = null): array;
 }

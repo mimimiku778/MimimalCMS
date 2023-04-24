@@ -65,7 +65,7 @@ abstract class AbstractRoute
                     return null;
                 }
 
-                return Validator::file($file, $this->argCache[1], $this->argCache[2]);
+                return Validator::uploadedFile($file, $this->argCache[1], $this->argCache[2]);
             }
         };
     }

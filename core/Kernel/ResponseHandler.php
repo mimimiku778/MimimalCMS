@@ -38,11 +38,6 @@ class ResponseHandler implements ResponseHandlerInterface
             throw new BadRequestException('no response');
         }
 
-        if (is_string($response)) {
-            echo htmlspecialchars($response, ENT_QUOTES, 'UTF-8');
-            return true;
-        }
-
         return $response;
     }
 }

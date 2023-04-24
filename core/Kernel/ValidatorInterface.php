@@ -141,5 +141,5 @@ interface ValidatorInterface
      *                             3002 - File extension not allowed.  
      *                             3003 - File type does not match.  
      */
-    public static function file(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array;
+    public static function uploadedFile(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array;
 }

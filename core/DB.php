@@ -46,13 +46,18 @@ class DB implements DBInterface
             foreach ($params as $key => $value) {
                 if ($value === null) {
                     $stmt->bindValue($key, $value, \PDO::PARAM_NULL);
-                } elseif (!is_string($value) && !is_numeric($value)) {
-                    throw new \InvalidArgumentException("Only string, number, or null is allowed: {$key}");
-                } else {
+                } elseif (is_bool($value)) {
+                    $stmt->bindValue($key, $value, \PDO::PARAM_BOOL);
+                } elseif (is_numeric($value)) {
                     $type = is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR;
                     $stmt->bindValue($key, $value, $type);
+                } elseif (is_string($value)) {
+                    $stmt->bindValue($key, $value, \PDO::PARAM_STR);
+                } else {
+                    throw new \InvalidArgumentException("Only string, number, null or bool is allowed: {$key}");
                 }
             }
+
             $stmt->execute();
         }
 
@@ -107,7 +112,7 @@ class DB implements DBInterface
      * @return int Returns the row ID of the last row that was inserted into the database.
      * 
      * @throws \PDOException If an error occurs during the query execution.
-     * @throws \InvalidArgumentException If any of the array values are not strings or numbers.
+     * @throws \InvalidArgumentException If any of the array values are not strings, numbers or bool.
      */
     public static function executeAndGetLastInsertId(string $query, ?array $params = null): int
     {
@@ -174,15 +179,11 @@ class DB implements DBInterface
             throw new \LogicException('Query callback must return a string');
         }
 
-        if (!preg_match('{:\w+}', $whereClause, $matches)) {
-            throw new \InvalidArgumentException('Invalid placeholder for WHERE clause.');
-        }
-
         $stmt = self::$pdo->prepare($queryResult);
 
-        $whereClausePlaceholder = $matches[0];
+        $whereClausePlaceholder = 'keyword';
         foreach ($splitKeywords as $i => $word) {
-            $stmt->bindValue($whereClausePlaceholder . (string) $i, "%{$word}%", \PDO::PARAM_STR);
+            $stmt->bindValue($whereClausePlaceholder . $i, "%{$word}%", \PDO::PARAM_STR);
         }
 
         if ($params === null) {

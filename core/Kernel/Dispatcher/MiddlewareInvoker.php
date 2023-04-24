@@ -30,7 +30,7 @@ class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
     private function callMiddleware(RouteDTO $routeDto)
     {
         foreach ($routeDto->getMiddleware() as $middleware) {
-            $className = 'App\\Middleware\\' . $middleware;
+            $className = $middleware;
             if (!method_exists($className, 'handle')) {
                 throw new \InvalidArgumentException('Could not find: ' . $className . '::handle');
             }

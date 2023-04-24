@@ -19,8 +19,11 @@ class Validator implements ValidatorInterface
         bool $emptyAble = false,
         ?string $e = null
     ): string|false {
+        if (is_null($input) && $emptyAble) {
+            return '';
+        }
+
         if (!is_string($input)) {
-            if ($emptyAble) return '';
             if ($e === null) return false;
             $errorCode = 1001;
             $errorMessage = 'The input must be a string.';
@@ -106,6 +109,10 @@ class Validator implements ValidatorInterface
         bool $emptyAble = false,
         ?string $e = null
     ): int|false {
+        if (is_null($input) && $emptyAble) {
+            return 0;
+        }
+
         if (!is_int($input) && (!is_string($input) || !ctype_digit($input))) {
             if ($emptyAble) return 0;
             if ($e === null) return false;
@@ -153,7 +160,7 @@ class Validator implements ValidatorInterface
         return self::num($array[$key], $max, $min, $exactMatch, $emptyAble, $e);
     }
 
-    public static function file(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array
+    public static function uploadedFile(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array
     {
         if (!is_uploaded_file($file['tmp_name'])) {
             $errorCode = 3000;

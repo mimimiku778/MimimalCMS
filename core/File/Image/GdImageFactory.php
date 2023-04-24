@@ -2,20 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Shadow\Storage;
+namespace Shadow\File\Image;
 
-class SecureImage implements SecureImageInterface
+class GdImageFactory implements GdImageFactoryInterface
 {
-    public function getImage(string $filePath, ?int $maxWidth = null, ?int $maxHeight = null): \GdImage
+    public function createGdImage(string|array $imageData, ?int $maxWidth = null, ?int $maxHeight = null): \GdImage
     {
-        $imageData = file_get_contents($filePath);
-
-        if (!$imageData) {
-            throw new \RuntimeException('Invalid File.', 5000);
-        }
-
-        $srcImage = imagecreatefromstring($imageData);
-
+        [$imageData, $srcImage] = $this->imageCreateFromString($imageData);
         if (!$srcImage) {
             throw new \RuntimeException('Unable to create image from the given data.', 5001);
         }
@@ -28,7 +21,7 @@ class SecureImage implements SecureImageInterface
 
         [$dstWidth, $dstHeight] = $this->getNewSize($srcWidth, $srcHeight, $maxWidth, $maxHeight);
 
-        $dstImage = $this->createImage($dstWidth, $dstHeight);
+        $dstImage = $this->imageCreate($dstWidth, $dstHeight);
 
         $this->processAlphaChannel($srcImage, $dstImage);
 
@@ -37,6 +30,19 @@ class SecureImage implements SecureImageInterface
         imagedestroy($srcImage);
 
         return $dstImage;
+    }
+
+    private function imageCreateFromString(string|array $imageData): array|false
+    {
+        if (is_array($imageData) && isset($imageData['tmp_name']) && file_exists($imageData['tmp_name'])) {
+            $imageData = file_get_contents($imageData['tmp_name']);
+        }
+
+        if (is_string($imageData)) {
+            return [$imageData, imagecreatefromstring($imageData)];
+        } else {
+            throw new \RuntimeException('Invalid file data in the array.', 5001);
+        }
     }
 
     private function getNewSize(int $srcWidth, int $srcHeight, ?int $maxWidth, ?int $maxHeight): array
@@ -57,7 +63,7 @@ class SecureImage implements SecureImageInterface
         return [$dstWidth, $dstHeight];
     }
 
-    private function createImage(int $width, int $height): \GdImage
+    private function imageCreate(int $width, int $height): \GdImage
     {
         $image = imagecreatetruecolor($width, $height);
 
