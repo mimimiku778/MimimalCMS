@@ -48,7 +48,7 @@ interface ReceptionInterface
      * Checks if the HTTP request method matches the given method.
      *
      * @param string $requestMethod The HTTP request method to check (e.g. "GET", "POST", etc.).
-     * @return bool                 True if the HTTP request method matches the given method, false otherwise.
+     * @return string                 True if the HTTP request method matches the given method, false otherwise.
      */
     public static function method(): string;
 

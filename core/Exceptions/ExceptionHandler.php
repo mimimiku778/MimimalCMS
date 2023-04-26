@@ -78,18 +78,18 @@ class ExceptionHandler
             }
         }
 
+        // Determine whether to show detailed error information
+        $flagName = 'App\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
+        $bool = defined($flagName) && constant($flagName);
+        if ($bool && ob_get_length() > 0) {
+            ob_clean();
+        }
+
         // Handle an unhandled exception
         if (!array_key_exists(get_class($e), self::HTTP_ERRORS)) {
             self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
             self::errorLog($e);
             return;
-        }
-
-        // Determine whether to show detailed error information
-        $flagName = 'App\Config\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
-        $bool = defined($flagName) && constant($flagName);
-        if ($bool) {
-            ob_clean();
         }
 
         // Handle a TestException instance
@@ -152,6 +152,11 @@ class ExceptionHandler
         // If the request is not JSON, prepare the error message for display
         $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : $e->getMessage();
         $detailsMessage = htmlspecialchars($detailsMessage, ENT_QUOTES, 'UTF-8');
+
+        if (!ob_get_length() > 0) {
+            print_r($e->__toString());
+            return;
+        }
 
         // If the error page can be displayed, show it
         if (!self::showErrorPage($httpCode, $httpStatusMessage, $detailsMessage)) {
