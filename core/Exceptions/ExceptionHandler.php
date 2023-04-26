@@ -85,13 +85,6 @@ class ExceptionHandler
             ob_clean();
         }
 
-        // Handle an unhandled exception
-        if (!array_key_exists(get_class($e), self::HTTP_ERRORS)) {
-            self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
-            self::errorLog($e);
-            return;
-        }
-
         // Handle a TestException instance
         if ($e instanceof TestException) {
             self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
