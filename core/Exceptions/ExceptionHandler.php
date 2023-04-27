@@ -146,7 +146,7 @@ class ExceptionHandler
         $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : $e->getMessage();
         $detailsMessage = htmlspecialchars($detailsMessage, ENT_QUOTES, 'UTF-8');
 
-        if (!ob_get_length() > 0) {
+        if (ob_get_length() === false) {
             print_r($e->__toString());
             return;
         }
