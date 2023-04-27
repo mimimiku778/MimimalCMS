@@ -34,7 +34,7 @@ trait TraitRoutePath
                 );
             }
 
-            $requestMethod = $controller[2] ?? $this->routeDto->requestMethod;
+            $requestMethod = isset($controller[2]) ? strtoupper($controller[2]) : $this->routeDto->requestMethod;
             $this->routeDto->routeExplicitControllerArray[$key][$requestMethod] = [$controller[0], $controller[1]];
         }
     }

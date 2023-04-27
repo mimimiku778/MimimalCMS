@@ -27,8 +27,13 @@ class View implements ViewInterface
     public function exists(string $viewTemplateFile): bool
     {
         $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
-        $filePath = VIEWS_DIR . $viewTemplateFile . '.php';
-        return file_exists($filePath);
+        $filePath = VIEWS_DIR . $viewTemplateFile;
+        if (file_exists($filePath . '.php')) {
+            return true;
+        } elseif (file_exists($filePath . '.html')) {
+            return true;
+        }
+        return false;
     }
 
     public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): ViewInterface
@@ -53,13 +58,17 @@ class View implements ViewInterface
         }
 
         $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
-        $filePath = VIEWS_DIR . $viewTemplateFile . '.php';
-        if (!file_exists($filePath)) {
-            throw new \InvalidArgumentException('Could not find template file: ' . $filePath);
+        $filePath = VIEWS_DIR . $viewTemplateFile;
+        if (file_exists($filePath . '.php')) {
+            $filePath .= '.php';
+        } elseif (file_exists($filePath . '.html')) {
+            $filePath .= '.html';
+        } else {
+            throw new \InvalidArgumentException('Could not find template file: ' . $viewTemplateFile);
         }
 
         ob_start();
-        include VIEWS_DIR . $viewTemplateFile . '.php';
+        include $filePath;
         return ob_get_clean();
     }
 
@@ -69,7 +78,7 @@ class View implements ViewInterface
      * @param array $array Array of values to sanitize.
      * @return array       The sanitized array.
      */
-    private static function sanitizeArray(array $input): array
+    public static function sanitizeArray(array $input): array
     {
         $output = [];
         foreach ($input as $key => $value) {

@@ -37,4 +37,6 @@ interface ViewInterface
      * @throws \InvalidArgumentException          If passed invalid array or template file.
      */
     public static function get(string $viewTemplateFile, ?array $valuesArray = null): string;
+
+    public static function sanitizeArray(array $input): array;
 }
