@@ -14,7 +14,7 @@ use App\Middleware\VerifyCsrfToken;
 
 Route::path('image/store@post')
     ->matchFile('file', IMAGE_MIME_TYPE, emptyAble: false)
-    ->matchStr('imageType', regex: '/(JPG|PNG|WEBP)/')
+    ->matchStr('imageType', regex: '/(jpeg|png|webp)/')
     ->matchNum('imageSize', min: 0, max: 1000)
     ->fails(redirect('image'));
 

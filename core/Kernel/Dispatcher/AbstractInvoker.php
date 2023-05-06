@@ -17,12 +17,14 @@ abstract class AbstractInvoker
 
     /**
      * Get the arguments for the given closure function and return an array of both the closure arguments and validated input data.
+     * 
+     * @throws \BadMethodCallException If the method is private.
      */
     protected function getMethodArgs(string $className, string $methodName): array
     {
         $reflectionMethod = new \ReflectionMethod($className, $methodName);
         if (!$reflectionMethod->isPublic()) {
-            throw new \RuntimeException('Method is private');
+            throw new \BadMethodCallException('Method is private');
         }
 
         $methodArgs = [];
@@ -53,13 +55,11 @@ abstract class AbstractInvoker
         $reflection = new \ReflectionFunction($closure);
 
         $closureArgs = [];
-        $validArray = [];
         foreach ($reflection->getParameters() as $param) {
             $paramType = $param->getType();
 
             if ($paramType === null || $paramType->isBuiltin()) {
                 $closureArgs[] = Reception::$inputData[$param->name] ?? null;
-                $validArray[$param->name] = Reception::$inputData[$param->name] ?? null;;
                 continue;
             }
 
@@ -71,6 +71,6 @@ abstract class AbstractInvoker
             $closureArgs[] = $this->ci->constructorInjection($paramClassName);
         }
 
-        return [$closureArgs, $validArray];
+        return $closureArgs;
     }
 }

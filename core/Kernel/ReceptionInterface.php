@@ -45,17 +45,17 @@ interface ReceptionInterface
     public static function isJson(): bool;
 
     /**
-     * Checks if the HTTP request method matches the given method.
+     * Returns the HTTP request method.
      *
-     * @param string $requestMethod The HTTP request method to check (e.g. "GET", "POST", etc.).
-     * @return string                 True if the HTTP request method matches the given method, false otherwise.
+     * @return string The HTTP request method (e.g. "GET", "POST", etc.).
      */
     public static function method(): string;
 
     /**
-     * Returns the HTTP request method.
+     * Checks if the HTTP request method matches the given method.
      *
-     * @return string The HTTP request method (e.g. "GET", "POST", etc.).
+     * @param string $requestMethod The HTTP request method to check (e.g. "GET", "POST", etc.).
+     * @return bool                 True if the HTTP request method matches the given method, false otherwise.
      */
     public static function isMethod(string $requestMethod): bool;
 }

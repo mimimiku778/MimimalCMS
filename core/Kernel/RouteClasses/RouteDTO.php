@@ -18,12 +18,12 @@ class RouteDTO
     public array $routePathArray = [];
 
     /**
-     * `['routePathArrayKey' => ['requestMethod' => ['parametarName' => $Closure]]]`  
+     * `['routePathArrayKey' => ['requestMethod' => ['parametarName' => Closure|ResponseInterface]]]`  
      */
     public array $routeValidatorArray = [];
 
     /**
-     * `['routePathArrayKey' => ['requestMethod' => $Closure]]`  
+     * `['routePathArrayKey' => ['requestMethod' => Closure|ResponseInterface]]`  
      */
     public array $routeCallbackArray = [];
 
@@ -112,9 +112,9 @@ class RouteDTO
     }
 
     /**
-     * @return \Closure|false Callback function passed in the routing definition.
+     * @return \Closure|ResponseInterface|false Callback function passed in the routing definition.
      */
-    public function getRouteCallback(): \Closure|false
+    public function getRouteCallback(): \Closure|ResponseInterface|false
     {
         return $this->routeCallbackArray[$this->routeArrayKey][$this->requestMethod] ?? false;
     }

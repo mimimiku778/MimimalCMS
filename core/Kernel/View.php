@@ -21,9 +21,20 @@ class View implements ViewInterface
 
     public function render(): void
     {
-        echo $this->renderCache;
+        echo $this->renderCache ?? '';
     }
 
+    public function getRenderChahe(): string
+    {
+        return $this->renderCache ?? '';
+    }
+
+    /**
+     * Check if a view template file exists.
+     *
+     * @param string $viewTemplateFile Path of the view template file to check.
+     * @return bool                    Returns true if the file exists, false otherwise.
+     */
     public function exists(string $viewTemplateFile): bool
     {
         $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
@@ -36,7 +47,15 @@ class View implements ViewInterface
         return false;
     }
 
-    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): ViewInterface
+    /**
+     * Render a template file with optional values.
+     *
+     * @param string|ViewInterface $viewTemplateFile Path to the template file.
+     * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
+     *                                       Keys starting with "_" will not be sanitized.
+     * @throws \InvalidArgumentException     If passed invalid array.
+     */
+    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): View
     {
         if ($viewTemplateFile instanceof ViewInterface) {
             $this->renderCache .= $viewTemplateFile->renderCache;
@@ -47,6 +66,15 @@ class View implements ViewInterface
         return $this;
     }
 
+    /**
+     * Gets rendered template as a string.
+     *
+     * @param string            $viewTemplateFile Path to the template file.
+     * @param array|object|null $valuesArray      Optional associative array of values to pass to the template, 
+     *                                            Keys starting with "_" will not be sanitized.
+     * @return string                             The rendered template as a string.
+     * @throws \InvalidArgumentException          If passed invalid array or template file.
+     */
     public static function get(string $viewTemplateFile, ?array $valuesArray = null): string
     {
         if (is_array($valuesArray)) {
@@ -88,7 +116,7 @@ class View implements ViewInterface
             }
 
             if ($value instanceof ViewInterface) {
-                $output[$key] = $value->renderCache;
+                $output[$key] = $value->getRenderChahe();
                 continue;
             }
 
@@ -122,7 +150,7 @@ class View implements ViewInterface
             }
 
             if ($value instanceof ViewInterface) {
-                $output->$key = $value->renderCache;
+                $output->$key = $value->getRenderChahe();
                 continue;
             }
 

@@ -21,11 +21,11 @@ function app()
  * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
  *                                       Keys starting with "_" will not be sanitized.
  * 
- * @return \Shadow\Kernel\ViewInterface
+ * @return \Shadow\Kernel\View
  * 
  * @throws \InvalidArgumentException      If passed invalid array or not found the template file.
  */
-function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\ViewInterface
+function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\View
 {
     if ($viewTemplateFile === null && $valuesArray === null) {
         return new \Shadow\Kernel\View;
@@ -40,9 +40,9 @@ function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Sh
  * @param array $data        The array to be returned as response.
  * @param ?int $responseCode [optional] HTTP status code
  * 
- * @return \Shadow\Kernel\ResponseInterface
+ * @return \Shadow\Kernel\Response
  */
-function response(array $data, int $responseCode = 200): \Shadow\Kernel\ResponseInterface
+function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
 {
     return new \Shadow\Kernel\Response($responseCode, jsonData: $data);
 }
@@ -52,9 +52,9 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
  *
  * @param ?string $url      The url of path to be redirect.
  * @param int $responseCode [optional] HTTP status code
- * @return \Shadow\Kernel\ResponseInterface
+ * @return \Shadow\Kernel\Response
  */
-function redirect(?string $url = null, int $responseCode = 302): \Shadow\Kernel\ResponseInterface
+function redirect(?string $url = null, int $responseCode = 302): \Shadow\Kernel\Response
 {
     if ($url === null) {
         $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost();
@@ -73,7 +73,7 @@ function redirect(?string $url = null, int $responseCode = 302): \Shadow\Kernel\
  * @param  array|string|null  $key
  * @param  mixed  $default
  * 
- * @return mixed|\Shadow\Kernel\SessionInterface
+ * @return mixed|\Shadow\Kernel\Session
  */
 function session(null|string|array $value = null, mixed $default = null): mixed
 {
@@ -119,7 +119,7 @@ function old(?string $key = null): mixed
  * @param bool $httpOnly
  * @param string $domain
  * 
- * @return mixed|\Shadow\Kernel\CookieInterface
+ * @return mixed|\Shadow\Kernel\Cookie
  */
 function cookie(
     null|string|array $value = null,
@@ -358,11 +358,29 @@ function sanitizeString(string $string): string
  */
 function nl2p(string $string): string
 {
+    $search = ["\r\n", "\r"];
+    $replace = ["\n", "\n"];
+    $string = str_replace($search, $replace, $string);
+
     $lines = explode("\n", $string);
     $result = '';
     foreach ($lines as $line) {
         $result .= '<p>' . $line . '</p>';
     }
+    return $result;
+}
+
+/**
+ * Inserts HTML line breaks before all newlines in a string
+ */
+function nl2brReplace(string $string): string
+{
+    $search = ["\r\n", "\r"];
+    $replace = ["\n", "\n"];
+    $string = str_replace($search, $replace, $string);
+
+    $lines = explode("\n", $string);
+    $result = implode("<br>", $lines);
     return $result;
 }
 
@@ -383,4 +401,9 @@ function setErrorHandler()
 function getPerformanceCounter(string $name): string
 {
     return (string) round(microtime(true) - constant($name), 3);
+}
+
+function formatBytesToMegaBytes(int $bytes, int $precision = 2): string
+{
+    return number_format($bytes / (1024 * 1024), $precision);
 }

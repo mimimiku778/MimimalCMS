@@ -6,11 +6,11 @@
             <label for="file">Choose a file:</label>
             <input type="file" name="file" id="file">
             <label>Image Type:</label>
-            <input type="radio" name="imageType" id="image-WEBP" value="WEBP" checked>
+            <input type="radio" name="imageType" id="image-WEBP" value="webp" checked>
             <label for="image-WEBP">WEBP</label>
-            <input type="radio" name="imageType" id="image-JPG" value="JPG">
+            <input type="radio" name="imageType" id="image-JPG" value="jpeg">
             <label for="image-JPG">JPG</label>
-            <input type="radio" name="imageType" id="image-PNG" value="PNG">
+            <input type="radio" name="imageType" id="image-PNG" value="png">
             <label for="image-PNG">PNG</label>
             <br>
             <label>Image Size:</label>

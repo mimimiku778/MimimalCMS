@@ -15,6 +15,12 @@ use Shadow\Exceptions\MethodNotAllowedException;
 class Routing implements RoutingInterface
 {
     private RouteDTO $routeDto;
+    private RouteCallbackInvokerInterface $routeCallbackInvoker;
+
+    public function __construct(?RouteCallbackInvokerInterface $routeCallbackInvoker = null)
+    {
+        $this->routeCallbackInvoker = $routeCallbackInvoker ?? new RouteCallbackInvoker;
+    }
 
     public function setRouteDto(RouteDTO $routeDto)
     {
@@ -45,16 +51,18 @@ class Routing implements RoutingInterface
      */
     public function resolveController()
     {
-        $explicitController = $this->routeDto->getExplicitControllerArray();
+        $routeCallback = $this->routeDto->getRouteCallback();
+        if ($routeCallback instanceof \Closure) {
+            $this->routeCallbackInvoker->invoke($this->routeDto, $routeCallback);
+        } elseif ($routeCallback instanceof \Shadow\Kernel\ResponseInterface) {
+            $routeCallback->send();
+        }
 
+        $explicitController = $this->routeDto->getExplicitControllerArray();
         if (!$explicitController) {
             $this->getDynamicControllerName();
         } else {
             $this->getExplicitControllerName($explicitController);
-        }
-
-        if (!method_exists($this->routeDto->controllerClassName, $this->routeDto->methodName)) {
-            throw new NotFoundException('Could not find controller method.');
         }
     }
 
@@ -78,9 +86,9 @@ class Routing implements RoutingInterface
         // Resolve controller name
         if ($this->routeDto->parsedPathArray[0] !== '') {
             $controllerPrefix = ucfirst($this->routeDto->parsedPathArray[0]);
-            $this->routeDto->controllerClassName = $controllerPrefix . $controllerSuffix;
+            $this->routeDto->controllerClassName = $controllerDir . $controllerPrefix . $controllerSuffix;
         } else {
-            $this->routeDto->controllerClassName = RoutingInterface::DEFAULT_CONTROLLER_CLASS_NAME . $controllerSuffix;
+            $this->routeDto->controllerClassName = $controllerDir . RoutingInterface::DEFAULT_CONTROLLER_CLASS_NAME . $controllerSuffix;
         }
 
         // Resolve method name
@@ -90,13 +98,13 @@ class Routing implements RoutingInterface
             $this->routeDto->methodName = RoutingInterface::DEFAULT_CONTROLLER_METHOD_NAME;
         }
 
-        $controllerFilePath = "{$controllerDir}/{$this->routeDto->controllerClassName}.php";
-
-        if (!file_exists("{$controllerDir}/{$this->routeDto->controllerClassName}.php")) {
+        if (class_exists($this->routeDto->controllerClassName)) {
+            if (!method_exists($this->routeDto->controllerClassName, $this->routeDto->methodName)) {
+                throw new NotFoundException('Could not find controller method.');
+            }
+        } else {
             throw new NotFoundException('Could not find controller file');
         }
-
-        require_once $controllerFilePath;
     }
 
     /**

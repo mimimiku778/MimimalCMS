@@ -28,5 +28,5 @@ class ExceptionHandlerConfig
      * This constant is used to specify the GitHub URL for displaying the source code in the exception error trace.
      * The path name after the DOCUMENT_ROOT_NAME constant is concatenated with this URL.
      */
-    const ERROR_PAGE_GITHUB_URL = 'https://github.com/mimimiku778/MimimalCMS-v0.1/blob/master/';
+    const ERROR_PAGE_GITHUB_URL = 'https://github.com/mimimiku778/MimimalCMS/blob/master/';
 }

@@ -1,19 +1,35 @@
 <?php
 
-use Shadow\ImageStore;
+declare(strict_types=1);
+
+namespace App\Controllers\Api;
+
+use Shadow\File\Image\GdImageFactoryInterface;
+use Shadow\File\Image\ImageStoreInterface;
 
 class ImageApiController
 {
-    public function store(array $file, string $imageType, int $imageSize, ImageStore $image)
-    {
-        $image->setParams($imageSize, $imageSize);
-
-        if ($image->store($file, publicDir('images'), constant("ImageType::{$imageType}"))) {
+    public function store(
+        GdImageFactoryInterface $image,
+        ImageStoreInterface $store,
+        array $file,
+        string $imageType,
+        int $imageSize
+    ) {
+        try {
+            $gdImage = $image->createGdImage(file_get_contents($file['tmp_name']), $imageSize, $imageSize);
+            $fileName = $store->storeImageFromGdImage(
+                $gdImage,
+                publicDir('images'),
+                hash('sha256', getIP() . rand() . time()),
+                $imageType
+            );
+        } catch (\RuntimeException $e) {
             return redirect('image')
-                ->with('image', $image->getFileName());
-        } else {
-            return redirect('image')
-                ->withErrors('image', $image->getErrorCode(), $image->getErrorMessage());
+                ->withErrors('image', $e->getCode(), $e->getMessage());
         }
+
+        return redirect('image')
+            ->with('image', $fileName);
     }
 }
