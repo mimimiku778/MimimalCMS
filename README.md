@@ -111,14 +111,14 @@ ___
 <br>
 
 ### http://example.com/ にアクセスが来た場合<br>
-デフォルトの app/Controllers/Pages/IndexPageController.php が開きます。<br>
+デフォルトの App/Controllers/Pages/IndexPageController.php が開きます。<br>
 IndexPageController がインスタンス化されて、indexメソッドが実行されます。<br>
 これはデフォルトで用意されているトップページのコントローラーです。<br>
 <br>
 <br>
 
 ### http://example.com/foo にアクセスが来た場合<br>
-app/Controllers/Pages ディレクトリに FooPageController.php が存在すれば読み込みます。<br>
+App/Controllers/Pages ディレクトリに FooPageController.php が存在すれば読み込みます。<br>
 FooPageController がインスタンス化されて、indexメソッドが実行されます。<br>
 もしファイルが存在しない場合、404エラーが返ります。<br>
 <br>
@@ -137,7 +137,7 @@ FooPageController.php が開かれ、barメソッドが実装されていれば�
 ## リクエストがGET以外の場合、呼び出されるコントローラーが変わります。<br>
 
 ### http://example.com/foo にPOSTメソッドでアクセスが来た場合<br>
-app/Controllers/api/FooApiController.php が開かれます。<br>
+App/Controllers/api/FooApiController.php が開かれます。<br>
 FooApiController がインスタンス化されて、indexメソッドが実行されます。<br>
 もしファイルが存在しない場合、404のステータスコードと、JSON形式で response が返ります。<br>
 <br>
