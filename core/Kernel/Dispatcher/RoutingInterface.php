@@ -16,7 +16,6 @@ interface RoutingInterface
     const PAGE_CONTROLLER_DIR = "\\App\\Controllers\\Pages\\";
 
     public function setRouteDto(RouteDTO $routeDto);
-    public function validatePath();
     public function resolveController();
     public function validateAllowedMethods();
 }

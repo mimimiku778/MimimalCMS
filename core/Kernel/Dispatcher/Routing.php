@@ -15,12 +15,6 @@ use Shadow\Exceptions\MethodNotAllowedException;
 class Routing implements RoutingInterface
 {
     private RouteDTO $routeDto;
-    private RouteCallbackInvokerInterface $routeCallbackInvoker;
-
-    public function __construct(?RouteCallbackInvokerInterface $routeCallbackInvoker = null)
-    {
-        $this->routeCallbackInvoker = $routeCallbackInvoker ?? new RouteCallbackInvoker;
-    }
 
     public function setRouteDto(RouteDTO $routeDto)
     {
@@ -30,36 +24,11 @@ class Routing implements RoutingInterface
     /**
      * @throws NotFoundException
      */
-    public function validatePath()
-    {
-        $paths = $this->routeDto->parsedPathArray;
-
-        // If there is a 3rd path, return 404 error
-        if (count($paths) > 2) {
-            throw new NotFoundException('Three or more Paths are not supported without parametars.');
-        }
-
-        if ($paths[0] !== '' && preg_grep('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $paths) === []) {
-            throw new NotFoundException(
-                "Invalid path: It must starts with letter or underscore, followed by any number of letters, numbers, or underscores."
-            );
-        }
-    }
-
-    /**
-     * @throws NotFoundException
-     */
     public function resolveController()
     {
-        $routeCallback = $this->routeDto->getRouteCallback();
-        if ($routeCallback instanceof \Closure) {
-            $this->routeCallbackInvoker->invoke($this->routeDto, $routeCallback);
-        } elseif ($routeCallback instanceof \Shadow\Kernel\ResponseInterface) {
-            $routeCallback->send();
-        }
-
         $explicitController = $this->routeDto->getExplicitControllerArray();
         if (!$explicitController) {
+            $this->validatePath();
             $this->getDynamicControllerName();
         } else {
             $this->getExplicitControllerName($explicitController);
@@ -70,6 +39,22 @@ class Routing implements RoutingInterface
     {
         $this->routeDto->controllerClassName = $explicitController[0];
         $this->routeDto->methodName = $explicitController[1];
+    }
+
+    private function validatePath()
+    {
+        $paths = $this->routeDto->parsedPathArray;
+
+        if ($paths[0] !== '' && preg_grep('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $paths) === []) {
+            throw new NotFoundException(
+                "Invalid path: It must starts with letter or underscore, followed by any number of letters, numbers, or underscores."
+            );
+        }
+
+        // If there is a 3rd path, return 404 error
+        if (count($paths) > 2) {
+            throw new NotFoundException('Three or more Paths are not supported without parametars.');
+        }
     }
 
     private function getDynamicControllerName()

@@ -135,4 +135,9 @@ class RouteDTO
     {
         return !empty($this->kernelMiddlewareArray) || isset($this->routeMiddlewareArray[$this->routeArrayKey][$this->requestMethod]);
     }
+
+    public function isDefinedRoute(): bool
+    {
+        return is_int($this->routeArrayKey ?? null);
+    }
 }
