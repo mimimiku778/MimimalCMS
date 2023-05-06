@@ -25,7 +25,7 @@ The first official release version of MimimalCMS is now available, and this will
 <br>
 
 ## How to Use<br>
-① Create a file named `PageName`PageController.php in the app/Controllers/Pages directory.<br>
+① Create a file named `PageName`PageController.php in the App/Controllers/Pages directory.<br>
 <br>
 That's it! You can now display it from http://example.com/ `pagename`. No special configuration is required other than implementing the page.<br>
 <br>
@@ -34,7 +34,7 @@ That's it! You can now display it from http://example.com/ `pagename`. No specia
 ① Implement Class `PageName`PageController in app/Controllers/Pages/`PageName`PageController.php.<br>
 ② Implement the index method.<br>
 ```
-app/Controllers/Pages/IndexPageController.php
+App/Controllers/Pages/IndexPageController.php
 
 namespace App\Controllers\Pages;
 
@@ -50,7 +50,7 @@ class IndexPageController
 <br>
 
 ## 使い方<br>
-① app/Controllers/Pages ディレクトリに `ページ名`PageController.php ファイルを作成する。<br>
+① App/Controllers/Pages ディレクトリに `ページ名`PageController.php ファイルを作成する。<br>
 <br>
 これだけで http://example.com/ `ページ名` から表示できます。<br>
 ページの実装以外に特別な設定は不要です。<br>
