@@ -31,7 +31,7 @@ That's it! You can now display it from http://example.com/ `pagename`. No specia
 <br>
 
 ### Points<br>
-① Implement Class `PageName`PageController in app/Controllers/Pages/`PageName`PageController.php.<br>
+① Implement Class `PageName`PageController in App/Controllers/Pages/`PageName`PageController.php.<br>
 ② Implement the index method.<br>
 ```
 namespace App\Controllers\Pages;
@@ -55,7 +55,7 @@ class IndexPageController
 <br>
 
 ### ポイント<br>
-① Controllers/Pages/`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
+① App/Controllers/Pages/`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
 ② indexメソッドを実装する。<br>
 ```
 namespace App\Controllers\Pages;
