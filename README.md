@@ -36,6 +36,8 @@ That's it! You can now display it from http://example.com/ `pagename`. No specia
 ```
 app/Controllers/Pages/IndexPageController.php
 
+namespace App\Controllers\Pages;
+
 class IndexPageController
 {
     public function index()
@@ -59,6 +61,8 @@ class IndexPageController
 ② indexメソッドを実装する。<br>
 ```
 app/Controllers/Pages/IndexPageController.php
+
+namespace App\Controllers\Pages;
 
 class IndexPageController
 {
