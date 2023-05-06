@@ -34,7 +34,6 @@ That's it! You can now display it from http://example.com/ `pagename`. No specia
 ① Implement Class `PageName`PageController in app/Controllers/Pages/`PageName`PageController.php.<br>
 ② Implement the index method.<br>
 ```
-App/Controllers/Pages/IndexPageController.php
 
 namespace App\Controllers\Pages;
 
@@ -60,7 +59,6 @@ class IndexPageController
 ① Controllers/Pages/`ページ名`PageController.php に、 Class `ページ名`PageController を実装する。<br>
 ② indexメソッドを実装する。<br>
 ```
-app/Controllers/Pages/IndexPageController.php
 
 namespace App\Controllers\Pages;
 
@@ -76,24 +74,21 @@ class IndexPageController
 <br>
 
 ### When accessing http://example.com/<br>
-The default app/Controllers/Pages/IndexPageController.php will open.<br>
-IndexPageController will be instantiated and the index method will be executed.<br>
+`\App\Controllers\Pages\IndexPageController::index` will be executed.<br>
 This is the controller for the default top page.<br>
 <br>
 <br>
 
 ### When accessing http://example.com/foo<br>
-If app/Controllers/Pages/FooPageController.php exists, it will be loaded.<br>
-FooPageController will be instantiated and the index method will be executed.<br>
-If the file does not exist, a 404 error will be returned.<br>
+If `\App\Controllers\Pages\FooPageController::index` exists, it will be executed.<br>
+If it does not exist, a 404 error will be returned.<br>
 <br>
 <br>
 
 ### When accessing http://example.com/foo/bar<br>
-If FooPageController.php is opened and the bar method is implemented, it will be executed.<br>
-If there is a second path, a method with the same name as the second path will be executed instead of index.<br>
+If `\App\Controllers\Pages\FooPageController::bar` exists, it will be executed.<br>
 If the method does not exist, a 404 error will be returned.<br>
-Of course, if FooPageController.php does not exist, a 404 error will be returned.<br>
+`\App\Controllers\Pages\FooPageController` does not exist, a 404 error will be returned.<br>
 <br>
 You can define the first two levels of the URI hierarchy by the controller name and method name.<br>
 <br>
@@ -102,8 +97,7 @@ You can define the first two levels of the URI hierarchy by the controller name 
 ## When the request is not GET, a different controller will be called.<br>
 
 ### When accessing http://example.com/foo with POST method<br>
-app/Controllers/api/FooApiController.php will open.<br>
-FooApiController will be instantiated and the index method will be executed.<br>
+`\App\Controllers\api\FooApiController::index` will be executed.<br>
 If the file does not exist, a 404 status code and JSON format response will be returned.<br>
 <br>
 <br>
@@ -111,24 +105,22 @@ ___
 <br>
 
 ### http://example.com/ にアクセスが来た場合<br>
-デフォルトの App/Controllers/Pages/IndexPageController.php が開きます。<br>
-IndexPageController がインスタンス化されて、indexメソッドが実行されます。<br>
+`\App\Controllers\Pages\IndexPageController::index`が実行されます。<br>
 これはデフォルトで用意されているトップページのコントローラーです。<br>
 <br>
 <br>
 
 ### http://example.com/foo にアクセスが来た場合<br>
-App/Controllers/Pages ディレクトリに FooPageController.php が存在すれば読み込みます。<br>
-FooPageController がインスタンス化されて、indexメソッドが実行されます。<br>
-もしファイルが存在しない場合、404エラーが返ります。<br>
+`\App\Controllers\Pages\FooPageController::index`が存在すれば実行されます。<br>
+もし存在しない場合、404エラーが返ります。<br>
 <br>
 <br>
 
 ### http://example.com/foo/bar にアクセスが来た場合<br>
-FooPageController.php が開かれ、barメソッドが実装されていれば、実行されます。<br>
+`\App\Controllers\Pages\FooPageController::bar`が存在すれば実行されます。<br>
 二つ目のパスがある場合は、indexではなく二つ目のパス名と同じ名前のメソッドが実行されます。<br>
 もしメソッドが存在しない場合、404エラーが返ります。<br>
-もちろん FooPageController.php が存在しない場合も404エラーが返ります。<br>
+`\App\Controllers\Pages\FooPageController`が存在しない場合も404エラーが返ります。<br>
 <br>
 二つ目までのURI階層を、コントローラー名とメソッド名で定義することができます。<br>
 <br>
@@ -137,8 +129,7 @@ FooPageController.php が開かれ、barメソッドが実装されていれば�
 ## リクエストがGET以外の場合、呼び出されるコントローラーが変わります。<br>
 
 ### http://example.com/foo にPOSTメソッドでアクセスが来た場合<br>
-App/Controllers/api/FooApiController.php が開かれます。<br>
-FooApiController がインスタンス化されて、indexメソッドが実行されます。<br>
+`\App\Controllers\api\FooApiController::index`が実行されます。<br>
 もしファイルが存在しない場合、404のステータスコードと、JSON形式で response が返ります。<br>
 <br>
 <br>
