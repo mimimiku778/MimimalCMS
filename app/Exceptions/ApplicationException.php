@@ -2,6 +2,6 @@
 
 namespace App\Exceptions;
 
-class ApplicationException extends \RuntimeException
+class ApplicationException extends \Exception
 {
 }

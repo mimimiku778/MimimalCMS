@@ -2,6 +2,6 @@
 
 namespace Shadow\Exceptions;
 
-class FailException extends \RuntimeException
+class FailException extends \Exception
 {
 }
