@@ -273,6 +273,7 @@ function csrfField()
  * Verify CSRF token from the session and the request in `$_POST['_csrf']` or `$_SERVER["HTTP_X_CSRF_TOKEN"]` or `$_COOKIE['CSRF-Token']`.
  *
  * @param bool $removeTokenFromSession [option]
+ * @throws \Shadow\Exceptions\BadRequestException         If CSRF token is not found on the request parameter.
  * @throws \Shadow\Exceptions\ValidationException         If CSRF token in the request does not matche the token in the session.
  * @throws \Shadow\Exceptions\SessionTimeoutException     If CSRF token for the session is not found.
  * @throws \LogicException              If CSRF token for the session is not string.
@@ -287,7 +288,7 @@ function verifyCsrfToken(bool $removeTokenFromSession = false)
     } elseif (isset($_COOKIE['CSRF-Token'])) {
         $token = $_COOKIE['CSRF-Token'];
     } else {
-        throw new \Shadow\Exceptions\ValidationException('CSRF token was not found on the request parameter.');
+        throw new \Shadow\Exceptions\BadRequestException('CSRF token was not found on the request parameter.');
     }
 
     // Check if CSRF token is set in the session.
