@@ -211,8 +211,16 @@ function pagerUrl(string $path, int $pageNumber): string
  */
 function getUA(): string
 {
+    static $ua = null;
+
+    if($ua !== null) {
+        return $ua;
+    }
+    
     $string = mb_ereg_replace('[\x00-\x1F\x7F]', '', ($_SERVER['HTTP_USER_AGENT'] ?? 'null'));
-    return mb_substr($string, 0, 512);
+    $ua = mb_substr($string, 0, 512);
+    
+    return $ua;
 }
 
 /**
@@ -224,6 +232,12 @@ function getUA(): string
  */
 function getIP(): string
 {
+    static $ip = null;
+
+    if ($ip !== null) {
+        return $ip;
+    }
+
     $headers = [
         'HTTP_SP_HOST',
         'HTTP_VIA',
@@ -246,7 +260,8 @@ function getIP(): string
         }
     }
 
-    return $_SERVER['REMOTE_ADDR'] ?? 'null';
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'null';
+    return $ip;
 }
 
 /**
