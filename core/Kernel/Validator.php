@@ -169,7 +169,7 @@ class Validator implements ValidatorInterface
         ) {
             $errorCode = 3000;
             $errorMessage = 'Invalid file.';
-            throw new \LogicException($errorMessage, $errorCode);
+            throw new ValidationException($errorMessage, $errorCode);
         }
 
         if ($file['size'] > $maxFileSize * 1024) {

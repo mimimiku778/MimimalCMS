@@ -132,11 +132,10 @@ interface ValidatorInterface
      * 
      * @return array Returns an array containing information about the uploaded file if it passes validation.
      * 
-     * @throws LogicException      If the file is not uploaded via HTTP POST.
-     * 
      * @throws ValidationException If the file is too large, has an extension not allowed,
      *                             or has a mime type that does not match the file type.  
      *                             * Error codes:  
+     *                             3000 - If the file is not uploaded via HTTP POST.
      *                             3001 - File too large.  
      *                             3002 - File extension not allowed.  
      *                             3003 - File type does not match.  
