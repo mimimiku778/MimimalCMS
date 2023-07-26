@@ -162,7 +162,11 @@ class Validator implements ValidatorInterface
 
     public static function uploadedFile(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array
     {
-        if (!is_uploaded_file($file['tmp_name'])) {
+        if (
+            !isset($file['tmp_name'])
+            || !is_string($file['tmp_name'])
+            || !is_uploaded_file($file['tmp_name'])
+        ) {
             $errorCode = 3000;
             $errorMessage = 'Invalid file.';
             throw new \LogicException($errorMessage, $errorCode);
