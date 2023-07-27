@@ -101,7 +101,7 @@ function session(null|string|array $value = null, mixed $default = null): mixed
 function old(?string $key = null): mixed
 {
     if ($key === null) {
-        \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
+        return \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'] ?? [];
     }
 
     return \Shadow\Kernel\Reception::$flashSession['OLD_ARRAY'][$key] ?? null;
@@ -213,13 +213,13 @@ function getUA(): string
 {
     static $ua = null;
 
-    if($ua !== null) {
+    if ($ua !== null) {
         return $ua;
     }
-    
+
     $string = mb_ereg_replace('[\x00-\x1F\x7F]', '', ($_SERVER['HTTP_USER_AGENT'] ?? 'null'));
     $ua = mb_substr($string, 0, 512);
-    
+
     return $ua;
 }
 
