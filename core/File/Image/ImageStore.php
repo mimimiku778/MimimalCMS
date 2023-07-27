@@ -37,15 +37,31 @@ class ImageStore implements ImageStoreInterface
         }
 
         $imageFunction = "image{$type}";
-        $fileName .= ".{$type}";
+
+        $fileName = $this->escapeInvalidCharacters($fileName);
+
+        if ($fileName === '') {
+            throw new \InvalidArgumentException('File name is empty.');
+        }
+
+        if (strpos($fileName, '.') === false) {
+            $fileName .= ".{$type}";
+        }
+
         $filePath = $destPath . $fileName;
 
         if (!$imageFunction($image,  $filePath, $quality) || !file_exists($filePath)) {
             throw new \RuntimeException("{$imageFunction} fails", 6000);
         }
 
-        return  $fileName;
+        return $fileName;
     }
+
+    private function escapeInvalidCharacters(string $filename): string
+    {
+        $invalidCharacters = '/ \ : * ? " < > | % ( ) ! @ # $ & + , ; =';
+        return preg_replace('/[' . preg_quote($invalidCharacters, '/') . ']/', '_', $filename);
+    }    
 
     /**
      * Convert image quality value to a single digit integer between 0 and 9 with a bias.
