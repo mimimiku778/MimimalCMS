@@ -39,7 +39,7 @@ class DB implements DBInterface
         }
 
         $stmt = self::$pdo->prepare($query);
-
+        
         if ($params === null) {
             $stmt->execute();
         } else {

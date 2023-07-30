@@ -61,7 +61,7 @@ class ImageStore implements ImageStoreInterface
     {
         $invalidCharacters = '/ \ : * ? " < > | % ( ) ! @ # $ & + , ; =';
         return preg_replace('/[' . preg_quote($invalidCharacters, '/') . ']/', '_', $filename);
-    }    
+    }
 
     /**
      * Convert image quality value to a single digit integer between 0 and 9 with a bias.

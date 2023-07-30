@@ -400,6 +400,17 @@ function nl2brReplace(string $string): string
     return $result;
 }
 
+/**
+ * Get the class name from a fully qualified class name.
+ *
+ * @param string $fullyQualifiedClassName Fully qualified class name (including namespace).
+ * @return string Class name extracted from the fully qualified name.
+ */
+function getClassSimpleName($fullyQualifiedClassName): string
+{
+    return substr($fullyQualifiedClassName, strrpos($fullyQualifiedClassName, '\\') + 1);
+}
+
 function pre_var_dump($var)
 {
     echo "<pre>";

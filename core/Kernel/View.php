@@ -24,7 +24,7 @@ class View implements ViewInterface
         echo $this->renderCache ?? '';
     }
 
-    public function getRenderChahe(): string
+    public function getRenderCache(): string
     {
         return $this->renderCache ?? '';
     }
@@ -116,7 +116,7 @@ class View implements ViewInterface
             }
 
             if ($value instanceof ViewInterface) {
-                $output[$key] = $value->getRenderChahe();
+                $output[$key] = $value->getRenderCache();
                 continue;
             }
 
@@ -137,34 +137,27 @@ class View implements ViewInterface
     /**
      * Sanitizes an object of values recursively to prevent XSS attacks.
      *
-     * @param object $array Array of values to sanitize.
-     * @return object       The sanitized array.
+     * @param object $input Array of values to sanitize.
+     * @return object       The sanitized object.
      */
     private static function sanitizeObject(object $input): object
     {
-        $output = new \stdClass();
         foreach ($input as $key => $value) {
             if (substr((string) $key, 0, 1) === '_') {
-                $output->$key = $value;
                 continue;
             }
 
             if ($value instanceof ViewInterface) {
-                $output->$key = $value->getRenderChahe();
-                continue;
-            }
-
-            if (is_array($value)) {
-                $output->$key = self::sanitizeArray($value);
+                $input->$key = $value->getRenderCache();
+            } elseif (is_array($value)) {
+                $input->$key = self::sanitizeArray($value);
             } elseif (is_object($value)) {
-                $output->$key = self::sanitizeObject($value);
+                $input->$key = self::sanitizeObject($value);
             } elseif (is_string($value)) {
-                $output->$key = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-            } else {
-                $output->$key = $value;
+                $input->$key = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
             }
         }
 
-        return $output;
+        return $input;
     }
 }

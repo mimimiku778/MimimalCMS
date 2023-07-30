@@ -14,5 +14,5 @@ interface ViewInterface
      *
      * @return string The rendered template as a string.
      */
-    public function getRenderChahe(): string;
+    public function getRenderCache(): string;
 }
