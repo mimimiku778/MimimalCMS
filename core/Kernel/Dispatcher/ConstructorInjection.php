@@ -13,7 +13,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
 
     public function __construct(?array $classMap = null)
     {
-        $this->classMap = $classMap ?? ConstructorInjectionClassMap::MAP;
+        $this->classMap = $classMap ?? ConstructorInjectionClassMap::$map;
     }
 
     public function constructorInjection(string $className, array &$resolvedInstances = []): object
