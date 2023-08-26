@@ -17,7 +17,7 @@ class ImageApiController
         int $imageSize
     ) {
         try {
-            $gdImage = $image->createGdImage(file_get_contents($file['tmp_name']), $imageSize, $imageSize);
+            $gdImage = $image->createGdImage($file, $imageSize, $imageSize);
             $fileName = $store->storeImageFromGdImage(
                 $gdImage,
                 publicDir('images'),
