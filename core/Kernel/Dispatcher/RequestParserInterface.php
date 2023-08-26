@@ -12,7 +12,8 @@ interface RequestParserInterface
         'POST',
         'PUT',
         'PATCH',
-        'DELETE'
+        'DELETE',
+        'OPTIONS'
     ];
 
     public function parse(RouteDTO $routeDto, string $requestUri);
