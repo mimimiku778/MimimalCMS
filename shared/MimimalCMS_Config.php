@@ -1,5 +1,5 @@
 <?php
-
+const URL_ROOT = '';
 const PUBLIC_DIR = __DIR__ . '/../public';
 const VIEWS_DIR = __DIR__ . '/../app/Views';
 
@@ -19,6 +19,7 @@ const SESSION_COOKIE_PARAMS = [
 
 // Start session.
 session_set_cookie_params(SESSION_COOKIE_PARAMS);
+session_name("session");
 session_start();
 
 // File validator.
@@ -27,3 +28,5 @@ const IMAGE_MIME_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
 const URL_STRING_PATTERN = '/^[a-zA-Z0-9-._~!$&\'()*+,;=:@\/?%]+$/';
 const RELATIVE_PATH_PATTERN = '/^(?!(?:f|ht)tps?:\/\/)/i';
+
+date_default_timezone_set('Asia/Tokyo');

@@ -40,7 +40,8 @@ class Kernel
     private function parseRequest()
     {
         $request = new RequestParser;
-        $request->parse($this->routeDto, $_SERVER['REQUEST_URI'] ?? '');
+        $uri = str_replace(URL_ROOT, "",  $_SERVER['REQUEST_URI'] ?? '/');
+        $request->parse($this->routeDto, $uri);
     }
 
     /**

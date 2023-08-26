@@ -1,7 +1,7 @@
 <?php
 
 /**
- * MimimalCMS0.1 Helper functions
+ * MimimalCMS0.1 Helper functions test
  * 
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
@@ -437,4 +437,66 @@ function getPerformanceCounter(string $name): string
 function formatBytesToMegaBytes(int $bytes, int $precision = 2): string
 {
     return number_format($bytes / (1024 * 1024), $precision);
+}
+
+/**
+ * Get the elapsed time as a formatted string (MM:SS) from a given start time.
+ *
+ * @param string $startTimeString The start time in the format "Y-m-d H:i:s".
+ * @return string The formatted elapsed time in "MM:SS" format.
+ * @throws \InvalidArgumentException If the provided start time string is not in a valid format.
+ */
+function getElapsedTime(string $startTimeString): string
+{
+    try {
+        $startTime = new DateTime($startTimeString);
+        $currentTime = new DateTime();
+        $interval = $currentTime->diff($startTime);
+
+        $totalSeconds = $interval->s + ($interval->i * 60) + ($interval->h * 3600) + ($interval->days * 86400);
+
+        $minutes = floor($totalSeconds / 60);
+        $seconds = $totalSeconds % 60;
+
+        $formattedTime = sprintf("%02d:%02d", $minutes, $seconds);
+        return $formattedTime;
+    } catch (\Exception $e) {
+        // Handle exception if DateTime parsing fails
+        throw new \InvalidArgumentException("Invalid start time format: " . $e->getMessage());
+    }
+}
+
+/**
+ * Calculate a base62 hash from the input string using the specified algorithm.
+ *
+ * @param string $str The input string.
+ * @param string $alg The hashing algorithm to use (default: 'fnv1a64').
+ * @return string The calculated base62 hash.
+ */
+function base62Hash(string $str, string $alg = 'fnv1a64'): string
+{
+    $hex = hash($alg, $str);
+    $charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $base = strlen($charset);
+    $encoded = '';
+
+    // Split the input hexadecimal string into chunks of 8 characters each
+    $chunks = str_split($hex, 8);
+    foreach ($chunks as $chunk) {
+        $num = 0;
+
+        // Convert hexadecimal to decimal
+        for ($i = 0, $len = strlen($chunk); $i < $len; $i++) {
+            $num = $num * 16 + hexdec($chunk[$i]);
+        }
+
+        // Convert decimal to base62
+        while ($num > 0) {
+            $remainder = $num % $base;
+            $num = intdiv($num, $base);
+            $encoded = $charset[$remainder] . $encoded;
+        }
+    }
+
+    return $encoded;
 }

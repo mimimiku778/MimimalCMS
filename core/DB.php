@@ -99,6 +99,15 @@ class DB implements DBInterface
         return self::execute($query, $params)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function fetchColumn(string $query, ?array $params = null): mixed
+    {
+        if (self::$pdo === null) {
+            self::connect();
+        }
+
+        return self::execute($query, $params)->fetchColumn();
+    }
+
     /**
      *　Executes an SQL query and returns the ID of the last inserted row or sequence value.
      * 
@@ -188,7 +197,7 @@ class DB implements DBInterface
 
         if ($params === null) {
             $stmt->execute();
-            return $stmt;
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
         foreach ($params as $key => $value) {
@@ -203,7 +212,7 @@ class DB implements DBInterface
         }
 
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);;
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

@@ -82,7 +82,7 @@ class Session implements SessionInterface
         return false;
     }
 
-    public static function addError(string $key, mixed $code = 0, string $message = '')
+    public static function addError(string $key, int $code = 0, string $message = '')
     {
         $_SESSION[FLASH_SESSION_KEY_NAME]['ERRORS_ARRAY'][$key] = ['code' => $code, 'message' => $message];
     }

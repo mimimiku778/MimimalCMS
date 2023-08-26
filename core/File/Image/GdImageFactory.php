@@ -34,14 +34,74 @@ class GdImageFactory implements GdImageFactoryInterface
 
     private function imageCreateFromString(string|array $imageData): array|false
     {
-        if (is_array($imageData) && isset($imageData['tmp_name']) && file_exists($imageData['tmp_name'])) {
-            $imageData = file_get_contents($imageData['tmp_name']);
-        }
-
         if (is_string($imageData)) {
             return [$imageData, imagecreatefromstring($imageData)];
-        } else {
-            throw new \RuntimeException('Invalid file data in the array.', 5001);
+        }
+
+        $isValidFile = is_array($imageData) && isset($imageData['tmp_name']) && file_exists($imageData['tmp_name']);
+        if (!$isValidFile) {
+            return [null, false];
+        }
+
+        $srcImageData = file_get_contents($imageData['tmp_name']);
+
+        $gdImage = imagecreatefromstring($srcImageData);
+        if (!$gdImage) {
+            return [null, false];
+        }
+
+        $imageResource = $this->rotateImageIfNeeded($gdImage, $imageData['tmp_name']);
+        if (!$imageResource) {
+            return [$srcImageData, $gdImage];
+        }
+
+        ob_start();
+        imagejpeg($imageResource, null, 100);
+        return [ob_get_clean(), $imageResource];
+    }
+
+    private function rotateImageIfNeeded(\GdImage $imageResource, string $imageData): \GdImage|false
+    {
+        if (exif_imagetype($imageData) !== IMAGETYPE_JPEG) {
+            return false;
+        }
+
+        $exif = exif_read_data($imageData);
+        $hasExif = $exif !== false && isset($exif['Orientation']);
+        if (!$hasExif) {
+            return false;
+        }
+
+        switch ($exif['Orientation']) {
+            case 2:
+                // Flip horizontal
+                imageflip($imageResource, IMG_FLIP_HORIZONTAL);
+                return $imageResource;
+            case 3:
+                // Rotate 180 degrees
+                return imagerotate($imageResource, 180, 0);
+            case 4:
+                // Flip vertical
+                imageflip($imageResource, IMG_FLIP_VERTICAL);
+                return $imageResource;
+            case 5:
+                // Rotate 90 degrees and flip vertically
+                $imageResource = imagerotate($imageResource, 90, 0);
+                imageflip($imageResource, IMG_FLIP_VERTICAL);
+                return $imageResource;
+            case 6:
+                // Rotate 270 degrees
+                return imagerotate($imageResource, 270, 0);
+            case 7:
+                // Rotate 90 degrees and flip vertically
+                $imageResource = imagerotate($imageResource, 270, 0);
+                imageflip($imageResource, IMG_FLIP_VERTICAL);
+                return $imageResource;
+            case 8:
+                // Rotate 270 degrees
+                return imagerotate($imageResource, 90, 0);
+            default:
+                return $imageResource;
         }
     }
 
