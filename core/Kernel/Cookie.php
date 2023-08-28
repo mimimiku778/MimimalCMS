@@ -56,6 +56,7 @@ class Cookie implements CookieInterface
         }
 
         setcookie($key, '', time() - 3600, "/");
+        unset($_COOKIE[$key]);
         return true;
     }
 
