@@ -10,9 +10,9 @@ abstract class AbstractInvoker
 {
     protected ConstructorInjectionInterface $ci;
 
-    public function __construct(?ConstructorInjectionInterface $ci = null)
+    public function __construct()
     {
-        $this->ci = $ci ?? new ConstructorInjection;
+        $this->ci = new ConstructorInjection;
     }
 
     /**

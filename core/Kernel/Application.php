@@ -15,13 +15,18 @@ class Application implements ApplicationInterface
 {
     protected ConstructorInjectionInterface $ci;
 
-    public function __construct(?ConstructorInjectionInterface $ci = null)
+    public function __construct(array $parameters = [])
     {
-        $this->ci = $ci ?? new ConstructorInjection;
+        $this->ci = new ConstructorInjection($parameters);
     }
 
     public function make(string $abstract): object
     {
         return $this->ci->constructorInjection($abstract);
+    }
+
+    public function singleton(string $className, ?\Closure $concrete = null): void
+    {
+        $this->ci->registerSingletonInstance($className, $concrete);
     }
 }

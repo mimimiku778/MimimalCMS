@@ -26,4 +26,12 @@ interface ConstructorInjectionInterface
      * @throws \LogicException
      */
     public function resolveInterfaceToClass(string $interfaceName): string;
+
+    /**
+     * Registers a singleton instance of a class.
+     *
+     * @param string $className The fully qualified class name.
+     * @param ?\Closure $instance  The instance of the class to be stored.
+     */
+    public function registerSingletonInstance(string $className, ?\Closure $concrete = null): void;
 }

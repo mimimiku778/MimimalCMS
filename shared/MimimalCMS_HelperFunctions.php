@@ -9,9 +9,16 @@
 
 declare(strict_types=1);
 
-function app()
+/**
+ * @return object|\Shadow\Kernel\Application
+ */
+function app(?string $abstract = null, array $parameters = []): object
 {
-    return new \Shadow\Kernel\Application();
+    if ($abstract) {
+        return (new \Shadow\Kernel\Application($parameters))->make($abstract);
+    }
+
+    return new \Shadow\Kernel\Application;
 }
 
 /**
@@ -500,4 +507,82 @@ function base62Hash(string $str, string $alg = 'fnv1a64'): string
     }
 
     return $encoded;
+}
+
+/**
+ * Check if the given future UNIX timestamp is within half of the specified expiration term.
+ *
+ * @param int $futureUnixTime The UNIX timestamp representing a future point in time.
+ * @param int $expirationTimeInSeconds The expiration term in seconds (default is 1 year).
+ * @return bool Returns true if the future timestamp is within half of the expiration term, otherwise false.
+ */
+function isWithinHalfExpires(int $futureUnixTime, $expirationTimeInSeconds = 3600 * 24 * 365): bool
+{
+    $currentTime = time(); // Current UNIX timestamp
+    $halfSeconds = $expirationTimeInSeconds / 2; // Half of the expiration term in seconds
+
+    return ($futureUnixTime - $currentTime) <= $halfSeconds;
+}
+
+/**
+ * Read or write to a text file with exclusive lock and optional new content.
+ *
+ * @param string $filePath The path of the file to read or write.
+ * @param string|null $newContent The new content to write (null for read-only).
+ * @return string|null The file's content if reading, null if writing.
+ * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.
+ */
+function readWriteTextFileWithExclusiveLock(string $filePath, ?string $newContent = null): ?string
+{
+    $mode = $newContent === null ? 'r' : 'w'; // Use 'r' for reading, 'w' for writing
+
+    // Open the file for reading or writing
+    $fileHandle = fopen($filePath, $mode);
+
+    if (!$fileHandle) {
+        throw new \RuntimeException("Failed to open the file: $filePath");
+    }
+
+    try {
+        if (flock($fileHandle, LOCK_EX)) {
+            if ($newContent !== null) {
+                // If new content is provided, write it and return null
+                ftruncate($fileHandle, 0); // Clear the file
+                fwrite($fileHandle, $newContent);
+                fflush($fileHandle);
+                return null;
+            } else {
+                // If no new content is provided, read and return the file's content
+                $content = '';
+                while (!feof($fileHandle)) {
+                    $content .= fread($fileHandle, 8192); // Read in chunks
+                }
+                return $content;
+            }
+        } else {
+            throw new \RuntimeException('Failed to acquire an exclusive lock.');
+        }
+    } finally {
+        fclose($fileHandle); // Always close the file handle, even on exceptions
+    }
+}
+
+/**
+ * @param string $filename The name of the file to save the string.
+ * @param string $string
+ * 
+ * @throws \RuntimeException If an error occurs during the process, such as failed file opening or lock acquisition.
+ */
+function saveStringToFile(string $filename, string $string): void
+{
+    readWriteTextFileWithExclusiveLock(__DIR__ . '/../storage/' . $filename, $string);
+}
+
+/**
+ * @param string $filename The name of the file containing the string.
+ * @return string
+ */
+function getStringFromFile(string $filename): string
+{
+    return file_get_contents(__DIR__ . '/../storage/' . $filename);
 }

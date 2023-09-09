@@ -8,16 +8,23 @@ use App\Config\ConstructorInjectionClassMap;
 
 class ConstructorInjection implements ConstructorInjectionInterface
 {
+    private static array $singletonInstances = [];
+    private array $injectionParameters;
     private array $classMap;
     private array $reflectionClasses;
 
-    public function __construct(?array $classMap = null)
+    public function __construct(array $injectionParameters = [])
     {
-        $this->classMap = $classMap ?? ConstructorInjectionClassMap::$map;
+        $this->classMap = ConstructorInjectionClassMap::$map;
+        $this->injectionParameters = $injectionParameters;
     }
 
-    public function constructorInjection(string $className, array &$resolvedInstances = []): object
+    public function constructorInjection(string $className, array &$resolvedInstances = [], $singleton = true): object
     {
+        if ($singleton && isset(self::$singletonInstances[$className])) {
+            return $this->getSingletonInstance($className);
+        }
+
         if (isset($resolvedInstances[$className])) {
             return $resolvedInstances[$className];
         }
@@ -58,7 +65,8 @@ class ConstructorInjection implements ConstructorInjectionInterface
         foreach ($constructor->getParameters() as $param) {
             $paramType = $param->getType();
 
-            if ($paramType === null || $paramType->isBuiltin()) {
+            if (isset($this->injectionParameters[$param->name]) || $paramType === null || $paramType->isBuiltin()) {
+                $methodArgs[] = $this->injectionParameters[$param->name] ?? null;
                 continue;
             }
 
@@ -66,6 +74,11 @@ class ConstructorInjection implements ConstructorInjectionInterface
 
             if (!class_exists($paramClassName)) {
                 $paramClassName = $this->resolveInterfaceToClass($paramClassName);
+            }
+
+            if (isset(self::$singletonInstances[$paramClassName])) {
+                $methodArgs[] = $this->getSingletonInstance($paramClassName);
+                continue;
             }
 
             if (isset($resolvedInstances[$paramClassName])) {
@@ -110,5 +123,42 @@ class ConstructorInjection implements ConstructorInjectionInterface
         }
 
         return $this->reflectionClasses[$className];
+    }
+
+    public function registerSingletonInstance(string $className, ?\Closure $concrete = null): void
+    {
+        self::$singletonInstances[$className] = ['instance' => $concrete, 'flag' => false];
+    }
+
+    /**
+     * Retrieve a singleton instance from the DI container.
+     *
+     * @param string $className The service name
+     * @return object The singleton instance
+     * 
+     * @throws LogicException If Closure return value is not an object.
+     */
+    private function getSingletonInstance(string $className): object
+    {
+        $element = self::$singletonInstances[$className];
+
+        if ($element['flag']) {
+            return $element['instance'];
+        }
+
+        if ($element['instance'] instanceof \Closure) {
+            $concrete = $element['instance']();
+            if (!is_object($concrete)) {
+                throw new \LogicException("Closure return value is not an object");
+            }
+
+            self::$singletonInstances[$className]['instance'] = $concrete;
+            self::$singletonInstances[$className]['flag'] = true;
+        } else {
+            self::$singletonInstances[$className]['instance'] = $this->constructorInjection($className, singleton: false);
+            self::$singletonInstances[$className]['flag'] = true;
+        }
+
+        return self::$singletonInstances[$className]['instance'];
     }
 }
