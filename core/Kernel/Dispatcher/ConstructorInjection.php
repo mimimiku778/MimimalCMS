@@ -163,7 +163,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
 
         if ($element['singleton']) {
             self::$container[$className]['concrete'] = $concrete;
-            self::$container[$className]['flag'] = true;
+            self::$container[$className]['singleton']['flag'] = true;
         }
 
         return $concrete;
