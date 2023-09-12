@@ -28,10 +28,10 @@ interface ConstructorInjectionInterface
     public function resolveInterfaceToClass(string $interfaceName): string;
 
     /**
-     * Registers a singleton instance of a class.
+     * Registers a class.
      *
      * @param string $className The fully qualified class name.
-     * @param ?\Closure $instance  The instance of the class to be stored.
+     * @param \Closure|string|null $instance  The instance of the class to be stored.
      */
-    public function registerSingletonInstance(string $className, ?\Closure $concrete = null): void;
+    public function register(string $className, \Closure|string|null $concrete = null, $singleton = false): void;
 }

@@ -25,8 +25,13 @@ class Application implements ApplicationInterface
         return $this->ci->constructorInjection($abstract);
     }
 
-    public function singleton(string $className, ?\Closure $concrete = null): void
+    public function singleton(string $className, null|\Closure|string $concrete = null): void
     {
-        $this->ci->registerSingletonInstance($className, $concrete);
+        $this->ci->register($className, $concrete, true);
+    }
+
+    public function bind(string $className, null|\Closure|string $concrete = null): void
+    {
+        $this->ci->register($className, $concrete);
     }
 }

@@ -8,7 +8,7 @@ use App\Config\ConstructorInjectionClassMap;
 
 class ConstructorInjection implements ConstructorInjectionInterface
 {
-    private static array $singletonInstances = [];
+    private static array $container = [];
     private array $injectionParameters;
     private array $classMap;
     private array $reflectionClasses;
@@ -19,10 +19,10 @@ class ConstructorInjection implements ConstructorInjectionInterface
         $this->injectionParameters = $injectionParameters;
     }
 
-    public function constructorInjection(string $className, array &$resolvedInstances = [], $singleton = true): object
+    public function constructorInjection(string $className, array &$resolvedInstances = [], $container = true): object
     {
-        if ($singleton && isset(self::$singletonInstances[$className])) {
-            return $this->getSingletonInstance($className);
+        if ($container && isset(self::$container[$className])) {
+            return $this->getInstance($className);
         }
 
         if (isset($resolvedInstances[$className])) {
@@ -76,8 +76,8 @@ class ConstructorInjection implements ConstructorInjectionInterface
                 $paramClassName = $this->resolveInterfaceToClass($paramClassName);
             }
 
-            if (isset(self::$singletonInstances[$paramClassName])) {
-                $methodArgs[] = $this->getSingletonInstance($paramClassName);
+            if (isset(self::$container[$paramClassName])) {
+                $methodArgs[] = $this->getInstance($paramClassName);
                 continue;
             }
 
@@ -111,7 +111,6 @@ class ConstructorInjection implements ConstructorInjectionInterface
      * Gets a ReflectionClass instance for a given class name.
      *
      * @param string $className The name of the class to get a ReflectionClass instance for
-     * 
      * @return \ReflectionClass A ReflectionClass instance for the given class
      * 
      * @throws \ReflectionException
@@ -125,40 +124,48 @@ class ConstructorInjection implements ConstructorInjectionInterface
         return $this->reflectionClasses[$className];
     }
 
-    public function registerSingletonInstance(string $className, ?\Closure $concrete = null): void
+    public function register(string $className, \Closure|string|null $concrete = null, $singleton = false): void
     {
-        self::$singletonInstances[$className] = ['instance' => $concrete, 'flag' => false];
+        if (!$singleton) {
+            self::$container[$className] = ['concrete' => $concrete, 'singleton' => false];
+        } else {
+            self::$container[$className] = ['concrete' => $concrete, 'singleton' => ['flag' => false]];
+        }
     }
 
     /**
-     * Retrieve a singleton instance from the DI container.
+     * Retrieve an instance from the DI container.
      *
      * @param string $className The service name
-     * @return object The singleton instance
+     * @return object The instance
      * 
      * @throws LogicException If Closure return value is not an object.
      */
-    private function getSingletonInstance(string $className): object
+    private function getInstance(string $className): object
     {
-        $element = self::$singletonInstances[$className];
+        $element = self::$container[$className];
 
-        if ($element['flag']) {
-            return $element['instance'];
+        if ($element['singleton']['flag'] ?? null) {
+            return $element['concrete'];
         }
 
-        if ($element['instance'] instanceof \Closure) {
-            $concrete = $element['instance']();
+        if ($element['concrete'] instanceof \Closure) {
+            $concrete = $element['concrete']();
+
             if (!is_object($concrete)) {
                 throw new \LogicException("Closure return value is not an object");
             }
-
-            self::$singletonInstances[$className]['instance'] = $concrete;
-            self::$singletonInstances[$className]['flag'] = true;
+        } elseif ($element['concrete'] !== null) {
+            $concrete = $this->constructorInjection($element['concrete'], container: false);
         } else {
-            self::$singletonInstances[$className]['instance'] = $this->constructorInjection($className, singleton: false);
-            self::$singletonInstances[$className]['flag'] = true;
+            $concrete = $this->constructorInjection($className, container: false);
         }
 
-        return self::$singletonInstances[$className]['instance'];
+        if ($element['singleton']) {
+            self::$container[$className]['concrete'] = $concrete;
+            self::$container[$className]['flag'] = true;
+        }
+
+        return $concrete;
     }
 }
