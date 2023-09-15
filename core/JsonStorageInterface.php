@@ -3,38 +3,44 @@
 namespace Shadow;
 
 /**
- * Interface JsonStorageInterface
+ * Class JsonStorage
  *
- * Provides methods to initialize, copy properties to an object, and update a JSON file.
+ * Provides functionality to initialize, copy properties to an object, and update a JSON file.
  */
 interface JsonStorageInterface
 {
     /**
-     * Initializes the JsonStorage object with data from a JSON file.
+     * Initializes the JsonStorage instance.
      *
-     * @param string $filename The name of the JSON file.
-     *
-     * @throws RuntimeException if the JSON file cannot be loaded.
+     * @param string|object $class The class name or instance to be used.
+     * @return JsonStorageInterface The initialized JsonStorage instance.
+     * @throws \RuntimeException If no file name is defined in JsonStorageClassMap or if the JSON file does not exist or fails to load.
      */
-    public function init(string $filename): void;
+    public function init(string|object $class): JsonStorageInterface;
 
     /**
-     * Copies properties from the storage array to the provided object.
+     * Copies properties from the stored array to the provided object.
      *
-     * @param object $object The object to which properties will be copied.
-     *
+     * @param object|null $object The object to copy properties to. If not provided, a new instance of the stored class will be created.
      * @return object The object with copied properties.
-     *
-     * @throws RuntimeException if a property in the storage array does not exist in the object.
+     * @throws \RuntimeException If a property does not exist in the provided object.
      */
-    public function copyPropertiesToObject(object $object): object;
+    public function copyPropertiesToObject(?object $object = null): object;
 
     /**
-     * Updates the JSON file with properties from the provided object.
+     * Updates the JSON file from the provided values or from the stored instance.
      *
-     * @param object $object The object containing properties to update the JSON file.
-     *
-     * @throws RuntimeException if the JSON file cannot be saved.
+     * @param object|array|null $values The values to update. If not provided, the stored instance will be used.
+     * @throws \RuntimeException If no obj
+     * @throws \LogicException If there is an error opening the file or acquiring an exclusive lock.ect is specified to update or if a property does not exist in the stored array.
      */
-    public function updateJsonFileFromObject(object $object): void;
+    public function updateJsonFileFromObject(object|array|null $values = null): void;
+
+    /**
+     * Rolls back changes in the JSON file to the initial state when this instance was created.
+     * 
+     * @throws \RuntimeException If failed to encode JSON data.
+     * @throws \LogicException If there is an error opening the file or acquiring an exclusive lock.ect is specified to update or if a property does not exist in the stored array.
+     */
+    public function rollbackJsonFile(): void;
 }
