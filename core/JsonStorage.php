@@ -30,6 +30,7 @@ class JsonStorage implements JsonStorageInterface
         $fileName = JsonStorageClassMap::$map[$this->className] ?? null;
         if ($fileName === null) {
             $fileName = substr($this->className, strrpos($this->className, '\\') + 1);
+            $fileName .= '.json';
         }
 
         $this->filePath = __DIR__ . '/../storage/json/' . $fileName;
