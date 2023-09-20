@@ -140,8 +140,31 @@ class ReceptionInitializer implements ReceptionInitializerInterface
 
     private function isUploadError(array $file)
     {
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            throw new UploadException('An error occurred while uploading the file.', 999);
+        $messages = '';
+
+        switch ($file['error']) {
+            case UPLOAD_ERR_OK:
+                break;
+
+            case UPLOAD_ERR_INI_SIZE:
+                $messages = 'The uploaded file is too large. Please upload a file smaller than ' . ini_get('upload_max_filesize') . '.';
+                break;
+
+            case UPLOAD_ERR_FORM_SIZE:
+                $messages = 'The uploaded file is too large. Please upload a file smaller than ' . ($_POST['MAX_FILE_SIZE'] / 1000) . 'KB.';
+                break;
+
+            case UPLOAD_ERR_PARTIAL:
+                $messages = 'Upload failed (communication error). Please try uploading again.';
+                break;
+
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $messages = 'Upload failed (system error). Please try uploading again.';
+                break;
+        }
+
+        if ($messages) {
+            throw new UploadException($messages, 999);
         }
     }
 
