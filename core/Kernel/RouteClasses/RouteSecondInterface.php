@@ -35,6 +35,7 @@ interface RouteSecondInterface
      * @param int|null          $maxLen        [optional] The maximum length of the string.
      * @param string|array|null $regex         [optional] Specifies a regular expression pattern that the input string must match.
      * @param bool              $emptyAble     [optional] Whether the value is empty or passes without a value.
+     * @param mixed             $default       [optional] The value to return when the input is empty (applies when $emptyAble is true).
      * 
      * @return static                    The instance of the Route class, to allow for method chaining.
      * 
@@ -55,7 +56,8 @@ interface RouteSecondInterface
         ?string $requestMethod = null,
         ?int $maxLen = null,
         string|array|null $regex = null,
-        bool $emptyAble = false
+        bool $emptyAble = false,
+        ?string $default = ''
     ): static;
 
     /**
@@ -67,6 +69,7 @@ interface RouteSecondInterface
      * @param int|null    $min           [optional] The minimum numeric value.
      * @param int|null    $exactMatch    [optional] The numeric value for exact match.
      * @param bool        $emptyAble     [optional] Whether the value is empty or passes without a value.
+     * @param int|null    $default       [optional] The value to return when the input is empty (applies when $emptyAble is true).
      * 
      * @return static                    The instance of the Route class, to allow for method chaining.
      * 
@@ -84,6 +87,7 @@ interface RouteSecondInterface
         ?int $min = null,
         ?int $exactMatch = null,
         bool $emptyAble = false,
+        ?int $default = 0
     ): static;
 
     /**

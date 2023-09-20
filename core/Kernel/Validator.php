@@ -17,10 +17,11 @@ class Validator implements ValidatorInterface
         ?int $maxLen = null,
         string|array|null $regex = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): string|false {
+        ?string $e = null,
+        ?string $default = ''
+    ): string|false|null {
         if (is_null($input) && $emptyAble) {
-            return '';
+            return $default;
         }
 
         if (!is_string($input)) {
@@ -95,10 +96,10 @@ class Validator implements ValidatorInterface
         ?int $maxLen = null,
         string|array|null $regex = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): string|false {
-        if (!isset($array[$key])) return false;
-        return self::str($array[$key], $maxLen, $regex, $emptyAble, $e);
+        ?string $e = null,
+        ?string $default = ''
+    ): string|false|null {
+        return self::str($array[$key] ?? null, $maxLen, $regex, $emptyAble, $e, $default);
     }
 
     public static function num(
@@ -107,14 +108,14 @@ class Validator implements ValidatorInterface
         ?int $min = null,
         ?int $exactMatch = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): int|false {
+        ?string $e = null,
+        ?int $default = 0
+    ): int|false|null {
         if (is_null($input) && $emptyAble) {
-            return 0;
+            return $default;
         }
 
         if (!is_int($input) && (!is_string($input) || !ctype_digit($input))) {
-            if ($emptyAble) return 0;
             if ($e === null) return false;
             $errorCode = 2001;
             $errorMessage = 'The input must be an integer or a string containing only digits.';
@@ -154,10 +155,10 @@ class Validator implements ValidatorInterface
         ?int $min = null,
         ?int $exactMatch = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): int|false {
-        if (!isset($array[$key])) return false;
-        return self::num($array[$key], $max, $min, $exactMatch, $emptyAble, $e);
+        ?string $e = null,
+        ?int $default = 0
+    ): int|false|null {
+        return self::num($array[$key] ?? null, $max, $min, $exactMatch, $emptyAble, $e, $default);
     }
 
     public static function uploadedFile(array $file, array $allowedMimeTypes, int $maxFileSize = DEFAULT_MAX_FILE_SIZE): array

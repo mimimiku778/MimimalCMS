@@ -14,6 +14,7 @@ interface ValidatorInterface
      * @param string|null $regex   [optional] If specified, the input string must match this regex pattern.
      * @param bool|null $emptyAble [optional] If the string can be empty or not.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
+     * @param ?string $default     [optional] The value to return when the input is empty (applies when $emptyAble is true).
      * 
      * @return string|false        True if the input is valid, otherwise false.
      * 
@@ -32,8 +33,9 @@ interface ValidatorInterface
         ?int $maxLen = null,
         string|array|null $regex = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): string|false;
+        ?string $e = null,
+        ?string $default = ''
+    ): string|false|null;
 
     /**
      * Validate whether the specified key exists in the array and meets the specified string conditions.
@@ -44,6 +46,7 @@ interface ValidatorInterface
      * @param string|null $regex   [optional] If specified, the input string must match this regex pattern.
      * @param bool     $emptyAble  [optional] Whether the value is empty or passes without a value.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
+     * @param ?string $default     [optional] The value to return when the input is empty (applies when $emptyAble is true).
      * 
      * @return string|false        True if the input is valid, otherwise false.
      * 
@@ -62,8 +65,9 @@ interface ValidatorInterface
         ?int $maxLen = null,
         string|array|null $regex = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): string|false;
+        ?string $e = null,
+        ?string $default = ''
+    ): string|false|null;
 
     /**
      * Validates a number and returns true if it meets the given criteria.
@@ -74,7 +78,8 @@ interface ValidatorInterface
      * @param int|null $exactMatch [optional] The numeric value for exact match.
      * @param bool     $emptyAble  [optional] Whether the value is empty or passes without a value.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
-     *
+     * @param ?int $default        [optional] The value to return when the input is empty (applies when $emptyAble is true).
+     * 
      * @return int|false           True if the input is valid, otherwise false.
      * 
      * @throws Throwable           If the input fails validation.
@@ -90,8 +95,9 @@ interface ValidatorInterface
         ?int $min = null,
         ?int $exactMatch = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): int|false;
+        ?string $e = null,
+        ?int $default = 0
+    ): int|false|null;
 
     /**
      * Validate whether the specified key exists in the array and meets the specified numeric conditions.
@@ -103,6 +109,7 @@ interface ValidatorInterface
      * @param int|null $exactMatch [optional] The numeric value for exact match.
      * @param bool     $emptyAble  [optional] Whether the value is empty or passes without a value.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
+     * @param ?int $default        [optional] The value to return when the input is empty (applies when $emptyAble is true).
      * 
      * @return int|false           True if the input is valid, otherwise false.
      * 
@@ -120,8 +127,9 @@ interface ValidatorInterface
         ?int $min = null,
         ?int $exactMatch = null,
         bool $emptyAble = false,
-        ?string $e = null
-    ): int|false;
+        ?string $e = null,
+        ?int $default = 0
+    ): int|false|null;
 
     /**
      * Validates an uploaded file based on the allowed mime types and maximum file size.

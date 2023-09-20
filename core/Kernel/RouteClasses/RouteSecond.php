@@ -30,11 +30,12 @@ class RouteSecond extends AbstractRoute implements RouteSecondInterface
         ?string $requestMethod = null,
         ?int $maxLen = null,
         string|array|null $regex = null,
-        bool $emptyAble = false
+        bool $emptyAble = false,
+        ?string $default = ''
     ): static {
         [$key, $requestMethod] = $this->createArrayKey($requestMethod);
 
-        $validator = $this->createValidationObject($maxLen, $regex, $emptyAble, \Shadow\Exceptions\ValidationException::class);
+        $validator = $this->createValidationObject($maxLen, $regex, $emptyAble, \Shadow\Exceptions\ValidationException::class, $default);
 
         $this->routeDto->routeValidatorArray[$key][$requestMethod][$parametaName] = $validator->str(...);
 
@@ -48,10 +49,11 @@ class RouteSecond extends AbstractRoute implements RouteSecondInterface
         ?int $min = null,
         ?int $exactMatch = null,
         bool $emptyAble = false,
+        ?int $default = 0
     ): static {
         [$key, $requestMethod] = $this->createArrayKey($requestMethod);
 
-        $validator = $this->createValidationObject($max, $min, $exactMatch, $emptyAble, \Shadow\Exceptions\ValidationException::class);
+        $validator = $this->createValidationObject($max, $min, $exactMatch, $emptyAble, \Shadow\Exceptions\ValidationException::class, $default);
 
         $this->routeDto->routeValidatorArray[$key][$requestMethod][$parametaName] = $validator->num(...);
 
@@ -62,7 +64,7 @@ class RouteSecond extends AbstractRoute implements RouteSecondInterface
         string $parametaName,
         array $allowedMimeTypes,
         int $maxFileSize = DEFAULT_MAX_FILE_SIZE,
-        bool $emptyAble = true,
+        bool $emptyAble = false,
         ?string $requestMethod = null,
     ): static {
         [$key, $requestMethod] = $this->createArrayKey($requestMethod);

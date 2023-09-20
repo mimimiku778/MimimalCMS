@@ -170,38 +170,63 @@ class ReceptionInitializer implements ReceptionInitializerInterface
 
     private function callBuiltinValidator(array $validators): array
     {
+        // Initialize the result array and error array
         $validatedArray = [];
         $errors = [];
 
+        // Iterate through the validators
         foreach ($validators as $key => $validator) {
+            // Start with the original input data
             $data = Reception::$inputData;
+
+            // Initialize the current level to the result array
             $currentLevel = &$validatedArray;
 
-            foreach (explode('.', $key) as $property) {
+            // Split the key into property chain
+            $propertyChain = explode('.', $key);
+
+            // Get the last property in the chain
+            $lastProperty = array_pop($propertyChain);
+
+            // Traverse through each property in the chain
+            foreach ($propertyChain as $property) {
+                // Access the corresponding data property
                 $data = &$data[$property] ?? null;
-                $currentLevel[$property] = null;
+
+                // If the property doesn't exist in the current level, create an empty array
+                if (!isset($currentLevel[$property])) {
+                    $currentLevel[$property] = [];
+                }
+
+                // Move to the next level
                 $currentLevel = &$currentLevel[$property];
             }
 
             try {
-                $validatedValue = $validator($data);
+                // Validate the value using the specified validator
+                $validatedValue = $validator($data[$lastProperty] ?? null);
             } catch (ValidationException $e) {
+                // If a validation exception is caught, record the error details
                 $errors[] = [
                     'key' => $key,
                     'code' => $e->getCode(),
                     'message' => $e->getMessage()
                 ];
 
+                // Set the validated value to null
                 $validatedValue = null;
             }
 
-            $currentLevel = $validatedValue;
+            // Set the validated value at the appropriate location in the result array
+            $currentLevel[$lastProperty] = $validatedValue;
         }
 
+        // If there are errors, handle the error response
         if (!empty($errors)) {
             $this->errorResponse($errors);
         }
 
+        // Return the validated array
         return $validatedArray;
     }
 }

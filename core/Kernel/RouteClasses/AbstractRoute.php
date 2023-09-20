@@ -46,7 +46,7 @@ abstract class AbstractRoute
                         throw new \InvalidArgumentException('The elements of $regex array must be strings only.', 1000);
                     }
                 }
-
+                
                 return Validator::str($input, ...$this->argCache);
             }
 

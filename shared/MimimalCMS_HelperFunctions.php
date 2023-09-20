@@ -188,14 +188,9 @@ function url(string ...$paths): string
         $uri .= "/" . ltrim($path, "/");
     }
 
-    if (isset(\Shadow\Kernel\Reception::$domain)) {
-        return \Shadow\Kernel\Reception::$domain . $uri;
-    } else {
-        return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $uri;
-    }
+    return \Shadow\Kernel\Reception::$domain . $uri;
 }
 
-// TODO:remove
 /**
  * Generates the URL for a given page number.
  * 
@@ -216,11 +211,7 @@ function pagerUrl(string $path, int $pageNumber): string
 
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
 
-    if (isset(\Shadow\Kernel\Reception::$domain)) {
-        return \Shadow\Kernel\Reception::$domain . $path . $secondPath;
-    } else {
-        return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path . $secondPath;
-    }
+    return \Shadow\Kernel\Reception::$domain . $path . $secondPath;
 }
 
 /**
@@ -579,16 +570,34 @@ function readWriteTextFileWithExclusiveLock(string $filePath, ?string $newConten
     }
 }
 
-function fileName(string $propertyName, string $default = '', bool $includeQuery = true): string
+/**
+ * Generates a versioned file URL based on the provided file path. If the file exists, a URL with a version query parameter is returned.
+ *
+ * @param string $filePath The path to the file, relative to the public directory.
+ * 
+ * @return string The versioned file URL.
+ * 
+ * **Example:**   
+ * Input: `fileUrl("css/styles.css")` 
+ * If the file "css/styles.css" exists in the public directory, and its modification time is 1609459200, the output will be: 
+ * `"http://example.com/css/styles.css?v=1609459200"`
+ * 
+ * Input: `fileUrl("js/script.js")` 
+ * If the file "js/script.js" exists in the public directory, and its modification time is 1609459300, the output will be: 
+ * `"http://example.com/js/script.js?v=1609459300"`
+ * 
+ * Input: `fileUrl("images/logo.png")` 
+ * If the file "images/logo.png" doesn't exist in the public directory, the output will be: 
+ * `"http://example.com/images/logo.png"`
+ */
+function fileUrl(string $filePath): string
 {
-    $container = \Shadow\Kernel\Dispatcher\ConstructorInjection::$container[\Shadow\FileNameService::class] ?? null;
-    if (!$container) {
-        return $default;
+    $filePath = "/" . ltrim($filePath, "/");
+    $fullFilePath = PUBLIC_DIR . $filePath;
+
+    if (!file_exists($fullFilePath)) {
+        return \Shadow\Kernel\Reception::$domain . $filePath;
     }
 
-    if ($container['singleton']['flag']) {
-        return $container['concrete']->getFileName($propertyName, $includeQuery) ?? $default;
-    } else {
-        return app(\Shadow\FileNameService::class)->getFileName($propertyName, $includeQuery) ?? $default;
-    }
+    return \Shadow\Kernel\Reception::$domain . $filePath . '?v=' . filemtime($fullFilePath);
 }
