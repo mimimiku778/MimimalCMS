@@ -173,22 +173,29 @@ function publicDir(string $path = ''): string
 /**
  * Returns the full URL of the current website, including the domain and optional path.
  *
- * @param string $path [optional] path to append to the domain in the URL.
+ * @param string $paths [optional] path to append to the domain in the URL.
  * 
  * @return string      The full URL of the current website domain.
  * 
- * * **Example :** Input: `url("home")`  Output: `https://exmaple.com/home`
- * * **Example :** Input: `url("/home")`  Output: `https://exmaple.com/home`
+ * * **Example :** Input: `url("home", "article")`  Output: `https://exmaple.com/home/article`
+ * * **Example :** Input: `url("/home", "/article")`  Output: `https://exmaple.com/home/article`
+ * * **Example :** Input: `url("home/", "article/")`  Output: `https://exmaple.com/home//article/`
  */
-function url(string $path = ''): string
+function url(string ...$paths): string
 {
-    if ($path !== '') {
-        $path = "/" . ltrim($path, "/");
+    $uri = '';
+    foreach ($paths as $path) {
+        $uri .= "/" . ltrim($path, "/");
     }
 
-    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path;
+    if (isset(\Shadow\Kernel\Reception::$domain)) {
+        return \Shadow\Kernel\Reception::$domain . $uri;
+    } else {
+        return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $uri;
+    }
 }
 
+// TODO:remove
 /**
  * Generates the URL for a given page number.
  * 
@@ -208,7 +215,12 @@ function pagerUrl(string $path, int $pageNumber): string
     }
 
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
-    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path . $secondPath;
+
+    if (isset(\Shadow\Kernel\Reception::$domain)) {
+        return \Shadow\Kernel\Reception::$domain . $path . $secondPath;
+    } else {
+        return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path . $secondPath;
+    }
 }
 
 /**
@@ -567,22 +579,16 @@ function readWriteTextFileWithExclusiveLock(string $filePath, ?string $newConten
     }
 }
 
-/**
- * @param string $filename The name of the file to save the string.
- * @param string $string
- * 
- * @throws \RuntimeException If an error occurs during the process, such as failed file opening or lock acquisition.
- */
-function saveStringToFile(string $filename, string $string): void
+function fileName(string $propertyName, string $default = '', bool $includeQuery = true): string
 {
-    readWriteTextFileWithExclusiveLock(__DIR__ . '/../storage/' . $filename, $string);
-}
+    $container = \Shadow\Kernel\Dispatcher\ConstructorInjection::$container[\Shadow\FileNameService::class] ?? null;
+    if (!$container) {
+        return $default;
+    }
 
-/**
- * @param string $filename The name of the file containing the string.
- * @return string
- */
-function getStringFromFile(string $filename): string
-{
-    return file_get_contents(__DIR__ . '/../storage/' . $filename);
+    if ($container['singleton']['flag']) {
+        return $container['concrete']->getFileName($propertyName, $includeQuery) ?? $default;
+    } else {
+        return app(\Shadow\FileNameService::class)->getFileName($propertyName, $includeQuery) ?? $default;
+    }
 }

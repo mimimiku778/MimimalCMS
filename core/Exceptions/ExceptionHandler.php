@@ -56,6 +56,7 @@ class ExceptionHandler
         BadRequestException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
         ValidationException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
         InvalidInputException::class =>     ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
+        UploadException::class =>           ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
         SessionTimeoutException::class =>   ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
         UnauthorizedException::class =>     ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
         NotFoundException::class =>         ['httpCode' => 404, 'httpStatusMessage' => 'Not Found'],

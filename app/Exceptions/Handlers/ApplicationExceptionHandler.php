@@ -2,7 +2,7 @@
 
 namespace App\Exceptions\Handlers;
 
-class ApplicationExceptionHandler implements AppExceptionHandlerInterface
+class ApplicationExceptionHandler implements ApplicationExceptionHandlerInterface
 {
     public function handleException(\Throwable $e)
     {

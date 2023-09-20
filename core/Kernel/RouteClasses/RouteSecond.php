@@ -89,7 +89,7 @@ class RouteSecond extends AbstractRoute implements RouteSecondInterface
         return $this;
     }
 
-    public function fails(ResponseInterface $callback, ?string $requestMethod = null): static
+    public function fails(ResponseInterface|false $callback, ?string $requestMethod = null): static
     {
         [$key, $requestMethod] = $this->createArrayKey($requestMethod);
         $this->routeDto->routeFailsArray[$key][$requestMethod] = $callback;

@@ -15,7 +15,6 @@ class Reception implements ReceptionInterface
     public static bool $isJson;
     public static array $flashSession;
     public static array $inputData;
-    public static array $files;
 
     public static function overWrite(array $data)
     {

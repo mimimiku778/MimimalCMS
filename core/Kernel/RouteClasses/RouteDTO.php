@@ -96,9 +96,9 @@ class RouteDTO
     }
 
     /**
-     * @return ResponseInterface|null
+     * @return ResponseInterface|false|null
      */
-    public function getFailsResponse(): ResponseInterface|null
+    public function getFailsResponse(): ResponseInterface|false|null
     {
         return $this->routeFailsArray[$this->routeArrayKey][$this->requestMethod] ?? null;
     }

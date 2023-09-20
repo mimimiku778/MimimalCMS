@@ -2,7 +2,7 @@
 
 namespace App\Exceptions\Handlers;
 
-interface AppExceptionHandlerInterface
+interface ApplicationExceptionHandlerInterface
 {
     /**
      * Handles the specified \Throwable instance.

@@ -8,7 +8,7 @@ use App\Config\ConstructorInjectionClassMap;
 
 class ConstructorInjection implements ConstructorInjectionInterface
 {
-    private static array $container = [];
+    public static array $container = [];
     private array $injectionParameters;
     private array $classMap;
     private array $reflectionClasses;
@@ -72,10 +72,6 @@ class ConstructorInjection implements ConstructorInjectionInterface
 
             $paramClassName = $paramType->getName();
 
-            if (!class_exists($paramClassName)) {
-                $paramClassName = $this->resolveInterfaceToClass($paramClassName);
-            }
-
             if (isset(self::$container[$paramClassName])) {
                 $methodArgs[] = $this->getInstance($paramClassName);
                 continue;
@@ -84,6 +80,10 @@ class ConstructorInjection implements ConstructorInjectionInterface
             if (isset($resolvedInstances[$paramClassName])) {
                 $methodArgs[] = $resolvedInstances[$paramClassName];
                 continue;
+            }
+            
+            if (!class_exists($paramClassName)) {
+                $paramClassName = $this->resolveInterfaceToClass($paramClassName);
             }
 
             $methodArgs[] = $this->constructorInjection($paramClassName, $resolvedInstances);

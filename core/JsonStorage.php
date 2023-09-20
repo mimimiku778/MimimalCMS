@@ -56,8 +56,9 @@ class JsonStorage implements JsonStorageInterface
             $object = $object ?? new $this->className;
         }
 
+        $isStdClass = $object instanceof \stdClass;
         foreach ($this->array as $key => $value) {
-            if (!property_exists($object, $key)) {
+            if (!$isStdClass && !property_exists($object, $key)) {
                 throw new \RuntimeException('Property does not exist: ' . $key);
             }
 
@@ -108,6 +109,38 @@ class JsonStorage implements JsonStorageInterface
             throw new \RuntimeException('Failed to encode JSON data.');
         }
 
-        readWriteTextFileWithExclusiveLock($this->filePath, $json);
+        $this->writeTextFileWithExclusiveLock($this->filePath, $json);
+    }
+
+    /**
+     * Write to a text file with exclusive lock and optional new content.
+     *
+     * @param string $filePath The path of the file to read or write.
+     * @param string $newContent The new content to write.
+     * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.
+     */
+    private function writeTextFileWithExclusiveLock(string $filePath, string $newContent): void
+    {
+        $mode = $newContent === null ? 'r' : 'w'; // Use 'r' for reading, 'w' for writing
+
+        // Open the file for reading or writing
+        $fileHandle = fopen($filePath, $mode);
+
+        if (!$fileHandle) {
+            throw new \RuntimeException("Failed to open the file: $filePath");
+        }
+
+        try {
+            if (flock($fileHandle, LOCK_EX)) {
+                // If new content is provided, write it and return null
+                ftruncate($fileHandle, 0); // Clear the file
+                fwrite($fileHandle, $newContent);
+                fflush($fileHandle);
+            } else {
+                throw new \RuntimeException('Failed to acquire an exclusive lock.');
+            }
+        } finally {
+            fclose($fileHandle); // Always close the file handle, even on exceptions
+        }
     }
 }

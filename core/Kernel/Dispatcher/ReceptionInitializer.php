@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel\Dispatcher;
 
+use Shadow\Exceptions\UploadException;
 use Shadow\Kernel\Reception;
 use Shadow\Kernel\RouteClasses\RouteDTO;
 use Shadow\Exceptions\ValidationException;
@@ -28,7 +29,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         Reception::$isJson =              $this->routeDto->isJson;
 
         Reception::$flashSession =        $this->getFlashSession();
-        Reception::$inputData =           $this->parseRequestBody($this->routeDto->paramArray);
+        Reception::$inputData =           $this->parseRequestBody();
     }
 
     public static function getDomainAndHttpHost(): string
@@ -107,10 +108,40 @@ class ReceptionInitializer implements ReceptionInitializerInterface
      */
     public function callRequestValidator()
     {
+        if (!empty($_FILES)) {
+            $this->checkUploadError();
+        }
+
         $builtinValidators = $this->routeDto->getValidater();
         if ($builtinValidators !== false) {
             $validatedArray = $this->callBuiltinValidator($builtinValidators);
             Reception::$inputData = array_merge(Reception::$inputData, $validatedArray);
+        }
+    }
+
+    private function checkUploadError()
+    {
+        foreach ($_FILES as $key => $file) {
+            try {
+                $this->isUploadError($file);
+            } catch (UploadException $e) {
+                $errors[] = [
+                    'key' => $key,
+                    'code' => $e->getCode(),
+                    'message' => $e->getMessage()
+                ];
+            }
+        }
+
+        if (!empty($errors)) {
+            $this->errorResponse($errors, UploadException::class);
+        }
+    }
+
+    private function isUploadError(array $file)
+    {
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            throw new UploadException('An error occurred while uploading the file.', 999);
         }
     }
 
@@ -137,7 +168,8 @@ class ReceptionInitializer implements ReceptionInitializerInterface
                     'code' => $e->getCode(),
                     'message' => $e->getMessage()
                 ];
-                $validatedValue = false;
+
+                $validatedValue = null;
             }
 
             $currentLevel = $validatedValue;

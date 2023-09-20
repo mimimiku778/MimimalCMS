@@ -12,7 +12,7 @@ use Shadow\Exceptions\InvalidInputException;
 
 trait TraitErrorResponse
 {
-    protected ?ResponseInterface $routeFails = null;
+    protected ResponseInterface|false|null $routeFails;
 
     /**
      * Generate error response.
@@ -21,24 +21,32 @@ trait TraitErrorResponse
      * @throws NotFoundException
      * @throws InvalidInputException
      */
-    protected function errorResponse(array $errorArray)
+    protected function errorResponse(array $errorArray, ?string $exeptionClass = null)
     {
         if ($this->routeFails !== null) {
             foreach ($errorArray as $error) {
                 Session::addError($error['key'], $error['code'], $error['message']);
             }
 
+            if ($this->routeFails === false) {
+                return;
+            }
+
             $this->routeFails->send();
             exit;
-        }
-
-        $message = $errorArray[0]['message'] ?? 'Request validation failed.';
-        $code = $errorArray[0]['code'] ?? 0;
-
-        if (Reception::$requestMethod === 'GET') {
-            throw new NotFoundException($message, $code);
         } else {
-            throw new InvalidInputException($message, $code);
+            $message = $errorArray[0]['message'] ?? 'Request validation failed.';
+            $code = $errorArray[0]['code'] ?? 0;
+
+            if ($exeptionClass) {
+                throw new $exeptionClass($message, $code);
+            }
+
+            if (Reception::$requestMethod === 'GET') {
+                throw new NotFoundException($message, $code);
+            } else {
+                throw new InvalidInputException($message, $code);
+            }
         }
     }
 }

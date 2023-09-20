@@ -8,7 +8,7 @@ use Shadow\Kernel\Reception;
 use Shadow\Kernel\ResponseHandler;
 use Shadow\Kernel\ResponseHandlerInterface;
 use Shadow\Kernel\RouteClasses\RouteDTO;
-use Shadow\Exceptions\FailException;
+use Shadow\Exceptions\FailRequestException;
 
 class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
@@ -43,7 +43,7 @@ class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
 
             try {
                 $response = $this->responseHandler->handleResponse($middlewareResponse);
-            } catch (FailException $e) {
+            } catch (FailRequestException $e) {
                 $this->errorResponse([
                     ['key' => 'className', 'code' => $e->getCode(), 'message' => $e->getMessage()]
                 ]);

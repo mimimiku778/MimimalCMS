@@ -133,10 +133,10 @@ interface RouteSecondInterface
      * Takes a callback function as its argument, which is called when a redirect is required.
      * Only the `\redirect()` helper function can be passed as an argument.
      * 
-     * @param ResponseInterface $redirect The callback function to call when a redirect is required.
-     * @param string|null       $requestMethod The HTTP request method. If null, applies to all HTTP methods.
+     * @param ResponseInterface|false $redirect If false is provided, the controller will be called without invoking the callback.
+     * @param string|null             $requestMethod The HTTP request method. If null, applies to all HTTP methods.
      * 
      * @return static The Route instance, to allow for method chaining.
      */
-    public function fails(ResponseInterface $redirect, ?string $requestMethod = null): static;
+    public function fails(ResponseInterface|false $redirect, ?string $requestMethod = null): static;
 }
