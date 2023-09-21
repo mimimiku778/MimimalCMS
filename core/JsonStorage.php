@@ -59,7 +59,7 @@ class JsonStorage implements JsonStorageInterface
         $isStdClass = $object instanceof \stdClass;
         foreach ($this->array as $key => $value) {
             if (!$isStdClass && !property_exists($object, $key)) {
-                throw new \RuntimeException('Property does not exist: ' . $key);
+                continue;
             }
 
             $object->$key = $value;
@@ -81,7 +81,7 @@ class JsonStorage implements JsonStorageInterface
         $array = $this->array;
         foreach ($values as $key => $value) {
             if (!isset($array[$key])) {
-                throw new \RuntimeException('Property does not exist: ' . $key);
+                continue;
             }
 
             $array[$key] = $value;
@@ -100,7 +100,6 @@ class JsonStorage implements JsonStorageInterface
      *
      * @param array $array The array to write to the JSON file.
      * @throws \RuntimeException If encoding the array to JSON fails.
-     * @throws \LogicException If there is an error opening the file or acquiring an exclusive lock.
      */
     private function overwriteJsonFile(array $array): void
     {

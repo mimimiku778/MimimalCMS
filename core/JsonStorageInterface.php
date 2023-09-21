@@ -23,7 +23,6 @@ interface JsonStorageInterface
      *
      * @param object|null $object The object to copy properties to. If not provided, a new instance of the stored class will be created.
      * @return object The object with copied properties.
-     * @throws \RuntimeException If a property does not exist in the provided object.
      */
     public function copyPropertiesToObject(?object $object = null): object;
 
@@ -31,16 +30,14 @@ interface JsonStorageInterface
      * Updates the JSON file from the provided values or from the stored instance.
      *
      * @param object|array|null $values The values to update. If not provided, the stored instance will be used.
-     * @throws \RuntimeException If no obj
-     * @throws \LogicException If there is an error opening the file or acquiring an exclusive lock.ect is specified to update or if a property does not exist in the stored array.
+     * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.ect is specified to update or if a property does not exist in the stored array.
      */
     public function updateJsonFileFromObject(object|array|null $values = null): void;
 
     /**
      * Rolls back changes in the JSON file to the initial state when this instance was created.
      * 
-     * @throws \RuntimeException If failed to encode JSON data.
-     * @throws \LogicException If there is an error opening the file or acquiring an exclusive lock.ect is specified to update or if a property does not exist in the stored array.
+     * @throws \RuntimeException If failed to encode JSON data or error opening the file or acquiring an exclusive lock
      */
     public function rollbackJsonFile(): void;
 }
