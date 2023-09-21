@@ -10,16 +10,15 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Shadow\\": "core/",
+            "Shadow\\": "shadow/",
             "App\\": "app/",
-            "App\\Config\\": "shared/Config",
-            "App\\Views\\": "app/Views/Classes",
-            "App\\Controllers\\": "app/Controllers"
+            "Shared\\": "shared/",
+            "App\\Views\\": "app/Views/Classes"
         },
         "files": [
-            "core/Exceptions/ExceptionHandler.php",
             "shared/MimimalCMS_Config.php",
             "shared/MimimalCMS_Enums.php",
+            "shared/MimimalCMS_ExceptionHandler.php",
             "shared/MimimalCMS_HelperFunctions.php"
         ]
     }

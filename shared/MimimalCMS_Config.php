@@ -2,6 +2,7 @@
 const URL_ROOT = '';
 const PUBLIC_DIR = __DIR__ . '/../public';
 const VIEWS_DIR = __DIR__ . '/../app/Views';
+const CONFIG_JSON_FILE_PATH = __DIR__ . '/../app/Config/ConfigJson.json';
 
 // Default options for cookies.
 const COOKIE_DEFAULT_SECURE = false;
@@ -24,8 +25,6 @@ session_start();
 
 // File validator.
 const DEFAULT_MAX_FILE_SIZE = 20480;
-const IMAGE_MIME_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
 const URL_STRING_PATTERN = '/^[a-zA-Z0-9-._~!$&\'()*+,;=:@\/?%]+$/';
 const RELATIVE_PATH_PATTERN = '/^(?!(?:f|ht)tps?:\/\/)/i';
 

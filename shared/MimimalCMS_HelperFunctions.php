@@ -64,10 +64,10 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
 function redirect(?string $url = null, int $responseCode = 302): \Shadow\Kernel\Response
 {
     if ($url === null) {
-        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost();
+        $url = \Shadow\Kernel\Reception::$domain;
     } elseif (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
         $path = ltrim($url, "/");
-        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
+        $url = \Shadow\Kernel\Reception::$domain . "/" . $path;
     }
 
     return new \Shadow\Kernel\Response($responseCode, $url);
@@ -298,9 +298,9 @@ function csrfField()
  * Verify CSRF token from the session and the request in `$_POST['_csrf']` or `$_SERVER["HTTP_X_CSRF_TOKEN"]` or `$_COOKIE['CSRF-Token']`.
  *
  * @param bool $removeTokenFromSession [option]
- * @throws \Shadow\Exceptions\BadRequestException         If CSRF token is not found on the request parameter.
- * @throws \Shadow\Exceptions\ValidationException         If CSRF token in the request does not matche the token in the session.
- * @throws \Shadow\Exceptions\SessionTimeoutException     If CSRF token for the session is not found.
+ * @throws \Shared\Exceptions\BadRequestException         If CSRF token is not found on the request parameter.
+ * @throws \Shared\Exceptions\ValidationException         If CSRF token in the request does not matche the token in the session.
+ * @throws \Shared\Exceptions\SessionTimeoutException     If CSRF token for the session is not found.
  * @throws \LogicException              If CSRF token for the session is not string.
  */
 function verifyCsrfToken(bool $removeTokenFromSession = false)
@@ -313,12 +313,12 @@ function verifyCsrfToken(bool $removeTokenFromSession = false)
     } elseif (isset($_COOKIE['CSRF-Token'])) {
         $token = $_COOKIE['CSRF-Token'];
     } else {
-        throw new \Shadow\Exceptions\BadRequestException('CSRF token was not found on the request parameter.');
+        throw new \Shared\Exceptions\BadRequestException('CSRF token was not found on the request parameter.');
     }
 
     // Check if CSRF token is set in the session.
     if (!isset($_SESSION['_csrf'])) {
-        throw new \Shadow\Exceptions\SessionTimeoutException('Your session has expired.');
+        throw new \Shared\Exceptions\SessionTimeoutException('Your session has expired.');
     }
 
     // Get CSRF token from the session.
@@ -330,7 +330,7 @@ function verifyCsrfToken(bool $removeTokenFromSession = false)
     // Verify that CSRF token in the request matches the token in the session.
     $result = is_string($token) && hash_equals($sessionToken, hash('sha256', $token));
     if (!$result) {
-        throw new \Shadow\Exceptions\ValidationException('Invalid CSRF token');
+        throw new \Shared\Exceptions\ValidationException('Invalid CSRF token');
     }
 
     if ($removeTokenFromSession) {

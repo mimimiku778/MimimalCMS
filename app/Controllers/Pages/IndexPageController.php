@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controllers\Pages;
 
+use App\Config\ConfigJson;
+
 class IndexPageController
 {
-    public function index()
+    public function index(ConfigJson $config)
     {
-        $title = 'MimimalCMS 0.1';
+        $title = $config->siteTitle;
         $text = 'Hello Wolrd';
         $link = 'https://github.com/mimimiku778/MimimalCMS-v0.1';
 

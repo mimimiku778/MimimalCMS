@@ -6,9 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Shadow\\' => array($baseDir . '/core'),
+    'Shared\\' => array($baseDir . '/shared'),
+    'Shadow\\' => array($baseDir . '/shadow'),
     'App\\Views\\' => array($baseDir . '/app/Views/Classes'),
-    'App\\Controllers\\' => array($baseDir . '/app/Controllers'),
-    'App\\Config\\' => array($baseDir . '/shared/Config'),
     'App\\' => array($baseDir . '/app'),
 );

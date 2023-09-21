@@ -6,8 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'a0806125a7b5fd4bade8b1d3de4ae2f2' => $baseDir . '/core/Exceptions/ExceptionHandler.php',
     '32ce0fe7e283c4ab2501f48c49b8b765' => $baseDir . '/shared/MimimalCMS_Config.php',
     '072636c41bf6e1d1798641cf4f6d69ca' => $baseDir . '/shared/MimimalCMS_Enums.php',
+    'c855a0512e67c28b49c6128ad77e1863' => $baseDir . '/shared/MimimalCMS_ExceptionHandler.php',
     '5f7bfa9cae57467db83be145516aa1f7' => $baseDir . '/shared/MimimalCMS_HelperFunctions.php',
 );

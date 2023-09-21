@@ -2,8 +2,7 @@
 
 namespace App\Exceptions;
 
-use Shadow\Exceptions\ExceptionHandlerInterface;
-use App\Config\ApplicationExceptionHandlerConfig;
+use Shared\Exceptions\ExceptionHandlerInterface;
 
 class ExceptionHandler implements ExceptionHandlerInterface
 {
