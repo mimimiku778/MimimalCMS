@@ -41,7 +41,7 @@ class MetaTags
     /**
      * The OGP locale of the page.
      */
-    public string $ogLocale = 'ja_JP'; //TODO: Language
+    public string $ogLocale = 'ja_JP'; //TODO: Local
 
     /**
      * The OGP type of the page.

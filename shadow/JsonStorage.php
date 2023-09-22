@@ -2,8 +2,6 @@
 
 namespace Shadow;
 
-use App\Config\Shadow\JsonStorageClassMap;
-
 /**
  * Class JsonStorage
  *
@@ -28,13 +26,9 @@ class JsonStorage implements JsonStorageInterface
         }
 
         if ($jsonFilePath === null) {
-            $fileName = JsonStorageClassMap::$map[$this->className] ?? null;
-            if ($fileName === null) {
-                $fileName = substr($this->className, strrpos($this->className, '\\') + 1);
-                $fileName .= '.json';
-            }
+            $fileName = substr($this->className, strrpos($this->className, '\\') + 1);
 
-            $this->filePath = __DIR__ . '/../storage/json/' . $fileName;
+            $this->filePath = JSON_STORAGE_DIR . '/' . $fileName . '.json';
         } else {
             $this->filePath = $jsonFilePath;
         }

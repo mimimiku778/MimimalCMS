@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- TODO: Language -->
+<!-- TODO: Local -->
 <html lang="ja">
 
 <head prefix="og: http://ogp.me/ns#">

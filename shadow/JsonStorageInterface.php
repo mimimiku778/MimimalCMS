@@ -10,28 +10,36 @@ namespace Shadow;
 interface JsonStorageInterface
 {
     /**
-     * Initializes the JsonStorage instance.
+     * Initializes the JSON storage.
      *
-     * @param string|object $class The class name or instance to be used.
-     * @param string|null $jsonFilePath [optional]
-     * @return JsonStorageInterface The initialized JsonStorage instance.
-     * @throws \RuntimeException If no file name is defined in JsonStorageClassMap or if the JSON file does not exist or fails to load.
+     * @param string|object $class The class name or object to be stored.
+     * @param ?string $jsonFilePath The path to the JSON file to store the data in. If `null`, the JSON file will be stored in the default JSON storage directory.
+     *
+     * @return JsonStorageInterface The JSON storage object.
+     *
+     * @throws \RuntimeException If the JSON file does not exist or cannot be loaded.
      */
     public function init(string|object $class, ?string $jsonFilePath = null): JsonStorageInterface;
 
     /**
-     * Copies properties from the stored array to the provided object.
+     * Copies the properties of the JSON storage to an object.
      *
-     * @param object|null $object The object to copy properties to. If not provided, a new instance of the stored class will be created.
-     * @return object The object with copied properties.
+     * If the `$object` parameter is `null`, a new instance of the class specified in the JSON storage is created.
+     *
+     * @param ?object $object The object to copy the properties to. If `null`, a new instance of the class specified in the JSON storage is created.
+     *
+     * @return object The object with the copied properties.
      */
     public function copyPropertiesToObject(?object $object = null): object;
 
     /**
-     * Updates the JSON file from the provided values or from the stored instance.
+     * Updates the JSON file with the values of the provided object, array, or `null`.
      *
-     * @param object|array|null $values The values to update. If not provided, the stored instance will be used.
-     * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.ect is specified to update or if a property does not exist in the stored array.
+     * If the `$values` parameter is `null`, the JSON file is updated with the values of the instance of the class specified in the JSON storage.
+     *
+     * @param object|array|null $values The values to update the JSON file with. If `null`, the values of the instance of the class specified in the JSON storage are used.
+     *
+     * @throws \RuntimeException If the `$values` parameter is not an object, array, or `null`.
      */
     public function updateJsonFileFromObject(object|array|null $values = null): void;
 
