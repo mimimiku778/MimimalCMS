@@ -20,7 +20,7 @@ class Validator implements ValidatorInterface
         ?string $e = null,
         ?string $default = ''
     ): string|false|null {
-        if (is_null($input) && $emptyAble) {
+        if ((is_null($input) || $input === '') && $emptyAble) {
             return $default;
         }
 
@@ -111,7 +111,7 @@ class Validator implements ValidatorInterface
         ?string $e = null,
         ?int $default = 0
     ): int|false|null {
-        if (is_null($input) && $emptyAble) {
+        if ((is_null($input) || $input === '') && $emptyAble) {
             return $default;
         }
 

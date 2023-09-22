@@ -4,7 +4,7 @@ namespace Shadow\Kernel;
 
 interface ValidatorInterface
 {
-    const ZERO_WHITE_SPACE = '/[\x{200B}-\x{200D}\x{FEFF}]/u';
+    const ZERO_WHITE_SPACE = '/[\x{200B}-\x{200D}\x{FEFF}\x{200C}]/u';
 
     /**
      * Validates a stirng and returns true if it meets the given criteria.
