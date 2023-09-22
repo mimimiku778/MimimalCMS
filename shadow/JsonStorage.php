@@ -24,10 +24,13 @@ class JsonStorage implements JsonStorageInterface
             $this->instance = null;
             $this->className = $class;
         }
+        
+        if ($this->className === \App\Config\ConfigJson::class) {
+            $jsonFilePath = CONFIG_JSON_FILE_PATH;
+        }
 
         if ($jsonFilePath === null) {
             $fileName = substr($this->className, strrpos($this->className, '\\') + 1);
-
             $this->filePath = JSON_STORAGE_DIR . '/' . $fileName . '.json';
         } else {
             $this->filePath = $jsonFilePath;
