@@ -2,6 +2,8 @@
 
 namespace ExceptionHandler;
 
+use Throwable;
+
 /**
  * Registers ExceptionHandler::handleException() as the global exception handler.
  */
@@ -46,35 +48,17 @@ register_shutdown_function(function () {
 class ExceptionHandler
 {
     /**
-     * Defines a mapping of HTTP errors to their corresponding HTTP status codes and messages.
-     * 
-     * Keys are the classes of the exceptions, and values are arrays with two elements:
-     *   - httpCode: the HTTP status code to be returned
-     *   - httpStatusMessage: the corresponding HTTP status message
-     */
-    const HTTP_ERRORS = [
-        \Shared\Exceptions\BadRequestException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \Shared\Exceptions\ValidationException::class =>       ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \Shared\Exceptions\InvalidInputException::class =>     ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \Shared\Exceptions\UploadException::class =>           ['httpCode' => 400, 'httpStatusMessage' => 'Bad Request'],
-        \Shared\Exceptions\SessionTimeoutException::class =>   ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
-        \Shared\Exceptions\UnauthorizedException::class =>     ['httpCode' => 401, 'httpStatusMessage' => 'Unauthorized'],
-        \Shared\Exceptions\NotFoundException::class =>         ['httpCode' => 404, 'httpStatusMessage' => 'Not Found'],
-        \Shared\Exceptions\MethodNotAllowedException::class => ['httpCode' => 405, 'httpStatusMessage' => 'Method Not Allowed'],
-        \Shared\Exceptions\ThrottleRequestsException::class => ['httpCode' => 429, 'httpStatusMessage' => 'Too Many Requests'],
-    ];
-
-    /**
      * Handles the specified \Throwable instance.
      *
      * @param \Throwable $e The \Throwable instance to handle.
      */
     public static function handleException(\Throwable $e)
     {
-        $flagName = 'App\Exceptions\ExceptionHandler::EXCEPTION_MAP';
+        $flagName = 'App\Exceptions\Handlers\ApplicationExceptionHandler::EXCEPTION_MAP';
         if (defined($flagName) && is_array($list = constant($flagName))) {
-            if (array_key_exists(get_class($e), $list)) {
-                \App\Exceptions\ExceptionHandler::handleException($e);
+            $className = get_class($e);
+            if (array_key_exists($className, $list)) {
+                \App\Exceptions\Handlers\ApplicationExceptionHandler::handleException($e, $className);
                 return;
             }
         }
@@ -82,33 +66,36 @@ class ExceptionHandler
         // Determine whether to show detailed error information
         $flagName = 'App\Config\Shadow\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN';
         $bool = defined($flagName) && constant($flagName);
-        if ($bool && ob_get_length() > 0) {
+        if ($bool && ob_get_length() !== false && ob_get_length() > 0) {
             ob_clean();
         }
 
         // Handle a TestException instance
         if ($e instanceof \Shared\Exceptions\TestException) {
-            self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
+            self::errorResponse($e, mb_convert_encoding($e->getMessage(), 'UTF-8'), 500, ($e->getCode() ? true : false), 'Internal Server Error😥', true);
             return;
         }
 
-        // Handle an unhandled exception
-        if (!array_key_exists(get_class($e), self::HTTP_ERRORS)) {
-            self::errorResponse($e, 'please try again later', 500, 'Internal Server Error😥');
-            self::errorLog($e);
+        $flagName = 'App\Config\Shadow\HttpExceptionMapper::HTTP_ERRORS';
+        if (!defined($flagName) || !is_array($exceptionMapper = constant($flagName))) {
+            // Handle an unhandled exception
+            self::response500($e);
             return;
         }
 
-        // Handle a known HTTP error
-        $error = self::HTTP_ERRORS[get_class($e)];
-        if ($error['httpCode'] === 404 || $error['httpCode'] === 405) {
-            self::errorResponse($e, '', ...$error);
+        if (!array_key_exists(get_class($e), $exceptionMapper)) {
+            // Handle an unhandled exception
+            self::response500($e);
             return;
         }
 
-        // Handle other HTTP errors
+        $error = $exceptionMapper[get_class($e)];
         self::errorResponse($e, mb_convert_encoding($e->getMessage(), 'UTF-8'), ...$error);
-        self::errorLog($e);
+    }
+
+    private static function response500(\Throwable $e, bool $log = true)
+    {
+        self::errorResponse($e, 'please try again later', 500, $log, 'Internal Server Error😥');
     }
 
     /**
@@ -123,8 +110,20 @@ class ExceptionHandler
         \Throwable $e,
         string $message,
         int $httpCode,
+        bool $log,
         string $httpStatusMessage,
+        bool $isTest = false
     ) {
+        if ($log && !$isTest) {
+            self::errorLog($e);
+            $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+        } elseif ($log && $isTest) {
+            $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+        } else {
+            $message = '';
+        }
+
+
         // Set the HTTP response code
         http_response_code($httpCode);
 
@@ -144,7 +143,7 @@ class ExceptionHandler
         }
 
         // If the request is not JSON, prepare the error message for display
-        $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : $e->getMessage();
+        $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : $message;
         $detailsMessage = htmlspecialchars($detailsMessage, ENT_QUOTES, 'UTF-8');
 
         if (ob_get_length() === false) {
@@ -155,8 +154,7 @@ class ExceptionHandler
         // If the error page can be displayed, show it
         if (!self::showErrorPage($httpCode, $httpStatusMessage, $detailsMessage)) {
             // Otherwise, output the error message
-            $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
-            echo "{$httpCode} {$httpStatusMessage}<br>{$message}";
+            echo "{$httpCode} {$httpStatusMessage}<br>";
             echo "<pre>" . $detailsMessage . "</pre>";
         }
     }

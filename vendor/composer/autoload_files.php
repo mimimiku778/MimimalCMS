@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+    'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     '32ce0fe7e283c4ab2501f48c49b8b765' => $baseDir . '/shared/MimimalCMS_Config.php',
     '072636c41bf6e1d1798641cf4f6d69ca' => $baseDir . '/shared/MimimalCMS_Enums.php',
     'c855a0512e67c28b49c6128ad77e1863' => $baseDir . '/shared/MimimalCMS_ExceptionHandler.php',

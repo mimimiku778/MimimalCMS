@@ -160,7 +160,9 @@ class DB implements DBInterface
         callable $query,
         callable $whereClauseQuery,
         string $keyword,
-        ?array $params = null
+        ?array $params = null,
+        int $fetchAllMode = \PDO::FETCH_ASSOC,
+        mixed ...$fetchAllArgs
     ): array {
         if (self::$pdo === null) {
             self::connect();
@@ -197,7 +199,7 @@ class DB implements DBInterface
 
         if ($params === null) {
             $stmt->execute();
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $stmt->fetchAll($fetchAllMode, ...$fetchAllArgs);
         }
 
         foreach ($params as $key => $value) {
@@ -212,7 +214,7 @@ class DB implements DBInterface
         }
 
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll($fetchAllMode, ...$fetchAllArgs);
     }
 
     /**

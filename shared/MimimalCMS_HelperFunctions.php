@@ -366,15 +366,23 @@ function h(mixed $string): string
 }
 
 /**
- * Remove zero-width spaces from a string.
+ * Remove all zero-width characters from a string.
  *
- * @param string $str The input string.
- * @return string     The input string without zero-width spaces.
+ * This function removes all zero-width spaces, zero-width non-joiners, and zero-width no-break spaces
+ * from the input string. It also normalizes the input string to Unicode Normalization Form KC (Compatibility Composition).
+ *
+ * @param string $inputString The input string to be processed.
+ * @return string The input string without any zero-width characters.
  */
-function removeZWS(string $str): string
+function removeAllZeroWidthCharacters(string $inputString): string
 {
-    $normalizedStr = \Normalizer::normalize($str, \Normalizer::FORM_KC);
-    return preg_replace('/[\x{200B}-\x{200D}\x{FEFF}]/u', '', $normalizedStr);
+    // Normalize the string to Unicode Normalization Form KC (Compatibility Composition).
+    $normalizedString = \Normalizer::normalize($inputString, \Normalizer::FORM_KC);
+
+    // Use a regular expression to remove all zero-width characters (U+200B to U+200D, U+FEFF, U+200C).
+    $cleanedString = preg_replace('/[\x{200B}-\x{200D}\x{FEFF}\x{200C}]/u', '', $normalizedString);
+
+    return $cleanedString;
 }
 
 /**
@@ -386,41 +394,6 @@ function removeZWS(string $str): string
 function sanitizeString(string $string): string
 {
     return preg_replace('/[^(\x20-\x7F)]*/', '', $string);
-}
-
-/**
- * Takes a string and converts each line into a HTML paragraph.
- * 
- * @param string $string  The input string to be converted.
- * 
- * @return string         Returns the converted string with each line wrapped in a HTML paragraph.
- */
-function nl2p(string $string): string
-{
-    $search = ["\r\n", "\r"];
-    $replace = ["\n", "\n"];
-    $string = str_replace($search, $replace, $string);
-
-    $lines = explode("\n", $string);
-    $result = '';
-    foreach ($lines as $line) {
-        $result .= '<p>' . $line . '</p>';
-    }
-    return $result;
-}
-
-/**
- * Inserts HTML line breaks before all newlines in a string
- */
-function nl2brReplace(string $string): string
-{
-    $search = ["\r\n", "\r"];
-    $replace = ["\n", "\n"];
-    $string = str_replace($search, $replace, $string);
-
-    $lines = explode("\n", $string);
-    $result = implode("<br>", $lines);
-    return $result;
 }
 
 /**
@@ -494,53 +467,6 @@ function getScriptExecutionTime(float $start = null): float
 }
 
 /**
- * Converts bytes to megabytes.
- *
- * @param int $bytes The number of bytes to convert.
- * @param int $precision The number of decimal places to round to.
- *
- * @return string The number of megabytes.
- *
- * **Example :** 
- * ```php
- * $bytes = 1024 * 1024;
- * // $megabytes = 1
- * $megabytes = formatBytesToMegaBytes($bytes);
- * ```
- */
-function formatBytesToMegaBytes(int $bytes, int $precision = 2): string
-{
-    return number_format($bytes / (1024 * 1024), $precision);
-}
-
-/**
- * Get the elapsed time as a formatted string (MM:SS) from a given start time.
- *
- * @param string $startTimeString The start time in the format "Y-m-d H:i:s".
- * @return string The formatted elapsed time in "MM:SS" format.
- * @throws \InvalidArgumentException If the provided start time string is not in a valid format.
- */
-function getElapsedTime(string $startTimeString): string
-{
-    try {
-        $startTime = new DateTime($startTimeString);
-        $currentTime = new DateTime();
-        $interval = $currentTime->diff($startTime);
-
-        $totalSeconds = $interval->s + ($interval->i * 60) + ($interval->h * 3600) + ($interval->days * 86400);
-
-        $minutes = floor($totalSeconds / 60);
-        $seconds = $totalSeconds % 60;
-
-        $formattedTime = sprintf("%02d:%02d", $minutes, $seconds);
-        return $formattedTime;
-    } catch (\Exception $e) {
-        // Handle exception if DateTime parsing fails
-        throw new \InvalidArgumentException("Invalid start time format: " . $e->getMessage());
-    }
-}
-
-/**
  * Calculate a base62 hash from the input string using the specified algorithm.
  *
  * @param string $str The input string.
@@ -579,10 +505,10 @@ function base62Hash(string $str, string $alg = 'fnv1a64'): string
  * Check if the given future UNIX timestamp is within half of the specified expiration term.
  *
  * @param int $futureUnixTime The UNIX timestamp representing a future point in time.
- * @param int $expirationTimeInSeconds The expiration term in seconds (default is 1 year).
+ * @param int $expirationTimeInSeconds The expiration term in seconds.
  * @return bool Returns true if the future timestamp is within half of the expiration term, otherwise false.
  */
-function isWithinHalfExpires(int $futureUnixTime, $expirationTimeInSeconds = 3600 * 24 * 365): bool
+function isWithinHalfExpires(int $futureUnixTime, int $expirationTimeInSeconds): bool
 {
     $currentTime = time(); // Current UNIX timestamp
     $halfSeconds = $expirationTimeInSeconds / 2; // Half of the expiration term in seconds

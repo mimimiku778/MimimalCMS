@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shadow\Kernel\Dispatcher;
 
-use App\Config\Shadow\ConstructorInjectionClassMap;
+use App\Config\Shadow\ConstructorInjectionMapper;
 
 class ConstructorInjection implements ConstructorInjectionInterface
 {
@@ -15,7 +15,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
 
     public function __construct(array $injectionParameters = [])
     {
-        $this->classMap = ConstructorInjectionClassMap::$map;
+        $this->classMap = ConstructorInjectionMapper::$map;
         $this->injectionParameters = $injectionParameters;
     }
 
