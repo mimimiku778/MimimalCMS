@@ -215,6 +215,18 @@ function pagerUrl(string $path, int $pageNumber): string
 }
 
 /**
+ * Returns the current request path.
+ *
+ * @return string The current request path.
+ *
+ * * **Example :** Output: `/home`
+ */
+function path(): string
+{
+    return $_SERVER['REQUEST_URI'] ?? '';
+}
+
+/**
  * Create a log message from the user agent.
  * 
  * @return string User Agent.
@@ -426,6 +438,28 @@ function getClassSimpleName(string|object $fullyQualifiedClassName): string
     return substr($fullyQualifiedClassName, strrpos($fullyQualifiedClassName, '\\') + 1);
 }
 
+/**
+ * Prints a variable in a preformatted way.
+ *
+ * @param mixed $var The variable to print.
+ *
+ * @return void
+ *
+ * * **Example :** 
+ * ```php
+ * pre_var_dump($array);
+ * ```
+ * ```html
+ * 
+ * Output:
+ * <pre>
+ * array(
+ *  [0] => "foo",
+ *  [1] => "bar",
+ * )
+ * </pre>
+ * ```
+ */
 function pre_var_dump($var)
 {
     echo "<pre>";
@@ -433,18 +467,47 @@ function pre_var_dump($var)
     echo "</pre>";
 }
 
-function setErrorHandler()
+/**
+ * Returns the elapsed time since a specific point in time, in milliseconds.
+ *
+ * @param float $start The start time. If null, the current microtime is used.
+ *
+ * @return float The elapsed time in milliseconds.
+ *
+ * **Example :** 
+ * ```php
+ * $start = getScriptExecutionTime();
+ *
+ * // Do something
+ * $elapsed = getScriptExecutionTime($start);
+ *
+ * echo $elapsed; // in milliseconds
+ * ```
+ */
+function getScriptExecutionTime(float $start = null): float
 {
-    set_error_handler(function ($severity, $message, $file, $line) {
-        throw new \ErrorException($message, 0, $severity, $file, $line);
-    });
+    if ($start === null) {
+        $start = microtime(true);
+    }
+
+    return (float) round(microtime(true) - $start, 3);
 }
 
-function getPerformanceCounter(string $name): string
-{
-    return (string) round(microtime(true) - constant($name), 3);
-}
-
+/**
+ * Converts bytes to megabytes.
+ *
+ * @param int $bytes The number of bytes to convert.
+ * @param int $precision The number of decimal places to round to.
+ *
+ * @return string The number of megabytes.
+ *
+ * **Example :** 
+ * ```php
+ * $bytes = 1024 * 1024;
+ * // $megabytes = 1
+ * $megabytes = formatBytesToMegaBytes($bytes);
+ * ```
+ */
 function formatBytesToMegaBytes(int $bytes, int $precision = 2): string
 {
     return number_format($bytes / (1024 * 1024), $precision);
