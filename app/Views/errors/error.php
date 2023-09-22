@@ -208,8 +208,30 @@ class ErrorPage
 
     public static function getDomainAndHttpHost(): string
     {
+        $flagName = 'URL_ROOT';
+        if (defined($flagName) && is_string($url = constant($flagName))) {
+            $urlRoot = $url;
+        }
+
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-        return $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? '');
+        return $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? '') . ($urlRoot ?? '');
+    }
+
+    public static function fileUrl(string $filePath): string
+    {
+        $flagName = 'PUBLIC_DIR';
+        if (!defined($flagName) || !is_string($publicDir = constant($flagName))) {
+            return self::getDomainAndHttpHost() . $filePath;
+        }
+
+        $filePath = "/" . ltrim($filePath, "/");
+        $fullFilePath = $publicDir . $filePath;
+
+        if (!file_exists($fullFilePath)) {
+            return self::getDomainAndHttpHost() . $filePath;
+        }
+
+        return self::getDomainAndHttpHost() . $filePath . '?v=' . filemtime($fullFilePath);
     }
 }
 
@@ -237,6 +259,12 @@ try {
 // Get the domain and http host of the current page using the static method getDomainAndHttpHost() of ErrorPage class.
 $siteUrl = ErrorPage::getDomainAndHttpHost();
 
+$iconUrl = '';
+$flagName = '\App\Config\AppConfig::SITE_ICON_FILE_PATH';
+if (defined($flagName) && is_string($siteIconFilePath = constant($flagName))) {
+    $iconUrl = ErrorPage::fileUrl(\App\Config\AppConfig::SITE_ICON_FILE_PATH);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -245,8 +273,8 @@ $siteUrl = ErrorPage::getDomainAndHttpHost();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/assets/favicon.png">
-    <link rel="stylesheet" href="/assets/mvp.css">
+    <link rel="icon" type="image/png" href="<?php echo $iconUrl ?>">
+    <link rel="stylesheet" href="<?php echo ErrorPage::fileUrl('assets/mvp.css') ?>">
     <title><?php echo "{$httpCode} {$httpStatusMessage}" ?></title>
 </head>
 
