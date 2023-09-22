@@ -64,10 +64,10 @@ function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
 function redirect(?string $url = null, int $responseCode = 302): \Shadow\Kernel\Response
 {
     if ($url === null) {
-        $url = \Shadow\Kernel\Reception::$domain;
+        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost();
     } elseif (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
         $path = ltrim($url, "/");
-        $url = \Shadow\Kernel\Reception::$domain . "/" . $path;
+        $url = \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . "/" . $path;
     }
 
     return new \Shadow\Kernel\Response($responseCode, $url);
@@ -188,7 +188,7 @@ function url(string ...$paths): string
         $uri .= "/" . ltrim($path, "/");
     }
 
-    return \Shadow\Kernel\Reception::$domain . $uri;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $uri;
 }
 
 /**
@@ -210,8 +210,7 @@ function pagerUrl(string $path, int $pageNumber): string
     }
 
     $secondPath = ($pageNumber > 1) ? "/" . (string) $pageNumber : '';
-
-    return \Shadow\Kernel\Reception::$domain . $path . $secondPath;
+    return \Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $path . $secondPath;
 }
 
 /**
@@ -585,10 +584,10 @@ function fileUrl(string $filePath): string
     $fullFilePath = PUBLIC_DIR . $filePath;
 
     if (!file_exists($fullFilePath)) {
-        return \Shadow\Kernel\Reception::$domain . $filePath;
+        return Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $filePath;
     }
 
-    return \Shadow\Kernel\Reception::$domain . $filePath . '?v=' . filemtime($fullFilePath);
+    return Shadow\Kernel\Dispatcher\ReceptionInitializer::getDomainAndHttpHost() . $filePath . '?v=' . filemtime($fullFilePath);
 }
 
 /**

@@ -10,7 +10,7 @@ namespace Shadow\Kernel;
  */
 class Reception implements ReceptionInterface
 {
-    public static string $domain = 'http://null';
+    public static string $domain;
     public static string $requestMethod = 'HEAD';
     public static bool $isJson = false;
     public static array $flashSession = [];

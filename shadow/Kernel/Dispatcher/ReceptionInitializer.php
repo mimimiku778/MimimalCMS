@@ -24,18 +24,24 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         $this->routeDto = $routeDto;
         $this->routeFails = $routeDto->getFailsResponse();
 
-        Reception::$domain =              $this->getDomainAndHttpHost();
+        $this->getDomainAndHttpHost();
         Reception::$requestMethod =       $this->routeDto->requestMethod;
         Reception::$isJson =              $this->routeDto->isJson;
 
         Reception::$flashSession =        $this->getFlashSession();
-        Reception::$inputData =           $this->parseRequestBody();
+        Reception::$inputData =           $this->parseRequestBody($this->routeDto->paramArray);
     }
 
-    function getDomainAndHttpHost(): string
+    public static function getDomainAndHttpHost(): string
     {
+        if (isset(Reception::$domain)) {
+            return Reception::$domain;
+        }
+
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-        return $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? '') . URL_ROOT;
+        Reception::$domain = $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? '') . URL_ROOT;
+
+        return Reception::$domain;
     }
 
     /**
