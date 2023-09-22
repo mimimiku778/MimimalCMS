@@ -10,7 +10,7 @@ class ConfigJsonServiceProvider
             $jsonStorage = new \Shadow\JsonStorage;
 
             return $jsonStorage
-                ->init(\App\Config\ConfigJson::class, CONFIG_JSON_FILE_PATH)
+                ->init(\App\Config\ConfigJson::class)
                 ->copyPropertiesToObject();
         };
 
