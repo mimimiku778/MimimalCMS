@@ -4,9 +4,9 @@ namespace App\Config\Shadow;
 
 class DatabaseConfig
 {
-    const HOST = '';
-    const DB_NAME = '';
-    const USER_NAME = '';
-    const PASSWORD = '';
+    const HOST = 'localhost';
+    const DB_NAME = 'test_db';
+    const USER_NAME = 'test_user';
+    const PASSWORD = '0000';
     const ATTR_PERSISTENT = false;
 }

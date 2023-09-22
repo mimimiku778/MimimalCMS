@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ActiveRecordTest::testFindRecords":4,"ActiveRecordTest::testSearchRecords":4,"ActiveRecordTest::testInsert":4},"times":{"ActiveRecordTest::testFindRecords":0.015,"ActiveRecordTest::testSearchRecords":0.017,"ActiveRecordTest::testInsert":0.016}}

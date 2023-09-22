@@ -590,3 +590,18 @@ function fileUrl(string $filePath): string
 
     return \Shadow\Kernel\Reception::$domain . $filePath . '?v=' . filemtime($fullFilePath);
 }
+
+/**
+ * Display multiple variables' values in the console for debugging purposes.
+ *
+ * @param mixed ...$vars The variables to display.
+ */
+function debug(...$vars)
+{
+    foreach ($vars as $var) {
+        echo "\n";
+        var_dump($var);
+    }
+
+    echo "\n";
+}
