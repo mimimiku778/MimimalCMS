@@ -6,7 +6,7 @@ class ExceptionHandlerConfig
 {
     // Display exceptions
     const EXCEPTION_HANDLER_DISPLAY_BEFORE_OB_CLEAN = true;
-    const EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS = false;
+    const EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS = true;
 
     // Exceptions Log directory.
     const EXCEPTION_LOG_DIRECTORY = __DIR__ . '/../../../logs/exception.log';

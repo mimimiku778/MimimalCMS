@@ -605,3 +605,10 @@ function debug(...$vars)
 
     echo "\n";
 }
+
+function stringToView(string $str): Shadow\Kernel\View
+{
+    $view = new \Shadow\Kernel\View;
+    $view->renderCache = $str;
+    return $view;
+}

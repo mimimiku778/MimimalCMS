@@ -12,4 +12,5 @@ return array(
     '072636c41bf6e1d1798641cf4f6d69ca' => $baseDir . '/shared/MimimalCMS_Enums.php',
     'c855a0512e67c28b49c6128ad77e1863' => $baseDir . '/shared/MimimalCMS_ExceptionHandler.php',
     '5f7bfa9cae57467db83be145516aa1f7' => $baseDir . '/shared/MimimalCMS_HelperFunctions.php',
+    'f7fa97712214d071ef2f311c97587004' => $baseDir . '/app/Helpers/functions.php',
 );

@@ -5,7 +5,7 @@ namespace App\Config;
 class AppConfig
 {
     const CONVERT_DATETIME_FORMAT = [
-        'dateFormat' => 'Y.m.d',
+        'dateFormat' => 'Y/m/d',
         'separator' => ' ',
         'timeFormat' => 'H:i'
     ];
