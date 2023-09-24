@@ -24,7 +24,7 @@ class Response implements ResponseInterface
         $this->jsonData = $jsonData;
     }
 
-    public function with(string|array $key, mixed $value = null): ResponseInterface
+    public function with(string|array $key, mixed $value = ''): ResponseInterface
     {
         if (is_array($key)) {
             $this->flashSession = array_merge($this->flashSession, $key);

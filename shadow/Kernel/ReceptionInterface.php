@@ -11,7 +11,7 @@ interface ReceptionInterface
      * @param  mixed        $default
      * @return mixed
      */
-    public static function input(string $name = null, mixed $default = null): mixed;
+    public static function input(string $name = null, mixed $default = ''): mixed;
 
     /**
      * Check if a specific input field exists.
