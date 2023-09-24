@@ -2,6 +2,8 @@
 
 namespace App\Config;
 
-class ConfigJson extends \stdClass
+use Shadow\AbstoractJsonStorageObject;
+
+class ConfigJson extends AbstoractJsonStorageObject
 {
 }

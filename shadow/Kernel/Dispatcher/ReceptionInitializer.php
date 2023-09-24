@@ -115,7 +115,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         $builtinValidators = $this->routeDto->getValidater();
         if ($builtinValidators !== false) {
             $validatedArray = $this->callBuiltinValidator($builtinValidators);
-            Reception::$inputData = array_merge(Reception::$inputData, $validatedArray);
+            Reception::$inputData = array_replace_recursive(Reception::$inputData, $validatedArray);
         }
     }
 

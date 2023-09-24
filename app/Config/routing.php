@@ -4,7 +4,7 @@ namespace App\Config;
 
 use Shadow\Kernel\Route;
 use App\Middleware\VerifyCsrfToken;
-use App\Middleware\ConfigJsonServiceProvider;
+use App\Middleware\ConfigJsonSingletonServiceProvider;
 
 Route::path('image/store@post')
     ->matchFile('file', ['image/jpeg', 'image/png', 'image/gif', 'image/webp'], emptyAble: false)
@@ -13,6 +13,6 @@ Route::path('image/store@post')
     ->fails(redirect('image'));
 
 Route::run(
-    ConfigJsonServiceProvider::class,
+    ConfigJsonSingletonServiceProvider::class,
     VerifyCsrfToken::class
 );
