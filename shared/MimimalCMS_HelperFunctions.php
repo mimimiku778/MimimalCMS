@@ -28,17 +28,20 @@ function app(?string $abstract = null, array $parameters = []): object
  * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
  *                                       Keys starting with "_" will not be sanitized.
  * 
- * @return \Shadow\Kernel\View
+ * @return \Shadow\Kernel\ViewInterface
  * 
  * @throws \InvalidArgumentException      If passed invalid array or not found the template file.
  */
-function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\View
+function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\ViewInterface
 {
+    $viewClass = App\Config\Shadow\ConstructorInjectionMapper::$map[\Shadow\Kernel\ViewInterface::class];
+    $instance = new $viewClass;
+
     if ($viewTemplateFile === null && $valuesArray === null) {
-        return new \Shadow\Kernel\View;
+        return $instance;
     }
 
-    return new \Shadow\Kernel\View(\Shadow\Kernel\View::get($viewTemplateFile, $valuesArray));
+    return $instance->set($viewTemplateFile, $valuesArray);
 }
 
 /**

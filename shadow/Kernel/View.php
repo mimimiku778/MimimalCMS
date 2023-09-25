@@ -21,12 +21,39 @@ class View implements ViewInterface
 
     public function render(): void
     {
-        echo $this->renderCache ?? '';
+        echo $this->renderCache;
     }
 
     public function getRenderCache(): string
     {
-        return $this->renderCache ?? '';
+        return $this->renderCache;
+    }
+
+    public function set(string $viewTemplateFile, ?array $valuesArray = null): static
+    {
+        if (is_array($valuesArray)) {
+            if (array_values($valuesArray) === $valuesArray) {
+                throw new \InvalidArgumentException('The passed array must be an associative array or an object.');
+            }
+
+            extract(self::sanitizeArray($valuesArray));
+        }
+
+        $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
+        $filePath = VIEWS_DIR . $viewTemplateFile;
+        if (file_exists($filePath . '.php')) {
+            $filePath .= '.php';
+        } elseif (file_exists($filePath . '.html')) {
+            $filePath .= '.html';
+        } else {
+            throw new \InvalidArgumentException('Could not find template file: ' . $viewTemplateFile);
+        }
+
+        ob_start();
+        include $filePath;
+        $this->renderCache .= ob_get_clean();
+
+        return $this;
     }
 
     /**
@@ -55,49 +82,15 @@ class View implements ViewInterface
      *                                       Keys starting with "_" will not be sanitized.
      * @throws \InvalidArgumentException     If passed invalid array.
      */
-    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): View
+    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): ViewInterface
     {
         if ($viewTemplateFile instanceof ViewInterface) {
-            $this->renderCache .= $viewTemplateFile->renderCache;
+            $this->renderCache .= $viewTemplateFile->getRenderCache();
         } else {
-            $this->renderCache .= self::get($viewTemplateFile, $valuesArray);
+            $this->set($viewTemplateFile, $valuesArray);
         }
 
         return $this;
-    }
-
-    /**
-     * Gets rendered template as a string.
-     *
-     * @param string            $viewTemplateFile Path to the template file.
-     * @param array|object|null $valuesArray      Optional associative array of values to pass to the template, 
-     *                                            Keys starting with "_" will not be sanitized.
-     * @return string                             The rendered template as a string.
-     * @throws \InvalidArgumentException          If passed invalid array or template file.
-     */
-    public static function get(string $viewTemplateFile, ?array $valuesArray = null): string
-    {
-        if (is_array($valuesArray)) {
-            if (array_values($valuesArray) === $valuesArray) {
-                throw new \InvalidArgumentException('The passed array must be an associative array or an object.');
-            }
-
-            extract(self::sanitizeArray($valuesArray));
-        }
-
-        $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
-        $filePath = VIEWS_DIR . $viewTemplateFile;
-        if (file_exists($filePath . '.php')) {
-            $filePath .= '.php';
-        } elseif (file_exists($filePath . '.html')) {
-            $filePath .= '.html';
-        } else {
-            throw new \InvalidArgumentException('Could not find template file: ' . $viewTemplateFile);
-        }
-
-        ob_start();
-        include $filePath;
-        return ob_get_clean();
     }
 
     /**
