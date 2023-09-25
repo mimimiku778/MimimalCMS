@@ -34,8 +34,7 @@ function app(?string $abstract = null, array $parameters = []): object
  */
 function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Shadow\Kernel\ViewInterface
 {
-    $viewClass = App\Config\Shadow\ConstructorInjectionMapper::$map[\Shadow\Kernel\ViewInterface::class];
-    $instance = new $viewClass;
+    $instance = (new \Shadow\Kernel\Application)->make(\Shadow\Kernel\ViewInterface::class);
 
     if ($viewTemplateFile === null && $valuesArray === null) {
         return $instance;

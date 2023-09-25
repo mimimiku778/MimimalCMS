@@ -12,12 +12,7 @@ namespace Shadow\Kernel;
  */
 class View implements ViewInterface
 {
-    public string $renderCache;
-
-    public function __construct(string $renderCache = '')
-    {
-        $this->renderCache = $renderCache;
-    }
+    public string $renderCache = '';
 
     public function render(): void
     {
@@ -36,7 +31,7 @@ class View implements ViewInterface
                 throw new \InvalidArgumentException('The passed array must be an associative array or an object.');
             }
 
-            extract(self::sanitizeArray($valuesArray));
+            extract($this->sanitizeArray($valuesArray));
         }
 
         $viewTemplateFile = "/" . ltrim($viewTemplateFile, "/");
@@ -99,7 +94,7 @@ class View implements ViewInterface
      * @param array $array Array of values to sanitize.
      * @return array       The sanitized array.
      */
-    protected static function sanitizeArray(array $input): array
+    protected function sanitizeArray(array $input): array
     {
         $output = [];
         foreach ($input as $key => $value) {
@@ -114,9 +109,9 @@ class View implements ViewInterface
             }
 
             if (is_array($value)) {
-                $output[$key] = self::sanitizeArray($value);
+                $output[$key] = $this->sanitizeArray($value);
             } elseif (is_object($value)) {
-                $output[$key] = self::sanitizeObject($value);
+                $output[$key] = $this->sanitizeObject($value);
             } elseif (is_string($value)) {
                 $output[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
             } else {
@@ -133,7 +128,7 @@ class View implements ViewInterface
      * @param object $input Array of values to sanitize.
      * @return object       The sanitized object.
      */
-    protected static function sanitizeObject(object $input): object
+    protected function sanitizeObject(object $input): object
     {
         foreach ($input as $key => $value) {
             if (substr((string) $key, 0, 1) === '_') {
@@ -143,9 +138,9 @@ class View implements ViewInterface
             if ($value instanceof ViewInterface) {
                 $input->$key = $value->getRenderCache();
             } elseif (is_array($value)) {
-                $input->$key = self::sanitizeArray($value);
+                $input->$key = $this->sanitizeArray($value);
             } elseif (is_object($value)) {
-                $input->$key = self::sanitizeObject($value);
+                $input->$key = $this->sanitizeObject($value);
             } elseif (is_string($value)) {
                 $input->$key = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
             }
