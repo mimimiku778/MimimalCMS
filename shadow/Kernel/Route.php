@@ -22,14 +22,14 @@ class Route extends AbstractRoute implements RouteInterface
 {
     use TraitRoutePath;
 
-    private static ?Route $instance = null;
+    protected static ?Route $instance = null;
 
-    private function __construct(RouteDTO $routeDto)
+    protected function __construct(RouteDTO $routeDto)
     {
         $this->routeDto = $routeDto;
     }
 
-    private static function create(): Route
+    protected static function create(): Route
     {
         if (self::$instance === null) {
             self::$instance = new self(new RouteDTO);

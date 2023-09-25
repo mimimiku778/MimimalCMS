@@ -57,7 +57,7 @@ class ImageStore implements ImageStoreInterface
         return $fileName;
     }
 
-    private function escapeInvalidCharacters(string $filename): string
+    protected function escapeInvalidCharacters(string $filename): string
     {
         $invalidCharacters = '/ \ : * ? " < > | % ( ) ! @ # $ & + , ; =';
         return preg_replace('/[' . preg_quote($invalidCharacters, '/') . ']/', '_', $filename);
@@ -71,7 +71,7 @@ class ImageStore implements ImageStoreInterface
      * @return int A single digit integer between 0 and 9.
      * 
      */
-    private function convertToSingleDigitWithBias(int $num): int
+    protected function convertToSingleDigitWithBias(int $num): int
     {
         if ($num === 80) {
             return 6;

@@ -19,7 +19,7 @@ use Shared\Exceptions\NotFoundException;
  */
 class Kernel
 {
-    private RouteDTO $routeDto;
+    protected RouteDTO $routeDto;
 
     public function handle(RouteDTO $routeDto)
     {
@@ -37,7 +37,7 @@ class Kernel
      * @throws \InvalidArgumentException
      * @throws \LogicException
      */
-    private function parseRequest()
+    protected function parseRequest()
     {
         $request = new RequestParser;
         $uri = str_replace(URL_ROOT, "",  $_SERVER['REQUEST_URI'] ?? '/');
@@ -48,7 +48,7 @@ class Kernel
      * @throws NotFoundException
      * @throws MethodNotAllowedException
      */
-    private function routing()
+    protected function routing()
     {
         $routing = new Routing;
         $routing->setRouteDto($this->routeDto);
@@ -75,7 +75,7 @@ class Kernel
      * @throws ValidationException      If the request is other than GET
      * @throws \InvalidArgumentException
      */
-    private function validateRequest()
+    protected function validateRequest()
     {
         $reception = new ReceptionInitializer;
         $reception->init($this->routeDto);
@@ -85,7 +85,7 @@ class Kernel
     /**
      * @throws \InvalidArgumentException
      */
-    private function callMiddleware()
+    protected function callMiddleware()
     {
         if (!$this->routeDto->existsMiddleware()) {
             return;
@@ -95,7 +95,7 @@ class Kernel
         $middleware->invoke($this->routeDto);
     }
 
-    private function callRouteCallback()
+    protected function callRouteCallback()
     {
         $routeCallback = $this->routeDto->getRouteCallback();
         if ($routeCallback instanceof \Closure) {
@@ -109,7 +109,7 @@ class Kernel
     /**
      * @throws \InvalidArgumentException
      */
-    private function callController()
+    protected function callController()
     {
         $controller = new ControllerInvoker;
         $controller->invoke($this->routeDto);
@@ -119,7 +119,7 @@ class Kernel
      * @throws NotFoundException        If the request is GET
      * @throws BadRequestException      If the request is other than GET
      */
-    private function handleResponse()
+    protected function handleResponse()
     {
         $response = new ResponseHandler;
         $response->handleResponse($this->routeDto->contlollerResponse);

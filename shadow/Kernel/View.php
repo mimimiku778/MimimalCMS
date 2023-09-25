@@ -106,7 +106,7 @@ class View implements ViewInterface
      * @param array $array Array of values to sanitize.
      * @return array       The sanitized array.
      */
-    public static function sanitizeArray(array $input): array
+    protected static function sanitizeArray(array $input): array
     {
         $output = [];
         foreach ($input as $key => $value) {
@@ -140,7 +140,7 @@ class View implements ViewInterface
      * @param object $input Array of values to sanitize.
      * @return object       The sanitized object.
      */
-    private static function sanitizeObject(object $input): object
+    protected static function sanitizeObject(object $input): object
     {
         foreach ($input as $key => $value) {
             if (substr((string) $key, 0, 1) === '_') {

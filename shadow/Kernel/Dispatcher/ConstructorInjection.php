@@ -9,9 +9,9 @@ use App\Config\Shadow\ConstructorInjectionMapper;
 class ConstructorInjection implements ConstructorInjectionInterface
 {
     public static array $container = [];
-    private array $injectionParameters;
-    private array $classMap;
-    private array $reflectionClasses;
+    protected array $injectionParameters;
+    protected array $classMap;
+    protected array $reflectionClasses;
 
     public function __construct(array $injectionParameters = [])
     {
@@ -58,7 +58,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
      * 
      * @throws \ReflectionException
      */
-    private function getMethodArgs(\ReflectionMethod $constructor, array &$resolvedInstances = []): array
+    protected function getMethodArgs(\ReflectionMethod $constructor, array &$resolvedInstances = []): array
     {
         $methodArgs = [];
 
@@ -115,7 +115,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
      * 
      * @throws \ReflectionException
      */
-    private function getReflectionClass(string $className): \ReflectionClass
+    protected function getReflectionClass(string $className): \ReflectionClass
     {
         if (!isset($this->reflectionClasses[$className])) {
             $this->reflectionClasses[$className] = new \ReflectionClass($className);
@@ -141,7 +141,7 @@ class ConstructorInjection implements ConstructorInjectionInterface
      * 
      * @throws LogicException If Closure return value is not an object.
      */
-    private function getInstance(string $className): object
+    protected function getInstance(string $className): object
     {
         $element = self::$container[$className];
 

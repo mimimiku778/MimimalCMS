@@ -58,7 +58,7 @@ class Reception implements ReceptionInterface
         return self::objectRecursive($array);
     }
 
-    private static function objectRecursive(array $array)
+    protected static function objectRecursive(array $array)
     {
         $result = new \stdClass();
         foreach ($array as $key => $value) {

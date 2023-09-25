@@ -71,7 +71,7 @@ class Validator implements ValidatorInterface
         return $input;
     }
 
-    private static function preg_match(array|string $regex, string $input, ?string $e): bool
+    protected static function preg_match(array|string $regex, string $input, ?string $e): bool
     {
         $result = @preg_match($regex, $input);
         if ($result === false) {

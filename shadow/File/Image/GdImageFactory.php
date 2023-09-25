@@ -32,7 +32,7 @@ class GdImageFactory implements GdImageFactoryInterface
         return $dstImage;
     }
 
-    private function imageCreateFromString(string|array $imageData): array|false
+    protected function imageCreateFromString(string|array $imageData): array|false
     {
         if (is_string($imageData)) {
             return [$imageData, imagecreatefromstring($imageData)];
@@ -60,7 +60,7 @@ class GdImageFactory implements GdImageFactoryInterface
         return [ob_get_clean(), $imageResource];
     }
 
-    private function rotateImageIfNeeded(\GdImage $imageResource, string $imageData): \GdImage|false
+    protected function rotateImageIfNeeded(\GdImage $imageResource, string $imageData): \GdImage|false
     {
         if (exif_imagetype($imageData) !== IMAGETYPE_JPEG) {
             return false;
@@ -105,7 +105,7 @@ class GdImageFactory implements GdImageFactoryInterface
         }
     }
 
-    private function getNewSize(int $srcWidth, int $srcHeight, ?int $maxWidth, ?int $maxHeight): array
+    protected function getNewSize(int $srcWidth, int $srcHeight, ?int $maxWidth, ?int $maxHeight): array
     {
         $dstWidth = $srcWidth;
         $dstHeight = $srcHeight;
@@ -123,7 +123,7 @@ class GdImageFactory implements GdImageFactoryInterface
         return [$dstWidth, $dstHeight];
     }
 
-    private function imageCreate(int $width, int $height): \GdImage
+    protected function imageCreate(int $width, int $height): \GdImage
     {
         $image = imagecreatetruecolor($width, $height);
 
@@ -134,7 +134,7 @@ class GdImageFactory implements GdImageFactoryInterface
         return $image;
     }
 
-    private function processAlphaChannel(\GdImage $srcImage, \GdImage $dstImage)
+    protected function processAlphaChannel(\GdImage $srcImage, \GdImage $dstImage)
     {
         $isAlpha = false;
         if (function_exists('imageistruecolor') && !imageistruecolor($srcImage)) {

@@ -32,7 +32,7 @@ abstract class AbstractRoute
     {
         return new class($argCache)
         {
-            private array $argCache;
+            protected array $argCache;
 
             public function __construct($argCache)
             {

@@ -116,7 +116,7 @@ class JsonStorage implements JsonStorageInterface
      * @param string $newContent The new content to write.
      * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.
      */
-    private function writeTextFileWithExclusiveLock(string $filePath, string $newContent): void
+    protected function writeTextFileWithExclusiveLock(string $filePath, string $newContent): void
     {
         $mode = $newContent === null ? 'r' : 'w'; // Use 'r' for reading, 'w' for writing
 

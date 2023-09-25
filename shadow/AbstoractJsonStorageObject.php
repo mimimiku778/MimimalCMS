@@ -4,7 +4,7 @@ namespace Shadow;
 
 abstract class AbstoractJsonStorageObject extends \stdClass
 {
-    private JsonStorage $jsonStorageInstance;
+    protected JsonStorage $jsonStorageInstance;
 
     public function __construct()
     {

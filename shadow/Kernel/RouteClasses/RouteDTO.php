@@ -56,7 +56,7 @@ class RouteDTO
     /**
      * Current key of routePathArray
      */
-    private int|string $routeArrayKey;
+    protected int|string $routeArrayKey;
 
     /**
      * `['currentControllerClassName']`  

@@ -17,7 +17,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
 {
     use TraitErrorResponse;
 
-    private RouteDTO $routeDto;
+    protected RouteDTO $routeDto;
 
     public function init(RouteDTO $routeDto)
     {
@@ -49,7 +49,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
      *
      * @return array The flash session data
      */
-    private function getFlashSession(): array
+    protected function getFlashSession(): array
     {
         if (isset($_SESSION[FLASH_SESSION_KEY_NAME])) {
             $session = $_SESSION[FLASH_SESSION_KEY_NAME];
@@ -66,7 +66,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
      *
      * @return array The input data passed with the incoming request.
      */
-    private function parseRequestBody(): array
+    protected function parseRequestBody(): array
     {
         if (Reception::$requestMethod === 'GET') {
             return array_merge($_GET, $this->routeDto->paramArray);
@@ -79,7 +79,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         return array_merge($_GET, $_POST, $_FILES, $this->routeDto->paramArray);
     }
 
-    private function parseJson(): array
+    protected function parseJson(): array
     {
         $requestBody = file_get_contents('php://input');
         if (!is_string($requestBody)) {
@@ -119,7 +119,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         }
     }
 
-    private function checkUploadError()
+    protected function checkUploadError()
     {
         foreach ($_FILES as $key => $file) {
             try {
@@ -138,7 +138,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         }
     }
 
-    private function isUploadError(array $file)
+    protected function isUploadError(array $file)
     {
         $messages = '';
 
@@ -168,7 +168,7 @@ class ReceptionInitializer implements ReceptionInitializerInterface
         }
     }
 
-    private function callBuiltinValidator(array $validators): array
+    protected function callBuiltinValidator(array $validators): array
     {
         // Initialize the result array and error array
         $validatedArray = [];

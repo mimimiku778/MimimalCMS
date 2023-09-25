@@ -14,7 +14,7 @@ class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
     use TraitErrorResponse;
 
-    private ResponseHandlerInterface $responseHandler;
+    protected ResponseHandlerInterface $responseHandler;
 
     public function __construct(?ResponseHandlerInterface $responseHandler = null)
     {
@@ -28,7 +28,7 @@ class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
         $this->callMiddleware($routeDto);
     }
 
-    private function callMiddleware(RouteDTO $routeDto)
+    protected function callMiddleware(RouteDTO $routeDto)
     {
         foreach ($routeDto->getMiddleware() as $middleware) {
             $className = $middleware;

@@ -12,7 +12,7 @@ class RouteMiddlewareGroup extends AbstractRoute implements RouteMiddlewareGroup
 {
     use TraitMiddlewarePath;
 
-    private array $middlewareGroup;
+    protected array $middlewareGroup;
 
     public function __construct(RouteDTO &$routeDto, array $middlewareGroup)
     {

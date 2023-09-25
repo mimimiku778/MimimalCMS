@@ -70,7 +70,7 @@ class RequestParser implements RequestParserInterface
      * @return array An array containing the route path and an array of request methods.
      * @throws InvalidArgumentException If an invalid request method is specified in the route string.
      */
-    private function extractRoutePathAndMethods(string $route): array
+    protected function extractRoutePathAndMethods(string $route): array
     {
         $splitRoute = explode('@', $route);
         $routePath = (string) array_shift($splitRoute);
@@ -97,7 +97,7 @@ class RequestParser implements RequestParserInterface
      * @return string                   The regular expression pattern.
      * @throws InvalidArgumentException If the parametar name is invalid.
      */
-    private function getPattern(string $routePath): string
+    protected function getPattern(string $routePath): string
     {
         $pattern = str_replace('/', '\/', $routePath);
 
@@ -122,7 +122,7 @@ class RequestParser implements RequestParserInterface
      * @param array $matchedParams  The results of preg_match
      * @return array                `[$parsedPathArray, $paramArray]`
      */
-    private function extractParams(string $routePath, array $matchedParams): array
+    protected function extractParams(string $routePath, array $matchedParams): array
     {
         $parsedPathArray = [];
         $paramArray = [];

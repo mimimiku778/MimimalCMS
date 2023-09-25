@@ -14,7 +14,7 @@ use Shared\Exceptions\MethodNotAllowedException;
  */
 class Routing implements RoutingInterface
 {
-    private RouteDTO $routeDto;
+    protected RouteDTO $routeDto;
 
     public function setRouteDto(RouteDTO $routeDto)
     {
@@ -35,13 +35,13 @@ class Routing implements RoutingInterface
         }
     }
 
-    private function getExplicitControllerName(array $explicitController)
+    protected function getExplicitControllerName(array $explicitController)
     {
         $this->routeDto->controllerClassName = $explicitController[0];
         $this->routeDto->methodName = $explicitController[1];
     }
 
-    private function validatePath()
+    protected function validatePath()
     {
         $paths = $this->routeDto->parsedPathArray;
 
@@ -57,7 +57,7 @@ class Routing implements RoutingInterface
         }
     }
 
-    private function getDynamicControllerName()
+    protected function getDynamicControllerName()
     {
         // Set default controller name
         if ($this->routeDto->requestMethod !== 'GET' || $this->routeDto->isJson) {

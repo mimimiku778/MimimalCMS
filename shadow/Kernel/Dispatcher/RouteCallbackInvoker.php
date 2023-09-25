@@ -14,7 +14,7 @@ class RouteCallbackInvoker extends AbstractInvoker implements RouteCallbackInvok
 {
     use TraitErrorResponse;
 
-    private ResponseHandlerInterface $responseHandler;
+    protected ResponseHandlerInterface $responseHandler;
 
     public function __construct(?ResponseHandlerInterface $responseHandler = null)
     {
@@ -28,7 +28,7 @@ class RouteCallbackInvoker extends AbstractInvoker implements RouteCallbackInvok
         $this->routeCallbackValidator($routeCallback);
     }
 
-    private function routeCallbackValidator(\Closure $routeCallback)
+    protected function routeCallbackValidator(\Closure $routeCallback)
     {
         $closureArgs = $this->getClosureArgs($routeCallback);
 

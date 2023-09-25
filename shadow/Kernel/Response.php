@@ -10,12 +10,12 @@ namespace Shadow\Kernel;
  */
 class Response implements ResponseInterface
 {
-    private int $responseCode;
-    private ?string $url;
-    private ?array $jsonData;
-    private array $flashSession = [];
-    private ?array $errorArray = null;
-    private ?array $withInputExceptArray = null;
+    protected int $responseCode;
+    protected ?string $url;
+    protected ?array $jsonData;
+    protected array $flashSession = [];
+    protected ?array $errorArray = null;
+    protected ?array $withInputExceptArray = null;
 
     public function __construct(int $responseCode, ?string $url = null, ?array $jsonData = null)
     {
@@ -65,7 +65,7 @@ class Response implements ResponseInterface
         $this->sendResponse();
     }
 
-    private function session()
+    protected function session()
     {
         if ($this->errorArray !== null) {
             foreach($this->errorArray as $key => $value) {
@@ -82,7 +82,7 @@ class Response implements ResponseInterface
         }
     }
 
-    private function header()
+    protected function header()
     {
         if (isset($this->jsonData)) {
             http_response_code($this->responseCode);
@@ -95,7 +95,7 @@ class Response implements ResponseInterface
         }
     }
 
-    private function sendResponse()
+    protected function sendResponse()
     {
         if (isset($this->jsonData)) {
             ob_start('ob_gzhandler');
