@@ -49,4 +49,12 @@ interface JsonStorageInterface
      * @throws \RuntimeException If failed to encode JSON data or error opening the file or acquiring an exclusive lock
      */
     public function rollbackJsonFile(): void;
+
+    /**
+     * Overwrites the JSON file with the provided array.
+     *
+     * @param array $array The array to write to the JSON file.
+     * @throws \RuntimeException If encoding the array to JSON fails.
+     */
+    public function overwriteJsonFile(array $array): void;
 }

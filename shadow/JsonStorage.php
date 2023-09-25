@@ -81,8 +81,10 @@ class JsonStorage implements JsonStorageInterface
         }
 
         $array = $this->array;
+        $isStdClass = in_array('stdClass', class_parents($this->className));
+
         foreach ($values as $key => $value) {
-            if (!isset($array[$key])) {
+            if (!$isStdClass && !isset($array[$key])) {
                 continue;
             }
 
@@ -97,13 +99,7 @@ class JsonStorage implements JsonStorageInterface
         $this->overwriteJsonFile($this->array);
     }
 
-    /**
-     * Overwrites the JSON file with the provided array.
-     *
-     * @param array $array The array to write to the JSON file.
-     * @throws \RuntimeException If encoding the array to JSON fails.
-     */
-    private function overwriteJsonFile(array $array): void
+    public function overwriteJsonFile(array $array): void
     {
         $json = json_encode($array);
         if ($json === false) {

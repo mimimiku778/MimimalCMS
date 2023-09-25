@@ -16,17 +16,28 @@ abstract class AbstoractJsonStorageObject extends \stdClass
     }
 
     /**
-     * Overwrites the JSON file with the values of this object, array, or `null`.
+     * Updates the JSON file with the values of this object, array, or `null`.
      *
-     * @param array|null $values The values to overwrite the JSON file with. If `null`, the values of this instance are used.
+     * @param array|null $values The values to update the JSON file with. If `null`, the values of this instance are used.
      *
      * @throws \RuntimeException If encoding the array to JSON fails or there is an error opening the file or acquiring an exclusive lock.
      */
-    public function overwriteJsonFile(?array $values = null)
+    public function updateJsonFile(?array $values = null)
     {
         $this->jsonStorageInstance
-            ->init($this)
             ->updateJsonFileFromObject($values);
+    }
+
+    /**
+     * Overwrites the JSON file with the provided array.
+     *
+     * @param array $array The array to write to the JSON file.
+     * @throws \RuntimeException If encoding the array to JSON fails.
+     */
+    public function overwriteJsonFile(array $array): void
+    {
+        $this->jsonStorageInstance
+            ->overwriteJsonFile($array);
     }
 
     /**
