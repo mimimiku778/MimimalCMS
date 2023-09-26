@@ -356,7 +356,7 @@ function verifyCsrfToken(bool $removeTokenFromSession = false)
  *
  * @param mixed $string The string or number to output.
  *                      Note: If the argument is not a string or number, it will not be outputted.
- * @return void
+ * @return string
  */
 function h(mixed $string): string
 {

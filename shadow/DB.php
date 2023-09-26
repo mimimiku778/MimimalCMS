@@ -172,10 +172,6 @@ class DB implements DBInterface
             preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
         );
 
-        if (empty(trim($convertedKeyword))) {
-            throw new \InvalidArgumentException('Please provide a non-empty search keyword.');
-        }
-
         $splitKeywords = explode(' ', $convertedKeyword);
 
         $whereClauses = [];
