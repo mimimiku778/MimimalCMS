@@ -69,15 +69,7 @@ class View implements ViewInterface
         return false;
     }
 
-    /**
-     * Render a template file with optional values.
-     *
-     * @param string|ViewInterface $viewTemplateFile Path to the template file.
-     * @param array|null $valuesArray        [optional] associative array of values to pass to the template, 
-     *                                       Keys starting with "_" will not be sanitized.
-     * @throws \InvalidArgumentException     If passed invalid array.
-     */
-    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): ViewInterface
+    public function make(string|ViewInterface $viewTemplateFile, array|null $valuesArray = null): static
     {
         if ($viewTemplateFile instanceof ViewInterface) {
             $this->renderCache .= $viewTemplateFile->getRenderCache();
