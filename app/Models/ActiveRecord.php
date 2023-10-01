@@ -23,15 +23,19 @@ class ActiveRecord extends \stdClass implements ActiveRecordInterface
         callable $query,
         callable $whereClauseQuery,
         string $keyword,
-        ?array $params = null
+        ?array $params = null,
+        ?array $affix = ['%', '%'],
+        string $whereClausePlaceholder = 'keyword',
     ): array {
         return DB::executeLikeSearchQuery(
             $query,
             $whereClauseQuery,
             $keyword,
             $params,
+            $affix,
             \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE,
-            static::class
+            [static::class],
+            $whereClausePlaceholder,
         );
     }
 

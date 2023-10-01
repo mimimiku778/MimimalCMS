@@ -150,6 +150,18 @@ class DB implements DBInterface
      * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
      * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
      * 
+     * @param string $whereClausePlaceholder [optional] Placeholder for keyword in WHERE clause.
+     * * *Example:* `'keyword'`
+     * 
+     * @param array|null $affix [optional] An array containing prefix and suffix strings for keywords.
+     * * *Example:* `['%', '%']`
+     * 
+     * @param int $fetchAllMode [optional] PDO fetch mode.
+     * * *Example:* `\PDO::FETCH_FUNC`
+     * 
+     * @param array $fetchAllArgs [optional] Additional arguments for fetchAll method.
+     * * *Example:* `[$callback]`
+     * 
      * @return array An empty array is returned if there are zero results to search.
      * 
      * @throws \PDOException If an error occurs during the query execution.
@@ -161,8 +173,10 @@ class DB implements DBInterface
         callable $whereClauseQuery,
         string $keyword,
         ?array $params = null,
+        ?array $affix = ['%', '%'],
         int $fetchAllMode = \PDO::FETCH_ASSOC,
-        mixed ...$fetchAllArgs
+        array $fetchAllArgs = [],
+        string $whereClausePlaceholder = 'keyword',
     ): array {
         if (self::$pdo === null) {
             self::connect();
@@ -188,9 +202,9 @@ class DB implements DBInterface
 
         $stmt = self::$pdo->prepare($queryResult);
 
-        $whereClausePlaceholder = 'keyword';
         foreach ($splitKeywords as $i => $word) {
-            $stmt->bindValue($whereClausePlaceholder . $i, "%{$word}%", \PDO::PARAM_STR);
+            $word = ($affix[0] ?? '') . $word . ($affix[1] ?? '');
+            $stmt->bindValue($whereClausePlaceholder . $i, $word, \PDO::PARAM_STR);
         }
 
         if ($params === null) {
