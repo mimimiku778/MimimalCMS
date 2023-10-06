@@ -72,7 +72,7 @@ class DB implements DBInterface
 
         try {
             self::$pdo->beginTransaction();
-            $result = $callback();
+            $result = $callback(self::$pdo);
             self::$pdo->commit();
             return $result;
         } catch (\Throwable $e) {
@@ -131,6 +131,30 @@ class DB implements DBInterface
 
         self::execute($query, $params);
         return (int) self::$pdo->lastInsertId();
+    }
+
+    /**
+     * Executes an SQL UPDATE query and checks if any rows were affected.
+     * 
+     * @param string $query The SQL UPDATE query to execute.
+     * * *Example:* `'UPDATE users SET status = :newStatus WHERE id = :userId'`
+     * 
+     * @param array|null $params [optional] An associative array of query parameters.
+     * \InvalidArgumentException will be thrown if any of the array values are not strings, numbers, or bool.
+     * * *Example:* `['newStatus' => 'active', 'userId' => 123]`
+     * 
+     * @return bool Returns `true` if any rows were affected by the UPDATE query, `false` otherwise.
+     * 
+     * @throws \PDOException If an error occurs during the query execution.
+     * @throws \InvalidArgumentException If any of the array values are not strings, numbers, or bool.
+     */
+    public static function executeAndCheckResult(string $query, ?array $params = null): bool
+    {
+        if (self::$pdo === null) {
+            self::connect();
+        }
+
+        return self::execute($query, $params)->rowCount() > 0;
     }
 
     /**
