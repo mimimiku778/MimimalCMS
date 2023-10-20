@@ -14,7 +14,12 @@ class VerifyCsrfToken
         if ($reception->isMethod('GET')) {
             Cookie::csrfToken();
         } else {
-            verifyCsrfToken();
+            try {
+                verifyCsrfToken();
+            } catch (\Exception $e) {
+                Cookie::remove('CSRF-Token');
+                throw $e;
+            }
         }
     }
 }
