@@ -1,16 +1,13 @@
 <?php
 
-/**
- * MimimalCMS0.1 APIs
- * 
- * @author mimimiku778 <0203.sub@gmail.com>
- * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
- */
-
 namespace Shadow\Kernel\RouteClasses;
 
 use Shadow\Kernel\ResponseInterface;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 interface RouteSecondInterface
 {
     /**

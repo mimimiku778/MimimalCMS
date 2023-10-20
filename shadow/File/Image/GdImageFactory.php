@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Shadow\File\Image;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 class GdImageFactory implements GdImageFactoryInterface
 {
     public function createGdImage(string|array $imageData, ?int $maxWidth = null, ?int $maxHeight = null): \GdImage

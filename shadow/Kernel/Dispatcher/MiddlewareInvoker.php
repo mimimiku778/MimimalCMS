@@ -10,6 +10,10 @@ use Shadow\Kernel\ResponseHandlerInterface;
 use Shadow\Kernel\RouteClasses\RouteDTO;
 use Shared\Exceptions\FailRequestException;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 class MiddlewareInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
     use TraitErrorResponse;

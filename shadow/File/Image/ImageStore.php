@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Shadow\File\Image;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 class ImageStore implements ImageStoreInterface
 {
     public function storeImageFromGdImage(

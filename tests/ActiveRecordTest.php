@@ -4,6 +4,10 @@ use PHPUnit\Framework\TestCase;
 use App\Models\ActiveRecord;
 use Shadow\DB;
 
+/** 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 class ActiveRecordTest extends TestCase
 {
     // Define table names for testing
@@ -105,7 +109,7 @@ class ActiveRecordTest extends TestCase
 
         // Verify the expected result
         debug($result);
-        
+
         $this->assertCount(1, $result);
         $this->assertEquals('John', $result[0]->name);
     }

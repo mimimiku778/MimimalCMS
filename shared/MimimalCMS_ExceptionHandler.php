@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * MimimalCMS 0.1
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
+
 namespace ExceptionHandler;
 
 use Throwable;

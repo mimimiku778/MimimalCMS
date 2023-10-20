@@ -6,6 +6,9 @@ namespace Shadow;
  * Class JsonStorage
  *
  * Provides functionality to initialize, copy properties to an object, and update a JSON file.
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 class JsonStorage implements JsonStorageInterface
 {
@@ -24,7 +27,7 @@ class JsonStorage implements JsonStorageInterface
             $this->instance = null;
             $this->className = $class;
         }
-        
+
         if ($this->className === \App\Config\ConfigJson::class) {
             $jsonFilePath = CONFIG_JSON_FILE_PATH;
         }

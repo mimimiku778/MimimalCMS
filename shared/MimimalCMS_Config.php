@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * MimimalCMS 0.1
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
+
 const URL_ROOT = '';
 const PUBLIC_DIR = __DIR__ . '/../public';
 const VIEWS_DIR = __DIR__ . '/../app/Views';

@@ -10,6 +10,10 @@ use Shadow\Kernel\ResponseInterface;
 use Shared\Exceptions\NotFoundException;
 use Shared\Exceptions\InvalidInputException;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 trait TraitErrorResponse
 {
     protected ResponseInterface|false|null $routeFails;

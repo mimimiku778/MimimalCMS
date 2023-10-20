@@ -2,6 +2,10 @@
 
 namespace Shadow\Kernel;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 interface ValidatorInterface
 {
     const ZERO_WHITE_SPACE = '/[\x{200B}-\x{200D}\x{FEFF}\x{200C}]/u';

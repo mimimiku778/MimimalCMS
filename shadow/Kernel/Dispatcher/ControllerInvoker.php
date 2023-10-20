@@ -7,6 +7,10 @@ namespace Shadow\Kernel\Dispatcher;
 use Shadow\Kernel\RouteClasses\RouteDTO;
 use Shared\Exceptions\NotFoundException;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 class ControllerInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
     public function invoke(RouteDTO $routeDto)

@@ -6,6 +6,10 @@ namespace Shadow\Kernel\Dispatcher;
 
 use App\Config\Shadow\ConstructorInjectionMapper;
 
+/**
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
+ */
 class ConstructorInjection implements ConstructorInjectionInterface
 {
     public static array $container = [];

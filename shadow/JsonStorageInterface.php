@@ -6,6 +6,9 @@ namespace Shadow;
  * Class JsonStorage
  *
  * Provides functionality to initialize, copy properties to an object, and update a JSON file.
+ * 
+ * @author mimimiku778 <0203.sub@gmail.com>
+ * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 interface JsonStorageInterface
 {
