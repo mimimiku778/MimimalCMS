@@ -363,7 +363,7 @@ function h(mixed $string): string
     if (is_string($string) || is_int($string) || is_float($string)) {
         return htmlspecialchars((string)$string, ENT_QUOTES, 'UTF-8');
     }
-    
+
     return '';
 }
 
@@ -613,4 +613,45 @@ function stringToView(string $str): Shadow\Kernel\View
     $view = new \Shadow\Kernel\View;
     $view->renderCache = $str;
     return $view;
+}
+
+/**
+ * Save a serialized array to a file.
+ *
+ * @param string $filename The name of the file to save the serialized array to.
+ * @param array $array The array to be serialized and saved.
+ * @throws \RuntimeException If there is an issue with file writing.
+ */
+function saveSerializedArrayToFile(string $filename, array $array): void
+{
+    $data = serialize($array);
+    $path = __DIR__ . '/../../storage/' . $filename;
+
+    if (file_put_contents($path, $data) === false) {
+        throw new \RuntimeException('Failed to save serialized array to file.');
+    }
+}
+
+/**
+ * Retrieve and unserialize an array from a file.
+ *
+ * @param string $filename The name of the file to retrieve the array from.
+ * @return array|false The unserialized array, or false if the file does not exist.
+ */
+function getUnserializedArrayFromFile(string $filename): array|false
+{
+    $path = __DIR__ . '/../../storage/' . $filename;
+
+    $data = file_get_contents($path);
+    if ($data === false) {
+        return false;
+    }
+
+    $unserializedArray = unserialize($data);
+
+    if (!is_array($unserializedArray)) {
+        return false;
+    }
+
+    return $unserializedArray;
 }
