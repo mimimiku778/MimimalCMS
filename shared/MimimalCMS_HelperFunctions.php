@@ -625,7 +625,7 @@ function stringToView(string $str): Shadow\Kernel\View
 function saveSerializedArrayToFile(string $filename, array $array): void
 {
     $data = serialize($array);
-    $path = __DIR__ . '/../../storage/' . $filename;
+    $path = __DIR__ . '/../storage/' . $filename;
 
     if (file_put_contents($path, $data) === false) {
         throw new \RuntimeException('Failed to save serialized array to file.');
@@ -636,11 +636,15 @@ function saveSerializedArrayToFile(string $filename, array $array): void
  * Retrieve and unserialize an array from a file.
  *
  * @param string $filename The name of the file to retrieve the array from.
- * @return array|false The unserialized array, or false if the file does not exist.
+ * @return array|false The unserialized array, or false if invalid file.
  */
 function getUnserializedArrayFromFile(string $filename): array|false
 {
-    $path = __DIR__ . '/../../storage/' . $filename;
+    $path = __DIR__ . '/../storage/' . $filename;
+
+    if (!file_exists($path)) {
+        return false;
+    }
 
     $data = file_get_contents($path);
     if ($data === false) {
@@ -664,8 +668,8 @@ function getUnserializedArrayFromFile(string $filename): array|false
  */
 function deleteStorageFile(string $filename): bool
 {
-    $path = __DIR__ . '/../../storage/' . $filename;
-    
+    $path = __DIR__ . '/../storage/' . $filename;
+
     if (!file_exists($path)) {
         return false;
     }
