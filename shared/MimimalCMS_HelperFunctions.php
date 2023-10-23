@@ -655,3 +655,22 @@ function getUnserializedArrayFromFile(string $filename): array|false
 
     return $unserializedArray;
 }
+
+/**
+ * Delete a file from the storage directory.
+ *
+ * @param string $filename The name of the file to be deleted.
+ * @return bool True if the file was successfully deleted, false if the file does not exist.
+ */
+function deleteStorageFile(string $filename): bool
+{
+    $path = __DIR__ . '/../../storage/' . $filename;
+    
+    if (!file_exists($path)) {
+        return false;
+    }
+
+    unlink($path);
+
+    return true;
+}
