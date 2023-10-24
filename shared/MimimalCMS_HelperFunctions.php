@@ -620,12 +620,13 @@ function stringToView(string $str): Shadow\Kernel\View
  *
  * @param string $filename The name of the file to save the serialized array to.
  * @param array $array The array to be serialized and saved.
+ * @param bool $fullPath [optional] Whether $filename is a full path. Default is false.
  * @throws \RuntimeException If there is an issue with file writing.
  */
-function saveSerializedArrayToFile(string $filename, array $array): void
+function saveSerializedArrayToFile(string $filename, array $array, bool $fullPath = false): void
 {
-    $data = serialize($array);
-    $path = __DIR__ . '/../storage/' . $filename;
+    $data = gzencode(serialize($array));
+    $path = $fullPath === false ? (__DIR__ . '/../storage/' . $filename) : $filename;
 
     if (file_put_contents($path, $data) === false) {
         throw new \RuntimeException('Failed to save serialized array to file.');
@@ -636,11 +637,12 @@ function saveSerializedArrayToFile(string $filename, array $array): void
  * Retrieve and unserialize an array from a file.
  *
  * @param string $filename The name of the file to retrieve the array from.
- * @return array|false The unserialized array, or false if invalid file.
+ * @param bool $fullPath [optional] Whether $filename is a full path. Default is false.
+ * @return array|false The unserialized array, or false if an invalid file or error occurs.
  */
-function getUnserializedArrayFromFile(string $filename): array|false
+function getUnserializedArrayFromFile(string $filename, bool $fullPath = false): array|false
 {
-    $path = __DIR__ . '/../storage/' . $filename;
+    $path = $fullPath === false ? (__DIR__ . '/../storage/' . $filename) : $filename;
 
     if (!file_exists($path)) {
         return false;
@@ -651,7 +653,7 @@ function getUnserializedArrayFromFile(string $filename): array|false
         return false;
     }
 
-    $unserializedArray = unserialize($data);
+    $unserializedArray = unserialize(gzdecode($data));
 
     if (!is_array($unserializedArray)) {
         return false;
@@ -664,11 +666,12 @@ function getUnserializedArrayFromFile(string $filename): array|false
  * Delete a file from the storage directory.
  *
  * @param string $filename The name of the file to be deleted.
+ * @param bool $fullPath [optional] Whether $filename is a full path. Default is false.
  * @return bool True if the file was successfully deleted, false if the file does not exist.
  */
-function deleteStorageFile(string $filename): bool
+function deleteStorageFile(string $filename, bool $fullPath = false): bool
 {
-    $path = __DIR__ . '/../storage/' . $filename;
+    $path = $fullPath === false ? (__DIR__ . '/../storage/' . $filename) : $filename;
 
     if (!file_exists($path)) {
         return false;
@@ -677,4 +680,29 @@ function deleteStorageFile(string $filename): bool
     unlink($path);
 
     return true;
+}
+
+/**
+ * Delete all files matching a specified pattern from the storage directory.
+ *
+ * @param string $path The relative path within the storage directory, or an empty string to target the root storage directory.
+ * @param bool $fullPath [optional] Whether $path is a full path. Default is false.
+ * @throws \LogicException If an attempt to delete the root directory is detected.
+ * @return void
+ */
+function deleteStorageFileAll(string $path, bool $fullPath = false): void
+{
+    if ($path === '') {
+        throw new \LogicException('An exception was thrown because deletion of the root directory was detected.');
+    }
+
+    if ($fullPath === false) {
+        $path = "/" . ltrim(rtrim($path, "/"), "/");
+        $path = __DIR__ . '/../storage' . $path . '/*.*';
+    } else {
+        $path = rtrim($path, "/");
+        $path = $path . '/*.*';
+    }
+
+    array_map('unlink', glob($path) ?: []);
 }
