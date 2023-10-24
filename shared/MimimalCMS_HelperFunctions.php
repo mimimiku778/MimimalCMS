@@ -708,12 +708,12 @@ function deleteStorageFileAll(string $path, bool $fullPath = false): void
 }
 
 /**
- * Get a list of files in the storage directory matching a specified pattern.
+ * Get a list of files and directories in the storage directory matching a specified pattern.
  *
  * @param string $path The relative path within the storage directory.
  * @param string $pattern [optional] The pattern to match. Default is '/*.*'.
  * @param bool $fullPath [optional] Whether $path is a full path. Default is false.
- * @return array An array of file names in the specified path that match the pattern.
+ * @return array An array of file and directory names in the specified path that match the pattern.
  */
 function getStorageFileList(string $path, string $pattern = '/*.*', bool $fullPath = false): array
 {
@@ -734,6 +734,9 @@ function getStorageFileList(string $path, string $pattern = '/*.*', bool $fullPa
             } else {
                 $result[] = str_replace($storagePath . "/", '', $value);
             }
+        } else {
+            $subDirectory = str_replace($storagePath . "/", '', $value);
+            $result[$subDirectory] = getStorageFileList($subDirectory, $pattern, $fullPath);
         }
     }
 
