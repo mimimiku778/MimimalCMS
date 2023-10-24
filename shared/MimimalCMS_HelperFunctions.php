@@ -706,3 +706,36 @@ function deleteStorageFileAll(string $path, bool $fullPath = false): void
 
     array_map('unlink', glob($path) ?: []);
 }
+
+/**
+ * Get a list of files in the storage directory matching a specified pattern.
+ *
+ * @param string $path The relative path within the storage directory.
+ * @param string $pattern [optional] The pattern to match. Default is '/*.*'.
+ * @param bool $fullPath [optional] Whether $path is a full path. Default is false.
+ * @return array An array of file names in the specified path that match the pattern.
+ */
+function getStorageFileList(string $path, string $pattern = '/*.*', bool $fullPath = false): array
+{
+    if (!$fullPath) {
+        $storagePath = __DIR__ . '/../storage';
+        $path = ($path !== '') ? "/" . ltrim($path, "/") : '';
+        $path = $storagePath . $path;
+    }
+
+    $listPath = $path . $pattern;
+    $list = glob($listPath);
+    $result = [];
+
+    foreach ($list as $value) {
+        if (is_file($value)) {
+            if ($fullPath) {
+                $result[] = $value;
+            } else {
+                $result[] = str_replace($storagePath . "/", '', $value);
+            }
+        }
+    }
+
+    return $result;
+}
