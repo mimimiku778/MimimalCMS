@@ -740,5 +740,7 @@ function getStorageFileList(string $path, string $pattern = '/*.*', bool $fullPa
         }
     }
 
+    natsort($result);
     return $result;
 }
+
