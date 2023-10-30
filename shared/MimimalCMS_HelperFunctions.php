@@ -602,7 +602,7 @@ function debug(...$vars)
 {
     foreach ($vars as $var) {
         echo "\n";
-        var_dump($var);
+        print_r(var_export($var));
     }
 
     echo "\n";
@@ -743,4 +743,3 @@ function getStorageFileList(string $path, string $pattern = '/*.*', bool $fullPa
     natsort($result);
     return $result;
 }
-
