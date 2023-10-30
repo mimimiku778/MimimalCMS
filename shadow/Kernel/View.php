@@ -27,7 +27,7 @@ class View implements ViewInterface
     public function set(string $viewTemplateFile, ?array $valuesArray = null): static
     {
         if (is_array($valuesArray)) {
-            if (array_values($valuesArray) === $valuesArray) {
+            if (array_is_list($valuesArray)) {
                 throw new \InvalidArgumentException('The passed array must be an associative array or an object.');
             }
 
