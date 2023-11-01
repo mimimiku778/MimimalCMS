@@ -628,8 +628,12 @@ function saveSerializedArrayToFile(string $filename, array $array, bool $fullPat
     $data = gzencode(serialize($array));
     $path = $fullPath === false ? (__DIR__ . '/../storage/' . $filename) : $filename;
 
-    if (file_put_contents($path, $data) === false) {
-        throw new \RuntimeException('Failed to save serialized array to file.');
+    try {
+        if (!file_put_contents($path, $data)) {
+            throw new \RuntimeException('Failed to save serialized array to file.');
+        }
+    } catch (\ErrorException $e) {
+        throw new \RuntimeException('Error while saving serialized array to file: ' . $e->getMessage());
     }
 }
 
@@ -742,4 +746,25 @@ function getStorageFileList(string $path, string $pattern = '/*.*', bool $fullPa
 
     natsort($result);
     return $result;
+}
+
+/**
+ * Create a directory if it does not exist.
+ *
+ * @param string $directory The directory path.
+ * @param int $permissions [optional] The mode, default is 0777 (widest possible access).
+ * @param bool $recursive [optional] Allow creating nested directories, default is true.
+ * @throws \RuntimeException If there is an issue with directory creation.
+ */
+function mkdirIfNotExists(string $directory, int $permissions = 0777, bool $recursive = true): void
+{
+    try {
+        if (!is_dir($directory)) {
+            if (!mkdir($directory, $permissions, $recursive) && !is_dir($directory)) {
+                throw new \RuntimeException('Failed to create directory.');
+            }
+        }
+    } catch (\ErrorException $e) {
+        throw new \RuntimeException('Error while creating directory: ' . $e->getMessage());
+    }
 }
