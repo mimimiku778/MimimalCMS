@@ -51,13 +51,15 @@ class Validator implements ValidatorInterface
                 $normalizedStr = \Normalizer::normalize($input, \Normalizer::FORM_KC);
             }
 
-            $replaceStr = preg_replace(ValidatorInterface::ZERO_WHITE_SPACE, '', $normalizedStr);
+            if (is_string($normalizedStr)) {
+                $replaceStr = preg_replace(ValidatorInterface::ZERO_WHITE_SPACE, '', $normalizedStr);
 
-            if ($replaceStr === null || empty(trim($replaceStr))) {
-                if ($e === null) return false;
-                $errorCode = 1003;
-                $errorMessage = 'The input string contains only whitespace characters or an empty string.';
-                throw new $e($errorMessage, $errorCode);
+                if ($replaceStr === null || empty(trim($replaceStr))) {
+                    if ($e === null) return false;
+                    $errorCode = 1003;
+                    $errorMessage = 'The input string contains only whitespace characters or an empty string.';
+                    throw new $e($errorMessage, $errorCode);
+                }
             }
         }
 
