@@ -19,7 +19,7 @@ class DB implements DBInterface
     /**
      * @throws \PDOException
      */
-    public static function connect()
+    public static function connect(): \PDO
     {
         self::$pdo = new \PDO(
             'mysql:host=' . DatabaseConfig::HOST . ';dbname=' . DatabaseConfig::DB_NAME . ';charset=utf8mb4',
@@ -30,6 +30,17 @@ class DB implements DBInterface
 
         // Enable \PDO to throw exceptions on error.
         self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+        return self::$pdo;
+    }
+
+    public static function prepare(string $query, array $options = []): \PDOStatement|false
+    {
+        if (self::$pdo === null) {
+            self::connect();
+        }
+
+        return self::$pdo->prepare($query, $options);
     }
 
     public static function execute(string $query, ?array $params = null): \PDOStatement
@@ -108,21 +119,6 @@ class DB implements DBInterface
         return self::execute($query, $params)->fetchColumn();
     }
 
-    /**
-     *　Executes an SQL query and returns the ID of the last inserted row or sequence value.
-     * 
-     * @param string $query The SQL query to execute.
-     * * *Example:* `'INSERT INTO user (name) SELECT :name'`
-     * 
-     * @param array|null $params [optional] An associative array of query parameters.
-     * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
-     * * *Example:* `['name' => 'mimikyu']`
-     * 
-     * @return int Returns the row ID of the last row that was inserted into the database.
-     * 
-     * @throws \PDOException If an error occurs during the query execution.
-     * @throws \InvalidArgumentException If any of the array values are not strings, numbers or bool.
-     */
     public static function executeAndGetLastInsertId(string $query, ?array $params = null): int
     {
         if (self::$pdo === null) {
@@ -133,21 +129,6 @@ class DB implements DBInterface
         return (int) self::$pdo->lastInsertId();
     }
 
-    /**
-     * Executes an SQL UPDATE query and checks if any rows were affected.
-     * 
-     * @param string $query The SQL UPDATE query to execute.
-     * * *Example:* `'UPDATE users SET status = :newStatus WHERE id = :userId'`
-     * 
-     * @param array|null $params [optional] An associative array of query parameters.
-     * \InvalidArgumentException will be thrown if any of the array values are not strings, numbers, or bool.
-     * * *Example:* `['newStatus' => 'active', 'userId' => 123]`
-     * 
-     * @return bool Returns `true` if any rows were affected by the UPDATE query, `false` otherwise.
-     * 
-     * @throws \PDOException If an error occurs during the query execution.
-     * @throws \InvalidArgumentException If any of the array values are not strings, numbers, or bool.
-     */
     public static function executeAndCheckResult(string $query, ?array $params = null): bool
     {
         if (self::$pdo === null) {
@@ -157,41 +138,6 @@ class DB implements DBInterface
         return self::execute($query, $params)->rowCount() > 0;
     }
 
-    /**
-     * Executes a LIKE search query and returns a \PDOStatement object with bound values.
-     * 
-     * @param callable $query A function that returns a string representing the SQL query. 
-     * * *Example:* `fn (string $where): string => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
-     * 
-     * @param callable $whereClauseQuery A function that returns a string representing the WHERE clause.
-     * * *Example:* `fn (int $i): string => "(title LIKE :keyword{$i} OR text LIKE :keyword{$i})"`
-     * 
-     * @param string $keyword The keyword(s) to search for.
-     * \InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
-     * * *Example:* `'Split keywords by whitespace and search with LIKE'`
-     * 
-     * @param array|null $params [optional] An associative array of query parameters.
-     * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
-     * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
-     * 
-     * @param string $whereClausePlaceholder [optional] Placeholder for keyword in WHERE clause.
-     * * *Example:* `'keyword'`
-     * 
-     * @param array|null $affix [optional] An array containing prefix and suffix strings for keywords.
-     * * *Example:* `['%', '%']`
-     * 
-     * @param int $fetchAllMode [optional] PDO fetch mode.
-     * * *Example:* `\PDO::FETCH_FUNC`
-     * 
-     * @param array $fetchAllArgs [optional] Additional arguments for fetchAll method.
-     * * *Example:* `[$callback]`
-     * 
-     * @return array An empty array is returned if there are zero results to search.
-     * 
-     * @throws \PDOException If an error occurs during the query execution.
-     * @throws \LogicException If any of the given callbacks are invalid.
-     * @throws \InvalidArgumentException If any of the parameter values are invalid or the given callbacks are invalid.
-     */
     public static function executeLikeSearchQuery(
         callable $query,
         callable $whereClauseQuery,
@@ -258,7 +204,7 @@ class DB implements DBInterface
      * @param string $char The escape character to use (defaults to backslash).
      * @return string The escaped string.
      */
-    public static function escapeLike(string $value, string $char = '\\'): string
+    protected static function escapeLike(string $value, string $char = '\\'): string
     {
         $search  = [$char, '%', '_'];
         $replace = [$char . $char, $char . '%', $char . '_'];
@@ -266,29 +212,6 @@ class DB implements DBInterface
         return str_replace($search, $replace, $value);
     }
 
-    /**
-     * Executes a full-text search query and returns the result as an array.
-     *
-     * @param callable $query A function that returns a string representing the SQL query. 
-     * * *Example:* `fn (string $where): string => "SELECT * FROM table {$where} AND category = :category LIMIT :offset, :limit"`
-     * 
-     * @param string $whereClauseQuery The SQL query with a placeholder for the search keyword.
-     * * *Example:* `'WHERE MATCH(title, text) AGAINST(:search IN BOOLEAN MODE)'`
-     * 
-     * @param string $keyword The search keyword to be used in the full-text search query.
-     * \InvalidArgumentException will be thrown if the string is empty or only contains whitespace characters.
-     * * *Example:* `'Splits keywords by whitespace'`
-     * 
-     * @param array|null $params [optional] An associative array of query parameters.
-     * \InvalidArgumentException will be thrown if any of the array values are not strings or numbers.
-     * * *Example:* `['category' => 'foods', 'limit' => 20, 'offset' => 60]`
-     * 
-     * @return array An array of rows returned by the query. An empty array is returned if there are no results to search.
-     * 
-     * @throws \PDOException If an error occurs during the query execution.
-     * @throws \LogicException If any of the given callbacks are invalid.
-     * @throws \InvalidArgumentException If the search keyword is empty or the WHERE clause query has an invalid placeholder.
-     */
     public static function executeFulltextSearchQuery(
         callable $query,
         string $whereClauseQuery,
