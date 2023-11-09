@@ -21,7 +21,7 @@ class DB implements DBInterface
      */
     public static function connect(): \PDO
     {
-        self::$pdo = new \PDO(
+        static::$pdo = new \PDO(
             'mysql:host=' . DatabaseConfig::HOST . ';dbname=' . DatabaseConfig::DB_NAME . ';charset=utf8mb4',
             DatabaseConfig::USER_NAME,
             DatabaseConfig::PASSWORD,
@@ -29,27 +29,27 @@ class DB implements DBInterface
         );
 
         // Enable \PDO to throw exceptions on error.
-        self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        static::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-        return self::$pdo;
+        return static::$pdo;
     }
 
     public static function prepare(string $query, array $options = []): \PDOStatement|false
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        return self::$pdo->prepare($query, $options);
+        return static::$pdo->prepare($query, $options);
     }
 
     public static function execute(string $query, ?array $params = null): \PDOStatement
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        $stmt = self::$pdo->prepare($query);
+        $stmt = static::$pdo->prepare($query);
 
         if ($params === null) {
             $stmt->execute();
@@ -77,65 +77,65 @@ class DB implements DBInterface
 
     public static function transaction(callable $callback): mixed
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
         try {
-            self::$pdo->beginTransaction();
-            $result = $callback(self::$pdo);
-            self::$pdo->commit();
+            static::$pdo->beginTransaction();
+            $result = $callback(static::$pdo);
+            static::$pdo->commit();
             return $result;
         } catch (\Throwable $e) {
-            self::$pdo->rollBack();
+            static::$pdo->rollBack();
             throw $e;
         }
     }
 
     public static function fetch(string $query, ?array $params = null): array|false
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        return self::execute($query, $params)->fetch(\PDO::FETCH_ASSOC);
+        return static::execute($query, $params)->fetch(\PDO::FETCH_ASSOC);
     }
 
     public static function fetchAll(string $query, ?array $params = null): array
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        return self::execute($query, $params)->fetchAll(\PDO::FETCH_ASSOC);
+        return static::execute($query, $params)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public static function fetchColumn(string $query, ?array $params = null): mixed
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        return self::execute($query, $params)->fetchColumn();
+        return static::execute($query, $params)->fetchColumn();
     }
 
     public static function executeAndGetLastInsertId(string $query, ?array $params = null): int
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        self::execute($query, $params);
-        return (int) self::$pdo->lastInsertId();
+        static::execute($query, $params);
+        return (int) static::$pdo->lastInsertId();
     }
 
     public static function executeAndCheckResult(string $query, ?array $params = null): bool
     {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        return self::execute($query, $params)->rowCount() > 0;
+        return static::execute($query, $params)->rowCount() > 0;
     }
 
     public static function executeLikeSearchQuery(
@@ -148,11 +148,11 @@ class DB implements DBInterface
         array $fetchAllArgs = [],
         string $whereClausePlaceholder = 'keyword',
     ): array {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
-        $convertedKeyword = self::escapeLike(
+        $convertedKeyword = static::escapeLike(
             preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'))
         );
 
@@ -170,7 +170,7 @@ class DB implements DBInterface
             throw new \LogicException('Query callback must return a string');
         }
 
-        $stmt = self::$pdo->prepare($queryResult);
+        $stmt = static::$pdo->prepare($queryResult);
 
         foreach ($splitKeywords as $i => $word) {
             $word = ($affix[0] ?? '') . $word . ($affix[1] ?? '');
@@ -218,8 +218,8 @@ class DB implements DBInterface
         string $keyword,
         ?array $params = null
     ): array {
-        if (self::$pdo === null) {
-            self::connect();
+        if (static::$pdo === null) {
+            static::connect();
         }
 
         $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
@@ -253,6 +253,6 @@ class DB implements DBInterface
             throw new \LogicException('Query callback must return a string');
         }
 
-        return self::fetchAll($queryResult, $params);
+        return static::fetchAll($queryResult, $params);
     }
 }
