@@ -23,12 +23,12 @@ RewriteRule ^ / [R=301,L]
 
 # Route all requests to public folder
 RewriteCond %{REQUEST_URI} !^/public/
-RewriteRule ^(.*)$ /public/$1 [L]
+RewriteRule ^(.*)$ /public/$1 [QSA,L]
 
 # Route requests to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /public/index.php/$1 [L]
+RewriteRule ^(.*)$ /public/index.php/$1 [QSA,L]
 
 <IfModule mod_expires.c>
 ExpiresActive On

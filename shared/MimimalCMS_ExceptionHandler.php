@@ -1,15 +1,15 @@
 <?php
 
+namespace ExceptionHandler;
+
+use Throwable;
+
 /**
- * MimimalCMS 0.1
+ * MimimalCMS0.1
  * 
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
-
-namespace ExceptionHandler;
-
-use Throwable;
 
 /**
  * Registers ExceptionHandler::handleException() as the global exception handler.
@@ -130,6 +130,10 @@ class ExceptionHandler
             $message = '';
         }
 
+        if (ob_get_length() === false || !isset($_SERVER['REQUEST_URI'])) {
+            print_r($e->__toString());
+            return;
+        }
 
         // Set the HTTP response code
         http_response_code($httpCode);
@@ -152,11 +156,6 @@ class ExceptionHandler
         // If the request is not JSON, prepare the error message for display
         $detailsMessage = $showErrorTraceFlag ? (get_class($e) . ": " . self::getDetailsMessage($e)) : $message;
         $detailsMessage = htmlspecialchars($detailsMessage, ENT_QUOTES, 'UTF-8');
-
-        if (ob_get_length() === false) {
-            print_r($e->__toString());
-            return;
-        }
 
         // If the error page can be displayed, show it
         if (!self::showErrorPage($httpCode, $httpStatusMessage, $detailsMessage)) {

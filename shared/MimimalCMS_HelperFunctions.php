@@ -768,3 +768,24 @@ function mkdirIfNotExists(string $directory, int $permissions = 0777, bool $recu
         throw new \RuntimeException('Error while creating directory: ' . $e->getMessage());
     }
 }
+
+/**
+ * Get files with a specific extension from a directory.
+ *
+ * @param string $dir The directory path.
+ * @param string $ext The target file extension.
+ * @return \CallbackFilterIterator|\SplFileInfo[] Filtered iterator containing matching files.
+ */
+function getFilesWithExtension(string $dir, string $ext): \CallbackFilterIterator
+{
+    // Create a recursive iterator
+    $iter = new \RecursiveDirectoryIterator($dir);
+
+    // Narrow it down to leaf nodes
+    $iter = new \RecursiveIteratorIterator($iter);
+
+    // Filter files by extension using arrow function
+    $filter = fn (\SplFileInfo $file) => !$file->isDir() && $file->getExtension() === $ext;
+
+    return new \CallbackFilterIterator($iter, $filter);
+}

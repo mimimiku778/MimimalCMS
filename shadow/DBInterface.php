@@ -89,6 +89,8 @@ interface DBInterface
      */
     public static function fetchAll(string $query, ?array $params = null): array;
 
+    public static function fetchColumn(string $query, ?array $params = null): mixed;
+
     /**
      *　Executes an SQL query and returns the ID of the last inserted row or sequence value.
      * 
