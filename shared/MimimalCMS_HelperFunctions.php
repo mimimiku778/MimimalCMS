@@ -262,6 +262,7 @@ function getIP(): string
     }
 
     $headers = [
+        'HTTP_CF_CONNECTING_IP',
         'HTTP_SP_HOST',
         'HTTP_VIA',
         'HTTP_CLIENT_IP',

@@ -55,7 +55,7 @@ class ActiveRecord extends \stdClass implements ActiveRecordInterface
      *
      * @param array $data      An associative array of property values.
      */
-    private function setValuesFromAssocArray(array $data): void
+    protected function setValuesFromAssocArray(array $data): void
     {
         foreach ($data as $propertyName => $propertyValue) {
             if ($propertyValue === null) {
@@ -69,18 +69,84 @@ class ActiveRecord extends \stdClass implements ActiveRecordInterface
     public function insert(?string $tableName = null): int
     {
         $params = get_object_vars($this);
-        $query = $this->insertQueryBuilder($tableName ?? getClassSimpleName($this::class), $params);
+        $query = $this->buildInsertQuery($tableName ?? getClassSimpleName($this::class), $params);
 
         return DB::executeAndGetLastInsertId($query, $params);
     }
 
-    private function insertQueryBuilder(string $tableName, array $params): string
+    protected function buildInsertQuery(string $tableName, array $params): string
     {
-        $columns = implode(', ', array_keys($params));
-        $placeholders = ':' . implode(', :', array_keys($params));
+        $keys = array_keys($params);
+        $columns = implode(',', $keys);
+        $placeholders = ':' . implode(', :', $keys);
 
         $query = "INSERT INTO {$tableName} ({$columns}) VALUES ({$placeholders})";
 
         return $query;
+    }
+
+    public function insertUpdate(?string $tableName = null): int
+    {
+        $params = get_object_vars($this);
+        $query = $this->buildInsertUpdateQuery($tableName ?? getClassSimpleName($this::class), $params);
+
+        return DB::executeAndGetLastInsertId($query, $params);
+    }
+
+    /**
+     * Builds the query for inserting or updating a record in the specified table.
+     *
+     * @param string $tableName The name of the table.
+     * @param array $params The associative array of column names and values.
+     * @return string The constructed SQL query.
+     */
+    protected function buildInsertUpdateQuery(string $tableName, array $params): string
+    {
+        $keys = array_keys($params);
+        $columns = implode(',', $keys);
+        $placeholders = ':' . implode(',:', $keys);
+
+        $updateStatments = implode(',', array_map(fn ($column) => "{$column} = VALUES({$column})", $keys));
+
+        return "INSERT INTO {$tableName} ({$columns}) VALUES ({$placeholders}) ON DUPLICATE KEY UPDATE {$updateStatments}";
+    }
+
+    public function update(array|string $where, ?string $tableName = null): int
+    {
+        [$query, $params] = $this->buildUpdateQuery($tableName ?? getClassSimpleName($this::class), get_object_vars($this), $where);
+
+        return DB::executeAndGetLastInsertId($query, $params);
+    }
+
+    /**
+     * Builds the query for updating a record in the specified table based on the given WHERE clause.
+     *
+     * @param string $tableName The name of the table.
+     * @param array $params The associative array of column names and values to be updated.
+     * @param array|string $where The WHERE clause to identify the record to be updated. If an array, it should be associative.
+     * 
+     * @return array An array containing the constructed SQL query and the corresponding parameters.
+     */
+    protected function buildUpdateQuery(string $tableName, array $params, array|string $where): array
+    {
+        $keys = array_keys($params);
+        $updateStatements = implode(',', array_map(fn ($column) => "{$column} = :{$column}", $keys));
+
+        if (is_array($where)) {
+            if (array_is_list($where)) {
+                throw new \LogicException('Where clause argument requires an associative array');
+            }
+
+            $result = [];
+            foreach (array_keys($where) as $i => $key) {
+                $placeholder = "whereClausePlaceholder{$i}";
+                $params[$placeholder] = $where[$key];
+                $result[] = "{$key} = :{$placeholder}";
+            }
+
+            $where = implode('AND', $result);
+        }
+
+        return ["UPDATE {$tableName} SET {$updateStatements} WHERE {$where}", $params];
     }
 }

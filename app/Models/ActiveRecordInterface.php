@@ -54,6 +54,8 @@ interface ActiveRecordInterface
      * @param array|null $params [optional] The query parameters.
      *
      * @return bool True if a record is found; false otherwise.
+     * 
+     * @throws \PDOException If an error occurs during the query execution.
      */
     public function find(string $query, ?array $params = null): bool;
 
@@ -63,6 +65,32 @@ interface ActiveRecordInterface
      * @param ?string [optional] $tableName The name of the table. If null, uses the name of the class.
      * 
      * @return int The last inserted ID.
+     * 
+     * @throws \PDOException If an error occurs during the query execution.
      */
     public function insert(?string $tableName = null): int;
+
+    /**
+     * Inserts or updates a record in the specified table.
+     *
+     * @param string|null $tableName The name of the table. If null, the simple class name of the current instance is used.
+     * 
+     * @return int The last inserted ID after executing the query.
+     * 
+     * @throws \PDOException If an error occurs during the query execution.
+     */
+    public function insertUpdate(?string $tableName = null): int;
+
+    /**
+     * Updates a record in the specified table based on the given WHERE clause.
+     *
+     * @param array|string $where The WHERE clause to identify the record to be updated. If an array, it should be associative.
+     * @param string|null $tableName The name of the table. If null, the simple class name of the current instance is used.
+     * 
+     * @return int The last inserted ID after executing the query.
+     * 
+     * @throws \LogicException When the WHERE clause argument is not an associative array.
+     * @throws \PDOException If an error occurs during the query execution.
+     */
+    public function update(array|string $where, ?string $tableName = null): int;
 }
