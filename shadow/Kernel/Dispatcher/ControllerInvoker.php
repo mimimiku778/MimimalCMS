@@ -15,13 +15,14 @@ class ControllerInvoker extends AbstractInvoker implements ClassInvokerInterface
 {
     public function invoke(RouteDTO $routeDto)
     {
+        $contloller = $this->ci->constructorInjection($routeDto->controllerClassName);
+        
         try {
             $contlollerMethodArgs = $this->getMethodArgs($routeDto->controllerClassName, $routeDto->methodName);
         } catch (\BadMethodCallException $e) {
             throw new NotFoundException($e->getMessage());
         }
 
-        $contloller = $this->ci->constructorInjection($routeDto->controllerClassName);
         $routeDto->contlollerResponse = $contloller->{$routeDto->methodName}(...$contlollerMethodArgs);
     }
 }
