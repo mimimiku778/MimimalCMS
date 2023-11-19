@@ -12,12 +12,12 @@ class Response implements ResponseInterface
 {
     protected int $responseCode;
     protected ?string $url;
-    protected ?array $jsonData;
+    protected mixed $jsonData;
     protected array $flashSession = [];
     protected ?array $errorArray = null;
     protected ?array $withInputExceptArray = null;
 
-    public function __construct(int $responseCode, ?string $url = null, ?array $jsonData = null)
+    public function __construct(int $responseCode, ?string $url = null, mixed $jsonData = null)
     {
         $this->responseCode = $responseCode;
         $this->url = $url;

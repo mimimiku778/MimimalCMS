@@ -46,12 +46,12 @@ function view(?string $viewTemplateFile = null, ?array $valuesArray = null): \Sh
 /**
  * Returns HTTP status code and response in JSON format.
  *
- * @param array $data        The array to be returned as response.
+ * @param mixed $data        Value to be returned as response.
  * @param ?int $responseCode [optional] HTTP status code
  * 
  * @return \Shadow\Kernel\Response
  */
-function response(array $data, int $responseCode = 200): \Shadow\Kernel\Response
+function response(mixed $data, int $responseCode = 200): \Shadow\Kernel\Response
 {
     return new \Shadow\Kernel\Response($responseCode, jsonData: $data);
 }
