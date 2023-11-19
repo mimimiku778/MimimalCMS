@@ -60,7 +60,7 @@ class Routing implements RoutingInterface
     protected function getDynamicControllerName()
     {
         // Set default controller name
-        if ($this->routeDto->requestMethod !== 'GET' || $this->routeDto->isJson) {
+        if ($this->routeDto->requestMethod !== 'GET') {
             $controllerSuffix = RoutingInterface::API_CONTROLLER_SUFFIX;
             $controllerDir =    RoutingInterface::API_CONTROLLER_DIR;
         } else {

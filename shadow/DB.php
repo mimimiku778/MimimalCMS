@@ -22,7 +22,7 @@ class DB implements DBInterface
         if (static::$pdo !== null) {
             return static::$pdo;
         }
-        
+
         static::$pdo = new \PDO(
             'mysql:host=' . $configClass::HOST . ';dbname=' . $configClass::DB_NAME . ';charset=utf8mb4',
             $configClass::USER_NAME,
@@ -238,15 +238,17 @@ class DB implements DBInterface
 
         $params[$whereClausePlaceholder] = '';
         foreach (explode(' ', $convertedKeyword) as $i => $word) {
+            /* 
             if (mb_strlen($word) < 2) {
                 $word .= '*';
-            }
+            } 
+            */
 
             if ($i > 0) {
                 $params[$whereClausePlaceholder] .= ' ';
             }
 
-            $params[$whereClausePlaceholder] .= '+' . $word;
+            $params[$whereClausePlaceholder] .= '+' . static::escapeFullTextSearch($word);
         }
 
         $queryResult = $query($whereClauseQuery);
@@ -256,5 +258,26 @@ class DB implements DBInterface
         }
 
         return static::fetchAll($queryResult, $params);
+    }
+
+    /**
+     * Escape a string for use in a MySQL full-text search query.
+     *
+     * MySQL full-text search requires specific characters to be escaped for safe usage in queries.
+     * This function provides a basic example, and the actual escape requirements may vary depending
+     * on the specific use case and requirements.
+     *
+     * @param string $input The input string to be escaped for full-text search.
+     * @return string The escaped input string ready for use in a MySQL full-text search query.
+     */
+    private static function escapeFullTextSearch($input)
+    {
+        // Escape specific characters for MySQL full-text search
+        $escapedInput = str_replace(['+', '-', '<', '>', '(', ')', '~', '*', '"', '@'], ['\+', '\-', '\<', '\>', '\(', '\)', '\~', '\*', '\"', '\@'], $input);
+
+        // Enclose AND, OR, NOT, etc., in backticks to allow their use in the search expression
+        $escapedInput = preg_replace('/\b(AND|OR|NOT)\b/', '`$1`', $escapedInput);
+
+        return $escapedInput;
     }
 }

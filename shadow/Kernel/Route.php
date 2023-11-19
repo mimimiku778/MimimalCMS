@@ -51,7 +51,6 @@ class Route extends AbstractRoute implements RouteInterface
         $instance->routeDto->kernelMiddlewareArray = $middlewareName;
 
         (new Kernel)->handle($instance->routeDto);
-        exit;
     }
 
     public static function middlewareGroup(string ...$name): RouteMiddlewareGroupInterface

@@ -25,12 +25,18 @@ class Kernel
     {
         $this->routeDto = $routeDto;
         $this->parseRequest();
-        $this->routing();
-        $this->validateRequest();
-        $this->callMiddleware();
-        $this->callRouteCallback();
-        $this->callController();
-        $this->handleResponse();
+
+        if($this->routing()) {
+            $this->validateRequest();
+            $this->callMiddleware();
+            $this->callRouteCallback();
+            $this->callController();
+            $this->handleResponse();
+        } else {
+            $this->validateRequest();
+            $this->callMiddleware();
+            $this->callRouteCallback();
+        }
     }
 
     /**
@@ -48,26 +54,25 @@ class Kernel
      * @throws NotFoundException
      * @throws MethodNotAllowedException
      */
-    protected function routing()
+    protected function routing(): bool
     {
         $routing = new Routing;
         $routing->setRouteDto($this->routeDto);
 
+        $result = true;
         try {
             $routing->resolveController();
         } catch (NotFoundException $e) {
-            if (!$this->routeDto->isDefinedRoute()) {
-                throw $e;
+            if ($this->routeDto->isDefinedRoute()) {
+                $result = false;
             }
 
-            $routing->validateAllowedMethods();
-            $this->validateRequest();
-            $this->callMiddleware();
-            $this->callRouteCallback();
-            exit;
+            throw $e;
         }
 
         $routing->validateAllowedMethods();
+        
+        return $result;
     }
 
     /**
