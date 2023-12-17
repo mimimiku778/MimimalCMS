@@ -38,10 +38,20 @@ class Validator implements ValidatorInterface
         }
 
         if (is_array($regex)) {
+            $pattern = '';
+            $isFirstElement = true;
             foreach ($regex as $r) {
-                if (!self::preg_match($r, $input, $e)) {
-                    return false;
+                if ($isFirstElement) {
+                    $isFirstElement = false;
+                } else {
+                    $pattern .= '|';
                 }
+
+                $pattern .= preg_quote((string)$r, '/');
+            }
+
+            if (!self::preg_match("/^(" . $pattern  . ")$/", $input, $e)) {
+                return false;
             }
         }
 
@@ -54,7 +64,7 @@ class Validator implements ValidatorInterface
             if (is_string($normalizedStr)) {
                 $replaceStr = preg_replace(ValidatorInterface::ZERO_WHITE_SPACE, '', $normalizedStr);
 
-                if ($replaceStr === null || empty(trim($replaceStr))) {
+                if ($replaceStr === null || trim($replaceStr) === '') {
                     if ($e === null) return false;
                     $errorCode = 1003;
                     $errorMessage = 'The input string contains only whitespace characters or an empty string.';

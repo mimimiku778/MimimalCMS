@@ -103,6 +103,19 @@ class ExceptionHandler
     private static function response500(\Throwable $e, bool $log = true)
     {
         self::errorResponse($e, 'please try again later', 500, $log, 'Internal Server Error😥');
+
+        $adminToolClass = \App\Services\Admin\AdminTool::class;
+        $adminAuthServiceClass = \App\Services\Admin\AdminAuthService::class;
+        if (class_exists($adminToolClass) && class_exists($adminAuthServiceClass)) {
+            try {
+                $adminAuthService = app($adminAuthServiceClass);
+                if (!$adminAuthService->auth()) {
+                    $adminToolClass::sendLineNofity($e->__toString() . "\nIP: " . getIp() . "\nUA: " . getUA());
+                }
+            } catch (\Throwable $exception) {
+                self::errorLog($exception);
+            }
+        }
     }
 
     /**
@@ -260,6 +273,11 @@ class ExceptionHandler
 
     private static function isJsonRequest(): bool
     {
+        $reception = \Shadow\Kernel\Reception::class;
+        if (class_exists($reception) && $reception::$isJson) {
+            return true;
+        }
+
         return strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
     }
 }
