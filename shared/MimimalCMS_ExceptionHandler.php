@@ -103,19 +103,6 @@ class ExceptionHandler
     private static function response500(\Throwable $e, bool $log = true)
     {
         self::errorResponse($e, 'please try again later', 500, $log, 'Internal Server Error😥');
-
-        $adminToolClass = \App\Services\Admin\AdminTool::class;
-        $adminAuthServiceClass = \App\Services\Admin\AdminAuthService::class;
-        if (class_exists($adminToolClass) && class_exists($adminAuthServiceClass)) {
-            try {
-                $adminAuthService = app($adminAuthServiceClass);
-                if (!$adminAuthService->auth()) {
-                    $adminToolClass::sendLineNofity($e->__toString() . "\nIP: " . getIp() . "\nUA: " . getUA());
-                }
-            } catch (\Throwable $exception) {
-                self::errorLog($exception);
-            }
-        }
     }
 
     /**
@@ -143,7 +130,7 @@ class ExceptionHandler
             $message = '';
         }
 
-        if (ob_get_length() === false || !isset($_SERVER['REQUEST_URI'])) {
+        if (!isset($_SERVER['REQUEST_URI'])) {
             print_r($e->__toString());
             return;
         }
