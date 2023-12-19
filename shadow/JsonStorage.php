@@ -12,21 +12,14 @@ namespace Shadow;
  */
 class JsonStorage implements JsonStorageInterface
 {
-    /** @var array Holds the JSON data. */
-    public array $array;
     public string $filePath;
+    public object $instance;
     public string $className;
-    public ?object $instance;
 
-    public function init(string|object $class, ?string $jsonFilePath = null): JsonStorageInterface
+    public function __construct(object $instance, ?string $jsonFilePath = null)
     {
-        if (is_object($class)) {
-            $this->instance = $class;
-            $this->className = get_class($class);
-        } else {
-            $this->instance = null;
-            $this->className = $class;
-        }
+        $this->instance = $instance;
+        $this->className = get_class($instance);
 
         if ($this->className === \App\Config\ConfigJson::class) {
             $jsonFilePath = CONFIG_JSON_FILE_PATH;
@@ -39,72 +32,48 @@ class JsonStorage implements JsonStorageInterface
             $this->filePath = $jsonFilePath;
         }
 
+        $this->mapToInstanceFromArray($this->loadJsonFile());
+    }
+
+    protected function loadJsonFile(): array
+    {
         if (!file_exists($this->filePath)) {
             throw new \RuntimeException('JSON file does not exist: ' . $this->filePath);
         }
 
         $jsonData = file_get_contents($this->filePath);
 
-        $this->array = json_decode($jsonData, true);
-        if ($this->array === null && json_last_error() !== JSON_ERROR_NONE) {
+        $array = json_decode($jsonData, true);
+        if (!is_array($array)) {
+            throw new \RuntimeException('Failed to load JSON file: JSON is not an object ' . $this->filePath);
+        }
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \RuntimeException('Failed to load JSON file: ' . $this->filePath);
         }
 
-        return $this;
+        return $array;
     }
 
-    public function copyPropertiesToObject(?object $object = null): object
+    /**
+     * Map properties from the storage array to the class's instance.
+     */
+    protected function mapToInstanceFromArray(array $array): void
     {
-        if ($this->instance !== null) {
-            $object = $object ?? $this->instance;
-        } else {
-            $object = $object ?? new $this->className;
-        }
-
-        $isStdClass = $object instanceof \stdClass;
-        foreach ($this->array as $key => $value) {
-            if (!$isStdClass && !property_exists($object, $key)) {
-                continue;
-            }
-
-            $object->$key = $value;
-        }
-
-        return $object;
-    }
-
-    public function updateJsonFileFromObject(object|array|null $values = null): void
-    {
-        if ($values === null) {
-            if (!isset($this->instance)) {
-                throw new \RuntimeException('No object specified to update');
-            }
-
-            $values = $this->instance;
-        }
-
-        $array = $this->array;
         $isStdClass = in_array('stdClass', class_parents($this->className));
-
-        foreach ($values as $key => $value) {
-            if (!$isStdClass && !isset($array[$key])) {
-                continue;
+        
+        foreach ($array as $key => $value) {
+            if (!$isStdClass && !property_exists($this->instance, $key)) {
+                new \RuntimeException("Property '{$key}' does not exist on '{$this->className}': " . $this->filePath);
             }
 
-            $array[$key] = $value;
+            $this->instance->$key = $value;
         }
-
-        $this->overwriteJsonFile($array);
     }
 
-    public function rollbackJsonFile(): void
+    public function updateJsonFile(): void
     {
-        $this->overwriteJsonFile($this->array);
-    }
-
-    public function overwriteJsonFile(array $array): void
-    {
-        $json = json_encode($array);
+        $json = json_encode($this->instance);
         if ($json === false) {
             throw new \RuntimeException('Failed to encode JSON data.');
         }
@@ -113,11 +82,11 @@ class JsonStorage implements JsonStorageInterface
     }
 
     /**
-     * Write to a text file with exclusive lock and optional new content.
+     * Writes text to a file with an exclusive lock, ensuring atomicity of the write operation.
      *
-     * @param string $filePath The path of the file to read or write.
-     * @param string $newContent The new content to write.
-     * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.
+     * @param string $filePath The path to the file that needs to be written to.
+     * @param string $newContent The content to be written to the file.
+     * @throws \RuntimeException If the file cannot be opened, or the lock cannot be acquired.
      */
     protected function writeTextFileWithExclusiveLock(string $filePath, string $newContent): void
     {

@@ -3,55 +3,34 @@
 namespace Shadow;
 
 /**
+ * Abstract base class providing mechanisms to associate objects with JSON storage persistence.
+ * It leverages a JsonStorage instance to synchronize object properties with a JSON file.
+ * 
  * @author mimimiku778 <0203.sub@gmail.com>
  * @license https://github.com/mimimiku778/MimimalCMS/blob/master/LICENSE.md
  */
 abstract class AbstoractJsonStorageObject extends \stdClass
 {
-    protected JsonStorage $jsonStorageInstance;
+    /**
+     * @var JsonStorageInterface Reference to the JsonStorage instance for handling JSON data operations.
+     */
+    protected JsonStorageInterface $jsonStorageInstance;
 
+    /**
+     * Constructor initializes the JsonStorage instance and copies properties from the corresponding JSON file into this object.
+     */
     public function __construct()
     {
-        $this->jsonStorageInstance = new JsonStorage;
-
-        $this->jsonStorageInstance
-            ->init($this)
-            ->copyPropertiesToObject();
+        $this->jsonStorageInstance = new JsonStorage($this);
     }
 
     /**
-     * Updates the JSON file with the values of this object, array, or `null`.
+     * Updates the JSON file with the values from the class properties.
      *
-     * @param array|null $values The values to update the JSON file with. If `null`, the values of this instance are used.
-     *
-     * @throws \RuntimeException If encoding the array to JSON fails or there is an error opening the file or acquiring an exclusive lock.
+     * @throws \RuntimeException If there is a failure to write the data.
      */
-    public function updateJsonFile(?array $values = null)
+    public function update()
     {
-        $this->jsonStorageInstance
-            ->updateJsonFileFromObject($values);
-    }
-
-    /**
-     * Overwrites the JSON file with the provided array.
-     *
-     * @param array $array The array to write to the JSON file.
-     * @throws \RuntimeException If encoding the array to JSON fails.
-     */
-    public function overwriteJsonFile(array $array): void
-    {
-        $this->jsonStorageInstance
-            ->overwriteJsonFile($array);
-    }
-
-    /**
-     * Rolls back changes in the JSON file to the initial state when this instance was created.
-     * 
-     * @throws \RuntimeException If failed to encode JSON data or error opening the file or acquiring an exclusive lock
-     */
-    public function rollbackJsonFile(): void
-    {
-        $this->jsonStorageInstance
-            ->rollbackJsonFile();
+        $this->jsonStorageInstance->updateJsonFile();
     }
 }
