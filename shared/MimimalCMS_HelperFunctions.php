@@ -771,6 +771,39 @@ function mkdirIfNotExists(string $directory, int $permissions = 0777, bool $recu
 }
 
 /**
+ * Recursively deletes a directory and all its contents.
+ *
+ * @param string $dir The path to the directory to be deleted.
+ * @return bool Returns true if the directory is successfully deleted, false otherwise.
+ */
+function deleteDirectory(string $dir): bool
+{
+    if (!file_exists($dir)) {
+        return true;
+    }
+
+    if (!is_dir($dir) || is_link($dir)) {
+        return unlink($dir);
+    }
+
+    foreach (scandir($dir) as $item) {
+        if ($item == '.' || $item == '..') {
+            continue;
+        }
+
+        $itemPath = $dir . '/' . $item;
+        if (!deleteDirectory($itemPath)) {
+            chmod($itemPath, 0777);
+            if (!deleteDirectory($itemPath)) {
+                return false;
+            }
+        }
+    }
+
+    return rmdir($dir);
+}
+
+/**
  * Get files with a specific extension from a directory.
  *
  * @param string $dir The directory path.
@@ -790,3 +823,5 @@ function getFilesWithExtension(string $dir, string $ext): \CallbackFilterIterato
 
     return new \CallbackFilterIterator($iter, $filter);
 }
+
+deleteDirectory(__DIR__ . '/../storage/oc-img-zip/2023-12-19');
