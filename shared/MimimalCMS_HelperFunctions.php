@@ -823,5 +823,3 @@ function getFilesWithExtension(string $dir, string $ext): \CallbackFilterIterato
 
     return new \CallbackFilterIterator($iter, $filter);
 }
-
-deleteDirectory(__DIR__ . '/../storage/oc-img-zip/2023-12-19');
