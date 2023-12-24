@@ -630,9 +630,7 @@ function saveSerializedArrayToFile(string $filename, array $array, bool $fullPat
     $path = $fullPath === false ? (__DIR__ . '/../storage/' . $filename) : $filename;
 
     try {
-        if (!file_put_contents($path, $data)) {
-            throw new \RuntimeException('Failed to save serialized array to file.');
-        }
+        readWriteTextFileWithExclusiveLock($path, $data);
     } catch (\ErrorException $e) {
         throw new \RuntimeException('Error while saving serialized array to file: ' . $e->getMessage());
     }
