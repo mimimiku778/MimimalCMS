@@ -149,6 +149,7 @@ class DB implements DBInterface
         int $fetchAllMode = \PDO::FETCH_ASSOC,
         array $fetchAllArgs = [],
         string $whereClausePlaceholder = 'keyword',
+        string $whereClausePrefix = 'WHERE '
     ): array {
         if (static::$pdo === null) {
             static::connect();
@@ -165,7 +166,7 @@ class DB implements DBInterface
             $whereClauses[] = $whereClauseQuery($i);
         }
 
-        $whereClause = 'WHERE ' . implode(' AND ', $whereClauses);
+        $whereClause = $whereClausePrefix . implode(' AND ', $whereClauses);
 
         $queryResult = $query($whereClause);
         if (!is_string($queryResult)) {
@@ -224,40 +225,38 @@ class DB implements DBInterface
             static::connect();
         }
 
+        if (!preg_match('{:\w+}', $whereClauseQuery, $matches)) {
+            throw new \InvalidArgumentException('Invalid placeholder for WHERE clause.');
+        }
+
+        $params[$matches[0]] = self::fulltextSearchParam($keyword);
+
+        $queryResult = $query($whereClauseQuery);
+        if (!is_string($queryResult)) {
+            throw new \LogicException('Query callback must return a string');
+        }
+
+        return static::fetchAll($queryResult, $params);
+    }
+
+    public static function fulltextSearchParam(string $keyword): string
+    {
         $convertedKeyword = preg_replace('/　/u', ' ', mb_convert_encoding($keyword, 'UTF-8', 'auto'));
 
         if (empty(trim($convertedKeyword))) {
             throw new \InvalidArgumentException('Please provide a non-empty search keyword.');
         }
 
-        if (!preg_match('{:\w+}', $whereClauseQuery, $matches)) {
-            throw new \InvalidArgumentException('Invalid placeholder for WHERE clause.');
-        }
-
-        $whereClausePlaceholder = $matches[0];
-
-        $params[$whereClausePlaceholder] = '';
+        $param = '';
         foreach (explode(' ', $convertedKeyword) as $i => $word) {
-            /* 
-            if (mb_strlen($word) < 2) {
-                $word .= '*';
-            } 
-            */
-
             if ($i > 0) {
-                $params[$whereClausePlaceholder] .= ' ';
+                $param .= ' ';
             }
 
-            $params[$whereClausePlaceholder] .= '+' . static::escapeFullTextSearch($word);
+            $param .= '+' . static::escapeFullTextSearch($word);
         }
 
-        $queryResult = $query($whereClauseQuery);
-
-        if (!is_string($queryResult)) {
-            throw new \LogicException('Query callback must return a string');
-        }
-
-        return static::fetchAll($queryResult, $params);
+        return $param;
     }
 
     /**

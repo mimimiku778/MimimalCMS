@@ -15,7 +15,7 @@ interface ValidatorInterface
      * 
      * @param mixed $string        The input value to validate.function
      * @param int|null $maxLen     [optional] The maximum length of the string.
-     * @param string|null $regex   [optional] If specified, the input string must match this regex pattern.
+     * @param string|array|null $regex [optional] If specified, the input string must match this regex pattern.
      * @param bool|null $emptyAble [optional] If the string can be empty or not.
      * @param string|null $e       [optional] An Exception name to be thrown if validation fails.
      * @param ?string $default     [optional] The value to return when the input is empty (applies when $emptyAble is true).

@@ -563,6 +563,38 @@ function readWriteTextFileWithExclusiveLock(string $filePath, ?string $newConten
 }
 
 /**
+ * Safely rewrites the content of the specified file by first writing to a temporary file
+ * and then renaming it to the target file. It ensures that the target file always
+ * contains complete and uncorrupted data.
+ *
+ * @param string $targetFile The path to the file that should be rewritten.
+ * @param string $content The new content to write to the file.
+ * @return void Throws an Exception if the rename operation fails.
+ * @throws Exception if the temporary file cannot be renamed to the target file.
+ */
+function safeFileRewrite(string $targetFile, string $content, int $permissions = 0777)
+{
+    // Determine the path for the temporary file. 'tempnam()' creates a temporary file and returns its path.
+    $tempFile = tempnam(sys_get_temp_dir(), 'TMP_');
+
+    // Write new content to the temporary file.
+    file_put_contents($tempFile, $content);
+
+    // Set the desired permissions on the temporary file.
+    if (!chmod($tempFile, $permissions)) {
+        // If changing file permissions fails, throw an error.
+        throw new Exception("Could not set the desired file permissions on the temporary file.");
+    }
+
+    // Rename the temporary file to the target file.
+    // This operation is atomic, ensuring that the target file always has complete data.
+    if (!rename($tempFile, $targetFile)) {
+        // If renaming fails, throw an error.
+        throw new Exception("Could not rename the temporary file to the target file.");
+    }
+}
+
+/**
  * Generates a versioned file URL based on the provided file path. If the file exists, a URL with a version query parameter is returned.
  *
  * @param string $filePath The path to the file, relative to the public directory.
@@ -628,12 +660,7 @@ function saveSerializedArrayToFile(string $filename, array $array, bool $fullPat
 {
     $data = gzencode(serialize($array));
     $path = $fullPath === false ? (__DIR__ . '/../storage/' . $filename) : $filename;
-
-    try {
-        readWriteTextFileWithExclusiveLock($path, $data);
-    } catch (\ErrorException $e) {
-        throw new \RuntimeException('Error while saving serialized array to file: ' . $e->getMessage());
-    }
+    safeFileRewrite($path, $data);
 }
 
 /**
@@ -802,22 +829,38 @@ function deleteDirectory(string $dir): bool
 }
 
 /**
- * Get files with a specific extension from a directory.
+ * Retrieves an iterator containing all files with a specific extension from
+ * the given directory and its subdirectories.
  *
- * @param string $dir The directory path.
- * @param string $ext The target file extension.
- * @return \CallbackFilterIterator|\SplFileInfo[] Filtered iterator containing matching files.
+ * @param string $dir The directory path to search in.
+ * @param string $ext The target file extension to look for without the dot ('.').
+ * 
+ * @return \CallbackFilterIterator An iterator of \SplFileInfo objects for files matching the extension.
+ * 
+ * @throws \UnexpectedValueException
+ * 
+ * - Example
+ * ```php
+ * $files = getFilesWithExtension('/path/to/directory', 'txt');
+ * foreach ($files as $file) {
+ *     // Prints the path to each .txt file found.
+ *     echo $file->getRealPath() . PHP_EOL;
+ * }
+ * ```
+ *
+ * Note: This function throws a UnexpectedValueException if a directory cannot be accessed.
  */
 function getFilesWithExtension(string $dir, string $ext): \CallbackFilterIterator
 {
-    // Create a recursive iterator
-    $iter = new \RecursiveDirectoryIterator($dir);
+    // Create a recursive directory iterator to traverse the directory
+    $directory = new \RecursiveDirectoryIterator($dir);
 
-    // Narrow it down to leaf nodes
-    $iter = new \RecursiveIteratorIterator($iter);
+    // Wrap the directory iterator in a recursive iterator to iterate over each item recursively
+    $iterator = new \RecursiveIteratorIterator($directory);
 
-    // Filter files by extension using arrow function
+    // Define a filter using an arrow function to select files with the specified extension
     $filter = fn (\SplFileInfo $file) => !$file->isDir() && $file->getExtension() === $ext;
 
-    return new \CallbackFilterIterator($iter, $filter);
+    // Return a filtered iterator containing files matching the extension
+    return new \CallbackFilterIterator($iterator, $filter);
 }
