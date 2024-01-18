@@ -33,8 +33,7 @@ class ActiveRecord extends \stdClass implements ActiveRecordInterface
             $keyword,
             $params,
             $affix,
-            \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE,
-            [static::class],
+            [\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, static::class],
             $whereClausePlaceholder,
         );
     }
