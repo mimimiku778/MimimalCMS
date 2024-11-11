@@ -103,6 +103,17 @@ class ExceptionHandler
     private static function response500(\Throwable $e, bool $log = true)
     {
         self::errorResponse($e, 'please try again later', 500, $log, 'Internal Server Error😥');
+
+        $flagName = 'App\Config\Shadow\ExceptionHandlerConfig::EXCEPTION_HANDLER_DISPLAY_ERROR_TRACE_DETAILS';
+        $showErrorTraceFlag = defined($flagName) && constant($flagName);
+        $adminToolClass = \App\Services\Admin\AdminTool::class;
+        if (!$showErrorTraceFlag && class_exists($adminToolClass)) {
+            try {
+                $adminToolClass::sendLineNofity($e->__toString() . "\nIP: " . getIp() . "\nUA: " . getUA());
+            } catch (\Throwable $exception) {
+                self::errorLog($exception);
+            }
+        }
     }
 
     /**
