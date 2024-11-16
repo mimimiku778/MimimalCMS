@@ -27,6 +27,7 @@ const URL_STRING_PATTERN = '/^[a-zA-Z0-9-._~!$&\'()*+,;=:@\/?%]+$/';
 const RELATIVE_PATH_PATTERN = '/^(?!(?:f|ht)tps?:\/\/)/i';
 
 date_default_timezone_set('Asia/Tokyo');
+session_start();
 
 // Default URL root.
 const URL_ROOT = '';
