@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controllers\Pages;
 
-use App\Config\ConfigJson;
 use App\Views\MetaTags;
 
 class IndexPageController
 {
-    public function index(ConfigJson $config, MetaTags $_metaTags)
+    public function index(MetaTags $_metaTags)
     {   
-        $text = $config->topPageText;
-        $link = $config->footerLink;
+        $text = "Hello Wolrd";
+        $link = "https://github.com/mimimiku778/MimimalCMS";
 
         return view('test_header', compact('_metaTags'))
             ->make('test_content', compact('text'))
