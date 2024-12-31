@@ -17,7 +17,7 @@ class DB implements DBInterface
     public static ?\PDO $pdo = null;
 
     /**
-     * @param ?array{dbHost: string, dbName: string, dbUserName: string, dbPassword: string, charset?: string, attrPersistent?: bool} $config
+     * @param ?array{dbHost?: string, dbName?: string, dbUserName?: string, dbPassword?: string, charset?: string, attrPersistent?: bool} $config
      */
     public static function connect(?array $config = null): \PDO
     {
