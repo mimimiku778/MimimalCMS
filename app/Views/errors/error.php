@@ -2,6 +2,9 @@
 
 namespace Shared\Exceptions;
 
+use App\Config\AppConfig;
+use Shared\MimimalCmsConfig;
+
 /**
  * ErrorPage class to handle displaying error message and generating Github URLs for error lines
  */
@@ -67,24 +70,23 @@ class ErrorPage
      */
     public function __construct()
     {
-        $flagName = 'App\Config\Shadow\ExceptionHandlerConfig::ERROR_PAGE_GITHUB_URL';
-        if (defined($flagName) && is_string($url = constant($flagName))) {
-            $this->githubUrl = $url;
+        $config = MimimalCmsConfig::class;
+        if (class_exists($config) && isset($config::$errorPageGitHubUrl)) {
+            $this->githubUrl = $config::$errorPageGitHubUrl;
         } else {
             return;
         }
 
-        $flagName = 'App\Config\Shadow\ExceptionHandlerConfig::ERROR_PAGE_DOCUMENT_ROOT_NAME';
-        if (defined($flagName) && is_string($dir = constant($flagName))) {
+        if (isset($config::$errorPageDocumentRootName)) {
+            $dir = $config::$errorPageDocumentRootName;
             $this->THROW_LINE_PATTERN = "/in.+{$dir}\/(.+)\(\d+\)/";
             $this->PHP_ERROR_LINE_PATTERN = "/\/{$dir}\/(.*) on line (\d+)/";
             $this->STACKTRACE_FILE_PATH_PATTERN = "/(#\d+) .+{$dir}\/(.+)\(\d+\)/";
             $this->LINE_NUMBER_PATTERN = "/\.php\((\d+)\)/";
         }
 
-        $flagName = 'App\Config\Shadow\ExceptionHandlerConfig::ERROR_PAGE_HIDE_DRECTORY';
-        if (defined($flagName) && is_string($dir = constant($flagName))) {
-            $this->hiddenDir = $dir;
+        if (isset($config::$errorPageHideDirectory)) {
+            $this->hiddenDir = $config::$errorPageHideDirectory;
         }
     }
 
@@ -208,9 +210,9 @@ class ErrorPage
 
     public static function getDomainAndHttpHost(): string
     {
-        $flagName = 'URL_ROOT';
-        if (defined($flagName) && is_string($url = constant($flagName))) {
-            $urlRoot = $url;
+        $config = MimimalCmsConfig::class;
+        if (class_exists($config) && isset($config::$urlRoot)) {
+            $urlRoot = $config::$urlRoot;
         }
 
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
@@ -219,13 +221,13 @@ class ErrorPage
 
     public static function fileUrl(string $filePath): string
     {
-        $flagName = 'PUBLIC_DIR';
-        if (!defined($flagName) || !is_string($publicDir = constant($flagName))) {
+        $config = MimimalCmsConfig::class;
+        if (!class_exists($config) || !isset($config::$publicDir)) {
             return self::getDomainAndHttpHost() . $filePath;
         }
 
         $filePath = "/" . ltrim($filePath, "/");
-        $fullFilePath = $publicDir . $filePath;
+        $fullFilePath = $config::$publicDir . $filePath;
 
         if (!file_exists($fullFilePath)) {
             return self::getDomainAndHttpHost() . $filePath;
@@ -260,9 +262,9 @@ try {
 $siteUrl = ErrorPage::getDomainAndHttpHost();
 
 $iconUrl = '';
-$flagName = '\App\Config\AppConfig::SITE_ICON_FILE_PATH';
-if (defined($flagName) && is_string($siteIconFilePath = constant($flagName))) {
-    $iconUrl = ErrorPage::fileUrl(\App\Config\AppConfig::SITE_ICON_FILE_PATH);
+$config = AppConfig::class;
+if (!class_exists($config) || !isset($config::$siteIconFilePath)) {
+    $iconUrl = ErrorPage::fileUrl($config::$siteIconFilePath);
 }
 
 ?>

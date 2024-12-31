@@ -19,7 +19,7 @@
             "App\\Views\\": "app/Views/Classes"
         },
         "files": [
-            "shared/MimimalCMS_Config.php",
+            "shared/MimimalCMS_Settings.php",
             "shared/MimimalCMS_Enums.php",
             "shared/MimimalCMS_ExceptionHandler.php",
             "shared/MimimalCMS_HelperFunctions.php",

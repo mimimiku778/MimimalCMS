@@ -51,7 +51,7 @@ class MetaTags
 
     public function __construct()
     {
-        $this->ogImageUrl = fileUrl(AppConfig::DEFAULT_OGP_IMAGE_FILE_PATH);
+        $this->ogImageUrl = fileUrl(AppConfig::$defaultOgpImageFilePath);
     }
 
     /**

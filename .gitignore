@@ -1,4 +1,5 @@
-/.vscode
-/vendor
-/composer.lock
+.vscode
+vendor
+logs/**
 
+!*.gitkeep

@@ -1,5 +1,7 @@
 <?php
 
+use App\Config\AppConfig;
+
 /**
  * Converts a date or datetime to a string.
  *
@@ -10,7 +12,7 @@
  */
 function convertDatetime(string|int $datetime, bool $time = true): string
 {
-    $config = \App\Config\AppConfig::CONVERT_DATETIME_FORMAT;
+    $config = AppConfig::$convertDatetimeFormat;
     $datetimeFormat = $time ? $config['dateTimeFormat'] : $config['dateFormat'];
 
     if (is_int($datetime)) {

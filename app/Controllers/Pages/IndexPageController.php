@@ -12,7 +12,7 @@ class IndexPageController
     {   
         $text = "Hello Wolrd";
         $link = "https://github.com/mimimiku778/MimimalCMS";
-
+        
         return view('test_header', compact('_metaTags'))
             ->make('test_content', compact('text'))
             ->make('test_footer',  compact('link'));
