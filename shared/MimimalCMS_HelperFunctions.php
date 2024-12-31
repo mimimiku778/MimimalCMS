@@ -553,49 +553,6 @@ function isWithinHalfExpires(int $futureUnixTime, int $expirationTimeInSeconds):
 }
 
 /**
- * Read or write to a text file with exclusive lock and optional new content.
- *
- * @param string $filePath The path of the file to read or write.
- * @param string|null $newContent The new content to write (null for read-only).
- * @return string|null The file's content if reading, null if writing.
- * @throws \RuntimeException If there is an error opening the file or acquiring an exclusive lock.
- */
-function readWriteTextFileWithExclusiveLock(string $filePath, ?string $newContent = null): ?string
-{
-    $mode = $newContent === null ? 'r' : 'w'; // Use 'r' for reading, 'w' for writing
-
-    // Open the file for reading or writing
-    $fileHandle = fopen($filePath, $mode);
-
-    if (!$fileHandle) {
-        throw new \RuntimeException("Failed to open the file: $filePath");
-    }
-
-    try {
-        if (flock($fileHandle, LOCK_EX)) {
-            if ($newContent !== null) {
-                // If new content is provided, write it and return null
-                ftruncate($fileHandle, 0); // Clear the file
-                fwrite($fileHandle, $newContent);
-                fflush($fileHandle);
-                return null;
-            } else {
-                // If no new content is provided, read and return the file's content
-                $content = '';
-                while (!feof($fileHandle)) {
-                    $content .= fread($fileHandle, 8192); // Read in chunks
-                }
-                return $content;
-            }
-        } else {
-            throw new \RuntimeException('Failed to acquire an exclusive lock.');
-        }
-    } finally {
-        fclose($fileHandle); // Always close the file handle, even on exceptions
-    }
-}
-
-/**
  * Safely rewrites the content of the specified file by first writing to a temporary file
  * and then renaming it to the target file. It ensures that the target file always
  * contains complete and uncorrupted data.
