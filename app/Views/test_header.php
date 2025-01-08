@@ -15,7 +15,7 @@
 
     <header>
         <nav>
-            <a href="/">HOME</a>
+            <a href="<?php echo url() ?>">HOME</a>
             <ul>
                 <li>
                     <a href="/image">Image Uploader</a>
